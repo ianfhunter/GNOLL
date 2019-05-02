@@ -7,23 +7,24 @@ import sys
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r")
-        buf.write("\66\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4")
-        buf.write("\b\t\b\4\t\t\t\4\n\t\n\3\2\7\2\26\n\2\f\2\16\2\31\13\2")
-        buf.write("\3\3\3\3\3\3\7\3\36\n\3\f\3\16\3!\13\3\3\4\3\4\3\4\3\4")
-        buf.write("\3\5\3\5\3\6\3\6\3\6\5\6,\n\6\3\7\3\7\3\b\3\b\3\t\3\t")
-        buf.write("\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\2\2/\2\27\3")
-        buf.write("\2\2\2\4\32\3\2\2\2\6\"\3\2\2\2\b&\3\2\2\2\n(\3\2\2\2")
-        buf.write("\f-\3\2\2\2\16/\3\2\2\2\20\61\3\2\2\2\22\63\3\2\2\2\24")
-        buf.write("\26\5\4\3\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2")
-        buf.write("\27\30\3\2\2\2\30\3\3\2\2\2\31\27\3\2\2\2\32\37\5\6\4")
-        buf.write("\2\33\34\7\7\2\2\34\36\5\4\3\2\35\33\3\2\2\2\36!\3\2\2")
-        buf.write("\2\37\35\3\2\2\2\37 \3\2\2\2 \5\3\2\2\2!\37\3\2\2\2\"")
-        buf.write("#\5\20\t\2#$\5\b\5\2$%\5\22\n\2%\7\3\2\2\2&\'\7\3\2\2")
-        buf.write("\'\t\3\2\2\2(+\5\20\t\2),\5\f\7\2*,\5\16\b\2+)\3\2\2\2")
-        buf.write("+*\3\2\2\2,\13\3\2\2\2-.\7\4\2\2.\r\3\2\2\2/\60\7\5\2")
-        buf.write("\2\60\17\3\2\2\2\61\62\7\r\2\2\62\21\3\2\2\2\63\64\7\r")
-        buf.write("\2\2\64\23\3\2\2\2\5\27\37+")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17")
+        buf.write("8\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
+        buf.write("\t\b\4\t\t\t\4\n\t\n\3\2\7\2\26\n\2\f\2\16\2\31\13\2\3")
+        buf.write("\3\3\3\3\3\7\3\36\n\3\f\3\16\3!\13\3\3\4\5\4$\n\4\3\4")
+        buf.write("\3\4\3\4\3\5\3\5\3\6\3\6\3\6\5\6.\n\6\3\7\3\7\3\b\3\b")
+        buf.write("\3\t\3\t\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\2\2")
+        buf.write("\62\2\27\3\2\2\2\4\32\3\2\2\2\6#\3\2\2\2\b(\3\2\2\2\n")
+        buf.write("*\3\2\2\2\f/\3\2\2\2\16\61\3\2\2\2\20\63\3\2\2\2\22\65")
+        buf.write("\3\2\2\2\24\26\5\4\3\2\25\24\3\2\2\2\26\31\3\2\2\2\27")
+        buf.write("\25\3\2\2\2\27\30\3\2\2\2\30\3\3\2\2\2\31\27\3\2\2\2\32")
+        buf.write("\37\5\6\4\2\33\34\7\7\2\2\34\36\5\4\3\2\35\33\3\2\2\2")
+        buf.write("\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \5\3\2\2\2!\37")
+        buf.write("\3\2\2\2\"$\5\20\t\2#\"\3\2\2\2#$\3\2\2\2$%\3\2\2\2%&")
+        buf.write("\5\b\5\2&\'\5\22\n\2\'\7\3\2\2\2()\7\3\2\2)\t\3\2\2\2")
+        buf.write("*-\5\20\t\2+.\5\f\7\2,.\5\16\b\2-+\3\2\2\2-,\3\2\2\2.")
+        buf.write("\13\3\2\2\2/\60\7\4\2\2\60\r\3\2\2\2\61\62\7\5\2\2\62")
+        buf.write("\17\3\2\2\2\63\64\7\17\2\2\64\21\3\2\2\2\65\66\7\17\2")
+        buf.write("\2\66\23\3\2\2\2\6\27\37#-")
         return buf.getvalue()
 
 
@@ -38,11 +39,11 @@ class diceParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'d'", "'H'", "'L'", "'F'", "<INVALID>", 
-                     "'+'", "'-'", "'*'", "'/'", "'x'" ]
+                     "'+'", "'-'", "'*'", "'/'", "'x'", "'('", "')'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "FATE", "OPERATOR", "PLUS", "MINUS", "MULT", "DIV", 
-                      "SEVERAL", "INTEGER_NUMBER" ]
+                      "SEVERAL", "OPEN_BRACKET", "CLOSE_BRACKET", "INTEGER_NUMBER" ]
 
     RULE_schema = 0
     RULE_dice_roll = 1
@@ -68,7 +69,9 @@ class diceParser ( Parser ):
     MULT=8
     DIV=9
     SEVERAL=10
-    INTEGER_NUMBER=11
+    OPEN_BRACKET=11
+    CLOSE_BRACKET=12
+    INTEGER_NUMBER=13
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -115,7 +118,7 @@ class diceParser ( Parser ):
             self.state = 21
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==diceParser.INTEGER_NUMBER:
+            while _la==diceParser.T__0 or _la==diceParser.INTEGER_NUMBER:
                 self.state = 18
                 self.dice_roll()
                 self.state = 23
@@ -202,16 +205,16 @@ class diceParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def amount(self):
-            return self.getTypedRuleContext(diceParser.AmountContext,0)
-
-
         def die(self):
             return self.getTypedRuleContext(diceParser.DieContext,0)
 
 
         def faces(self):
             return self.getTypedRuleContext(diceParser.FacesContext,0)
+
+
+        def amount(self):
+            return self.getTypedRuleContext(diceParser.AmountContext,0)
 
 
         def getRuleIndex(self):
@@ -232,13 +235,20 @@ class diceParser ( Parser ):
 
         localctx = diceParser.Die_rollContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_die_roll)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 32
-            self.amount()
             self.state = 33
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==diceParser.INTEGER_NUMBER:
+                self.state = 32
+                self.amount()
+
+
+            self.state = 35
             self.die()
-            self.state = 34
+            self.state = 36
             self.faces()
         except RecognitionException as re:
             localctx.exception = re
@@ -275,7 +285,7 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_die)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 36
+            self.state = 38
             self.match(diceParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -323,17 +333,17 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_subset)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 38
+            self.state = 40
             self.amount()
-            self.state = 41
+            self.state = 43
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [diceParser.T__1]:
-                self.state = 39
+                self.state = 41
                 self.highest()
                 pass
             elif token in [diceParser.T__2]:
-                self.state = 40
+                self.state = 42
                 self.lowest()
                 pass
             else:
@@ -374,7 +384,7 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_highest)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 43
+            self.state = 45
             self.match(diceParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -411,7 +421,7 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_lowest)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 45
+            self.state = 47
             self.match(diceParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -450,7 +460,7 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_amount)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 47
+            self.state = 49
             self.match(diceParser.INTEGER_NUMBER)
         except RecognitionException as re:
             localctx.exception = re
@@ -489,7 +499,7 @@ class diceParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_faces)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 49
+            self.state = 51
             self.match(diceParser.INTEGER_NUMBER)
         except RecognitionException as re:
             localctx.exception = re

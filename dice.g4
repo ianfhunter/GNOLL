@@ -7,7 +7,7 @@ schema : dice_roll* ;
 
 dice_roll : die_roll (OPERATOR dice_roll)*;
 
-die_roll : amount die faces;
+die_roll : amount? die faces;
 
 
 // Symbols
@@ -20,6 +20,9 @@ MINUS   : '-';
 MULT    : '*';
 DIV    :  '/';
 SEVERAL : 'x';
+
+OPEN_BRACKET : '(';
+CLOSE_BRACKET : ')';
 
 subset : amount (highest | lowest) ;
 highest : 'H';
