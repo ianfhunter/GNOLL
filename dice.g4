@@ -3,24 +3,24 @@ grammar dice ;
 
 // Parser rules
 
-schema : dice_roll* ;
+schema : WSPACE? dice_roll* WSPACE? ;
 
-dice_roll : die_roll (OPERATOR dice_roll)*;
-
+dice_roll : die_roll (WSPACE? OPERATOR WSPACE? dice_roll)*;
 
 die_roll : (amount? die faces ) | amount;
-
 
 // Symbols
 die     : 'd';
 FATE    : 'F';
 
-OPERATOR : PLUS | MINUS | MULT | DIV | DIV_RUP | SEVERAL;
+OPERATOR : POWER | MULT | DIV | DIV_RUP | PLUS | MINUS | SEVERAL;
+
 PLUS    : '+';
+POWER   : '^';
 MINUS   : '-';
 MULT    : '*';
-DIV    :  '/';
-DIV_RUP    :  '|';
+DIV     :  '/';
+DIV_RUP :  '|';
 SEVERAL : 'x';
 
 OPEN_BRACKET : '(';
@@ -38,3 +38,4 @@ faces : INTEGER_NUMBER ;
 INTEGER_NUMBER :   DIGIT+ ;
 
 fragment DIGIT   :   ('0'..'9');
+fragment WSPACE : (' ' | '\t')+; 

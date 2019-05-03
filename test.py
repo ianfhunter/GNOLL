@@ -97,10 +97,10 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values("1d12", lowest=1, highest=12))
         self.assertTrue(check_values("1d20", lowest=1, highest=20))
         self.assertTrue(check_values("1d100", lowest=1, highest=100))
+        self.assertTrue(check_values(" 1d100 ", lowest=1, highest=100))
 
     def test_multiple_dice(self):
         print("\n== Multiple Dice ==")
-        self.assertTrue(check_values("1d4", lowest=1, highest=4))
         self.assertTrue(check_values("2d4", lowest=2, highest=8))
         self.assertTrue(check_values("4d4", lowest=4, highest=16))
         self.assertTrue(check_values("5d4", lowest=5, highest=20))
@@ -125,17 +125,18 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values("1d4*2", lowest=2, highest=8))
         self.assertTrue(check_values("1d4/2", lowest=0, highest=2))
         self.assertTrue(check_values("1d4|2", lowest=1, highest=2))
+        self.assertTrue(check_values("1d4 + 1d6", lowest=2, highest=10))
+        self.assertTrue(check_values("  1d4 + 1d6 ", lowest=2, highest=10))
+        self.assertTrue(check_values("1d3+1d6+1d20", lowest=3, highest=29))
+        self.assertTrue(check_values("1d3+1d6 + 1d20", lowest=3, highest=29))
         # self.assertTrue(check_values("1d4-2>=0", lowest=0, highest=4))
         # self.assertTrue(check_values("1d4+-1", lowest=1, highest=4))
         # spread("1d4+2")
         # spread("1d4+-2")
-        # spread("1d4-2")
+        # spread("1d4+-+-+-+-2")
         # spread("1d4-(2)")
-        # spread("1d3+1d3")
         # spread("1d4x2") #Double the Value
-        # spread("1d4*2") #Roll Twice
         # spread("(1d4+1d10)*2") #Roll Twice
-
 
     def test_subsets_of_rolls(self):
         pass
