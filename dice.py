@@ -5,6 +5,7 @@ from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
 
 from random import randint
+import math
 
 rand_fn = None
 
@@ -37,7 +38,9 @@ def resolve_op_symbol(symbol):
     if symbol == "-":
         return "SUB"
     if symbol == "/":
-        return "DIV"
+        return "DIV_ROUND_DOWN"
+    if symbol == "|":
+        return "DIV_ROUND_UP"
     if symbol in ["x", "X"]:
         return "REPEAT"
     else:
@@ -50,8 +53,10 @@ def do_operation(a, op, b):
         return a+b
     if op == "SUB":
         return a-b
-    if op == "DIV":
-        return a/b
+    if op == "DIV_ROUND_DOWN":
+        return a//b
+    if op == "DIV_ROUND_UP":
+        return math.ceil(a/b)
     if op == "REPEAT":
         print("Unsupported")
         raise Exception
@@ -82,6 +87,8 @@ class diceRollListener(diceListener):
 
         if self.current_amount < 1: 
             self.current_amount = 1
+        if self.current_face < 1:
+            self.current_face = 1
             
         for _ in range(self.current_amount):
             r = rand_fn(1, self.current_face)
@@ -112,7 +119,7 @@ class diceRollListener(diceListener):
                 # Dice Roll Result
                 self.values.append( c.current_total )
             elif isinstance(c, diceParser.Dice_rollContext):
-                self.result = do_operation(self.values[0], self.operation, self.values[1])
+                self.result = do_operation(self.values[1], self.operation, self.values[0])
             else:
                 print("Unknown type: ", type(c))
                 raise TypeException

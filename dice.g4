@@ -7,18 +7,20 @@ schema : dice_roll* ;
 
 dice_roll : die_roll (OPERATOR dice_roll)*;
 
-die_roll : amount? die faces;
+
+die_roll : (amount? die faces ) | amount;
 
 
 // Symbols
 die     : 'd';
 FATE    : 'F';
 
-OPERATOR : PLUS | MINUS | MULT | DIV | SEVERAL;
+OPERATOR : PLUS | MINUS | MULT | DIV | DIV_RUP | SEVERAL;
 PLUS    : '+';
 MINUS   : '-';
 MULT    : '*';
 DIV    :  '/';
+DIV_RUP    :  '|';
 SEVERAL : 'x';
 
 OPEN_BRACKET : '(';
