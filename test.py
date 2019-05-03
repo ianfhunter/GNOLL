@@ -1,9 +1,17 @@
-from dice import roll
 import numpy as np
 import matplotlib.pyplot as plt
 import unittest
-import random
+from unittest.mock import patch
 
+from random import randint
+from dice import roll
+
+
+def not_random_lowest(randint_start=0, randint_end=99):
+    return randint_start
+
+def not_random_highest(randint_start=0, randint_end=99):
+    return randint_end
 
 def graph(values, name):
     values = np.array(values).flatten()
@@ -19,24 +27,38 @@ def graph(values, name):
     plt.title('Histogram of Dice Roll')
     plt.savefig(name+'.png')
 
+
+def testHigh(s):
+    return roll(s, override_rand=not_random_highest)
+
+def testLow(s):
+    return roll(s, override_rand=not_random_lowest)
+
 def spread(s, fail=False):
 
     # print("\ntest ", s)
 
     v = []
-    for n in range(1000):
-        try:
-            v.append(roll(s))
-        except Exception:
-            if fail:
-                return False
-            else:
-                print("Unexpected Error")
-                raise Exception
+    v.append(testLow(s))
+    v.append(testHigh(s))
+    vs = np.arange(v[0], v[1]+1)
+    return vs
 
-    if False:
-        graph(v, s)
-    return v
+
+    # v = []
+    # for n in range(10000):
+    #     try:
+    #         v.append(roll(s))
+    #     except Exception:
+    #         if fail:
+    #             return False
+    #         else:
+    #             print("Unexpected Error")
+    #             raise Exception
+
+    # if False:
+    #     graph(v, s)
+    # return v
 
 def check_values(data, lowest=0, highest=0, debug=False):
     print(".", end="")
@@ -47,6 +69,7 @@ def check_values(data, lowest=0, highest=0, debug=False):
         print(data, expected)
     return np.array_equal(data, expected)
 
+
 class TestSuite(unittest.TestCase):
 
     def setup(self):
@@ -55,6 +78,11 @@ class TestSuite(unittest.TestCase):
     
     def tearDown(self):
         pass
+
+    def addFailure(self, test, err):
+        # here you can do what you want to do when a test case fails 
+        print('\n\n\ntest failed!')
+        super(TestSuite, self).addFailure(test, err)
 
     def test_single_dice(self):
         print("\n== Single Dice ==")

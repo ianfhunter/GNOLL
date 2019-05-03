@@ -6,7 +6,17 @@ from grammar.diceListener import diceListener
 
 from random import randint
 
-def roll(s):
+rand_fn = None
+
+
+def roll(s, override_rand=None):
+    global rand_fn
+
+    if override_rand is not None:
+        rand_fn = override_rand
+    else:
+        rand_fn = randint
+
     in_stream = InputStream(s)
     lexer = diceLexer(in_stream)
     stream = CommonTokenStream(lexer)
@@ -68,12 +78,13 @@ class diceRollListener(diceListener):
         self.current_total = 0
 
     def exitDie_roll(self, ctx):
+        global rand_fn
 
         if self.current_amount < 1: 
             self.current_amount = 1
             
         for _ in range(self.current_amount):
-            r = randint(1, self.current_face)
+            r = rand_fn(1, self.current_face)
             self.rolls.append(r)
             self.current_total += r
 
