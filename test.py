@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import patch
 
 from random import randint
-from dice import roll
+from dice import roll, GrammarParsingException, InvalidDiceRoll
 
 from contextlib import contextmanager
 import os
@@ -57,7 +57,6 @@ def display(s):
     return v
 
 def check_values(roll_text, lowest=0, highest=0, debug=False):
-    print("✓", end="")
 
     data = spread(roll_text)
 
@@ -65,6 +64,7 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
     data = np.unique(np.array(data).flatten())
     if debug:
         print(data, expected)
+
     return np.array_equal(data, expected), data, expected, roll_text
 
 
@@ -89,14 +89,22 @@ class TestSuite(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def assertTrue(self, packed_test):
+    def assertTrue(self, fn, *args, **kwargs):
         # Override to provide error info upon failure
-        cond, a, b, s = packed_test
         try:
+            cond, a, b, s = fn(*args, **kwargs)
             super(TestSuite, self).assertTrue(cond)
         except AssertionError:
+            print("✗")
             print("Fail ["+s+"] - ", a, " did not equal expected value: ", b)
-            raise AssertionError
+            raise AssertionError            
+        except NotImplementedError:
+            print(u'\u231B', end="")
+            cond = False
+
+        if cond:
+            print("✓", end="")
+
 
     def assertRaises(self, fn, *args, **kwargs):
         # override to reduce print noise
@@ -110,63 +118,59 @@ class TestSuite(unittest.TestCase):
 
     def test_single_dice(self):
         print("\n== Single Dice ==")
-        self.assertTrue(check_values("d4", lowest=1, highest=4))
-        self.assertTrue(check_values("1d4", lowest=1, highest=4))
-        self.assertTrue(check_values("1d6", lowest=1, highest=6))
-        self.assertTrue(check_values("1d8", lowest=1, highest=8))
-        self.assertTrue(check_values("1d10", lowest=1, highest=10))
-        self.assertTrue(check_values("1d12", lowest=1, highest=12))
-        self.assertTrue(check_values("1d20", lowest=1, highest=20))
-        self.assertTrue(check_values("1d100", lowest=1, highest=100))
-        self.assertTrue(check_values(" 1d100 ", lowest=1, highest=100))
+        self.assertTrue(check_values,"d4", lowest=1, highest=4)
+        self.assertTrue(check_values,"1d4", lowest=1, highest=4)
+        self.assertTrue(check_values,"1d6", lowest=1, highest=6)
+        self.assertTrue(check_values,"1d8", lowest=1, highest=8)
+        self.assertTrue(check_values,"1d10", lowest=1, highest=10)
+        self.assertTrue(check_values,"1d12", lowest=1, highest=12)
+        self.assertTrue(check_values,"1d20", lowest=1, highest=20)
+        self.assertTrue(check_values,"1d100", lowest=1, highest=100)
+        self.assertTrue(check_values," 1d100 ", lowest=1, highest=100)
 
     def test_multiple_dice(self):
         print("\n== Multiple Dice ==")
-        self.assertTrue(check_values("d4", lowest=1, highest=4))
-        self.assertTrue(check_values("2d4", lowest=2, highest=8))
-        self.assertTrue(check_values("4d4", lowest=4, highest=16))
-        self.assertTrue(check_values("5d4", lowest=5, highest=20))
+        self.assertTrue(check_values,"d4", lowest=1, highest=4)
+        self.assertTrue(check_values,"2d4", lowest=2, highest=8)
+        self.assertTrue(check_values,"4d4", lowest=4, highest=16)
+        self.assertTrue(check_values,"5d4", lowest=5, highest=20)
 
     def test_questionable_input(self):
         print("\n== Odd Cases ==")
-        self.assertTrue(check_values("0", lowest=0, highest=0))
-        self.assertTrue(check_values("0d0", lowest=0, highest=0))
-        self.assertTrue(check_values("-1d0", lowest=0, highest=0))
-        self.assertTrue(check_values("1-d1", lowest=0, highest=0))
-        self.assertTrue(check_values("1d1", lowest=1, highest=1))
+        self.assertTrue(check_values,"0", lowest=0, highest=0)
+        self.assertTrue(check_values,"0d0", lowest=0, highest=0)
+        self.assertTrue(check_values,"-1d0", lowest=0, highest=0)
+        self.assertTrue(check_values,"1-d1", lowest=0, highest=0)
+        self.assertTrue(check_values,"1d1", lowest=1, highest=1)
 
-        self.assertRaises(ValueError, check_values, "0d", lowest=1, highest=4)
-        self.assertRaises(Exception, check_values, "1d-1", lowest=0, highest=0)
-        self.assertRaises(Exception, check_values, "d", lowest=0, highest=0)
+        self.assertRaises(GrammarParsingException, check_values, "0d", lowest=1, highest=4)
+        self.assertRaises(InvalidDiceRoll, check_values, "1d-1", lowest=0, highest=0)
+        self.assertRaises(GrammarParsingException, check_values, "d", lowest=0, highest=0)
 
     def test_rolls_with_arithmetic(self):
         print("\n== Arithmetic ==")
-        self.assertTrue(check_values("d4+d4", lowest=2, highest=8))
+        self.assertTrue(check_values,"d4+d4", lowest=2, highest=8)
         # Doesn't quite work as face min != min result
-        self.assertTrue(check_values("d4+-d4", lowest=0, highest=0))
-        self.assertTrue(check_values("1d4+1d6", lowest=2, highest=10))
-        self.assertTrue(check_values("2d4+1d6", lowest=3, highest=14))
-        self.assertTrue(check_values("1d4+2", lowest=3, highest=6))
-        self.assertTrue(check_values("1d4-2", lowest=-1, highest=2))
-        self.assertTrue(check_values("1d4*2", lowest=2, highest=8))
-        self.assertTrue(check_values("1d4/2", lowest=0, highest=2))
-        self.assertTrue(check_values("1d4|2", lowest=1, highest=2))
-        self.assertTrue(check_values("1d4 + 1d6", lowest=2, highest=10))
-        self.assertTrue(check_values("  1d4 + 1d6 ", lowest=2, highest=10))
-        self.assertTrue(check_values("1d4+-1", lowest=0, highest=3))
-        self.assertTrue(check_values("1d4+-2", lowest=-1, highest=2))
-        self.assertTrue(check_values("1d4+----2", lowest=3, highest=6))
-        self.assertTrue(check_values("1d4----2", lowest=3, highest=6))
-        self.assertTrue(check_values("1d3+1d6+1d20", lowest=3, highest=29))
-        self.assertTrue(check_values("1d3+1d6 + 1d20", lowest=3, highest=29))
-        self.assertTrue(check_values("1+1", lowest=2, highest=2))
-        self.assertTrue(check_values("1+(1)", lowest=2, highest=2))
-        self.assertTrue(check_values("1d4-(2)", lowest=-1, highest=2))
-
-        # self.assertTrue(check_values("1d4-2>=0", lowest=0, highest=4))
-        # spread("1d4x2") #Double the Value
-        # spread("(1d4+1d10)*2") #Roll Twice
-        # spread("(1d4+1d10)x2") #Roll Twice
+        self.assertTrue(check_values,"d4+-d4", lowest=0, highest=0)
+        self.assertTrue(check_values,"1d4+1d6", lowest=2, highest=10)
+        self.assertTrue(check_values,"2d4+1d6", lowest=3, highest=14)
+        self.assertTrue(check_values,"1d4+2", lowest=3, highest=6)
+        self.assertTrue(check_values,"1d4-2", lowest=-1, highest=2)
+        self.assertTrue(check_values,"1d4*2", lowest=2, highest=8)
+        self.assertTrue(check_values,"1d4/2", lowest=0, highest=2)
+        self.assertTrue(check_values,"1d4|2", lowest=1, highest=2)
+        self.assertTrue(check_values,"1d4 + 1d6", lowest=2, highest=10)
+        self.assertTrue(check_values,"  1d4 + 1d6 ", lowest=2, highest=10)
+        self.assertTrue(check_values,"1d4+-1", lowest=0, highest=3)
+        self.assertTrue(check_values,"1d4+-2", lowest=-1, highest=2)
+        self.assertTrue(check_values,"1d4+----2", lowest=3, highest=6)
+        self.assertTrue(check_values,"1d4----2", lowest=3, highest=6)
+        self.assertTrue(check_values,"1d3+1d6+1d20", lowest=3, highest=29)
+        self.assertTrue(check_values,"1d3+1d6 + 1d20", lowest=3, highest=29)
+        self.assertTrue(check_values,"1+1", lowest=2, highest=2)
+        self.assertTrue(check_values,"1+(1)", lowest=2, highest=2)
+        self.assertTrue(check_values,"1d4-(2)", lowest=-1, highest=2)
+        self.assertTrue(check_values," ( 1d4 + 1d10 ) * 2", lowest=4, highest=28)
 
 
     def test_roll_sequences(self):
@@ -197,7 +201,7 @@ class TestSuite(unittest.TestCase):
         # spread("30d20<16R>15c")  #Count how many >15 after rerolling until they are all left (30)
         # spread("30d20#1r")   #Reroll any 1s once
         # spread("30d20#10r")   #Reroll any 10s once
-        # spread("30d20#10rr2")   #Reroll any 10s twice
+        # spread("30d20#10r2")   #Reroll any 10s twice
         # spread("30d20#10R")   #Reroll any 10s until there are none
         # spread("((4d6D)x7)<70R")   #Reroll all dice if total is less than 70
         # spread("((4d6D<8R)x7)<70R")   #Reroll all dice if total is less than 70
@@ -239,6 +243,9 @@ class TestSuite(unittest.TestCase):
 
     def test_custom_dice(self):
         print("\n== Custom Dice ==")
+        self.assertTrue(check_values,"d{1,2,3,4,5,6}", lowest=1, highest=6)
+        self.assertTrue(check_values,"d{1..6}", lowest=1, highest=6)
+
         # d{1,2,3,4,5,6}  "d6"
         # d{1..6}  "d6"
         # d{-1..1} "Fudge die"

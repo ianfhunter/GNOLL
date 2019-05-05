@@ -1,9 +1,14 @@
 
 grammar dice ;
 
-// Parser rules
+//TODO:
+// Some INTEGER_NUMBERS should allow negative numbs
 
-schema : WSPACE? dice_roll WSPACE? ;
+schema : sequence (',' sequence)* ;
+
+sequence : WSPACE? dice_roll WSPACE? duplicate? WSPACE?  ;
+
+duplicate : 'x' INTEGER_NUMBER;
 
 dice_roll : math_addsub ;
 
@@ -40,27 +45,53 @@ math_leaf :
 // - NumdFace
 // - dFace (implicit Num=1)
 // - Value (implicit Face=1)
-die_roll : (amount? die faces subset?) | amount;
+die_roll : (amount? die faces die_modifiers? ) | amount;
 
-subset : subset_standard_notation | subset_rolegate_notation ;
+die_modifiers : (subset | reroll | force);
+
+force : condition;
+
+condition : 
+    '#' INTEGER_NUMBER #exactMatch |
+    '<=' INTEGER_NUMBER #lessOrEqualTo |
+    '>=' INTEGER_NUMBER #greaterOrEqualTo |
+    '<' INTEGER_NUMBER #lessThan |
+    '>' INTEGER_NUMBER #greaterthan ;
+
+
+reroll : condition (rr_times | rr_all);
+rr_times : 'r' amount? ;
+rr_all : 'R' ;
+
+subset : subset_standard_notation | subset_rolegate_notation | subset_rolegate_drop_notation;
 
 subset_standard_notation : 
-    MINUS subset_size? ('L'|'l') #Lower |
-    MINUS subset_size? ('H'|'h') #Higher ;
+    MINUS subset_size? SNLow #LowerSN |
+    MINUS subset_size? SNHigh #HigherSN ;
 
 subset_rolegate_notation :  
-    ('kl'|'KL') subset_size? #Lower |
-    ('k'|'kh'|'K'|'KH') subset_size? #Higher ;
+    RNLow subset_size? #LowerRN |
+    RNHigh subset_size? #HigherRN ;
 
 subset_rolegate_drop_notation :  
-    ('D'|'d') subset_size? #Lower |
-    ('D'|'DH'|'d'|'dh') subset_size? #Higher ;
+    RNDLow subset_size? #LowerRND |
+    RNDHigh subset_size? #HigherRND ;
 
 
 // NUMERIC MEANINGS
 subset_size : INTEGER_NUMBER;
 amount : INTEGER_NUMBER ;
-faces : INTEGER_NUMBER ;
+
+
+faces : INTEGER_NUMBER #StandardFace | 
+        OPEN_BRACE numeric_sequence CLOSE_BRACE #CustomFace ;
+
+numeric_sequence : numeric_item (',' numeric_item)*;
+
+numeric_item : seq_item | INTEGER_NUMBER ;
+
+seq_item : INTEGER_NUMBER '..' INTEGER_NUMBER ;
+
 
 // Symbols
 die     : 'd';
@@ -77,10 +108,15 @@ SEVERAL : 'x';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';
+OPEN_BRACE : '{';
+CLOSE_BRACE : '}';
 
-subset : amount (highest | lowest) ;
-highest : 'H';
-lowest  : 'L';
+SNHigh : ('H'|'h');
+SNLow : ('L'|'l');
+RNHigh : ('k'|'K'|'KH'|'kh');
+RNLow : ('KL'|'kl');
+RNDHigh : ('DH'|'dh');
+RNDLow : ('d'|'D'|'DL'|'dl');
 
 
 // Data Types

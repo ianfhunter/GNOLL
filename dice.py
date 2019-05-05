@@ -13,6 +13,9 @@ rand_fn = None
 class InvalidDiceRoll(Exception):
     pass
 
+class GrammarParsingException(Exception):
+    pass
+
 
 def roll(s, override_rand=None, grammar_errors=True):
     global rand_fn
@@ -39,6 +42,10 @@ def roll(s, override_rand=None, grammar_errors=True):
     printer = diceRollListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
+
+    if parser.getNumberOfSyntaxErrors() > 0:
+        raise GrammarParsingException
+
     return printer.result
 
 
@@ -78,7 +85,10 @@ def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
-            vals.append(x.current_total)
+            if isinstance(x.current_total, list): 
+                vals.append(x.current_total[0])
+            else:
+                vals.append(x.current_total)
     return vals
 
 class diceRollListener(diceListener):
@@ -86,17 +96,13 @@ class diceRollListener(diceListener):
         self.rolls = []
         self.result = 0
 
-    def enterSchema(self, ctx):
-        pass
+    def exitSequence(self, ctx):
+        ctx.current_total = getEmbeddedValues(ctx)
     
     def exitSchema(self, ctx):
-        for x in ctx.getChildren():
-            if isinstance(x, diceParser.Dice_rollContext):
-                self.result = x.current_total
-            else:
-                # print(type(x))
-                pass
-        return self.result, self.rolls
+        #todo - many
+        self.result = getEmbeddedValues(ctx)[0]
+        # return self.result, self.rolls
 
 
     def enterDie_roll(self, ctx):
@@ -147,6 +153,9 @@ class diceRollListener(diceListener):
     def exitNegate(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = -vals[0] 
+
+    def exitCustomFace(self, ctx):
+        raise NotImplementedError
 
     def exitValue(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -207,7 +216,7 @@ class diceRollListener(diceListener):
                 print("Unknown type: ", type(c))
 
 
-    def enterFaces(self, ctx):
+    def enterStandardFace(self, ctx):
         self.current_face = int(ctx.getText())
         if(self.current_face < 0):
             print("Negative Dice Face.")
