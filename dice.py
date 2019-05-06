@@ -6,7 +6,7 @@ from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
 
 from random import randint
-import math
+import math, sys
 
 rand_fn = None
 
@@ -85,10 +85,14 @@ def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
+            print(x.current_total)
             if isinstance(x.current_total, list): 
                 vals.append(x.current_total[0])
             else:
                 vals.append(x.current_total)
+        else:
+            print(type(x))
+            print(x.current_total)
     return vals
 
 class diceRollListener(diceListener):
@@ -99,17 +103,46 @@ class diceRollListener(diceListener):
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
     
+    def exitDuplicate(self, ctx):
+        raise NotImplementedError
+
+    def exitFaces(self, ctx):
+    
+        for x in ctx.getChildren():
+            print(type(x))
+
     def exitSchema(self, ctx):
         #todo - many
-        self.result = getEmbeddedValues(ctx)[0]
+        self.result = getEmbeddedValues(ctx)
+        if len(self.result) > 1:
+            raise NotImplementedError
+        else:
+            self.result = self.result[0]
         # return self.result, self.rolls
 
 
+
+    def exitBang(self, ctx):
+        raise NotImplementedError
+
+    def exitForce(self, ctx):
+        raise NotImplementedError
+
+    def exitReroll(self, ctx):
+        raise NotImplementedError
+
+    def exitSubset(self, ctx):
+        raise NotImplementedError
+        
     def enterDie_roll(self, ctx):
         self.current_face = None
         self.current_amount = None
         self.current_total = 0
         pass
+
+
+    def exitSequence(self, ctx):
+        ctx.current_total = getEmbeddedValues(ctx)
 
     def exitDie_roll(self, ctx):
         global rand_fn
@@ -137,20 +170,35 @@ class diceRollListener(diceListener):
             print("Die Roll: ", ctx.current_total)
 
 
+
+    def exitMath(self, ctx):
+        vals = getEmbeddedValues(ctx)
+        ctx.current_total = vals[0] 
+
     def exitBubbleMulDiv(self, ctx):
-        ctx.current_total = ctx.getChild(0).current_total
+        vals = getEmbeddedValues(ctx)
+        ctx.current_total = vals[0] 
 
     def exitBubblePow(self, ctx):
-        ctx.current_total = ctx.getChild(0).current_total
+        vals = getEmbeddedValues(ctx)
+        if len(vals) > 1:
+            ctx.current_total = vals[0] ^ vals[1]
+        else:
+            ctx.current_total = vals[0] 
 
     def exitBubbleNeg(self, ctx):
-        ctx.current_total = ctx.getChild(0).current_total
+        # print("BUBBLE NEG")
+        vals = getEmbeddedValues(ctx)
+        ctx.current_total = vals[0] 
 
     def exitNoNegate(self, ctx):
+        # print("No Negate")
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] 
 
     def exitNegate(self, ctx):
+        # print("Negate")
+
         vals = getEmbeddedValues(ctx)
         ctx.current_total = -vals[0] 
 
@@ -164,18 +212,6 @@ class diceRollListener(diceListener):
     def exitBrackets(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] 
-
-    def exitMath_pow(self, ctx):
-        for x in ctx.getChildren():
-            if isinstance(x, diceParser.BubbleNegContext):
-                ctx.current_total = x.current_total
-
-    def exitMath_muldiv(self, ctx):
-        for x in ctx.getChildren():
-            if isinstance(x, diceParser.BubblePowContext):
-                ctx.current_total = x.current_total
-            if isinstance(x, diceParser.MulContext):
-                ctx.current_total = x.current_total
 
     def exitAdd(self, ctx):  
         vals = getEmbeddedValues(ctx)
@@ -197,14 +233,6 @@ class diceRollListener(diceListener):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] // vals[1]
 
-    def exitMath_addsub(self, ctx):        
-        ctx.current_total = 0
-        for x in ctx.getChildren():
-            if isinstance(x, diceParser.BubbleMulDivContext) or \
-                isinstance(x, type(ctx)):
-                ctx.current_total = x.current_total
-            if isinstance(x, diceParser.Math_addsubContext):
-                ctx.current_total += x.current_total
 
     def exitDice_roll(self, ctx):
         ctx.current_total = 0
@@ -219,10 +247,10 @@ class diceRollListener(diceListener):
     def enterStandardFace(self, ctx):
         self.current_face = int(ctx.getText())
         if(self.current_face < 0):
-            print("Negative Dice Face.")
+            print("Negative Dice Face.", file=sys.stderr)
             raise InvalidDiceRoll
         if(self.current_face < 0):
-            print("No Dice Face.")
+            print("No Dice Face.", file=sys.stderr)
             raise InvalidDiceRoll
 
     def enterAmount(self, ctx):

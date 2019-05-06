@@ -4,7 +4,9 @@ grammar dice ;
 //TODO:
 // Some INTEGER_NUMBERS should allow negative numbs
 
-schema : sequence (',' sequence)* ;
+schema : assignment* sequence (',' sequence)* ;
+
+assignment : STRING WSPACE? '=' WSPACE? dice_roll WSPACE? ';' ;
 
 sequence : WSPACE? dice_roll WSPACE? duplicate? WSPACE?  ;
 
@@ -39,15 +41,22 @@ math_neg :
 math_leaf : 
     // Unit or Brackets
     die_roll #Value |
-    OPEN_BRACKET  WSPACE? math_addsub WSPACE? CLOSE_BRACKET #Brackets ;
+    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET #Brackets ;
 
 // A Die Roll Can be: 
 // - NumdFace
 // - dFace (implicit Num=1)
 // - Value (implicit Face=1)
-die_roll : (amount? die faces die_modifiers? ) | amount;
+die_roll : 
+    (amount? die faces die_modifiers ) | 
+    amount;
 
-die_modifiers : (subset | reroll | force);
+die_modifiers : (subset | reroll | bang | force )?;
+
+bang : explode | implode ;
+
+explode : condition? '!'+ ;
+implode : condition? 'i'+ ;
 
 force : condition;
 
@@ -84,6 +93,7 @@ amount : INTEGER_NUMBER ;
 
 
 faces : INTEGER_NUMBER #StandardFace | 
+        ('F'|'f') #FateFace | 
         OPEN_BRACE numeric_sequence CLOSE_BRACE #CustomFace ;
 
 numeric_sequence : numeric_item (',' numeric_item)*;
@@ -92,10 +102,8 @@ numeric_item : seq_item | INTEGER_NUMBER ;
 
 seq_item : INTEGER_NUMBER '..' INTEGER_NUMBER ;
 
-
 // Symbols
 die     : 'd';
-FATE    : 'F';
 
 
 PLUS    : '+';
@@ -115,12 +123,14 @@ SNHigh : ('H'|'h');
 SNLow : ('L'|'l');
 RNHigh : ('k'|'K'|'KH'|'kh');
 RNLow : ('KL'|'kl');
-RNDHigh : ('DH'|'dh');
-RNDLow : ('d'|'D'|'DL'|'dl');
+RNDHigh : ('DH'|'dh'| 'Dh'| 'dH');
+RNDLow : ('d'|'D'|'DL'|'dl'|'Dl' | 'dL');
 
 
 // Data Types
 INTEGER_NUMBER :   DIGIT+ ;
 WSPACE : BLANK+; 
+STRING : CHAR+;
 fragment DIGIT   :   ('0'..'9');
 fragment BLANK   : (' ' | '\t')+;
+fragment CHAR    : ('a'..'z'|'A'..'Z');

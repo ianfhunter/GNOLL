@@ -17,6 +17,15 @@ class diceListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by diceParser#assignment.
+    def enterAssignment(self, ctx:diceParser.AssignmentContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#assignment.
+    def exitAssignment(self, ctx:diceParser.AssignmentContext):
+        pass
+
+
     # Enter a parse tree produced by diceParser#sequence.
     def enterSequence(self, ctx:diceParser.SequenceContext):
         pass
@@ -176,6 +185,33 @@ class diceListener(ParseTreeListener):
 
     # Exit a parse tree produced by diceParser#die_modifiers.
     def exitDie_modifiers(self, ctx:diceParser.Die_modifiersContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#bang.
+    def enterBang(self, ctx:diceParser.BangContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#bang.
+    def exitBang(self, ctx:diceParser.BangContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#explode.
+    def enterExplode(self, ctx:diceParser.ExplodeContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#explode.
+    def exitExplode(self, ctx:diceParser.ExplodeContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#implode.
+    def enterImplode(self, ctx:diceParser.ImplodeContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#implode.
+    def exitImplode(self, ctx:diceParser.ImplodeContext):
         pass
 
 
@@ -347,6 +383,15 @@ class diceListener(ParseTreeListener):
 
     # Exit a parse tree produced by diceParser#StandardFace.
     def exitStandardFace(self, ctx:diceParser.StandardFaceContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#FateFace.
+    def enterFateFace(self, ctx:diceParser.FateFaceContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#FateFace.
+    def exitFateFace(self, ctx:diceParser.FateFaceContext):
         pass
 
 
