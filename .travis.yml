@@ -1,4 +1,3 @@
-dist: bionic
 language: python
 python:
   - "3.4"
@@ -8,10 +7,14 @@ python:
   - "3.6-dev"  # 3.6 development branch
 # command to install dependencies
 before_install:
-  - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
-  - sudo apt-get update
-  - apt-cache policy antlr4 # Check what is latest
-  - sudo apt-get install -y antlr4=4.7.2-1~18.04
+  - sudo apt-get install -y mvn 
+  - cd /tmp/
+  - git clone https://github.com/antlr/antlr4.git
+  - cd antlr4 ; git checkout 4.7.2;
+  - export MAVEN_OPTS="-Xmx1G"   # don't forget this on linux
+  - mvn clean                    # must be separate, not part of install/compile
+  - mvn -DskipTests install
+  - mvn install -DskipTests=true   #
 install:
   - pip3 install antlr4-python3-runtime===4.7.2 matplotlib numpy 
 # command to run tests
