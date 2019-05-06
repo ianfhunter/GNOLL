@@ -7,6 +7,7 @@ python:
   - "3.6-dev"  # 3.6 development branch
 # command to install dependencies
 before_install:
+  - export BUILD_DIR=$PWD
   - sudo apt-get install -y maven
   - cd /tmp/
   - git clone https://github.com/antlr/antlr4.git
@@ -16,6 +17,7 @@ before_install:
   - mvn -DskipTests install
   - mvn install -DskipTests=true   #
 install:
+  - cd $env:BUILD_DIR
   - pip3 install antlr4-python3-runtime===4.7.2 matplotlib numpy 
 # command to run tests
 script:
