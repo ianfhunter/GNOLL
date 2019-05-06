@@ -88,7 +88,7 @@ See https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://dead.link for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
