@@ -7,7 +7,7 @@ python:
   - "3.6-dev"  # 3.6 development branch
 # command to install dependencies
 before_install:
-  - sudo apt-get install -y mvn 
+  - sudo apt-get install -y maven
   - cd /tmp/
   - git clone https://github.com/antlr/antlr4.git
   - cd antlr4 ; git checkout 4.7.2;
