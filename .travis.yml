@@ -9,8 +9,9 @@ python:
   - "3.6"
   - "3.6-dev"  # 3.6 development branch
 # command to install dependencies
-install:
+before_install:
   - sudo apt-get install antlr4
+install:
   - pip3 install antlr4-python3-runtime --user
 # command to run tests
 script:
