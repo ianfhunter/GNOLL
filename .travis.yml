@@ -8,7 +8,7 @@ python:
   - "3.6-dev"  # 3.6 development branch
 # command to install dependencies
 before_install:
-  - sudo add-apt-repository universe
+  - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
   - sudo apt-get update
   - apt-cache policy antlr4 # Check what is latest
   - sudo apt-get install -y antlr4=4.7.2-1~18.04
