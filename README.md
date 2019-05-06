@@ -109,4 +109,4 @@ Individiual arrangements can be made if this is an issue for your project - Cont
 ## Acknowledgments
 
 
-* **Billie Thompson** - *README Template* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
