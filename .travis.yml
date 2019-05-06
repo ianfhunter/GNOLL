@@ -15,7 +15,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install -y antlr4
 install:
-  - pip3 install antlr4-python3-runtime matplotlib numpy 
+  - pip3 install antlr4-python3-runtime=4.5.1 matplotlib numpy 
 # command to run tests
 script:
   - make all
