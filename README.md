@@ -1,9 +1,110 @@
-# dice
+# Dice 
 
-[![Build Status](https://travis-ci.org/ianfhunter/dice.svg?branch=master)](https://travis-ci.org/ianfhunter/dice)
+<p align="center">
+<img src="logo.png" width="200" height="200">
+</p>
 
-A comprehensive grammar for rpg dice systems. 
+A comprehensive grammar and libraries for Dice-based RPG systems
+
+## Current Status
+
+### Build / Releases
+[![Build Status](https://travis-ci.org/ianfhunter/dice.svg?branch=master)](https://travis-ci.org/ianfhunter/dice) (Under Construction)
+
+### Language Support
+
 Currently available in python, though multi-language is desired
 
+## Getting Started
 
-<img src="logo.png" width="300" height="300">
+Get up and started with the project locally for integration into your own project, or just to mess around with it.
+More comprehensive setup guide available on [the Wiki](https://github.com/ianfhunter/dice/wiki)
+
+### Prerequisites
+
+The following details are for Ubuntu 18.04 or higher. Visit the wiki for other platforms (note: nothing there yet)
+```
+sudo apt-get install antlr4
+pip3 install antlr4-runtime-something --user
+```
+
+### Installing
+
+Getting Dice installed on your system (currently you can't do this)
+
+Compile binary
+
+```
+make install
+```
+
+Add to path so you can refer to it easily. 
+
+```
+export PATH=$PATH:/path/to/dir/
+```
+
+You should be able to try out rolling some dice now!
+
+```
+$ dice 1d20
+20
+```
+
+Critical Success!
+
+## Running the tests
+
+We aren't 100% complete just yet, You can run our test suite to see our current status
+
+### Functionality Tests
+
+```
+$ make test
+```
+
+### Meta Tests
+
+Code Coverage, Style Compliance, All those things that just make the world a little nicer.
+
+```
+$ make meta
+```
+
+## Deployment
+
+Want to grab updates as they come in? Listen to our github releases for new content!
+```
+See https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
+```
+
+
+
+## Built With
+
+* [ANTLR4](https://www.antlr.org/) - Grammar Parser
+* ? - Logo Creator
+* Love <3
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://dead.link for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice/tags). 
+
+## Authors / Contributers / Attributions
+
+* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+
+See also the list of [contributors](https://github.com/ianfhunter/dice/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+
+* **Billie Thompson** - *README Template* - [PurpleBooth](https://github.com/PurpleBooth)
