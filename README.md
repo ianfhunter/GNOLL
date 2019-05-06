@@ -4,3 +4,6 @@
 
 A comprehensive grammar for rpg dice systems. 
 Currently available in python, though multi-language is desired
+
+
+<img src="logo.png" width="300" height="300">
