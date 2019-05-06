@@ -16,7 +16,7 @@ before_install:
   - mvn clean                    # must be separate, not part of install/compile
   - mvn -DskipTests install
   - mvn install -DskipTests=true   #
-  - alias antlr4='java -Xmx500M -cp "/tmp/antlr4/tool/target/antlr4-4.7.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool
+  - alias antlr4='java -Xmx500M -cp "/tmp/antlr4/tool/target/antlr4-4.7.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 install:
   - cd $BUILD_DIR
   - pip3 install antlr4-python3-runtime===4.7.2 matplotlib numpy 
