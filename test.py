@@ -300,8 +300,4 @@ class TestSuite(unittest.TestCase):
 
         
 if __name__ == "__main__":
-    d = "reports/"
-    if not os.path.exists(d):
-        os.makedirs(d)
-    outfile=open(d+"TestResult.xml","w")
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports'))
