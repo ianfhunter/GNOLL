@@ -8,8 +8,8 @@ A comprehensive grammar and libraries for Dice-based RPG systems
 
 ## Current Status
 
-### Build / Releases
 [![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
+[![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice?branch=master)
 
 ### Language Support
 
