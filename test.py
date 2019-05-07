@@ -185,36 +185,36 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values,"d4,d4", lowest=1, highest=4)
         self.assertRaises(GrammarParsingException, check_values,"(d4,d4)", lowest=1, highest=4)
         self.assertTrue(check_values,"d4,d4,d4,d4,d4,d4", lowest=1, highest=4)
-        self.assertTrue(check_values,"d4x2", lowest=1, highest=4)
-        self.assertTrue(check_values,"(1d4+1d10)x2", lowest=2, highest=14)
+        self.assertTrue(check_values,"d4@2", lowest=1, highest=4)
+        self.assertTrue(check_values,"(1d4+1d10)@2", lowest=2, highest=14)
 
 
 
     def test_clamping_rolls(self):
         print("\n== Clamping ==")
-        # spread("(1d100 + 1d100)>50")
-        # spread("(1d100 + 1d100)<50")
-        # spread("(1d100 + 1d100)<=50")
-        # spread("(1d100 + 1d100)>=50")
+        spread("(1d100 + 1d100)>50")
+        spread("(1d100 + 1d100)<50")
+        spread("(1d100 + 1d100)<=50")
+        spread("(1d100 + 1d100)>=50")
 
     def test_success_count(self):
         print("\n== Counting Successes ==")
-        # spread("10d20>15c")   # Count how many rolls were >15
-        # spread("100dFc")   # Count fate dice successes
+        self.assertTrue(check_values, "10d20>15£")   # Count how many rolls were >15
+        self.assertTrue(check_values, "100dF£")   # Count fate dice successes
 
     def test_rerolls(self):
         print("\n== Re-Rolling ==")
-        # spread("30d20<15r")   #Reroll any <15 once
-        # spread("30d20<15R")   #Reroll any <15 until no more exist
-        # spread("30d20<15r2")  #Reroll any <15 twice
-        # spread("30d20<15r2>15c")  #Count how many >15 after rerolling any <15 twice
-        # spread("30d20<16R>15c")  #Count how many >15 after rerolling until they are all left (30)
-        # spread("30d20#1r")   #Reroll any 1s once
-        # spread("30d20#10r")   #Reroll any 10s once
-        # spread("30d20#10r2")   #Reroll any 10s twice
-        # spread("30d20#10R")   #Reroll any 10s until there are none
-        # spread("((4d6D)x7)<70R")   #Reroll all dice if total is less than 70
-        # spread("((4d6D<8R)x7)<70R")   #Reroll all dice if total is less than 70
+        self.assertTrue(check_values, "30d20<15r", lowest=2, highest=13)   #Reroll any <15 once
+        self.assertTrue(check_values, "30d20<15R", lowest=2, highest=13)   #Reroll any <15 until no more exist
+        self.assertTrue(check_values, "30d20<15r2", lowest=2, highest=13)  #Reroll any <15 twice
+        self.assertTrue(check_values, "30d20<15r2>15£", lowest=2, highest=13)  #Count how many >15 after rerolling any <15 twice
+        self.assertTrue(check_values, "30d20<16R>15£", lowest=2, highest=13)  #Count how many >15 after rerolling until they are all left (30)
+        self.assertTrue(check_values, "30d20#1r", lowest=2, highest=13)   #Reroll any 1s once
+        self.assertTrue(check_values, "30d20#10r", lowest=2, highest=13)   #Reroll any 10s once
+        self.assertTrue(check_values, "30d20#10r2", lowest=2, highest=13)   #Reroll any 10s twice
+        self.assertTrue(check_values, "30d20#10R", lowest=2, highest=13)   #Reroll any 10s until there are none
+        self.assertTrue(check_values, "((4d6D)@7)<70R", lowest=2, highest=13)   #Reroll all dice if total is less than 70
+        self.assertTrue(check_values, "((4d6D<8R)@7)<70R", lowest=2, highest=13)   #Reroll all dice if total is less than 70
 
 
     def test_subsets_of_rolls(self):
@@ -249,56 +249,53 @@ class TestSuite(unittest.TestCase):
 
     def test_custom_dice(self):
         print("\n== Custom Dice ==")
-        # self.assertTrue(check_values,"d{1,2,3,4,5,6}", lowest=1, highest=6)
-        # self.assertTrue(check_values,"d{1..6}", lowest=1, highest=6)
-        # self.assertTrue(check_values,"d{1,2,2,3,3,3} ", lowest=1, highest=3)
-        # self.assertTrue(check_values,"d{-1..1} ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"EXTRAORDINARY_CRIT=d{1..20,100} ; ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dFailure=d{1,1,1,1,1..20} ; dFailure  ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dFailure=d{1,1,1,1,1..20} ; 5dFailure<2c  ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dFailure=d{1,1,1,1,1..20} ; 5dFailure#1c  ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dFailure=d{1,1,1,1,1..20} ; 5dFailure#20r#1c  ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dFailure=d{1,1,1,1,1..20} ; 5dFailure#20R#1c  ", lowest=-1, highest=1)
-        # self.assertRaises(InvalidDiceRoll,"dEmpty=d{} ; dEmpty", lowest=-1, highest=1)
-        # self.assertRaises(InvalidDiceRoll,"dEmpty=d{} ;", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"dStat=4d6D<7R ; dStatx7D<70R  ", lowest=-1, highest=1)
-        # self.assertTrue(check_values,"A=d5 ; B=9d2;  A*B ", lowest=9, highest=90)
+        self.assertTrue(check_values,"d{1,2,3,4,5,6}", lowest=1, highest=6)
+        self.assertTrue(check_values,"d{1..6}", lowest=1, highest=6)
+        self.assertTrue(check_values,"d{1,2,2,3,3,3} ", lowest=1, highest=3)
+        self.assertTrue(check_values,"d{-1..1} ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$EXTRAORDINARY_CRIT=d{1..20,100} ; ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$EXTRAORDINARY_CRIT = d{1..20,100} ; ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dFailure=d{1,1,1,1,1..20} ; $dFailure  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dFailure=d{1, 1,1,1,1..20} ; 5$dFailure<2c  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dFailure=d{1,1 ,1,1,1..20} ; 5$dFailure#1c  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dFailure=d{1,1,1,1,1..20} ; 5$dFailure#20r#1c  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dFailure=d{1,1,1,1,1 .. 20} ; 5$dFailure#20R#1c  ", lowest=-1, highest=1)
+        self.assertRaises(InvalidDiceRoll, check_values, "$dEmpty=d{} ; $dEmpty", lowest=-1, highest=1)
+        self.assertRaises(InvalidDiceRoll, check_values, "$dEmpty=d{} ;", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dStat=4d6D<7R;  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$dStat=4d6D<7R ; $dStat@7D<70R  ", lowest=-1, highest=1)
+        self.assertTrue(check_values,"$A=d5 ; $B=9d2;  $A*$B ", lowest=9, highest=90)
 
 
     def test_conditionals(self):
         print("\n== Conditionals ==")
-        # d2?0=d4:1=d6
+        # self.assertTrue(check_values,"d2?0=d4:1=d6", lowest=0, highest=6)
 
-    def test_basic_fate_dice(self):
+    def test_fate_dice(self):
         print("\n== Fate Dice ==")
-        # self.assertTrue(check_values,"dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"1dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"3dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"dF+dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"10dF-2dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"2dF-20dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"d100+dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"3d100x3dF", lowest=4, highest=28)
-        # self.assertTrue(check_values,"3df!", lowest=4, highest=28)
+        self.assertTrue(check_values,"dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"1dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"3dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"dF+dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"10dF-2dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"2dF-20dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"d100+dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"3d100@3dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"3df!", lowest=4, highest=28)
 
 
     def test_exploding_dice(self):
         print("\n== Exploding & Imploding ==")
         self.assertTrue(check_values,"d3!", lowest=4, highest=28)
-        # self.assertTrue(check_values,"dF!", lowest=4, highest=28)
+        self.assertTrue(check_values,"dF!", lowest=4, highest=28)
         self.assertTrue(check_values,"d3!!!", lowest=4, highest=28)
         self.assertTrue(check_values,"d100>75!", lowest=4, highest=28)
-        self.assertTrue(check_values,"d3i", lowest=4, highest=28)
-        # self.assertTrue(check_values,"dFi", lowest=4, highest=28)
-        # self.assertTrue(check_values,"d3iii", lowest=4, highest=28)
-        self.assertTrue(check_values,"d100<75i", lowest=4, highest=28)
+        self.assertTrue(check_values,"d3~", lowest=4, highest=28)
+        self.assertTrue(check_values,"dF~", lowest=4, highest=28)
+        self.assertTrue(check_values,"d3~~~", lowest=4, highest=28)
+        self.assertTrue(check_values,"d100<75~", lowest=4, highest=28)
 
 
 if __name__ == "__main__":
     unittest.main()
-    # a = "dF"
-    # res = roll(a)
-    # print(res)
-    # res = spread(a)
-    # print(np.unique(np.array(res).flatten()))

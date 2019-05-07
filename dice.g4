@@ -4,13 +4,13 @@ grammar dice ;
 //TODO:
 // Some INTEGER_NUMBERS should allow negative numbs
 
-schema : assignment* sequence (',' sequence)* ;
+schema : (assignment)* (sequence (',' sequence)*)?;
 
-assignment : STRING WSPACE? '=' WSPACE? dice_roll WSPACE? ';' ;
+assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
 
-sequence : WSPACE? dice_roll WSPACE? duplicate? WSPACE?  ;
+variable: '$' STRING;
 
-duplicate : 'x' INTEGER_NUMBER;
+sequence : WSPACE? dice_roll WSPACE?  ;
 
 dice_roll : math_addsub ;
 
@@ -26,6 +26,11 @@ math_muldiv :
     math_muldiv  WSPACE? MULT  WSPACE? math_muldiv #Mul |
     math_muldiv  WSPACE? DIV  WSPACE? math_muldiv #DivDown |
     math_muldiv  WSPACE? DIV_RUP  WSPACE? math_muldiv #DivUp |
+    math_several #BubbleSeveral;
+
+math_several : 
+    // Multiple, Division
+    math_several  WSPACE? SEVERAL  WSPACE? math_several #Several |
     math_pow #BubblePow;
 
 math_pow : 
@@ -48,15 +53,17 @@ math_leaf :
 // - dFace (implicit Num=1)
 // - Value (implicit Face=1)
 die_roll : 
-    (amount? die faces die_modifiers ) | 
+    (amount? (die faces | fateDie | variable) die_modifier* ) | 
     amount;
 
-die_modifiers : (subset | reroll | bang | force )?;
+die_modifier : (subset | reroll | bang | force | count );
+
+count : ('£');
 
 bang : explode | implode ;
 
 explode : condition? '!'+ ;
-implode : condition? 'i'+ ;
+implode : condition? '~'+ ;
 
 force : condition;
 
@@ -93,17 +100,17 @@ amount : INTEGER_NUMBER ;
 
 
 faces : INTEGER_NUMBER #StandardFace | 
-        ('F'|'f') #FateFace | 
-        OPEN_BRACE numeric_sequence CLOSE_BRACE #CustomFace ;
+        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace;
 
-numeric_sequence : numeric_item (',' numeric_item)*;
+numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
 
-numeric_item : seq_item | INTEGER_NUMBER ;
+numeric_item : seq_item | MINUS? INTEGER_NUMBER ;
 
-seq_item : INTEGER_NUMBER '..' INTEGER_NUMBER ;
+seq_item : MINUS? INTEGER_NUMBER WSPACE?  '..' WSPACE? MINUS? INTEGER_NUMBER ;
 
 // Symbols
 die     : 'd';
+fateDie : ('dF' | 'df');
 
 
 PLUS    : '+';
@@ -112,7 +119,7 @@ MINUS   : '-';
 MULT    : '*';
 DIV     :  '/';
 DIV_RUP :  '|';
-SEVERAL : 'x';
+SEVERAL : '@';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';
@@ -124,13 +131,13 @@ SNLow : ('L'|'l');
 RNHigh : ('k'|'K'|'KH'|'kh');
 RNLow : ('KL'|'kl');
 RNDHigh : ('DH'|'dh'| 'Dh'| 'dH');
-RNDLow : ('d'|'D'|'DL'|'dl'|'Dl' | 'dL');
+RNDLow : ('D'|'DL'|'Dl' );  // d should be preserved as key letter
 
 
 // Data Types
-INTEGER_NUMBER :   DIGIT+ ;
+INTEGER_NUMBER : DIGIT+ ;
 WSPACE : BLANK+; 
 STRING : CHAR+;
 fragment DIGIT   :   ('0'..'9');
 fragment BLANK   : (' ' | '\t')+;
-fragment CHAR    : ('a'..'z'|'A'..'Z');
+fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');

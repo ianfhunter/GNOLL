@@ -26,21 +26,21 @@ class diceListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by diceParser#variable.
+    def enterVariable(self, ctx:diceParser.VariableContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#variable.
+    def exitVariable(self, ctx:diceParser.VariableContext):
+        pass
+
+
     # Enter a parse tree produced by diceParser#sequence.
     def enterSequence(self, ctx:diceParser.SequenceContext):
         pass
 
     # Exit a parse tree produced by diceParser#sequence.
     def exitSequence(self, ctx:diceParser.SequenceContext):
-        pass
-
-
-    # Enter a parse tree produced by diceParser#duplicate.
-    def enterDuplicate(self, ctx:diceParser.DuplicateContext):
-        pass
-
-    # Exit a parse tree produced by diceParser#duplicate.
-    def exitDuplicate(self, ctx:diceParser.DuplicateContext):
         pass
 
 
@@ -80,21 +80,21 @@ class diceListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by diceParser#BubblePow.
-    def enterBubblePow(self, ctx:diceParser.BubblePowContext):
-        pass
-
-    # Exit a parse tree produced by diceParser#BubblePow.
-    def exitBubblePow(self, ctx:diceParser.BubblePowContext):
-        pass
-
-
     # Enter a parse tree produced by diceParser#DivUp.
     def enterDivUp(self, ctx:diceParser.DivUpContext):
         pass
 
     # Exit a parse tree produced by diceParser#DivUp.
     def exitDivUp(self, ctx:diceParser.DivUpContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#BubbleSeveral.
+    def enterBubbleSeveral(self, ctx:diceParser.BubbleSeveralContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#BubbleSeveral.
+    def exitBubbleSeveral(self, ctx:diceParser.BubbleSeveralContext):
         pass
 
 
@@ -113,6 +113,24 @@ class diceListener(ParseTreeListener):
 
     # Exit a parse tree produced by diceParser#DivDown.
     def exitDivDown(self, ctx:diceParser.DivDownContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#BubblePow.
+    def enterBubblePow(self, ctx:diceParser.BubblePowContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#BubblePow.
+    def exitBubblePow(self, ctx:diceParser.BubblePowContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#Several.
+    def enterSeveral(self, ctx:diceParser.SeveralContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#Several.
+    def exitSeveral(self, ctx:diceParser.SeveralContext):
         pass
 
 
@@ -179,12 +197,21 @@ class diceListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by diceParser#die_modifiers.
-    def enterDie_modifiers(self, ctx:diceParser.Die_modifiersContext):
+    # Enter a parse tree produced by diceParser#die_modifier.
+    def enterDie_modifier(self, ctx:diceParser.Die_modifierContext):
         pass
 
-    # Exit a parse tree produced by diceParser#die_modifiers.
-    def exitDie_modifiers(self, ctx:diceParser.Die_modifiersContext):
+    # Exit a parse tree produced by diceParser#die_modifier.
+    def exitDie_modifier(self, ctx:diceParser.Die_modifierContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#count.
+    def enterCount(self, ctx:diceParser.CountContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#count.
+    def exitCount(self, ctx:diceParser.CountContext):
         pass
 
 
@@ -386,15 +413,6 @@ class diceListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by diceParser#FateFace.
-    def enterFateFace(self, ctx:diceParser.FateFaceContext):
-        pass
-
-    # Exit a parse tree produced by diceParser#FateFace.
-    def exitFateFace(self, ctx:diceParser.FateFaceContext):
-        pass
-
-
     # Enter a parse tree produced by diceParser#CustomFace.
     def enterCustomFace(self, ctx:diceParser.CustomFaceContext):
         pass
@@ -437,6 +455,15 @@ class diceListener(ParseTreeListener):
 
     # Exit a parse tree produced by diceParser#die.
     def exitDie(self, ctx:diceParser.DieContext):
+        pass
+
+
+    # Enter a parse tree produced by diceParser#fateDie.
+    def enterFateDie(self, ctx:diceParser.FateDieContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#fateDie.
+    def exitFateDie(self, ctx:diceParser.FateDieContext):
         pass
 
 
