@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import unittest
+import xmlrunner
 from unittest.mock import patch
 
 from random import randint
@@ -298,4 +299,4 @@ class TestSuite(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports'))
