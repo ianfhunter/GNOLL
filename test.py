@@ -298,5 +298,10 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values,"d100<75~", lowest=4, highest=28)
 
 
+        
 if __name__ == "__main__":
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports'))
+    d = "reports/"
+    if not os.path.exists(d):
+        os.makedirs(d)
+    outfile=open(d+"TestResult.xml","w")
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports', stream=outfile))
