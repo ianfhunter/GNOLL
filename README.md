@@ -9,7 +9,7 @@ A comprehensive grammar and libraries for Dice-based RPG systems
 ## Current Status
 
 ### Build / Releases
-[![Build Status](https://travis-ci.org/ianfhunter/dice.svg?branch=master)](https://travis-ci.org/ianfhunter/dice) (Under Construction)
+[![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
 
 ### Language Support
 
