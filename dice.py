@@ -131,9 +131,9 @@ class diceRollListener(diceListener):
         raise NotImplementedError
 
     def exitFaces(self, ctx):
-    
-        for x in ctx.getChildren():
-            print(type(x))
+        ctx.current_total = getEmbeddedValues(ctx)
+        # for x in ctx.getChildren():
+        #     print(type(x))
 
     def exitSchema(self, ctx):
         #todo - many
