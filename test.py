@@ -304,4 +304,4 @@ if __name__ == "__main__":
     if not os.path.exists(d):
         os.makedirs(d)
     outfile=open(d+"TestResult.xml","w")
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports', buffer=outfile))
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports'))
