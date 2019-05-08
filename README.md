@@ -6,6 +6,17 @@
 
 A comprehensive grammar and libraries for Dice-based RPG systems
 
+In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/wiki/Dice_notation), that you can plug into your own dice-based projects
+
+```
+   Gridon The Brave: I want to steal from the goblin sitting at the counter
+   GM: Okay, give me a stealth check!
+   Gridon The Brave: Okay, that's a "1d20+5"
+   [Dice]: 25
+   GM: You successfully pickpocket the goblin - but all he had were some crummy dice...
+```
+
+
 ## Current Status
 
 [![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
