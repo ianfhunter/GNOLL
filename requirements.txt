@@ -2,3 +2,5 @@ antlr4-python3-runtime==4.7.2
 matplotlib 
 numpy 
 xmlrunner
+coverage
+coveralls 
