@@ -114,6 +114,13 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 See also the list of [contributors](https://github.com/ianfhunter/dice/contributors) who participated in this project.
 
+
+## Issues / Bugs / FAQs / Feature Requests
+
+We are currently building a Wiki to help you in building on top of Dice. 
+In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice/issues).
+You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
