@@ -6,9 +6,11 @@ from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
 
 from random import randint
-import math, sys
+import math, sys, warnings
 
 rand_fn = None
+
+warnings.simplefilter('always')
 
 class InvalidDiceRoll(Exception):
     pass
