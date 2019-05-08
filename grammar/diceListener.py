@@ -107,6 +107,15 @@ class diceListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by diceParser#Modulo.
+    def enterModulo(self, ctx:diceParser.ModuloContext):
+        pass
+
+    # Exit a parse tree produced by diceParser#Modulo.
+    def exitModulo(self, ctx:diceParser.ModuloContext):
+        pass
+
+
     # Enter a parse tree produced by diceParser#DivDown.
     def enterDivDown(self, ctx:diceParser.DivDownContext):
         pass

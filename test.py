@@ -180,6 +180,8 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values,"1+(1)", lowest=2, highest=2)
         self.assertTrue(check_values,"1d4-(2)", lowest=-1, highest=2)
         self.assertTrue(check_values," ( 1d4 + 1d10 ) * 2", lowest=4, highest=28)
+        self.assertTrue(check_values,"d4^d4", lowest=1, highest=256)
+        self.assertTrue(check_values,"d20%2", lowest=1, highest=0)
 
     def test_roll_sequences(self):
         print("\n== Sequences ==")

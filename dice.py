@@ -67,39 +67,6 @@ def roll(s, override_rand=None, grammar_errors=True):
 
     return printer.result
 
-
-def resolve_op_symbol(symbol):
-    if symbol == "*":
-        return "MUL"
-    if symbol == "+":
-        return "ADD"
-    if symbol == "-":
-        return "SUB"
-    if symbol == "/":
-        return "DIV_ROUND_DOWN"
-    if symbol == "|":
-        return "DIV_ROUND_UP"
-    if symbol in ["x", "X"]:
-        return "REPEAT"
-    else:
-        print("Unknown Arithmetic:", c.getText())
-
-def do_operation(a, op, b):
-    if op == "MUL":
-        return a*b
-    if op == "ADD":
-        return a+b
-    if op == "SUB":
-        return a-b
-    if op == "DIV_ROUND_DOWN":
-        return a//b
-    if op == "DIV_ROUND_UP":
-        return math.ceil(a/b)
-    if op == "REPEAT":
-        print("Unsupported")
-        raise Exception
-
-
 def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
@@ -172,9 +139,6 @@ class diceRollListener(diceListener):
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
 
-    def exitDie_modifier(self, ctx):
-        print("exitDie_modifier:", ctx.getText())
-
 
     def exitDie_roll(self, ctx):
         global rand_fn
@@ -202,11 +166,6 @@ class diceRollListener(diceListener):
             print("Die Roll: ", ctx.current_total)
 
 
-
-    def exitMath(self, ctx):
-        vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
-
     def exitBubbleMulDiv(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] 
@@ -217,10 +176,7 @@ class diceRollListener(diceListener):
 
     def exitBubblePow(self, ctx):
         vals = getEmbeddedValues(ctx)
-        if len(vals) > 1:
-            ctx.current_total = vals[0] ^ vals[1]
-        else:
-            ctx.current_total = vals[0] 
+        ctx.current_total = vals[0] 
 
     def exitBubbleNeg(self, ctx):
         # print("BUBBLE NEG")
@@ -231,6 +187,10 @@ class diceRollListener(diceListener):
         # print("No Negate")
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] 
+
+    def exitPower(self, ctx):
+        vals = getEmbeddedValues(ctx)
+        ctx.current_total = math.pow(vals[0], vals[1])
 
     def exitNegate(self, ctx):
         # print("Negate")
@@ -268,6 +228,10 @@ class diceRollListener(diceListener):
     def exitDivUp(self, ctx):        
         vals = getEmbeddedValues(ctx)
         ctx.current_total = math.ceil(vals[0] / vals[1])
+
+    def exitModulo(self, ctx):        
+        vals = getEmbeddedValues(ctx)
+        ctx.current_total = vals[0] % vals[1]
 
     def exitDivDown(self, ctx):        
         vals = getEmbeddedValues(ctx)

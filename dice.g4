@@ -26,6 +26,7 @@ math_muldiv :
     math_muldiv  WSPACE? MULT  WSPACE? math_muldiv #Mul |
     math_muldiv  WSPACE? DIV  WSPACE? math_muldiv #DivDown |
     math_muldiv  WSPACE? DIV_RUP  WSPACE? math_muldiv #DivUp |
+    math_muldiv  WSPACE? MODULO WSPACE? math_muldiv #Modulo |
     math_several #BubbleSeveral;
 
 math_several : 
@@ -118,6 +119,7 @@ POWER   : '^';
 MINUS   : '-';
 MULT    : '*';
 DIV     :  '/';
+MODULO     :  '%';
 DIV_RUP :  '|';
 SEVERAL : '@';
 
