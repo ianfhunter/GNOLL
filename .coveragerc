@@ -1,2 +1,3 @@
 [run]
 source = .
+omit = grammar/*
