@@ -2,9 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import unittest
 import xmlrunner
-from unittest.mock import patch
 
-from random import randint
 from dice import roll, GrammarParsingException, InvalidDiceRoll
 
 from contextlib import contextmanager
@@ -75,12 +73,12 @@ def suppress_prints():
         old_stderr = sys.stderr
         old_stdout = sys.stdout
         sys.stderr = devnull
-        # sys.stdout = devnull
+        sys.stdout = devnull
         try:  
             yield
         finally:
             sys.stderr = old_stderr
-            # sys.stdout = old_stdout
+            sys.stdout = old_stdout
 
 class TestSuite(unittest.TestCase):
 
