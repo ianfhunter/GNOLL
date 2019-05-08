@@ -71,6 +71,8 @@ In order to determine whether you are dealing with a security issue, ask yoursel
 
 If the answer to either of those two questions are "yes", then you're probably dealing with a security issue. Note that even if you answer "no" to both questions, you may still be dealing with a security issue, so if you're unsure
 
+Known, unaddressed vulnerabilities will be hilighted on the main readme. Additionally, resolved dependencies for previous versions will be mentioned in a SECURITY.md file
+
 # Code review process
 The author will looks at Pull Requests on a regular basis. Feedback will be given as fast as possible, larger changes may take more time to review
 
