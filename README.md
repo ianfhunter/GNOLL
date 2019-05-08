@@ -11,7 +11,7 @@ A comprehensive grammar and libraries for Dice-based RPG systems
 [![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
 [![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice?branch=master)
 [![Requirements Status](https://requires.io/github/ianfhunter/dice/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice/requirements/?branch=master)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/dice.svg)](https://github.com/ianfhunter/dice/blob/master/LICENSE)
 
 ### Language Support
 
