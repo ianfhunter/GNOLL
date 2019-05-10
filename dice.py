@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from antlr4 import tree
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
@@ -6,31 +8,41 @@ from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
 
 from random import randint
-import math, sys, warnings
+import warnings
+import math
+import sys
 
 rand_fn = None
 
 warnings.simplefilter('always')
 
+
 class InvalidDiceRoll(Exception):
     pass
+
 
 class GrammarParsingException(Exception):
     pass
 
-class MyErrorListener( ErrorListener ):
+
+class MyErrorListener(ErrorListener):
     def __init__(self):
         super(MyErrorListener, self).__init__()
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         print("syntaxError")
         raise InvalidDiceRoll
-    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
+
+    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex,
+                        exact, ambigAlts, configs):
         print("reportAmbiguity")
         raise InvalidDiceRoll
-    def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
+
+    def reportAttemptingFullContext(self, recognizer, dfa, startIndex,
+                                    stopIndex, conflictingAlts, configs):
         print("reportAttemptingFullContext")
         raise InvalidDiceRoll
+
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
         print("reportContextSensitivity")
         raise InvalidDiceRoll
@@ -49,16 +61,9 @@ def roll(s, override_rand=None, grammar_errors=True):
 
     lexer._listeners = [MyErrorListener()]
 
-    # if grammar_errors:
-    #     cel = ErrorListener.ConsoleErrorListener
-    #     if cel not in lexer._listeners:
-    #         lexer.addErrorListener(cel)
-    # else:
-    #     lexer.removeErrorListener(ErrorListener.ConsoleErrorListener);
-
     stream = CommonTokenStream(lexer)
     parser = diceParser(stream)
-    
+
     tree = parser.schema()
     printer = diceRollListener()
     walker = ParseTreeWalker()
@@ -69,18 +74,20 @@ def roll(s, override_rand=None, grammar_errors=True):
 
     return printer.result
 
+
 def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
             # print(x.current_total)
-            if isinstance(x.current_total, list): 
+            if isinstance(x.current_total, list):
                 vals.append(x.current_total[0])
             else:
                 vals.append(x.current_total)
         else:
             pass
     return vals
+
 
 class diceRollListener(diceListener):
     def __init__(self):
@@ -89,7 +96,7 @@ class diceRollListener(diceListener):
 
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-    
+
     def exitDuplicate(self, ctx):
         raise NotImplementedError
 
@@ -113,10 +120,8 @@ class diceRollListener(diceListener):
             self.result = self.result[0]
         # return self.result, self.rolls
 
-
-
-
     def exitBang(self, ctx):
+        print(ctx.getTokens("!"))
         raise NotImplementedError
 
     def exitForce(self, ctx):
@@ -126,21 +131,18 @@ class diceRollListener(diceListener):
         raise NotImplementedError
 
     def exitFateDie(self, ctx):
-        raise NotImplementedError
+        self.current_face = "Fate"
 
     def exitSubset(self, ctx):
         raise NotImplementedError
-        
+
     def enterDie_roll(self, ctx):
         self.current_face = None
         self.current_amount = None
         self.current_total = 0
-        pass
-
 
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-
 
     def exitDie_roll(self, ctx):
         global rand_fn
@@ -148,16 +150,18 @@ class diceRollListener(diceListener):
         ctx.rolls = []
         ctx.current_total = 0
 
-        if self.current_amount is None: 
+        if self.current_amount is None:
             # Case where we have d4 instead of 1d4
             self.current_amount = 1
-            
+
         for _ in range(self.current_amount):
             if self.current_face is None:
                 # Case of just Value
                 r = 1
             elif self.current_face == 0:
                 r = 0
+            elif self.current_face == "Fate":
+                r = rand_fn(-1, 1)
             else:
                 r = rand_fn(1, self.current_face)
 
@@ -167,28 +171,27 @@ class diceRollListener(diceListener):
         if False:
             print("Die Roll: ", ctx.current_total)
 
-
     def exitBubbleMulDiv(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitBubbleSeveral(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitBubblePow(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitBubbleNeg(self, ctx):
         # print("BUBBLE NEG")
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitNoNegate(self, ctx):
         # print("No Negate")
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitPower(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -198,47 +201,48 @@ class diceRollListener(diceListener):
         # print("Negate")
 
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = -vals[0] 
+        ctx.current_total = -vals[0]
+
+    def exitCount(self, ctx):
+        raise NotImplementedError
 
     def exitCustomFace(self, ctx):
         raise NotImplementedError
 
     def exitValue(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
     def exitBrackets(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0] 
+        ctx.current_total = vals[0]
 
-    def exitAdd(self, ctx):  
+    def exitAdd(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] + vals[1]
 
-    def exitSub(self, ctx):        
+    def exitSub(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] - vals[1]
 
-    def exitSeveral(self, ctx):        
+    def exitSeveral(self, ctx):
         raise NotImplementedError
 
-
-    def exitMul(self, ctx):        
+    def exitMul(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] * vals[1]
 
-    def exitDivUp(self, ctx):        
+    def exitDivUp(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = math.ceil(vals[0] / vals[1])
 
-    def exitModulo(self, ctx):        
+    def exitModulo(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] % vals[1]
 
-    def exitDivDown(self, ctx):        
+    def exitDivDown(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals[0] // vals[1]
-
 
     def exitDice_roll(self, ctx):
         ctx.current_total = 0
@@ -248,8 +252,6 @@ class diceRollListener(diceListener):
                 ctx.current_total = c.current_total
             else:
                 print("Unknown type: ", type(c))
-
-
 
     def enterStandardFace(self, ctx):
         self.current_face = int(ctx.getText())
@@ -268,3 +270,7 @@ class diceRollListener(diceListener):
 
     def enterEveryRule(self, ctx):
         pass
+
+
+if __name__ == "__main__":
+    print(roll(sys.argv[1]))

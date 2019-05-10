@@ -4,3 +4,4 @@ numpy
 xmlrunner
 coverage
 coveralls 
+pyflakes
