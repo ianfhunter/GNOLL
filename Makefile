@@ -8,3 +8,6 @@ all:
 
 lint: 
 	python3 -m pyflakes test.py
+
+test: all
+	python3 test.py

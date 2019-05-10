@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from antlr4 import tree
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
@@ -48,13 +50,6 @@ def roll(s, override_rand=None, grammar_errors=True):
     lexer = diceLexer(in_stream)
 
     lexer._listeners = [MyErrorListener()]
-
-    # if grammar_errors:
-    #     cel = ErrorListener.ConsoleErrorListener
-    #     if cel not in lexer._listeners:
-    #         lexer.addErrorListener(cel)
-    # else:
-    #     lexer.removeErrorListener(ErrorListener.ConsoleErrorListener);
 
     stream = CommonTokenStream(lexer)
     parser = diceParser(stream)
@@ -126,7 +121,8 @@ class diceRollListener(diceListener):
         raise NotImplementedError
 
     def exitFateDie(self, ctx):
-        raise NotImplementedError
+        self.current_face = "Fate"
+        
 
     def exitSubset(self, ctx):
         raise NotImplementedError
@@ -135,8 +131,6 @@ class diceRollListener(diceListener):
         self.current_face = None
         self.current_amount = None
         self.current_total = 0
-        pass
-
 
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
@@ -148,6 +142,7 @@ class diceRollListener(diceListener):
         ctx.rolls = []
         ctx.current_total = 0
 
+
         if self.current_amount is None: 
             # Case where we have d4 instead of 1d4
             self.current_amount = 1
@@ -158,6 +153,8 @@ class diceRollListener(diceListener):
                 r = 1
             elif self.current_face == 0:
                 r = 0
+            elif self.current_face == "Fate":
+                r = rand_fn(-1, 1)
             else:
                 r = rand_fn(1, self.current_face)
 
@@ -199,6 +196,9 @@ class diceRollListener(diceListener):
 
         vals = getEmbeddedValues(ctx)
         ctx.current_total = -vals[0] 
+
+    def exitCount(self, ctx):
+        raise NotImplementedError
 
     def exitCustomFace(self, ctx):
         raise NotImplementedError
@@ -268,3 +268,8 @@ class diceRollListener(diceListener):
 
     def enterEveryRule(self, ctx):
         pass
+
+
+      
+if __name__ == "__main__":
+    print(roll(sys.argv[1]))

@@ -275,13 +275,13 @@ class TestSuite(unittest.TestCase):
 
     def test_fate_dice(self):
         print("\n== Fate Dice ==")
-        self.assertTrue(check_values,"dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"1dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"3dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"dF+dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"10dF-2dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"2dF-20dF", lowest=4, highest=28)
-        self.assertTrue(check_values,"d100+dF", lowest=4, highest=28)
+        self.assertTrue(check_values,"dF", lowest=-1, highest=1)
+        self.assertTrue(check_values,"1dF", lowest=-1, highest=1)
+        self.assertTrue(check_values,"3dF", lowest=-3, highest=3)
+        self.assertTrue(check_values,"dF+dF", lowest=-2, highest=2)
+        self.assertTrue(check_values,"10dF-2dF", lowest=-8, highest=8)
+        self.assertTrue(check_values,"2dF-20dF", lowest=18, highest=-18)
+        self.assertTrue(check_values,"d100+dF", lowest=0, highest=101)
         self.assertTrue(check_values,"3d100@3dF", lowest=4, highest=28)
         self.assertTrue(check_values,"3df!", lowest=4, highest=28)
 
