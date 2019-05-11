@@ -168,7 +168,6 @@ class diceRollListener(diceListener):
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
 
-
     def exitDie_roll(self, ctx):
         global rand_fn
 
@@ -186,7 +185,7 @@ class diceRollListener(diceListener):
                 (not isinstance(self.current_face, str) and self.current_face < 2):
             raise InvalidDiceRoll
         if hasattr(self, "sucks") and self.sucks > 0 and \
-                (not isinstance(self.current_face, str) and self.current_face < 2 ):
+                (not isinstance(self.current_face, str) and self.current_face < 2):
             raise InvalidDiceRoll
 
         if self.current_amount is None:

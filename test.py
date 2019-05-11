@@ -152,8 +152,10 @@ class TestSuite(unittest.TestCase):
     def test_questionable_input(self):
         print("\n== Odd Cases ==")
         self.assertTrue(check_values, "0", lowest=0, highest=0)
-        self.assertRaises(InvalidDiceRoll, check_values, "0d0", lowest=0, highest=0)
-        self.assertRaises(InvalidDiceRoll, check_values, "-1d0", lowest=0, highest=0)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "0d0", lowest=0, highest=0)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "-1d0", lowest=0, highest=0)
         self.assertTrue(check_values, "1-d1", lowest=0, highest=0)
         self.assertTrue(check_values, "1d1", lowest=1, highest=1)
 
@@ -324,7 +326,8 @@ class TestSuite(unittest.TestCase):
         self.assertRaises(InvalidDiceRoll, check_values,
                           "@d3!!!", lowest=-1, highest=1)
         self.assertTrue(check_values, "d100>75!", lowest=4, highest=28)
-        self.assertRaises(InvalidDiceRoll, check_values, "d3~", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d3~", lowest=20, highest=3)
         self.assertTrue(check_values, "dF~", lowest=-20, highest=1)
         self.assertRaises(InvalidDiceRoll, check_values,
                           "@d3~~~", lowest=-1, highest=1)
