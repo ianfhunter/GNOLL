@@ -296,12 +296,12 @@ class diceListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by diceParser#greaterthan.
-    def enterGreaterthan(self, ctx:diceParser.GreaterthanContext):
+    # Enter a parse tree produced by diceParser#greaterThan.
+    def enterGreaterThan(self, ctx:diceParser.GreaterThanContext):
         pass
 
-    # Exit a parse tree produced by diceParser#greaterthan.
-    def exitGreaterthan(self, ctx:diceParser.GreaterthanContext):
+    # Exit a parse tree produced by diceParser#greaterThan.
+    def exitGreaterThan(self, ctx:diceParser.GreaterThanContext):
         pass
 
 
