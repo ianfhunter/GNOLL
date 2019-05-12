@@ -2,6 +2,7 @@
 
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
+
 from grammar.diceLexer import diceLexer
 from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
@@ -345,8 +346,10 @@ class diceRollListener(diceListener):
             print("Negative Amount of Dice.")
             raise InvalidDiceRoll
 
-    def enterEveryRule(self, ctx):
-        pass
+    def exitEveryRule(self, ctx, debug=False):
+        # print(dir(ctx))
+        if debug:
+            print(ctx.__class__, "\t=", ctx.getText())
 
 
 if __name__ == "__main__":

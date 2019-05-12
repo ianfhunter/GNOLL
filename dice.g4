@@ -47,7 +47,7 @@ math_neg :
 math_leaf :
     // Unit or Brackets
     die_roll #Value |
-    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET #Brackets ;
+    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET die_modifier? #Brackets ;
 
 // A Die Roll Can be:
 // - NumdFace

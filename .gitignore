@@ -109,6 +109,8 @@ venv.bak/
 #Antrl
 .antlr/
 reports/
+grammar/
+*/grammar/
 
 # Other
 .vscode/

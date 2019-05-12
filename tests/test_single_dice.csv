@@ -1,0 +1,10 @@
+roll,low,high,errors
+d4, 1, 4, False
+1d4, 1, 4, False
+1d6, 1, 6, False
+1d8, 1, 8, False
+1d10, 1, 10, False
+1d12, 1, 12, False
+1d20, 1, 20, False
+1d100, 1, 100, False
+ 1d100 , 1, 100, False

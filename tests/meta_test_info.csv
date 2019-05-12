@@ -1,0 +1,15 @@
+filename,printname
+test_single_dice.csv,Single Die
+test_multiple_dice.csv,Multiple Dice
+test_odd_inputs.csv,Odd Input
+test_sequences.csv,Sequences
+test_arithmetic.csv,Arithmetic
+test_fate_dice.csv,Fate Dice
+test_rerolling.csv,Rerolling
+test_subsets.csv,Subsets
+test_count_successes.csv,Count Succeses
+test_explosions.csv,Explosion + Implosion
+test_conditionals.csv,Conditionals
+test_conditions.csv,Conditionals
+test_custom_dice.csv,Custom Dice
+test_clamping.csv,Clamping

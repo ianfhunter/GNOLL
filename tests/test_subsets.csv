@@ -1,0 +1,25 @@
+roll,low,high,errors
+"2d20-L", 2, 14, False
+"2d20-H", 2, 14, False
+"3d20-2H", 2, 14, False
+"3d20-2L", 2, 14, False
+"3d20-3H", 2, 14, False
+"3d20-4H", 2, 14, False
+"2d20kl", 2, 14, False
+"2d20k", 2, 14, False
+"2d20kh", 2, 14, False
+"3d20k2", 2, 14, False
+"3d20kl2", 2, 14, False
+"3d20kh3", 2, 14, False
+"3d20kl4", 2, 14, False
+"2d20Dh", 2, 14, False
+"2d20D", 2, 14, False
+"3d20D", 2, 14, False
+"3d20Dh", 2, 14, False
+"3d20D3", 2, 14, False
+"3d20Dh3", 2, 14, False
+"10d20D3", 2, 14, False
+"10d20Dh3", 2, 14, False
+"3d20D4", 2, 14, False
+"3d20Dh4", 2, 14, False
+
