@@ -1,0 +1,5 @@
+roll,low,high,errors
+"d4", 1, 4, False
+"2d4", 2, 8, False
+"4d4", 4, 16, False
+"5d4", 5, 20, False

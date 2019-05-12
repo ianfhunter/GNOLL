@@ -1,0 +1,10 @@
+roll,low,high,errors
+"dF", -1, 1, False
+"1dF", -1, 1, False
+"3dF", -3, 3, False
+"dF+dF", -2, 2, False
+"10dF-2dF", -8, 8, False
+"2dF-20dF", 18, -18, False
+"d100+dF", 0, 101, False
+"3d100@3dF", 4, 28, False
+"3df!", -3, 60, False

@@ -1,0 +1,24 @@
+roll,low,high,errors
+"d4+d4", 2, 8, False
+"d4+-d4", 0, 0, False
+"1d4+1d6", 2, 10, False
+"2d4+1d6", 3, 14, False
+"1d4+2", 3, 6, False
+"1d4-2", -1, 2, False
+"1d4*2", 2, 8, False
+"1d4/2", 0, 2, False
+"1d4|2", 1, 2, False
+"1d4 + 1d6", 2, 10, False
+"  1d4 + 1d6 ", 2, 10, False
+"1d4+-1", 0, 3, False
+"1d4+-2", -1, 2, False
+"1d4+----2", 3, 6, False
+"1d4----2", 3, 6, False
+"1d3+1d6+1d20", 3, 29, False
+"1d3+1d6 + 1d20", 3, 29, False
+"1+1", 2, 2, False
+"1+(1)", 2, 2, False
+"1d4-(2)", -1, 2, False
+" ( 1d4 + 1d10 ) * 2", 4, 28, False
+"d4^d4", 1, 256, False
+"d20%2", 1, 0, False

@@ -345,8 +345,10 @@ class diceRollListener(diceListener):
             print("Negative Amount of Dice.")
             raise InvalidDiceRoll
 
-    def enterEveryRule(self, ctx):
-        pass
+    def exitEveryRule(self, ctx, debug=False):
+        # print(dir(ctx))
+        if debug:
+            print(ctx.__class__, "\t=", ctx.getText())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,3 @@
+roll,low,high,errors
+"10d20>15£", 0, 10, False
+"100dF£", 0, 100, False

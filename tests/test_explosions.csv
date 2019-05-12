@@ -1,0 +1,16 @@
+roll,low,high,errors
+
+"d3!", 1, 60, False
+"dF!", -1, 20, False
+"d100>75!", 4, 28, False
+"dF~", -20, 1, False
+"d100<75~", 4, 28, False
+
+
+"d1~", 20, 3, True
+"d1!", 20, 3, True
+"d0!", 20, 3, True
+"d0~", 20, 3, True
+"@d3!!!", -1, 1, True
+"d3~", 20, 3, True
+"@d3~~~", -1, 1, True

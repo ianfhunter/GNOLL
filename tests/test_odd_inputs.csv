@@ -1,0 +1,10 @@
+roll,low,high,errors
+"0", 0, 0, False
+"1-d1", 0, 0, False
+"1d1", 1, 1, False
+
+"0d", 1, 4, True
+"1d-1", 0, 0, True
+"d", 0, 0, True
+0d0", 0, 0, True
+"-1d0", 0, 0, True
