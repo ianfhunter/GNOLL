@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from antlr4 import tree
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
 from grammar.diceLexer import diceLexer
@@ -15,6 +14,9 @@ import sys
 rand_fn = None
 
 warnings.simplefilter('always')
+
+MAX_EXPLOSION = 20
+MAX_IMPLOSION = 20
 
 
 class InvalidDiceRoll(Exception):
@@ -43,7 +45,8 @@ class MyErrorListener(ErrorListener):
         print("reportAttemptingFullContext")
         raise InvalidDiceRoll
 
-    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
+    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex,
+                                 prediction, configs):
         print("reportContextSensitivity")
         raise InvalidDiceRoll
 
@@ -94,6 +97,21 @@ class diceRollListener(diceListener):
         self.rolls = []
         self.result = 0
 
+    def exitExactMatch(self, ctx):
+        raise NotImplementedError
+
+    def exitLessOrEqualTo(self, ctx):
+        raise NotImplementedError
+
+    def exitGreaterThanOrEqualTo(self, ctx):
+        raise NotImplementedError
+
+    def exitLessThan(self, ctx):
+        raise NotImplementedError
+
+    def exitGreaterThan(self, ctx):
+        raise NotImplementedError
+
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
 
@@ -112,7 +130,7 @@ class diceRollListener(diceListener):
         #     print(type(x))
 
     def exitSchema(self, ctx):
-        #todo - many
+        # todo - many
         self.result = getEmbeddedValues(ctx)
         if len(self.result) > 1:
             raise NotImplementedError
@@ -121,13 +139,16 @@ class diceRollListener(diceListener):
         # return self.result, self.rolls
 
     def exitBang(self, ctx):
-        print(ctx.getTokens("!"))
-        raise NotImplementedError
+        self.bangs = len([c for c in ctx.getText() if c == '!'])
+        self.sucks = len([c for c in ctx.getText() if c == '~'])
 
     def exitForce(self, ctx):
         raise NotImplementedError
 
     def exitReroll(self, ctx):
+        raise NotImplementedError
+
+    def exitCondition(self, ctx):
         raise NotImplementedError
 
     def exitFateDie(self, ctx):
@@ -136,13 +157,13 @@ class diceRollListener(diceListener):
     def exitSubset(self, ctx):
         raise NotImplementedError
 
+    def exitVariable(self, ctx):
+        raise NotImplementedError
+
     def enterDie_roll(self, ctx):
         self.current_face = None
         self.current_amount = None
-        self.current_total = 0
-
-    def exitSequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
+        ctx.current_total = 0
 
     def exitDie_roll(self, ctx):
         global rand_fn
@@ -150,23 +171,79 @@ class diceRollListener(diceListener):
         ctx.rolls = []
         ctx.current_total = 0
 
+        if isinstance(self.current_face, int) and self.current_face < 1:
+            raise InvalidDiceRoll
+
+        if hasattr(self, "bangs") and self.bangs > 1:
+            raise InvalidDiceRoll
+        if hasattr(self, "sucks") and self.sucks > 1:
+            raise InvalidDiceRoll
+        if hasattr(self, "bangs") and self.bangs > 0 and \
+                (not isinstance(self.current_face, str) and
+                    self.current_face < 2):
+            raise InvalidDiceRoll
+        if hasattr(self, "sucks") and self.sucks > 0 and \
+                (not isinstance(self.current_face, str) and
+                    self.current_face < 2):
+            raise InvalidDiceRoll
+
         if self.current_amount is None:
             # Case where we have d4 instead of 1d4
             self.current_amount = 1
 
-        for _ in range(self.current_amount):
-            if self.current_face is None:
-                # Case of just Value
-                r = 1
-            elif self.current_face == 0:
-                r = 0
-            elif self.current_face == "Fate":
-                r = rand_fn(-1, 1)
-            else:
-                r = rand_fn(1, self.current_face)
+        if self.current_face is None:
+            # Just a value
+            ctx.current_total = self.current_amount
+            return
 
-            ctx.rolls.append(r)
-            ctx.current_total += r
+        if self.current_face == "Fate":
+            low = -1
+            high = 1
+        else:
+            low = 1
+            high = self.current_face
+
+        if hasattr(self, "bangs"):
+            exploding = (self.bangs > 0 and self.bangs is not None)
+        else:
+            exploding = False
+
+        if hasattr(self, "sucks"):
+            imploding = (self.sucks > 0 and self.sucks is not None)
+            if imploding and low >= 0:
+                print("Cannot implode a roll which is positive")
+                raise InvalidDiceRoll
+        else:
+            imploding = False
+
+        # warping = exploding or imploding
+
+        approach_max_explosion = approach_max_implosion = 0
+        rolled_dice = 0
+        while approach_max_explosion < MAX_EXPLOSION and \
+                approach_max_implosion < MAX_IMPLOSION:
+            multi_roll = 0
+            for _ in range(self.current_amount):
+
+                r = rand_fn(low, high)
+
+                ctx.rolls.append(r)
+                multi_roll += r
+
+            if (multi_roll == high*self.current_amount and exploding):
+                approach_max_explosion += 1
+                rolled_dice += multi_roll
+            elif (multi_roll == low*self.current_amount and imploding):
+                approach_max_implosion += 1
+                rolled_dice += multi_roll
+            else:
+                rolled_dice += multi_roll
+                ctx.current_total = rolled_dice
+                break
+
+        if approach_max_explosion >= MAX_EXPLOSION or \
+                approach_max_implosion >= MAX_IMPLOSION:
+            ctx.current_total = rolled_dice
 
         if False:
             print("Die Roll: ", ctx.current_total)

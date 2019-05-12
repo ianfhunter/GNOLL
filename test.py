@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 import matplotlib.pyplot as plt
 import unittest
@@ -150,8 +152,10 @@ class TestSuite(unittest.TestCase):
     def test_questionable_input(self):
         print("\n== Odd Cases ==")
         self.assertTrue(check_values, "0", lowest=0, highest=0)
-        self.assertTrue(check_values, "0d0", lowest=0, highest=0)
-        self.assertTrue(check_values, "-1d0", lowest=0, highest=0)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "0d0", lowest=0, highest=0)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "-1d0", lowest=0, highest=0)
         self.assertTrue(check_values, "1-d1", lowest=0, highest=0)
         self.assertTrue(check_values, "1d1", lowest=1, highest=1)
 
@@ -198,6 +202,18 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "d4,d4,d4,d4,d4,d4", lowest=1, highest=4)
         self.assertTrue(check_values, "d4@2", lowest=1, highest=4)
         self.assertTrue(check_values, "(1d4+1d10)@2", lowest=2, highest=14)
+
+    def test_conditions(self):
+        self.assertTrue(check_values, "1d4#4r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4>3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4<3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4>=3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4<=3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
 
     def test_clamping_rolls(self):
         print("\n== Clamping ==")
@@ -273,30 +289,39 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "d{1,2,2,3,3,3} ", lowest=1, highest=3)
         self.assertTrue(check_values, "d{-1..1} ", lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ", lowest=-1, highest=1)
+            check_values, "@EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$EXTRAORDINARY_CRIT=d{1..20,100} ; ", lowest=-1, highest=1)
+            check_values, "@EXTRAORDINARY_CRIT=d{1..20,100} ; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$EXTRAORDINARY_CRIT = d{1..20,100} ; ", lowest=-1, highest=1)
+            check_values, "@EXTRAORDINARY_CRIT = d{1..20,100} ; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dFailure=d{1,1,1,1,1..20} ; $dFailure  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1..20} ; @dFailure  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dFailure=d{1, 1,1,1,1..20} ; 5$dFailure<2c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1, 1,1,1,1..20} ; 5@dFailure<2c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dFailure=d{1,1 ,1,1,1..20} ; 5$dFailure#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1 ,1,1,1..20} ; 5@dFailure#1c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dFailure=d{1,1,1,1,1..20} ; 5$dFailure#20r#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1..20} ; 5@dFailure#20r#1c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dFailure=d{1,1,1,1,1 .. 20} ; 5$dFailure#20R#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1 .. 20} ; 5@dFailure#20R#1c  ",
+            lowest=-1, highest=1)
         self.assertRaises(InvalidDiceRoll, check_values,
-                          "$dEmpty=d{} ; $dEmpty", lowest=-1, highest=1)
+                          "@dEmpty=d{} ; @dEmpty", lowest=-1, highest=1)
         self.assertRaises(InvalidDiceRoll, check_values,
-                          "$dEmpty=d{} ;", lowest=-1, highest=1)
-        self.assertTrue(check_values, "$dStat=4d6D<7R;  ",
+                          "@dEmpty=d{} ;", lowest=-1, highest=1)
+        self.assertTrue(check_values, "@dStat=4d6D<7R;  ",
                         lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "$dStat=4d6D<7R ; $dStat@7D<70R  ", lowest=-1, highest=1)
-        self.assertTrue(check_values, "$A=d5 ; $B=9d2;  $A*$B ",
+            check_values, "@dStat=4d6D<7R ; @dStat@7D<70R  ",
+            lowest=-1, highest=1)
+        self.assertTrue(check_values, "@A=d5 ; @B=9d2;  @A*@B ",
                         lowest=9, highest=90)
 
     def test_conditionals(self):
@@ -313,18 +338,29 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "2dF-20dF", lowest=18, highest=-18)
         self.assertTrue(check_values, "d100+dF", lowest=0, highest=101)
         self.assertTrue(check_values, "3d100@3dF", lowest=4, highest=28)
-        self.assertTrue(check_values, "3df!", lowest=4, highest=28)
+        self.assertTrue(check_values, "3df!", lowest=-3, highest=60)
 
     def test_exploding_dice(self):
         print("\n== Exploding & Imploding ==")
-        self.assertTrue(check_values, "d3!", lowest=4, highest=28)
-        self.assertTrue(check_values, "dF!", lowest=4, highest=28)
-        self.assertTrue(check_values, "d3!!!", lowest=4, highest=28)
+        self.assertTrue(check_values, "d3!", lowest=1, highest=60)
+        self.assertTrue(check_values, "dF!", lowest=-1, highest=20)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "@d3!!!", lowest=-1, highest=1)
         self.assertTrue(check_values, "d100>75!", lowest=4, highest=28)
-        self.assertTrue(check_values, "d3~", lowest=4, highest=28)
-        self.assertTrue(check_values, "dF~", lowest=4, highest=28)
-        self.assertTrue(check_values, "d3~~~", lowest=4, highest=28)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d3~", lowest=20, highest=3)
+        self.assertTrue(check_values, "dF~", lowest=-20, highest=1)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "@d3~~~", lowest=-1, highest=1)
         self.assertTrue(check_values, "d100<75~", lowest=4, highest=28)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d1~", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d1!", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d0!", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d0~", lowest=20, highest=3)
 
 
 if __name__ == "__main__":

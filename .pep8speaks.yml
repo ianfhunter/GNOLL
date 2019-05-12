@@ -1,0 +1,5 @@
+pycodestyle:
+    exclude=["grammar"]
+
+flake8:
+    exclude=["grammar"]

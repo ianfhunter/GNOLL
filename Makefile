@@ -6,7 +6,7 @@ all:
 	-rm grammar/* -r
 	antlr4 dice.g4 -o grammar -Dlanguage=Python3
 
-lint: 
+lint:
 	autopep8 test.py > tmp
 	cat tmp > test.py
 	autopep8 dice.py > tmp
@@ -14,6 +14,14 @@ lint:
 	rm tmp
 
 	python3 -m pyflakes test.py
+	python3 -m pycodestyle test.py
+
+	python3 -m pyflakes dice.py
+	python3 -m pycodestyle dice.py
+
+coverage:
+	coverage run test.py
+	coverage report
 
 test: all
 	python3 test.py
