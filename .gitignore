@@ -107,7 +107,7 @@ venv.bak/
 *.png
 
 #Antrl
-.antlr/
+\.antlr/
 reports/
 grammar/
 */grammar/

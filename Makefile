@@ -5,6 +5,10 @@ python:
 	antlr4 dice.g4 -o python/grammar -Dlanguage=Python3
 	cd python ; make all ; cd ..
 
+javascript:
+	antlr4 dice.g4 -o javascript/grammar -Dlanguage=Javascript
+	cd javascript ; make all ; cd ..
+
 all : python
 	echo ""
 
@@ -15,4 +19,4 @@ lint :
 	cd python ; make lint ; cd ..
 
 
-.PHONY: clean python
+.PHONY: clean python javascript
