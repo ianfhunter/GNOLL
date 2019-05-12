@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from antlr4 import tree
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
 from grammar.diceLexer import diceLexer
@@ -46,7 +45,8 @@ class MyErrorListener(ErrorListener):
         print("reportAttemptingFullContext")
         raise InvalidDiceRoll
 
-    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
+    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex,
+                                 prediction, configs):
         print("reportContextSensitivity")
         raise InvalidDiceRoll
 
@@ -165,9 +165,6 @@ class diceRollListener(diceListener):
         self.current_amount = None
         ctx.current_total = 0
 
-    def exitSequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-
     def exitDie_roll(self, ctx):
         global rand_fn
 
@@ -182,10 +179,12 @@ class diceRollListener(diceListener):
         if hasattr(self, "sucks") and self.sucks > 1:
             raise InvalidDiceRoll
         if hasattr(self, "bangs") and self.bangs > 0 and \
-                (not isinstance(self.current_face, str) and self.current_face < 2):
+                (not isinstance(self.current_face, str) and
+                    self.current_face < 2):
             raise InvalidDiceRoll
         if hasattr(self, "sucks") and self.sucks > 0 and \
-                (not isinstance(self.current_face, str) and self.current_face < 2):
+                (not isinstance(self.current_face, str) and
+                    self.current_face < 2):
             raise InvalidDiceRoll
 
         if self.current_amount is None:
@@ -217,7 +216,7 @@ class diceRollListener(diceListener):
         else:
             imploding = False
 
-        warping = exploding or imploding
+        # warping = exploding or imploding
 
         approach_max_explosion = approach_max_implosion = 0
         rolled_dice = 0

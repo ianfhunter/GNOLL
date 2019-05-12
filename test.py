@@ -277,21 +277,29 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "d{1,2,2,3,3,3} ", lowest=1, highest=3)
         self.assertTrue(check_values, "d{-1..1} ", lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ", lowest=-1, highest=1)
+            check_values, "@EXTRA_CRIT_DICE=d{1,1,1,1,1..20,20,20,20,20}; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@EXTRAORDINARY_CRIT=d{1..20,100} ; ", lowest=-1, highest=1)
+            check_values, "@EXTRAORDINARY_CRIT=d{1..20,100} ; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@EXTRAORDINARY_CRIT = d{1..20,100} ; ", lowest=-1, highest=1)
+            check_values, "@EXTRAORDINARY_CRIT = d{1..20,100} ; ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dFailure=d{1,1,1,1,1..20} ; @dFailure  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1..20} ; @dFailure  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dFailure=d{1, 1,1,1,1..20} ; 5@dFailure<2c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1, 1,1,1,1..20} ; 5@dFailure<2c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dFailure=d{1,1 ,1,1,1..20} ; 5@dFailure#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1 ,1,1,1..20} ; 5@dFailure#1c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dFailure=d{1,1,1,1,1..20} ; 5@dFailure#20r#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1..20} ; 5@dFailure#20r#1c  ",
+            lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dFailure=d{1,1,1,1,1 .. 20} ; 5@dFailure#20R#1c  ", lowest=-1, highest=1)
+            check_values, "@dFailure=d{1,1,1,1,1 .. 20} ; 5@dFailure#20R#1c  ",
+            lowest=-1, highest=1)
         self.assertRaises(InvalidDiceRoll, check_values,
                           "@dEmpty=d{} ; @dEmpty", lowest=-1, highest=1)
         self.assertRaises(InvalidDiceRoll, check_values,
@@ -299,7 +307,8 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "@dStat=4d6D<7R;  ",
                         lowest=-1, highest=1)
         self.assertTrue(
-            check_values, "@dStat=4d6D<7R ; @dStat@7D<70R  ", lowest=-1, highest=1)
+            check_values, "@dStat=4d6D<7R ; @dStat@7D<70R  ",
+            lowest=-1, highest=1)
         self.assertTrue(check_values, "@A=d5 ; @B=9d2;  @A*@B ",
                         lowest=9, highest=90)
 
