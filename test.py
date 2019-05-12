@@ -203,6 +203,18 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(check_values, "d4@2", lowest=1, highest=4)
         self.assertTrue(check_values, "(1d4+1d10)@2", lowest=2, highest=14)
 
+    def test_conditions(self):
+        self.assertTrue(check_values, "1d4#4r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4>3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4<3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4>=3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+        self.assertTrue(check_values, "1d4<=3r", lowest=1,
+                        highest=4)  # Hard to tell if valid
+
     def test_clamping_rolls(self):
         print("\n== Clamping ==")
         spread("(1d100 + 1d100)>50")
@@ -341,6 +353,14 @@ class TestSuite(unittest.TestCase):
         self.assertRaises(InvalidDiceRoll, check_values,
                           "@d3~~~", lowest=-1, highest=1)
         self.assertTrue(check_values, "d100<75~", lowest=4, highest=28)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d1~", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d1!", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d0!", lowest=20, highest=3)
+        self.assertRaises(InvalidDiceRoll, check_values,
+                          "d0~", lowest=20, highest=3)
 
 
 if __name__ == "__main__":

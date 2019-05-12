@@ -19,5 +19,9 @@ lint:
 	python3 -m pyflakes dice.py
 	python3 -m pycodestyle dice.py
 
+coverage:
+	coverage run test.py
+	coverage report
+
 test: all
 	python3 test.py
