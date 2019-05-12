@@ -2,6 +2,7 @@
 
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
+
 from grammar.diceLexer import diceLexer
 from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener

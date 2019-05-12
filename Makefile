@@ -1,27 +1,18 @@
-
-# apt install antlr4
-# pip install antlr4-python3-runtime==ANTLRVERSION
-
-all:
+clean:
 	-rm grammar/* -r
-	antlr4 dice.g4 -o grammar -Dlanguage=Python3
 
-lint:
-	autopep8 test.py > tmp
-	cat tmp > test.py
-	autopep8 dice.py > tmp
-	cat tmp > dice.py
-	rm tmp
+python:
+	antlr4 dice.g4 -o python/grammar -Dlanguage=Python3
+	cd python ; make all ; cd ..
 
-	python3 -m pyflakes test.py
-	python3 -m pycodestyle test.py
+all : python
+	echo ""
 
-	python3 -m pyflakes dice.py
-	python3 -m pycodestyle dice.py
+test : all
+	cd python ; make test ; cd ..
 
-coverage:
-	coverage run test.py
-	coverage report
+lint :
+	cd python ; make lint ; cd ..
 
-test: all
-	python3 test.py
+
+.PHONY: clean python
