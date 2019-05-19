@@ -1,0 +1,2 @@
+
+int roll(char * str);
