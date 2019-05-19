@@ -6,7 +6,7 @@ grammar dice ;
 
 schema : (assignment)* (sequence (',' sequence)*)?;
 
-assignment : WSPACE? STRING WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
+assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
 
 variable: '@' STRING;
 
@@ -101,11 +101,14 @@ amount : INTEGER_NUMBER ;
 
 
 faces : INTEGER_NUMBER #StandardFace |
-        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace;
+        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace ;
 
 numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
 
-numeric_item : seq_item | MINUS? INTEGER_NUMBER ;
+
+numeric_item : seq_item |
+               MINUS? INTEGER_NUMBER |
+               STRING ;
 
 seq_item : MINUS? INTEGER_NUMBER WSPACE?  '..' WSPACE? MINUS? INTEGER_NUMBER ;
 

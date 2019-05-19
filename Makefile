@@ -3,6 +3,8 @@ clean:
 	#alias antlr4
 
 python:
+	cd external ; make download ; cd ..
+	bash ./setup_antlr.sh 4.7.2 Python3
 	antlr4 dice.g4 -o python/grammar -Dlanguage=Python3
 	cd python ; make all ; cd ..
 
@@ -27,4 +29,4 @@ install :
 	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn -DskipTests install
 	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn package
 
-.PHONY: clean python javascript
+.PHONY: clean python javascript all
