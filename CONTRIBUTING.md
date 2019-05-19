@@ -33,6 +33,9 @@ Please don't ask for timeline estimates nor for support in another projects code
 
 # Ground Rules
 
+## Leadership
+ * The [main author](https://github.com/ianfhunter/) has final decision and override authority for this project. This includes acceptance/denial/postphonement of features and contributions, ownership of financial contributions, enforcement of policies and discussion with third-parties. 
+
 ## Guidelines
  * Do work on branches and create Pull Requests to the master branch when ready.
  * Work cannot be merged unless passing all tests and build regressions.
