@@ -29,6 +29,8 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 ![CII Best Practices Tiered Percentage](https://img.shields.io/cii/percentage/2797.svg?label=CII%20Best%20Practises)
 [![Security Scanner](https://img.shields.io/badge/Security%20Scanner-DeepCodeAI-ff69b4.svg)](https://www.deepcode.ai)
 
+[![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
+
 ### Language Support
 
 Currently available in python, though multi-language is desired
