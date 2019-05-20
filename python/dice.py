@@ -105,9 +105,11 @@ def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
-            # print(x.current_total)
             if isinstance(x.current_total, list):
-                vals.append(x.current_total[0])
+                if len(x.current_total) == 1:
+                    vals.append(x.current_total[0])
+                else:
+                    vals.extend(x.current_total)
             else:
                 vals.append(x.current_total)
         else:
@@ -125,6 +127,12 @@ class Dice():
         if minmax:
             self.lowest = self.values[0]
             self.highest = self.values[-1]
+
+        self.type = "Numeric"
+        for x in values:
+            if type(x) == str:
+                self.type = "Alphabetic"
+
 
     def roll(self):
         global rand_fn
@@ -289,19 +297,19 @@ class diceRollListener(diceListener):
 
             if (multi_roll[-1] == d.highest and exploding):
                 approach_max_explosion += 1
-                if type(multi_roll[-1]) not in [int, float]:
+                if d.type == "Alphabetic":
                     rolled_dice = "".join(multi_roll)
                 else:
                     rolled_dice = sum(multi_roll)
             elif (multi_roll[-1] == d.lowest and imploding):
                 approach_max_implosion += 1
                 # SHould probably not be sum
-                if type(multi_roll[-1]) not in [int, float]:
+                if d.type == "Alphabetic":
                     rolled_dice = "".join(multi_roll)
                 else:
                     rolled_dice = sum(multi_roll)
             else:
-                if type(multi_roll[-1]) not in [int, float]:
+                if d.type == "Alphabetic":
                     ctx.current_total = "".join(multi_roll)
                 else:
                     rolled_dice = sum(multi_roll)
@@ -350,8 +358,21 @@ class diceRollListener(diceListener):
     def exitCount(self, ctx):
         raise NotImplementedError
 
-    def exitCustomFace(self, ctx):
+    def exitNumeric_sequence(self, ctx):
+        ctx.current_total = getEmbeddedValues(ctx)
+
+    def exitNumeric_item(self, ctx):
+        if hasattr(ctx, "current_total"):
+            ctx.current_total.append(ctx.getText())
+        else:
+            ctx.current_total = ctx.getText()
+
+    def exitSeq_item(self, ctx):
         raise NotImplementedError
+
+    def exitCustomFace(self, ctx):
+        values = getEmbeddedValues(ctx)
+        ctx.dice_class = Dice(values)
 
     def exitValue(self, ctx):
         vals = getEmbeddedValues(ctx)

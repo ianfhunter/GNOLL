@@ -86,6 +86,8 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
     if isInt:
         expected = np.arange(lowest, highest+1)
     else:
+        lowest = str(lowest)
+        highest = str(highest)
         expected = [lowest.strip(), highest.strip()]
 
     # data = np.unique(np.array(data).flatten())

@@ -63,7 +63,7 @@ class TestSuite(unittest.TestCase):
             for x in reader:
 
                 if debug:
-                    print("\n>", x["roll"], "[", testfile, "]")
+                    print("\n>", x["roll"], "[", testfile.name, "]")
 
                 if x["errors"].strip() == "True":
                     self.assertRaises((InvalidDiceRoll,

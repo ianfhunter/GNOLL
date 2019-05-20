@@ -1,12 +1,12 @@
 roll,low,high,errors
 "30d20<15r", 2, 13, False
-"30d20<15R", 2, 13, False
+"30d20<15rr", 2, 13, False
 "30d20<15r2", 2, 13, False
 "30d20<15r2>15£", 2, 13, False
-"30d20<16R>15£", 2, 13, False
+"30d20<16rr>15£", 2, 13, False
 "30d20#1r", 2, 13, False
 "30d20#10r", 2,13, False
 "30d20#10r2", 2,13, False
-"30d20#10R", 2, 13, False
-"((4d6D)@7)<70R", 2, 13, False
-"((4d6D<8R)@7)<70R", 2, 13, False
+"30d20#10rr", 2, 13, False
+"((4d6kl6)@7)<70rr", 2, 13, False
+"((4d6kl6<8rr)@7)<70rr", 2, 13, False
