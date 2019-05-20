@@ -6,7 +6,7 @@ grammar dice ;
 
 schema : (assignment)* (sequence (',' sequence)*)?;
 
-assignment : WSPACE? STRING WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
+assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
 
 variable: '@' STRING;
 
@@ -78,9 +78,9 @@ condition :
 
 reroll : condition (rr_times | rr_all);
 rr_times : 'r' amount? ;
-rr_all : 'R' ;
+rr_all : 'rr' ;
 
-subset : subset_standard_notation | subset_rolegate_notation | subset_rolegate_drop_notation;
+subset : subset_standard_notation | subset_rolegate_notation; //  | subset_rolegate_drop_notation
 
 subset_standard_notation :
     MINUS subset_size? SNLow #LowerSN |
@@ -90,9 +90,9 @@ subset_rolegate_notation :
     RNLow subset_size? #LowerRN |
     RNHigh subset_size? #HigherRN ;
 
-subset_rolegate_drop_notation :
-    RNDLow subset_size? #LowerRND |
-    RNDHigh subset_size? #HigherRND ;
+// subset_rolegate_drop_notation :
+//     RNDLow subset_size? #LowerRND |
+//     RNDHigh subset_size? #HigherRND ;
 
 
 // NUMERIC MEANINGS
@@ -101,13 +101,17 @@ amount : INTEGER_NUMBER ;
 
 
 faces : INTEGER_NUMBER #StandardFace |
-        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace;
+        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace ;
 
 numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
 
-numeric_item : seq_item | MINUS? INTEGER_NUMBER ;
+
+numeric_item : seq_item |
+               MINUS? INTEGER_NUMBER |
+               STRING;
 
 seq_item : MINUS? INTEGER_NUMBER WSPACE?  '..' WSPACE? MINUS? INTEGER_NUMBER ;
+
 
 // Symbols
 die     : 'd';
@@ -128,18 +132,23 @@ CLOSE_BRACKET : ')';
 OPEN_BRACE : '{';
 CLOSE_BRACE : '}';
 
-SNHigh : ('H'|'h');
-SNLow : ('L'|'l');
-RNHigh : ('k'|'K'|'KH'|'kh');
-RNLow : ('KL'|'kl');
-RNDHigh : ('DH'|'dh'| 'Dh'| 'dH');
-RNDLow : ('D'|'DL'|'Dl' );  // d should be preserved as key letter
+SNHigh : ('h');
+SNLow : ('l');
+RNHigh : ('k'|'kh');
+RNLow : ('kl');
+// RNDHigh : ('dh');
+// RNDLow : ('dl' );  // d should be preserved as key letter
 
 
 // Data Types
 INTEGER_NUMBER : DIGIT+ ;
 WSPACE : BLANK+;
 STRING : CHAR+;
+
+UPPER_CASE_STRING : UPCHAR+;
+
+
 fragment DIGIT   :   ('0'..'9');
 fragment BLANK   : (' ' | '\t')+;
 fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');
+fragment UPCHAR    : ('A'..'Z');

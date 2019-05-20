@@ -58,24 +58,25 @@ class TestSuite(unittest.TestCase):
         print("\n==", getMetaInfo(path)["printname"], "==")
 
         with open(path, mode="r") as testfile:
-            reader = csv.DictReader(testfile)
+            reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
+            # reader = csv.DictReader(testfile)
             for x in reader:
 
                 if debug:
-                    print("\n>", x["roll"], "[", testfile, "]")
+                    print("\n>", x["roll"], "[", testfile.name, "]")
 
                 if x["errors"].strip() == "True":
                     self.assertRaises((InvalidDiceRoll,
                                        GrammarParsingException),
                                       check_values,
                                       x["roll"],
-                                      lowest=int(x["low"]),
-                                      highest=int(x["high"]))
+                                      lowest=x["low"],
+                                      highest=x["high"])
                 else:
                     self.assertTrue(check_values,
                                     x["roll"],
-                                    lowest=int(x["low"]),
-                                    highest=int(x["high"]))
+                                    lowest=x["low"],
+                                    highest=x["high"])
 
     def test_language_independant_dice(self):
         path = "../tests/"

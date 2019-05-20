@@ -16,9 +16,9 @@ alias antlr4
 if [ "$2" == "Javascript" ]; then
     echo "==> Build Antlr for Javascript"
     antlr4 -Dlanguage=JavaScript dice.g4 -o javascript/grammar
-elif [ "$2" == "Python" ]; then
+elif [ "$2" == "Python3" ]; then
     echo "==> Build Antlr for Python"
-    antlr4 dice.g4 -o python/grammar -Dlanguage=Python
+    antlr4 dice.g4 -o python/grammar -Dlanguage=Python3
 else
     echo "Error, Setup Incorrect Params: $1, $2"
     exit 1

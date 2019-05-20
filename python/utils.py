@@ -40,16 +40,28 @@ def spread(s, fail=False):
     v = []
     v.append(testLow(s))
     v.append(testHigh(s))
-    vs = np.arange(v[0], v[1]+1)
-    return vs
 
 
-def not_random_lowest(randint_start=0, randint_end=99):
-    return randint_start
+    isInt = True
+    try:
+        v[0] = int(v[0])
+        v[1] = int(v[1])
+    except:
+        isInt = False
+
+    if isInt:
+        vs = np.arange(v[0], v[1]+1)
+        return vs
+    else:
+        return list(v)
 
 
-def not_random_highest(randint_start=0, randint_end=99):
-    return randint_end
+def not_random_lowest(data):
+    return data[0]
+
+
+def not_random_highest(data):
+    return data[-1]
 
 
 def testHigh(s):
@@ -64,8 +76,21 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
 
     data = spread(roll_text)
 
-    expected = np.arange(lowest, highest+1)
-    data = np.unique(np.array(data).flatten())
+    isInt = True
+    try:
+        lowest = int(lowest)
+        highest = int(highest)
+    except:
+        isInt = False
+
+    if isInt:
+        expected = np.arange(lowest, highest+1)
+    else:
+        lowest = str(lowest)
+        highest = str(highest)
+        expected = [lowest.strip(), highest.strip()]
+
+    # data = np.unique(np.array(data).flatten())
     if debug:
         print(data, expected)
 
