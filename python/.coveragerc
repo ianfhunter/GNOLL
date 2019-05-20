@@ -1,3 +1,7 @@
 [run]
 source = .
-omit = grammar/*
+omit = 
+    # Auto-Generated Files
+    grammar/*
+    # Python Library files
+    */site-packages/
