@@ -8,5 +8,5 @@ roll,low,high,errors
 "30d20#10r", 2,13, False
 "30d20#10r2", 2,13, False
 "30d20#10rr", 2, 13, False
-"((4d6kl6)@7)<70rr", 2, 13, False
-"((4d6kl6<8rr)@7)<70rr", 2, 13, False
+"((4d6kl6)x7)<70rr", 2, 13, False
+"((4d6kl6<8rr)x7)<70rr", 2, 13, False

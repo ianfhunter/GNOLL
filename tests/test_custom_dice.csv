@@ -10,16 +10,16 @@ roll,low,high,errors
 " @EXTRA_CRIT_DICE = d { 1 , 1 , 1 , 1 , 1..20 , 20 , 20,20,20 } ; ", -1, 1, False
 "@EXTRAORDINARY_CRIT=d{1..20,100} ; ", -1, 1, False
 "@EXTRAORDINARY_CRIT = d{1..20,100} ; ", -1, 1, False
-"@dFailure=d{1,1,1,1,1..20} ; @dFailure  ", -1, 1, False
-"@dFailure=d{1, 1,1,1,1..20} ; 5@dFailure<2c  ", -1, 1, False
-"@dFailure=d{1,1 ,1,1,1..20} ; 5@dFailure#1c  ", -1, 1, False
-"@dFailure=d{1,1,1,1,1..20} ; 5@dFailure#20r#1c  ", -1, 1, False
-"@dFailure=d{1,1,1,1,1 .. 20} ; 5@dFailure#20R#1c  ", -1, 1, False
-"@dEmpty=d{} ; @dEmpty", -1, 1, True
-"@dEmpty=d{} ;", -1, 1, True
-"@dStat=4d6kl6<7rr;  ", -1, 1, False
-"@dStat=4d6kl6<7rr ; @dStat@7kl6<70rr  ", -1, 1, False
+"@FAILURE=d{1,1,1,1,1..20} ; @dFailure  ", -1, 1, False
+#"@FAILURE=d{1, 1,1,1,1..20} ; 5@FAILURE<2c  ", -1, 1, False
+#"@FAILURE=d{1,1 ,1,1,1..20} ; 5@FAILURE#1c  ", -1, 1, False
+#"@FAILURE=d{1,1,1,1,1..20} ; 5@FAILURE#20r#1c  ", -1, 1, False
+#"@FAILURE=d{1,1,1,1,1 .. 20} ; 5@FAILURE#20rr#1c  ", -1, 1, False
+"@EMPTY=d{} ; @EMPTY", -1, 1, True
+"@EMPTY=d{} ;", -1, 1, True
+"@STAT=4d6kl6<7rr;  ", -1, 1, False
+"@STAT=4d6kl6<7rr ; @STATx7kl6<70rr  ", -1, 1, False
 "@A=d5 ; @B=9d2;  @A*@B ", 9, 90, False
 #"@d3!!!", -1, 1, True
 #"@d3~~~", -1, 1, True
-# "@Poker=d{9,10,J,Q,K,A} ; @Poker ", 0, 0, False
+# "@POKER=d{9,10,J,Q,K,A} ; @POKER ", 0, 0, False

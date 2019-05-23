@@ -65,24 +65,33 @@ class TestSuite(unittest.TestCase):
                 if debug:
                     print("\n>", x["roll"], "[", testfile.name, "]")
 
-                if x["errors"].strip() == "True":
-                    self.assertRaises((InvalidDiceRoll,
-                                       GrammarParsingException),
-                                      check_values,
-                                      x["roll"],
-                                      lowest=x["low"],
-                                      highest=x["high"])
-                else:
-                    self.assertTrue(check_values,
-                                    x["roll"],
-                                    lowest=x["low"],
-                                    highest=x["high"])
+                try:
+                    if x["errors"].strip() == "True":
+                        self.assertRaises((InvalidDiceRoll,
+                                        GrammarParsingException),
+                                        check_values,
+                                        x["roll"],
+                                        lowest=x["low"],
+                                        highest=x["high"])
+                    else:
+                        self.assertTrue(check_values,
+                                        x["roll"],
+                                        lowest=x["low"],
+                                        highest=x["high"])
+                except Exception as e:
+                    print("TEST ERROR ["+x["roll"]+"]: ", e, "Continuing..")
 
     def test_language_independant_dice(self):
         path = "../tests/"
         tests = glob.glob(path+"test*.csv")
-        for f in tests:
-            self.run_tests_from_file(f)
+
+        mpath = "../tests/meta_test_info.csv"
+
+        with open(mpath, mode="r") as testfile:
+            reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
+            for x in reader:
+                self.run_tests_from_file(path+x["filename"])
+
         print("\n")
         global supported
         global unsupported
@@ -97,7 +106,7 @@ def getMetaInfo(fname):
         fname = fname.split('/')[-1]
 
     with open(path, mode="r") as testfile:
-        reader = csv.DictReader(testfile)
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
         for x in reader:
             if x["filename"] == fname:
                 return x
