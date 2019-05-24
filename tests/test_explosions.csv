@@ -4,8 +4,13 @@ roll,low,high,errors
 "d100>75!", 4, 28, False
 "d100<75~", 4, 28, False
 "dF~", --------------------, +, False
+#"d{A,B,C}~", --------------------, +, False
 "d1~", 20, 3, True
 "d1!", 20, 3, True
 "d0!", 20, 3, True
 "d0~", 20, 3, True
-"d3~", 20, 3, True
+"d3~", 20, 3, False
+
+# How should these operate?
+"d3~~", 20, 3, True
+"d3!!", 20, 3, True

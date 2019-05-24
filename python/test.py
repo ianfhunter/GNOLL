@@ -8,6 +8,7 @@ from utils import check_values, suppress_prints
 
 import csv
 import glob
+import subprocess
 
 supported = 0
 unsupported = 0
@@ -97,6 +98,11 @@ class TestSuite(unittest.TestCase):
         global unsupported
         print(supported, "Supported,", unsupported, "Unsupported")
 
+    def test_cmdline(self):
+        output = subprocess.check_output(["python3","dice.py","1d4"])
+        output = output.decode('ascii')
+        val = int(output.split(":")[1])
+        self.assertIn(val, range(1,5))
 
 def getMetaInfo(fname):
     # TODO: Absolute Path

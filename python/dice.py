@@ -194,14 +194,6 @@ class diceRollListener(diceListener):
         self.variable_table[var] = die
         raise NotImplementedError
 
-    def enterMacroFace(self, ctx):
-        raise NotImplementedError
-
-    def exitFaces(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-        # for x in ctx.getChildren():
-        #     print(type(x))
-
     def exitMultiItem(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
 
