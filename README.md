@@ -33,7 +33,13 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 ### Language Support
 
-Currently available in python, though multi-language is desired
+Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
+
+Primary Support:
+ - Python
+Intended Support for next major release:
+ - C
+ - Javascript
 
 ## Getting Started
 
