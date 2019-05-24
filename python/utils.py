@@ -25,11 +25,10 @@ def graph(values, name):
 def display(s):
     # Show a sample distribution
     v = []
-    for n in range(10000):
+    for n in range(1000):
         v.append(roll(s))
 
-    if False:
-        graph(v, s)
+    graph(v, s)
     return v
 
 

@@ -4,9 +4,10 @@ import unittest
 import xmlrunner
 
 from dice import GrammarParsingException, InvalidDiceRoll
-from utils import check_values, suppress_prints
+from utils import check_values, suppress_prints, display
 
 import csv
+import os
 import glob
 import subprocess
 
@@ -102,7 +103,12 @@ class TestSuite(unittest.TestCase):
         output = subprocess.check_output(["python3","dice.py","1d4"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
-        self.assertIn(val, range(1,5))
+        self.assertIn(val, range(1, 5))
+
+    def test_display(self):
+        display("1d4")
+        self.assertIn("1d4.png", os.listdir("."))
+
 
 def getMetaInfo(fname):
     # TODO: Absolute Path
