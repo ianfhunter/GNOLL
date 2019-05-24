@@ -1,16 +1,15 @@
 
 grammar dice ;
 
-//TODO:
-// Some INTEGER_NUMBERS should allow negative numbs
-
-schema : (assignment)* (sequence (',' sequence)*)?;
+schema : assignment* WSPACE? sequence? WSPACE? EOF;
 
 assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
 
-variable: '@' STRING;
+variable: '@' UPPER_CASE_STRING;
 
-sequence : WSPACE? dice_roll WSPACE?  ;
+sequence :
+    sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence #MultiItem |
+    dice_roll #BubbleRoll;
 
 dice_roll : math_addsub ;
 
@@ -101,14 +100,16 @@ amount : INTEGER_NUMBER ;
 
 
 faces : INTEGER_NUMBER #StandardFace |
-        WSPACE? OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE WSPACE? #CustomFace ;
+        OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE #CustomFace ;
 
-numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
-
+// numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
+numeric_sequence :
+    numeric_sequence WSPACE? COMMA WSPACE? numeric_sequence #NSequence |
+    numeric_item #NItem ;
 
 numeric_item : seq_item |
                MINUS? INTEGER_NUMBER |
-               STRING;
+               (SYMBOL);
 
 seq_item : MINUS? INTEGER_NUMBER WSPACE?  '..' WSPACE? MINUS? INTEGER_NUMBER ;
 
@@ -125,7 +126,10 @@ MULT    : '*';
 DIV     :  '/';
 MODULO     :  '%';
 DIV_RUP :  '|';
-SEVERAL : '@';
+SEVERAL : 'x';
+
+COMMA : ',';
+ITEM_SEPERATOR : ':';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';
@@ -143,12 +147,21 @@ RNLow : ('kl');
 // Data Types
 INTEGER_NUMBER : DIGIT+ ;
 WSPACE : BLANK+;
+
+
+SYMBOL    : (CHESS_U | CARDS_U | UPCHAR);
+UPPER_CASE_STRING : (UPCHAR|UNDERSCORE)+;
+LOWER_CASE_STRING : LOCHAR+;
 STRING : CHAR+;
 
-UPPER_CASE_STRING : UPCHAR+;
+fragment UPCHAR    : ('A'..'Z');
+fragment UNDERSCORE: '_';
+fragment LOCHAR    : ('a'..'z');
 
 
 fragment DIGIT   :   ('0'..'9');
 fragment BLANK   : (' ' | '\t')+;
 fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');
-fragment UPCHAR    : ('A'..'Z');
+
+fragment CHESS_U : '\u2654'..'\u265F' ;
+fragment CARDS_U : '\u2660'..'\u2667' ; // Suits

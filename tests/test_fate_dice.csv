@@ -3,8 +3,18 @@ roll,low,high,errors
 "1dF", -, +, False
 "3dF", ---, +++, False
 "dF+dF", --, ++, False
-"10dF-2dF", -, ++++++++, False
-"2dF-20dF", ++++++++++++++++++, ------------------, False
-"d10+dF", -----------, +++++++++++, False
-"3d100@3dF", ----, ++++++++++++++++++++++++++++, False
+
+# Subtraction can make no sense for string dice if they do not contain the same items
+"10dF-2dF", -, ++++++++, True
+"2dF-20dF", ++++++++++++++++++, ------------------, True
+
+# You also should not be able to add numbers and strings together
+"d10+dF", -----------, +++++++++++, True
+
+#And you cannot use strings as a condition on numbers
+"2d4x3dF", ----, ++++++++++++++++++++++++++++, True
+
+# You can do the reverse though.
+"3dFx2d4", ----, ++++++++++++++++++++++++++++,False
+
 "3df!", ---, ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++, False

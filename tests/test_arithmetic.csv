@@ -22,3 +22,19 @@ roll,low,high,errors
 " ( 1d4 + 1d10 ) * 2", 4, 28, False
 "d4^d4", 1, 256, False
 "d20%2", 1, 0, False
+
+# String Math does not make sense most of the time
+"dF*dF", 0,0, True
+"dF/dF",0,0,True
+"dF|dF",0,0,True
+"dF%dF",0,0,True
+"dF+dF","--","++",False
+"dF-dF",0,0,True
+
+"dF*d3", "-","+++", False
+"dF/d3",0,0,True
+"dF|d3",0,0,True
+"dF%d3",0,0,True
+"dF+d3",0,0,True
+"dF-d3",0,0,True
+

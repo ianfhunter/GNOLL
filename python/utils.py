@@ -25,11 +25,10 @@ def graph(values, name):
 def display(s):
     # Show a sample distribution
     v = []
-    for n in range(10000):
+    for n in range(1000):
         v.append(roll(s))
 
-    if False:
-        graph(v, s)
+    graph(v, s)
     return v
 
 
@@ -86,11 +85,25 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
     if isInt:
         expected = np.arange(lowest, highest+1)
     else:
-        lowest = str(lowest)
-        highest = str(highest)
-        expected = [lowest.strip(), highest.strip()]
+        lowest = str(lowest).strip().replace("\"", "")
+        highest = str(highest).strip().replace("\"", "")
 
-    # data = np.unique(np.array(data).flatten())
+        if ":" in lowest:
+            # Sequence
+            lowest = [ x for x in lowest.split(":")]
+            highest = [ x for x in highest.split(":")]
+
+            try:
+                lowestInt = [int(x) for x in lowest]
+                highestInt = [int(x) for x in highest]
+                lowest = lowestInt
+                highest = highestInt
+            except:
+                pass
+
+        expected = [lowest, highest]
+
+    # debug = True
     if debug:
         print(data, expected)
 

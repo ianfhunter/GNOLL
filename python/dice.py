@@ -2,6 +2,7 @@
 
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
+from antlr4.tree.Trees import Trees
 
 from grammar.diceLexer import diceLexer
 from grammar.diceParser import diceParser
@@ -56,7 +57,7 @@ def choose_item(items):
     return choice(items)
 
 
-def roll(s, override_rand=None, grammar_errors=True):
+def roll(s, override_rand=None, grammar_errors=True, debug=False):
     global rand_fn
 
     if override_rand is not None:
@@ -73,12 +74,20 @@ def roll(s, override_rand=None, grammar_errors=True):
     parser = diceParser(stream)
 
     tree = parser.schema()
+
+    if debug:
+        print("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
+
     printer = diceRollListener()
 
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
 
     if parser.getNumberOfSyntaxErrors() > 0:
+
+        print("Syntax Errors Observed: Original String: ", s)
+        print("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
+
         raise GrammarParsingException
 
     return printer.result
@@ -124,6 +133,7 @@ class Dice():
 
         self.values = values
         self.name = name
+        self.roll_record = []
         if minmax:
             self.lowest = self.values[0]
             self.highest = self.values[-1]
@@ -133,10 +143,11 @@ class Dice():
             if type(x) == str:
                 self.type = "Alphabetic"
 
-
     def roll(self):
         global rand_fn
-        return rand_fn(self.values)
+        this_roll = rand_fn(self.values)
+        self.roll_record.append(this_roll)
+        return this_roll
 
 
 class diceRollListener(diceListener):
@@ -183,19 +194,15 @@ class diceRollListener(diceListener):
         self.variable_table[var] = die
         raise NotImplementedError
 
-    def enterMacroFace(self, ctx):
-        raise NotImplementedError
-
-    def exitFaces(self, ctx):
+    def exitMultiItem(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-        # for x in ctx.getChildren():
-        #     print(type(x))
+
 
     def exitSchema(self, ctx):
         # todo - many
         self.result = getEmbeddedValues(ctx)
         if len(self.result) > 1:
-            raise NotImplementedError
+            self.result = self.result
         else:
             self.result = self.result[0]
         # return self.result, self.rolls
@@ -385,16 +392,18 @@ class diceRollListener(diceListener):
     def exitAdd(self, ctx):
         vals = getEmbeddedValues(ctx)
         if type(vals[0]) != type(vals[1]):
-            raise NotImplementedError
+            raise InvalidDiceRoll
         ctx.current_total = vals[0] + vals[1]
 
     def exitSub(self, ctx):
         vals = getEmbeddedValues(ctx)
         if type(vals[0]) is str or type(vals[1]) is str:
-            raise NotImplementedError
+            raise InvalidDiceRoll
         ctx.current_total = vals[0] - vals[1]
 
     def exitSeveral(self, ctx):
+        d = getEmbeddedDiceRoll(ctx)
+
         raise NotImplementedError
 
     def exitMul(self, ctx):
