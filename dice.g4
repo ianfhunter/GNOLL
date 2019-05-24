@@ -30,7 +30,7 @@ math_muldiv :
 
 math_several :
     // Multiple, Division
-    math_several  WSPACE? SEVERAL  WSPACE? math_several #Several |
+    math_several  WSPACE? SEVERAL  WSPACE? math_several #Sev |
     math_pow #BubblePow;
 
 math_pow :

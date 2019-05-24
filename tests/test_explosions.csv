@@ -9,7 +9,10 @@ roll,low,high,errors
 "d1!", 20, 3, True
 "d0!", 20, 3, True
 "d0~", 20, 3, True
-"d3~", 20, 3, False
+
+# Should be negative only
+"d3~", 20, 3, True
+"d{-1,0,1}~", -20, 1, False
 
 # How should these operate?
 "d3~~", 20, 3, True

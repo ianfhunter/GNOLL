@@ -14,6 +14,7 @@ import math
 import sys
 
 rand_fn = None
+log = None
 
 warnings.simplefilter('always')
 
@@ -21,9 +22,39 @@ MAX_EXPLOSION = 20
 MAX_IMPLOSION = 20
 
 
+class Verbosity():
+    def __init__(self, verbosity_level):
+        self.level = verbosity_level
+
+        self.ERROR = 1
+        self.WARN = 2
+        self.INFO = 3
+        self.DEBUG = 4
+
+    def eprint(self, *args):
+        # error
+        if self.level >= self.ERROR:
+            print(*args)
+
+    def wprint(self, *args):
+        # warn
+        if self.level >= self.WARN:
+            print(*args)
+
+    def iprint(self, *args):
+        # info
+        if self.level >= self.INFO:
+            print(*args)
+
+    def dprint(self, *args):
+        # Debug
+        if self.level >= self.DEBUG:
+            print(*args)
+
+
+
 class InvalidDiceRoll(Exception):
     pass
-
 
 class GrammarParsingException(Exception):
     pass
@@ -57,8 +88,20 @@ def choose_item(items):
     return choice(items)
 
 
-def roll(s, override_rand=None, grammar_errors=True, debug=False):
+def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INFO"):
     global rand_fn
+    global log
+
+    if verbosity == "ERROR":
+        log = Verbosity(1)
+    if verbosity == "WARN":
+        log = Verbosity(2)
+    if verbosity == "INFO":
+        log = Verbosity(3)
+    if verbosity == "DEBUG":
+        log = Verbosity(3)
+    assert(log is not None)
+
 
     if override_rand is not None:
         rand_fn = override_rand
@@ -75,8 +118,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False):
 
     tree = parser.schema()
 
-    if debug:
-        print("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
+    log.dprint("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
 
     printer = diceRollListener()
 
@@ -94,6 +136,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False):
 
 
 def bubbleImportantFields(ctx):
+    # Children give their attributes to their parents
     for x in ctx.getChildren():
         if not hasattr(ctx, "dice_class") and hasattr(x, "dice_class"):
             ctx.dice_class = x.dice_class
@@ -102,12 +145,17 @@ def bubbleImportantFields(ctx):
 
 
 def getEmbeddedDiceRoll(ctx):
-    die = None
+    die = []
     for x in ctx.getChildren():
         if hasattr(x, "dice_class"):
-            die = x.dice_class
+            die.append(x.dice_class)
 
-    return die
+    if len(die) > 1:
+        return die
+    elif len(die) == 1:
+        return die[0]
+    else:
+        return None
 
 
 def getEmbeddedValues(ctx):
@@ -123,6 +171,8 @@ def getEmbeddedValues(ctx):
                 vals.append(x.current_total)
         else:
             pass
+    if len(vals) == 1:
+        return vals[0]
     return vals
 
 class Dice():
@@ -143,11 +193,30 @@ class Dice():
             if type(x) == str:
                 self.type = "Alphabetic"
 
-    def roll(self):
+    def roll(self, save=True):
         global rand_fn
         this_roll = rand_fn(self.values)
-        self.roll_record.append(this_roll)
+        if save:
+            self.roll_record.append(this_roll)
         return this_roll
+
+    def reroll(self, replace=False, distinct=False):
+        """
+            Rolls more dice and appends to the dice already rolled unless "replace"
+            is True.
+            "distinct" will ensure the rolls are not saved inside the dice objectr
+        """
+        already_rolled = len(self.roll_record)
+        assert(already_rolled > 0)
+
+        if replace:
+            self.roll_record = []
+
+        rr = []
+        for x in range(already_rolled):
+            rr.append(self.roll(save=not distinct))
+
+        return rr
 
 
 class diceRollListener(diceListener):
@@ -199,13 +268,7 @@ class diceRollListener(diceListener):
 
 
     def exitSchema(self, ctx):
-        # todo - many
         self.result = getEmbeddedValues(ctx)
-        if len(self.result) > 1:
-            self.result = self.result
-        else:
-            self.result = self.result[0]
-        # return self.result, self.rolls
 
     def exitBang(self, ctx):
         self.bangs = len([c for c in ctx.getText() if c == '!'])
@@ -262,7 +325,7 @@ class diceRollListener(diceListener):
             raise InvalidDiceRoll
         if hasattr(self, "sucks") and self.sucks > 0 and \
                 (not isinstance(d.lowest, str) and
-                    d.lowest < 2):
+                    d.lowest > -1):  # TODO: Better conditions can be made
             raise InvalidDiceRoll
 
         if self.current_amount is None:
@@ -332,41 +395,43 @@ class diceRollListener(diceListener):
 
     def exitBubbleMulDiv(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitBubbleSeveral(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitBubblePow(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitBubbleNeg(self, ctx):
         # print("BUBBLE NEG")
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitNoNegate(self, ctx):
         # print("No Negate")
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitPower(self, ctx):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = math.pow(vals[0], vals[1])
 
     def exitNegate(self, ctx):
-        # print("Negate")
-
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = -vals[0]
+        ctx.current_total = -vals
 
     def exitCount(self, ctx):
         raise NotImplementedError
 
+    def exitNSequence(self, ctx):
+        ctx.current_total = getEmbeddedValues(ctx)
+
     def exitNumeric_sequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
+        print("Nums:", ctx.current_total)
 
     def exitNumeric_item(self, ctx):
         if hasattr(ctx, "current_total"):
@@ -379,15 +444,20 @@ class diceRollListener(diceListener):
 
     def exitCustomFace(self, ctx):
         values = getEmbeddedValues(ctx)
+        try:
+            v = [int(x) for x in values]
+            values = v
+        except ValueError:
+            pass
         ctx.dice_class = Dice(values)
 
     def exitValue(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitBrackets(self, ctx):
         vals = getEmbeddedValues(ctx)
-        ctx.current_total = vals[0]
+        ctx.current_total = vals
 
     def exitAdd(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -395,16 +465,33 @@ class diceRollListener(diceListener):
             raise InvalidDiceRoll
         ctx.current_total = vals[0] + vals[1]
 
+        ds = getEmbeddedDiceRoll(ctx)
+        ctx.dice_class = ds
+
     def exitSub(self, ctx):
         vals = getEmbeddedValues(ctx)
         if type(vals[0]) is str or type(vals[1]) is str:
             raise InvalidDiceRoll
         ctx.current_total = vals[0] - vals[1]
 
-    def exitSeveral(self, ctx):
+    def exitSev(self, ctx):
         d = getEmbeddedDiceRoll(ctx)
+        bvals = getEmbeddedValues(ctx)
 
-        raise NotImplementedError
+        if type(d) is list and len(d) > 1:
+            log.iprint("Repeating Dice arithmetic is not supported yet")
+            raise NotImplementedError
+
+        last_dice_roll = bvals[0]
+        times_to_repeat = bvals[1] - 1
+        if(times_to_repeat < 0):
+            raise InvalidDiceRoll
+
+        v = [last_dice_roll]
+        for x in range(times_to_repeat):
+            v.extend(d.reroll(distinct=True))
+        ctx.current_total = v
+        # print("reroll results:", ctx.current_total, type(ctx))
 
     def exitMul(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -459,15 +546,18 @@ class diceRollListener(diceListener):
             print("Negative Amount of Dice.")
             raise InvalidDiceRoll
 
-    def enterEveryRule(self, ctx, debug=False):
-        # debug=True
-        if debug:
-            print(ctx.__class__, "\t=", ctx.getText())
-            # print(list(ctx.getChildren()))
+    def enterEveryRule(self, ctx, ):
+        log.dprint(ctx.__class__, "\tText=", ctx.getText())
 
     def exitEveryRule(self, ctx):
         bubbleImportantFields(ctx)
+        if hasattr(ctx, "current_total"):
+            ct = ctx.current_total
+        else:
+            ct = "None"
+        log.dprint(ctx.__class__, "\t\tValue=", ct)
 
 
 if __name__ == "__main__":
-    print("Roll Result:", roll(sys.argv[1]))
+    # print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
+    print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))

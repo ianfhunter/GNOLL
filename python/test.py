@@ -81,7 +81,8 @@ class TestSuite(unittest.TestCase):
                                         lowest=x["low"],
                                         highest=x["high"])
                 except Exception as e:
-                    print("TEST ERROR ["+x["roll"]+"]: ", e, "Continuing..")
+                    print("✗")
+                    print("Exception ", e, "["+x["roll"]+"]: ")
 
     def test_language_independant_dice(self):
         path = "../tests/"
