@@ -26,7 +26,7 @@ def display(s):
     # Show a sample distribution
     v = []
     for n in range(1000):
-        v.append(roll(s))
+        v.append(roll(s, verbosity="ERROR"))
 
     graph(v, s)
     return v
@@ -64,11 +64,11 @@ def not_random_highest(data):
 
 
 def testHigh(s):
-    return roll(s, override_rand=not_random_highest)
+    return roll(s, override_rand=not_random_highest, verbosity="ERROR")
 
 
 def testLow(s):
-    return roll(s, override_rand=not_random_lowest)
+    return roll(s, override_rand=not_random_lowest, verbosity="ERROR")
 
 
 def check_values(roll_text, lowest=0, highest=0, debug=False):
@@ -105,7 +105,7 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
 
     # debug = True
     if debug:
-        print(data, expected)
+        print("CMP:", data, expected)
 
     return np.array_equal(data, expected), data, expected, roll_text
 
