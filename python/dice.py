@@ -20,16 +20,19 @@ warnings.simplefilter('always')
 
 MAX_EXPLOSION = 20
 MAX_IMPLOSION = 20
+REROLL_LIMIT = 20
 
 
 class Verbosity():
+
+    SILENT = 0
+    ERROR = 1
+    WARN = 2
+    INFO = 3
+    DEBUG = 4
+
     def __init__(self, verbosity_level):
         self.level = verbosity_level
-
-        self.ERROR = 1
-        self.WARN = 2
-        self.INFO = 3
-        self.DEBUG = 4
 
     def eprint(self, *args):
         # error
@@ -65,22 +68,22 @@ class MyErrorListener(ErrorListener):
         super(MyErrorListener, self).__init__()
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        print("syntaxError")
+        log.eprint("syntaxError")
         raise InvalidDiceRoll
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex,
                         exact, ambigAlts, configs):
-        print("reportAmbiguity")
+        log.wprint("reportAmbiguity")
         raise InvalidDiceRoll
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex,
                                     stopIndex, conflictingAlts, configs):
-        print("reportAttemptingFullContext")
-        raise InvalidDiceRoll
+        log.wprint("reportAttemptingFullContext")
+        # raise InvalidDiceRoll
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex,
                                  prediction, configs):
-        print("reportContextSensitivity")
+        log.eprint("reportContextSensitivity")
         raise InvalidDiceRoll
 
 
@@ -92,15 +95,19 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
     global rand_fn
     global log
 
+    if verbosity == "SILENT":
+        log = Verbosity(Verbosity.SILENT)
     if verbosity == "ERROR":
-        log = Verbosity(1)
-    if verbosity == "WARN":
-        log = Verbosity(2)
-    if verbosity == "INFO":
-        log = Verbosity(3)
-    if verbosity == "DEBUG":
-        log = Verbosity(3)
-    assert(log is not None)
+        log = Verbosity(Verbosity.ERROR)
+    elif verbosity == "WARN":
+        log = Verbosity(Verbosity.WARN)
+    elif verbosity == "INFO":
+        log = Verbosity(Verbosity.INFO)
+    elif verbosity == "DEBUG":
+        log = Verbosity(Verbosity.DEBUG)
+    else:
+        log.eprint("No Verbosity level named: ", verbosity)
+        raise ValueError
 
 
     if override_rand is not None:
@@ -115,6 +122,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
 
     stream = CommonTokenStream(lexer)
     parser = diceParser(stream)
+    parser.addErrorListener(MyErrorListener())
 
     tree = parser.schema()
 
@@ -157,6 +165,22 @@ def getEmbeddedDiceRoll(ctx):
     else:
         return None
 
+
+def condition_met(values, condition):
+
+    if condition == "GREATER":
+        return values[0] > values[1]
+    elif condition == "GREATER_EQUAL":
+        return values[0] >= values[1]
+    elif condition == "LESSER":
+        return values[0] < values[1]
+    elif condition == "LESSER_EQUAL":
+        return values[0] <= values[1]
+    elif condition == "EQUAL":
+        return values[0] == values[1]
+    else:
+        log.eprint("Condition not recognized:", condition)
+        raise ValueError()
 
 def getEmbeddedValues(ctx):
     vals = []
@@ -226,22 +250,35 @@ class diceRollListener(diceListener):
         self.variable_table = {}
 
     def exitExactMatch(self, ctx):
-        raise NotImplementedError
+        a = getEmbeddedValues(ctx)
+        self.check = "EQUAL"
+
+        ctx.current_total = int(ctx.getText().strip("#").strip("="))
 
     def exitLessOrEqualTo(self, ctx):
-        raise NotImplementedError
+        a = getEmbeddedValues(ctx)
+        self.check = "LESSER_EQUAL"
 
-    def exitGreaterThanOrEqualTo(self, ctx):
-        raise NotImplementedError
+        ctx.current_total = int(ctx.getText().strip("<").strip("="))
 
-    def enterLessThan(self, ctx):
-        raise NotImplementedError
+    def exitGreaterOrEqualTo(self, ctx):
+
+        a = getEmbeddedValues(ctx)
+        self.check = "GREATER_EQUAL"
+
+        ctx.current_total = int(ctx.getText().strip(">").strip("="))
 
     def exitLessThan(self, ctx):
-        raise NotImplementedError
+        a = getEmbeddedValues(ctx)
+        self.check = "LESSER"
+
+        ctx.current_total = int(ctx.getText().strip("<"))
 
     def exitGreaterThan(self, ctx):
-        raise NotImplementedError
+        a = getEmbeddedValues(ctx)
+        self.check = "GREATER"
+
+        ctx.current_total = int(ctx.getText().strip(">"))
 
     def exitSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
@@ -280,9 +317,54 @@ class diceRollListener(diceListener):
         raise NotImplementedError
 
     def exitReroll(self, ctx):
+        t = ctx.getText()
+        if "rr" in t:
+            self.rr = REROLL_LIMIT  # Keep rerolling forever
+        elif "r" in t:
+            tok = t.split("r")
+            try:
+                times = int(tok[-1])
+            except Exception:
+                times = 1
+
+            self.rr = times  # Reroll Once
+
+    def exitTryAgain(self, ctx):
+        a = getEmbeddedValues(ctx)
+        d = getEmbeddedDiceRoll(ctx)
+
+        log.dprint("Original Val:", a)
+
+        rerolls = 0
+        if not condition_met(a, self.check):
+            for x in range(self.rr):
+                rerolls += 1
+                log.iprint("Rerolling..")
+                rolled = d.reroll(replace=True)
+
+                if d.type == "Alphabetic":
+                    rolled_dice = "".join(rolled)
+                else:
+                    rolled_dice = sum(rolled)
+
+                log.iprint(rolled_dice, "replaces", a[0])
+
+                a[0] = rolled_dice
+                if condition_met(a, self.check):
+                    break
+
+        ctx.current_total = a[0]
+
+        if REROLL_LIMIT >= rerolls and not condition_met(a, self.check):
+            log.wprint("Maximum Reroll limit reached.")
+
+    def exitCountSuccess(self, ctx):
         raise NotImplementedError
 
     def exitCondition(self, ctx):
+        raise NotImplementedError
+
+    def exitCount(self, ctx):
         raise NotImplementedError
 
     def exitFateDie(self, ctx):
@@ -388,6 +470,7 @@ class diceRollListener(diceListener):
 
         if approach_max_explosion >= MAX_EXPLOSION or \
                 approach_max_implosion >= MAX_IMPLOSION:
+            log.wprint("Maximum Implosion/Explosion reached.")
             ctx.current_total = rolled_dice
 
         if False:
@@ -488,10 +571,10 @@ class diceRollListener(diceListener):
             raise InvalidDiceRoll
 
         v = [last_dice_roll]
+        log.iprint("Repeat")
         for x in range(times_to_repeat):
             v.extend(d.reroll(distinct=True))
         ctx.current_total = v
-        # print("reroll results:", ctx.current_total, type(ctx))
 
     def exitMul(self, ctx):
         vals = getEmbeddedValues(ctx)

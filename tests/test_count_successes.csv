@@ -1,3 +1,5 @@
 roll,low,high,errors
 "10d20>15£", 0, 10, False
 "100dF£", 0, 100, False
+"3d20<15r>15£", 2, 13, False
+"3d20<16rr>15£", 2, 13, False

@@ -45,8 +45,19 @@ math_neg :
 
 math_leaf :
     // Unit or Brackets
-    die_roll #Value |
+    alter_reroll #Value |
     OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET die_modifier? #Brackets ;
+
+
+alter_reroll :
+    alter_reroll reroll #TryAgain |
+    alter_successes #BubbleReroll;
+
+
+alter_successes :
+    alter_successes count #CountSuccess |
+    die_roll #BubbleSuccess;
+
 
 // A Die Roll Can be:
 // - NumdFace
@@ -56,9 +67,9 @@ die_roll :
     (amount? (die faces | fateDie | variable) die_modifier* ) |
     amount;
 
-die_modifier : (subset | reroll | bang | force | count );
+die_modifier : (subset | bang | force );
 
-count : ('£');
+count : condition? '£';
 
 bang : explode | implode ;
 
