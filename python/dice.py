@@ -289,7 +289,7 @@ class diceRollListener(diceListener):
     def exitAssignment(self, ctx):
 
         for idx, c in enumerate(ctx.getChildren()):
-            if '@' in c.getText():
+            if '#' in c.getText():
                 var = c.getText()[1:]
             try:
                 die = getEmbeddedDiceRoll(c)
@@ -388,7 +388,7 @@ class diceRollListener(diceListener):
         d = getEmbeddedDiceRoll(ctx)
 
         for c in ctx.getChildren():
-            if isinstance(c, diceParser.VariableContext):
+            if isinstance(c, diceParser.Access_variableContext):
                 raise NotImplementedError
 
         ctx.rolls = []
@@ -600,14 +600,16 @@ class diceRollListener(diceListener):
             raise NotImplementedError
         ctx.current_total = vals[0] // vals[1]
 
+    def exitDoBang(self, ctx):
+        raise NotImplementedError
+
     def exitDice_roll(self, ctx):
         ctx.current_total = 0
 
         for c in ctx.getChildren():
-            if isinstance(c, diceParser.Math_addsubContext):
+            # Needed?
+            if hasattr(c, "current_total"):
                 ctx.current_total = c.current_total
-            else:
-                print("Unknown type: ", type(c))
 
     def enterStandardFace(self, ctx):
 
@@ -642,5 +644,8 @@ class diceRollListener(diceListener):
 
 
 if __name__ == "__main__":
-    # print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
-    print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))
+    if len(sys.argv) > 2 and sys.argv[2] == "-D":
+        print("Debug Enabled")
+        print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
+    else:
+        print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))

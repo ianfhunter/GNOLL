@@ -1,17 +1,26 @@
 
 grammar dice ;
 
-schema : assignment* WSPACE? sequence? WSPACE? EOF;
+schema : WSPACE? assignment* sequence? WSPACE? EOF;
 
-assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
+assignment : store_variable WSPACE? '=' WSPACE? dice_roll WSPACE? END_ASSIGNMENT WSPACE? ;
 
-variable: '@' UPPER_CASE_STRING;
+access_variable: ACCESSOR UPPER_CASE_STRING;
+store_variable: STORAGE UPPER_CASE_STRING;
 
 sequence :
-    sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence #MultiItem |
+    sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence  #MultiItem |
     dice_roll #BubbleRoll;
 
-dice_roll : math_addsub ;
+dice_roll : alter_modifier ;
+
+alter_modifier:
+    alter_modifier bang #DoBang |
+    alter_modifier count #CountSuccess |
+    alter_modifier reroll #TryAgain |
+    alter_modifier subset #DoSubset |
+    alter_modifier force #DoForce |
+    math_addsub #BubbleModifier;
 
 // Math needs to have a heirarchy so that BOMDAS is observed
 math_addsub :
@@ -45,18 +54,8 @@ math_neg :
 
 math_leaf :
     // Unit or Brackets
-    alter_reroll #Value |
-    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET die_modifier? #Brackets ;
-
-
-alter_reroll :
-    alter_reroll reroll #TryAgain |
-    alter_successes #BubbleReroll;
-
-
-alter_successes :
-    alter_successes count #CountSuccess |
-    die_roll #BubbleSuccess;
+    die_roll #Value |
+    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET #Brackets ;
 
 
 // A Die Roll Can be:
@@ -64,19 +63,17 @@ alter_successes :
 // - dFace (implicit Num=1)
 // - Value (implicit Face=1)
 die_roll :
-    (amount? (die faces | fateDie | variable) die_modifier* ) |
+    amount? (die faces | fateDie | access_variable) |
     amount;
 
-die_modifier : (subset | bang | force );
-
-count : condition? '£';
+count : '£' condition? ;
 
 bang : explode | implode ;
 
-explode : condition? '!'+ ;
-implode : condition? '~'+ ;
+explode : '!' condition? ;
+implode : '~' condition? ;
 
-force : condition;
+force : '?' condition;
 
 condition :
     '#' INTEGER_NUMBER #exactMatch |
@@ -86,7 +83,7 @@ condition :
     '>' INTEGER_NUMBER #greaterThan ;
 
 
-reroll : condition (rr_times | rr_all);
+reroll : (rr_times | rr_all) condition? ;
 rr_times : 'r' amount? ;
 rr_all : 'rr' ;
 
@@ -139,8 +136,12 @@ MODULO     :  '%';
 DIV_RUP :  '|';
 SEVERAL : 'x';
 
+STORAGE : '#';
+ACCESSOR: '@';
+
 COMMA : ',';
 ITEM_SEPERATOR : ':';
+END_ASSIGNMENT: ';';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';
