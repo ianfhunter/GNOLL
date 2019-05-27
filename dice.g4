@@ -150,7 +150,7 @@ CLOSE_BRACE : '}';
 
 SNHigh : ('h');
 SNLow : ('l');
-RNHigh : ('k'|'kh');
+RNHigh : ('kh');
 RNLow : ('kl');
 // RNDHigh : ('dh');
 // RNDLow : ('dl' );  // d should be preserved as key letter

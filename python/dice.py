@@ -371,8 +371,48 @@ class diceRollListener(diceListener):
         ctx.dice_class = Dice(['-', '0', '+'], name="Fate")
         # raise NotImplementedError
 
-    def exitSubset(self, ctx):
-        raise NotImplementedError
+    def exitDoSubset(self, ctx):
+        a = getEmbeddedValues(ctx)
+        b = getEmbeddedDiceRoll(ctx)
+        c = ctx.getText()
+        dropLow = False
+        if "kl" in c:
+            dropLow = True
+            v = c.split("kl")[-1]
+            amount = int(v if v is not "" else 1)
+        elif "kh" in c:
+            v = c.split("kh")[-1]
+            amount = int(v if v is not "" else 1)
+        else:
+            log.iprint("Only rolegate notation supported")
+            raise NotImplementedError
+
+        for x in b.roll_record:
+            if type(x) is str:
+                raise NotImplementedError
+
+        if amount > len(b.roll_record):
+            log.eprint("Err: Trying to drop", amount, "from", len(b.roll_record))
+            raise InvalidDiceRoll
+        if amount == len(b.roll_record):
+            log.iprint("No need to drop")
+            return
+
+        amount = len(b.roll_record) - amount
+
+        if dropLow:
+            log.iprint("Dropping Low Values")
+            ctx.current_total = sorted(b.roll_record)[:-amount]
+        else:
+            log.iprint("Dropping High Values")
+            ctx.current_total = sorted(b.roll_record)[amount:]
+
+        if len(ctx.current_total) > 1:
+            if b.type == "Alphabetic":
+                ctx.current_total = "".join(ctx.current_total)
+            else:
+                ctx.current_total = sum(ctx.current_total)
+
 
     def exitVariable(self, ctx):
         self.variable_table[ctx.getText()[1:]] = "null"
