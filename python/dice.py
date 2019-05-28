@@ -12,6 +12,7 @@ from random import randint, choice
 import warnings
 import math
 import sys
+import os
 
 rand_fn = None
 log = None
@@ -91,29 +92,55 @@ def choose_item(items):
     return choice(items)
 
 
-def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INFO"):
+def predefined_macros():
+    preloaded_var_table = {}
+
+    f = open(os.path.join(os.getcwd(), "../builtins/macros.dice"))
+    for x in f:
+        x = x.rstrip()
+        if "//" in x or x.isspace():
+            continue
+        r = roll(x, load_predefines=False, __loading_macros=True, verbosity="null")
+        nvt = r[1]
+        preloaded_var_table.update(nvt)
+    f.close()
+
+    return preloaded_var_table
+
+
+def roll(s, override_rand=None, grammar_errors=True, debug=False,
+         verbosity="INFO", load_predefines=True, __loading_macros=False):
     global rand_fn
     global log
 
-    if verbosity == "SILENT":
-        log = Verbosity(Verbosity.SILENT)
-    if verbosity == "ERROR":
-        log = Verbosity(Verbosity.ERROR)
-    elif verbosity == "WARN":
-        log = Verbosity(Verbosity.WARN)
-    elif verbosity == "INFO":
-        log = Verbosity(Verbosity.INFO)
-    elif verbosity == "DEBUG":
-        log = Verbosity(Verbosity.DEBUG)
-    else:
-        log.eprint("No Verbosity level named: ", verbosity)
-        raise ValueError
+    verbosity.strip()
 
+    if verbosity != "null":
+        if verbosity == "SILENT":
+            log = Verbosity(Verbosity.SILENT)
+        elif verbosity == "ERROR":
+            log = Verbosity(Verbosity.ERROR)
+        elif verbosity == "WARN":
+            log = Verbosity(Verbosity.WARN)
+        elif verbosity == "INFO":
+            log = Verbosity(Verbosity.INFO)
+        elif verbosity == "DEBUG":
+            log = Verbosity(Verbosity.DEBUG)
+        else:
+            print("No Verbosity level named: \""+verbosity+"\"")
+            raise ValueError
 
-    if override_rand is not None:
-        rand_fn = override_rand
+    if not __loading_macros:
+        if override_rand is not None:
+            rand_fn = override_rand
+        else:
+            rand_fn = choose_item
+
+    if load_predefines: #and False:
+        vt = predefined_macros()
     else:
-        rand_fn = choose_item
+        vt = {}
+
 
     in_stream = InputStream(s)
     lexer = diceLexer(in_stream)
@@ -128,7 +155,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
 
     log.dprint("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
 
-    printer = diceRollListener()
+    printer = diceRollListener(vtable=vt)
 
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
@@ -140,7 +167,10 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
 
         raise GrammarParsingException
 
-    return printer.result
+    if __loading_macros:
+        return printer.result, printer.variable_table
+    else:
+        return printer.result
 
 
 def bubbleImportantFields(ctx):
@@ -167,6 +197,8 @@ def getEmbeddedDiceRoll(ctx):
 
 
 def condition_met(values, condition):
+    if condition is None:
+        return True
 
     if condition == "GREATER":
         return values[0] > values[1]
@@ -186,6 +218,8 @@ def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
+            if x.current_total == "null":
+                continue
             if isinstance(x.current_total, list):
                 if len(x.current_total) == 1:
                     vals.append(x.current_total[0])
@@ -198,6 +232,7 @@ def getEmbeddedValues(ctx):
     if len(vals) == 1:
         return vals[0]
     return vals
+
 
 class Dice():
     def __init__(self, values, minmax=True, name="Anonymous"):
@@ -244,10 +279,12 @@ class Dice():
 
 
 class diceRollListener(diceListener):
-    def __init__(self):
+    def __init__(self, vtable={}):
         self.rolls = []
         self.result = 0
-        self.variable_table = {}
+        self.variable_table = vtable
+        if vtable != {}:
+            log.iprint("Loaded Macros:", vtable)
 
     def exitExactMatch(self, ctx):
         a = getEmbeddedValues(ctx)
@@ -280,12 +317,6 @@ class diceRollListener(diceListener):
 
         ctx.current_total = int(ctx.getText().strip(">"))
 
-    def exitSequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-
-    def exitDuplicate(self, ctx):
-        raise NotImplementedError
-
     def exitAssignment(self, ctx):
 
         for idx, c in enumerate(ctx.getChildren()):
@@ -296,9 +327,9 @@ class diceRollListener(diceListener):
             except Exception:
                 pass
 
-        self.roll = die
+        # self.roll = die
         self.variable_table[var] = die
-        raise NotImplementedError
+        ctx.current_total = "null"
 
     def exitMultiItem(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
@@ -329,6 +360,9 @@ class diceRollListener(diceListener):
 
             self.rr = times  # Reroll Once
 
+    def enterTryAgain(self, ctx):
+        self.check = None
+
     def exitTryAgain(self, ctx):
         a = getEmbeddedValues(ctx)
         d = getEmbeddedDiceRoll(ctx)
@@ -336,6 +370,7 @@ class diceRollListener(diceListener):
         log.dprint("Original Val:", a)
 
         rerolls = 0
+
         if not condition_met(a, self.check):
             for x in range(self.rr):
                 rerolls += 1
@@ -358,13 +393,7 @@ class diceRollListener(diceListener):
         if REROLL_LIMIT >= rerolls and not condition_met(a, self.check):
             log.wprint("Maximum Reroll limit reached.")
 
-    def exitCountSuccess(self, ctx):
-        raise NotImplementedError
-
     def exitCondition(self, ctx):
-        raise NotImplementedError
-
-    def exitCount(self, ctx):
         raise NotImplementedError
 
     def exitFateDie(self, ctx):
@@ -413,9 +442,8 @@ class diceRollListener(diceListener):
             else:
                 ctx.current_total = sum(ctx.current_total)
 
-
-    def exitVariable(self, ctx):
-        self.variable_table[ctx.getText()[1:]] = "null"
+    def exitAccess_variable(self, ctx):
+        ctx.saved_var = self.variable_table[ctx.getText()[1:]]
 
     def enterDie_roll(self, ctx):
         self.current_face = None
@@ -429,7 +457,7 @@ class diceRollListener(diceListener):
 
         for c in ctx.getChildren():
             if isinstance(c, diceParser.Access_variableContext):
-                raise NotImplementedError
+                d = c.saved_var
 
         ctx.rolls = []
         ctx.current_total = 0
@@ -549,12 +577,11 @@ class diceRollListener(diceListener):
     def exitCount(self, ctx):
         raise NotImplementedError
 
+    def exitCountSuccess(self, ctx):
+        raise NotImplementedError
+
     def exitNSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-
-    def exitNumeric_sequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-        print("Nums:", ctx.current_total)
 
     def exitNumeric_item(self, ctx):
         if hasattr(ctx, "current_total"):
@@ -657,10 +684,10 @@ class diceRollListener(diceListener):
 
         self.current_face = number
         if(self.current_face < 0):
-            print("Negative Dice Face.", file=sys.stderr)
+            log.eprint("Negative Dice Face.")
             raise InvalidDiceRoll
         if(self.current_face < 0):
-            print("No Dice Face.", file=sys.stderr)
+            log.eprint("No Dice Face.")
             raise InvalidDiceRoll
 
         ctx.dice_class = Dice(list(range(1, number+1)))
@@ -668,7 +695,7 @@ class diceRollListener(diceListener):
     def enterAmount(self, ctx):
         self.current_amount = int(ctx.getText())
         if(self.current_amount < 0):
-            print("Negative Amount of Dice.")
+            log.eprint("Negative Amount of Dice.")
             raise InvalidDiceRoll
 
     def enterEveryRule(self, ctx, ):
@@ -687,5 +714,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2] == "-D":
         print("Debug Enabled")
         print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
+    elif len(sys.argv) > 2 and sys.argv[2] == "-Q":
+        print("Roll Result:", roll(sys.argv[1], verbosity="SILENT"))
     else:
         print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))

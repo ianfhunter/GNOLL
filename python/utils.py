@@ -22,10 +22,10 @@ def graph(values, name):
     plt.savefig(name+'.png')
 
 
-def display(s):
+def display(s, amount=20):
     # Show a sample distribution
     v = []
-    for n in range(1000):
+    for n in range(amount):
         v.append(roll(s, verbosity="ERROR"))
 
     graph(v, s)

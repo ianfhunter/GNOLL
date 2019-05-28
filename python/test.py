@@ -101,10 +101,15 @@ class TestSuite(unittest.TestCase):
         print(supported, "Supported,", unsupported, "Unsupported")
 
     def test_cmdline(self):
-        output = subprocess.check_output(["python3","dice.py","1d4"])
+        output = subprocess.check_output(["python3", "dice.py", "1d4", "-Q"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
         self.assertIn(val, range(1, 5))
+
+        output = subprocess.check_output(["python3", "dice.py", "1d4", "-D"])
+        # output = output.decode('ascii')
+        # val = int(output.split(":")[1])
+        # self.assertIn(val, range(1, 5))
 
     def test_display(self):
         display("1d4")

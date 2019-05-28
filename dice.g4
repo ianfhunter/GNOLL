@@ -83,7 +83,7 @@ condition :
     '>' INTEGER_NUMBER #greaterThan ;
 
 
-reroll : (rr_times | rr_all) condition? ;
+reroll : (rr_times | rr_all) condition ;
 rr_times : 'r' amount? ;
 rr_all : 'rr' ;
 
@@ -161,7 +161,7 @@ INTEGER_NUMBER : DIGIT+ ;
 WSPACE : BLANK+;
 
 
-SYMBOL    : (CHESS_U | CARDS_U | UPCHAR);
+SYMBOL    : (CHESS_U | CARDS_U | ZODIAC_U | RUNIC_U | ROMAN_NUMERALS_U | MISC_U | UPCHAR);
 UPPER_CASE_STRING : (UPCHAR|UNDERSCORE)+;
 LOWER_CASE_STRING : LOCHAR+;
 STRING : CHAR+;
@@ -177,3 +177,7 @@ fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');
 
 fragment CHESS_U : '\u2654'..'\u265F' ;
 fragment CARDS_U : '\u2660'..'\u2667' ; // Suits
+fragment ZODIAC_U : '\u2648'..'\u2653' | '\u26CE' ;
+fragment RUNIC_U : '\u16A0'..'\u16FE';
+fragment ROMAN_NUMERALS_U : '\u2160'..'\u217B';
+fragment MISC_U : '\u2596'..'\u27EF';
