@@ -8,10 +8,11 @@ from grammar.diceLexer import diceLexer
 from grammar.diceParser import diceParser
 from grammar.diceListener import diceListener
 
-from random import randint, choice
+from random import choice
 import warnings
 import math
 import sys
+import os
 
 rand_fn = None
 log = None
@@ -20,16 +21,19 @@ warnings.simplefilter('always')
 
 MAX_EXPLOSION = 20
 MAX_IMPLOSION = 20
+REROLL_LIMIT = 20
 
 
 class Verbosity():
+
+    SILENT = 0
+    ERROR = 1
+    WARN = 2
+    INFO = 3
+    DEBUG = 4
+
     def __init__(self, verbosity_level):
         self.level = verbosity_level
-
-        self.ERROR = 1
-        self.WARN = 2
-        self.INFO = 3
-        self.DEBUG = 4
 
     def eprint(self, *args):
         # error
@@ -52,9 +56,9 @@ class Verbosity():
             print(*args)
 
 
-
 class InvalidDiceRoll(Exception):
     pass
+
 
 class GrammarParsingException(Exception):
     pass
@@ -65,22 +69,22 @@ class MyErrorListener(ErrorListener):
         super(MyErrorListener, self).__init__()
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        print("syntaxError")
+        log.eprint("syntaxError")
         raise InvalidDiceRoll
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex,
                         exact, ambigAlts, configs):
-        print("reportAmbiguity")
+        log.wprint("reportAmbiguity")
         raise InvalidDiceRoll
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex,
                                     stopIndex, conflictingAlts, configs):
-        print("reportAttemptingFullContext")
-        raise InvalidDiceRoll
+        log.wprint("reportAttemptingFullContext")
+        # raise InvalidDiceRoll
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex,
                                  prediction, configs):
-        print("reportContextSensitivity")
+        log.eprint("reportContextSensitivity")
         raise InvalidDiceRoll
 
 
@@ -88,25 +92,55 @@ def choose_item(items):
     return choice(items)
 
 
-def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INFO"):
+def predefined_macros():
+    preloaded_var_table = {}
+
+    f = open(os.path.join(os.getcwd(), "../builtins/macros.dice"))
+    for x in f:
+        x = x.rstrip()
+        if "//" in x or x.isspace():
+            continue
+        r = roll(x, load_predefines=False,
+                 __loading_macros=True, verbosity="null")
+        nvt = r[1]
+        preloaded_var_table.update(nvt)
+    f.close()
+
+    return preloaded_var_table
+
+
+def roll(s, override_rand=None, grammar_errors=True, debug=False,
+         verbosity="INFO", load_predefines=True, __loading_macros=False):
     global rand_fn
     global log
 
-    if verbosity == "ERROR":
-        log = Verbosity(1)
-    if verbosity == "WARN":
-        log = Verbosity(2)
-    if verbosity == "INFO":
-        log = Verbosity(3)
-    if verbosity == "DEBUG":
-        log = Verbosity(3)
-    assert(log is not None)
+    verbosity.strip()
 
+    if verbosity != "null":
+        if verbosity == "SILENT":
+            log = Verbosity(Verbosity.SILENT)
+        elif verbosity == "ERROR":
+            log = Verbosity(Verbosity.ERROR)
+        elif verbosity == "WARN":
+            log = Verbosity(Verbosity.WARN)
+        elif verbosity == "INFO":
+            log = Verbosity(Verbosity.INFO)
+        elif verbosity == "DEBUG":
+            log = Verbosity(Verbosity.DEBUG)
+        else:
+            print("No Verbosity level named: \""+verbosity+"\"")
+            raise ValueError
 
-    if override_rand is not None:
-        rand_fn = override_rand
+    if not __loading_macros:
+        if override_rand is not None:
+            rand_fn = override_rand
+        else:
+            rand_fn = choose_item
+
+    if load_predefines:  # and False:
+        vt = predefined_macros()
     else:
-        rand_fn = choose_item
+        vt = {}
 
     in_stream = InputStream(s)
     lexer = diceLexer(in_stream)
@@ -115,12 +149,14 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
 
     stream = CommonTokenStream(lexer)
     parser = diceParser(stream)
+    parser.addErrorListener(MyErrorListener())
 
     tree = parser.schema()
 
-    log.dprint("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
+    log.dprint("\nParsed Pattern:", Trees.toStringTree(
+        tree, None, parser), "\n")
 
-    printer = diceRollListener()
+    printer = diceRollListener(vtable=vt)
 
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
@@ -128,11 +164,15 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False, verbosity="INF
     if parser.getNumberOfSyntaxErrors() > 0:
 
         print("Syntax Errors Observed: Original String: ", s)
-        print("\nParsed Pattern:", Trees.toStringTree(tree, None, parser), "\n")
+        print("\nParsed Pattern:",
+              Trees.toStringTree(tree, None, parser), "\n")
 
         raise GrammarParsingException
 
-    return printer.result
+    if __loading_macros:
+        return printer.result, printer.variable_table
+    else:
+        return printer.result
 
 
 def bubbleImportantFields(ctx):
@@ -158,10 +198,31 @@ def getEmbeddedDiceRoll(ctx):
         return None
 
 
+def condition_met(values, condition):
+    if condition is None:
+        return True
+
+    if condition == "GREATER":
+        return values[0] > values[1]
+    elif condition == "GREATER_EQUAL":
+        return values[0] >= values[1]
+    elif condition == "LESSER":
+        return values[0] < values[1]
+    elif condition == "LESSER_EQUAL":
+        return values[0] <= values[1]
+    elif condition == "EQUAL":
+        return values[0] == values[1]
+    else:
+        log.eprint("Condition not recognized:", condition)
+        raise ValueError()
+
+
 def getEmbeddedValues(ctx):
     vals = []
     for x in ctx.getChildren():
         if hasattr(x, "current_total"):
+            if x.current_total == "null":
+                continue
             if isinstance(x.current_total, list):
                 if len(x.current_total) == 1:
                     vals.append(x.current_total[0])
@@ -174,6 +235,7 @@ def getEmbeddedValues(ctx):
     if len(vals) == 1:
         return vals[0]
     return vals
+
 
 class Dice():
     def __init__(self, values, minmax=True, name="Anonymous"):
@@ -202,9 +264,10 @@ class Dice():
 
     def reroll(self, replace=False, distinct=False):
         """
-            Rolls more dice and appends to the dice already rolled unless "replace"
-            is True.
-            "distinct" will ensure the rolls are not saved inside the dice objectr
+            Rolls more dice and appends to the dice already rolled
+            unless "replace" is True.
+            "distinct" will ensure the rolls are not saved inside
+            the dice object
         """
         already_rolled = len(self.roll_record)
         assert(already_rolled > 0)
@@ -220,52 +283,48 @@ class Dice():
 
 
 class diceRollListener(diceListener):
-    def __init__(self):
+    def __init__(self, vtable={}):
         self.rolls = []
         self.result = 0
-        self.variable_table = {}
+        self.variable_table = vtable
+        if vtable != {}:
+            log.iprint("Loaded Macros:", vtable)
 
     def exitExactMatch(self, ctx):
-        raise NotImplementedError
+        self.check = "EQUAL"
+        ctx.current_total = int(ctx.getText().strip("#").strip("="))
 
     def exitLessOrEqualTo(self, ctx):
-        raise NotImplementedError
+        self.check = "LESSER_EQUAL"
+        ctx.current_total = int(ctx.getText().strip("<").strip("="))
 
-    def exitGreaterThanOrEqualTo(self, ctx):
-        raise NotImplementedError
-
-    def enterLessThan(self, ctx):
-        raise NotImplementedError
+    def exitGreaterOrEqualTo(self, ctx):
+        self.check = "GREATER_EQUAL"
+        ctx.current_total = int(ctx.getText().strip(">").strip("="))
 
     def exitLessThan(self, ctx):
-        raise NotImplementedError
+        self.check = "LESSER"
+        ctx.current_total = int(ctx.getText().strip("<"))
 
     def exitGreaterThan(self, ctx):
-        raise NotImplementedError
-
-    def exitSequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-
-    def exitDuplicate(self, ctx):
-        raise NotImplementedError
+        self.check = "GREATER"
+        ctx.current_total = int(ctx.getText().strip(">"))
 
     def exitAssignment(self, ctx):
-
         for idx, c in enumerate(ctx.getChildren()):
-            if '@' in c.getText():
+            if '#' in c.getText():
                 var = c.getText()[1:]
             try:
                 die = getEmbeddedDiceRoll(c)
             except Exception:
                 pass
 
-        self.roll = die
+        # self.roll = die
         self.variable_table[var] = die
-        raise NotImplementedError
+        ctx.current_total = "null"
 
     def exitMultiItem(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-
 
     def exitSchema(self, ctx):
         self.result = getEmbeddedValues(ctx)
@@ -280,7 +339,50 @@ class diceRollListener(diceListener):
         raise NotImplementedError
 
     def exitReroll(self, ctx):
-        raise NotImplementedError
+        t = ctx.getText()
+        if "rr" in t:
+            self.rr = REROLL_LIMIT  # Keep rerolling forever
+        elif "r" in t:
+            tok = t.split("r")
+            try:
+                times = int(tok[-1])
+            except Exception:
+                times = 1
+
+            self.rr = times  # Reroll Once
+
+    def enterTryAgain(self, ctx):
+        self.check = None
+
+    def exitTryAgain(self, ctx):
+        a = getEmbeddedValues(ctx)
+        d = getEmbeddedDiceRoll(ctx)
+
+        log.dprint("Original Val:", a)
+
+        rerolls = 0
+
+        if not condition_met(a, self.check):
+            for x in range(self.rr):
+                rerolls += 1
+                log.iprint("Rerolling..")
+                rolled = d.reroll(replace=True)
+
+                if d.type == "Alphabetic":
+                    rolled_dice = "".join(rolled)
+                else:
+                    rolled_dice = sum(rolled)
+
+                log.iprint(rolled_dice, "replaces", a[0])
+
+                a[0] = rolled_dice
+                if condition_met(a, self.check):
+                    break
+
+        ctx.current_total = a[0]
+
+        if REROLL_LIMIT >= rerolls and not condition_met(a, self.check):
+            log.wprint("Maximum Reroll limit reached.")
 
     def exitCondition(self, ctx):
         raise NotImplementedError
@@ -289,11 +391,50 @@ class diceRollListener(diceListener):
         ctx.dice_class = Dice(['-', '0', '+'], name="Fate")
         # raise NotImplementedError
 
-    def exitSubset(self, ctx):
-        raise NotImplementedError
+    def exitDoSubset(self, ctx):
+        b = getEmbeddedDiceRoll(ctx)
+        c = ctx.getText()
+        dropLow = False
+        if "kl" in c:
+            dropLow = True
+            v = c.split("kl")[-1]
+            amount = int(v if v != "" else 1)
+        elif "kh" in c:
+            v = c.split("kh")[-1]
+            amount = int(v if v != "" else 1)
+        else:
+            log.iprint("Only rolegate notation supported")
+            raise NotImplementedError
 
-    def exitVariable(self, ctx):
-        self.variable_table[ctx.getText()[1:]] = "null"
+        for x in b.roll_record:
+            if isinstance(x, str):
+                raise NotImplementedError
+
+        if amount > len(b.roll_record):
+            log.eprint("Err: Trying to drop", amount,
+                       "from", len(b.roll_record))
+            raise InvalidDiceRoll
+        if amount == len(b.roll_record):
+            log.iprint("No need to drop")
+            return
+
+        amount = len(b.roll_record) - amount
+
+        if dropLow:
+            log.iprint("Dropping Low Values")
+            ctx.current_total = sorted(b.roll_record)[:-amount]
+        else:
+            log.iprint("Dropping High Values")
+            ctx.current_total = sorted(b.roll_record)[amount:]
+
+        if len(ctx.current_total) > 1:
+            if b.type == "Alphabetic":
+                ctx.current_total = "".join(ctx.current_total)
+            else:
+                ctx.current_total = sum(ctx.current_total)
+
+    def exitAccess_variable(self, ctx):
+        ctx.saved_var = self.variable_table[ctx.getText()[1:]]
 
     def enterDie_roll(self, ctx):
         self.current_face = None
@@ -306,8 +447,8 @@ class diceRollListener(diceListener):
         d = getEmbeddedDiceRoll(ctx)
 
         for c in ctx.getChildren():
-            if isinstance(c, diceParser.VariableContext):
-                raise NotImplementedError
+            if isinstance(c, diceParser.Access_variableContext):
+                d = c.saved_var
 
         ctx.rolls = []
         ctx.current_total = 0
@@ -354,7 +495,6 @@ class diceRollListener(diceListener):
         approach_max_explosion = approach_max_implosion = 0
         rolled_dice = 0
 
-
         multi_roll = []
         while approach_max_explosion < MAX_EXPLOSION and \
                 approach_max_implosion < MAX_IMPLOSION:
@@ -388,6 +528,7 @@ class diceRollListener(diceListener):
 
         if approach_max_explosion >= MAX_EXPLOSION or \
                 approach_max_implosion >= MAX_IMPLOSION:
+            log.wprint("Maximum Implosion/Explosion reached.")
             ctx.current_total = rolled_dice
 
         if False:
@@ -426,12 +567,11 @@ class diceRollListener(diceListener):
     def exitCount(self, ctx):
         raise NotImplementedError
 
+    def exitCountSuccess(self, ctx):
+        raise NotImplementedError
+
     def exitNSequence(self, ctx):
         ctx.current_total = getEmbeddedValues(ctx)
-
-    def exitNumeric_sequence(self, ctx):
-        ctx.current_total = getEmbeddedValues(ctx)
-        print("Nums:", ctx.current_total)
 
     def exitNumeric_item(self, ctx):
         if hasattr(ctx, "current_total"):
@@ -461,7 +601,7 @@ class diceRollListener(diceListener):
 
     def exitAdd(self, ctx):
         vals = getEmbeddedValues(ctx)
-        if type(vals[0]) != type(vals[1]):
+        if not isinstance(vals[0], type(vals[1])):
             raise InvalidDiceRoll
         ctx.current_total = vals[0] + vals[1]
 
@@ -470,7 +610,7 @@ class diceRollListener(diceListener):
 
     def exitSub(self, ctx):
         vals = getEmbeddedValues(ctx)
-        if type(vals[0]) is str or type(vals[1]) is str:
+        if isinstance(vals[0], str) or isinstance(vals[1], str):
             raise InvalidDiceRoll
         ctx.current_total = vals[0] - vals[1]
 
@@ -488,10 +628,10 @@ class diceRollListener(diceListener):
             raise InvalidDiceRoll
 
         v = [last_dice_roll]
+        log.iprint("Repeat")
         for x in range(times_to_repeat):
             v.extend(d.reroll(distinct=True))
         ctx.current_total = v
-        # print("reroll results:", ctx.current_total, type(ctx))
 
     def exitMul(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -517,14 +657,16 @@ class diceRollListener(diceListener):
             raise NotImplementedError
         ctx.current_total = vals[0] // vals[1]
 
+    def exitDoBang(self, ctx):
+        raise NotImplementedError
+
     def exitDice_roll(self, ctx):
         ctx.current_total = 0
 
         for c in ctx.getChildren():
-            if isinstance(c, diceParser.Math_addsubContext):
+            # Needed?
+            if hasattr(c, "current_total"):
                 ctx.current_total = c.current_total
-            else:
-                print("Unknown type: ", type(c))
 
     def enterStandardFace(self, ctx):
 
@@ -532,10 +674,10 @@ class diceRollListener(diceListener):
 
         self.current_face = number
         if(self.current_face < 0):
-            print("Negative Dice Face.", file=sys.stderr)
+            log.eprint("Negative Dice Face.")
             raise InvalidDiceRoll
         if(self.current_face < 0):
-            print("No Dice Face.", file=sys.stderr)
+            log.eprint("No Dice Face.")
             raise InvalidDiceRoll
 
         ctx.dice_class = Dice(list(range(1, number+1)))
@@ -543,7 +685,7 @@ class diceRollListener(diceListener):
     def enterAmount(self, ctx):
         self.current_amount = int(ctx.getText())
         if(self.current_amount < 0):
-            print("Negative Amount of Dice.")
+            log.eprint("Negative Amount of Dice.")
             raise InvalidDiceRoll
 
     def enterEveryRule(self, ctx, ):
@@ -559,5 +701,10 @@ class diceRollListener(diceListener):
 
 
 if __name__ == "__main__":
-    # print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
-    print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))
+    if len(sys.argv) > 2 and sys.argv[2] == "-D":
+        print("Debug Enabled")
+        print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
+    elif len(sys.argv) > 2 and sys.argv[2] == "-Q":
+        print("Roll Result:", roll(sys.argv[1], verbosity="SILENT"))
+    else:
+        print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))

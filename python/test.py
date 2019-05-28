@@ -8,7 +8,6 @@ from utils import check_values, suppress_prints, display
 
 import csv
 import os
-import glob
 import subprocess
 
 supported = 0
@@ -60,7 +59,8 @@ class TestSuite(unittest.TestCase):
         print("\n==", getMetaInfo(path)["printname"], "==")
 
         with open(path, mode="r") as testfile:
-            reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
+            reader = csv.DictReader(
+                filter(lambda row: row[0] != '#', testfile))
             # reader = csv.DictReader(testfile)
             for x in reader:
 
@@ -70,11 +70,11 @@ class TestSuite(unittest.TestCase):
                 try:
                     if x["errors"].strip() == "True":
                         self.assertRaises((InvalidDiceRoll,
-                                        GrammarParsingException),
-                                        check_values,
-                                        x["roll"],
-                                        lowest=x["low"],
-                                        highest=x["high"])
+                                           GrammarParsingException),
+                                          check_values,
+                                          x["roll"],
+                                          lowest=x["low"],
+                                          highest=x["high"])
                     else:
                         self.assertTrue(check_values,
                                         x["roll"],
@@ -86,12 +86,12 @@ class TestSuite(unittest.TestCase):
 
     def test_language_independant_dice(self):
         path = "../tests/"
-        tests = glob.glob(path+"test*.csv")
 
         mpath = "../tests/meta_test_info.csv"
 
         with open(mpath, mode="r") as testfile:
-            reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
+            reader = csv.DictReader(
+                filter(lambda row: row[0] != '#', testfile))
             for x in reader:
                 self.run_tests_from_file(path+x["filename"])
 
@@ -101,10 +101,15 @@ class TestSuite(unittest.TestCase):
         print(supported, "Supported,", unsupported, "Unsupported")
 
     def test_cmdline(self):
-        output = subprocess.check_output(["python3","dice.py","1d4"])
+        output = subprocess.check_output(["python3", "dice.py", "1d4", "-Q"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
         self.assertIn(val, range(1, 5))
+
+        output = subprocess.check_output(["python3", "dice.py", "1d4", "-D"])
+        # output = output.decode('ascii')
+        # val = int(output.split(":")[1])
+        # self.assertIn(val, range(1, 5))
 
     def test_display(self):
         display("1d4")
@@ -119,7 +124,7 @@ def getMetaInfo(fname):
         fname = fname.split('/')[-1]
 
     with open(path, mode="r") as testfile:
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', testfile))
+        reader = csv.DictReader(filter(lambda row: row[0] != '#', testfile))
         for x in reader:
             if x["filename"] == fname:
                 return x

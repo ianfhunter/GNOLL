@@ -22,10 +22,10 @@ def graph(values, name):
     plt.savefig(name+'.png')
 
 
-def display(s):
+def display(s, amount=20):
     # Show a sample distribution
     v = []
-    for n in range(1000):
+    for n in range(amount):
         v.append(roll(s, verbosity="ERROR"))
 
     graph(v, s)
@@ -40,12 +40,11 @@ def spread(s, fail=False):
     v.append(testLow(s))
     v.append(testHigh(s))
 
-
     isInt = True
     try:
         v[0] = int(v[0])
         v[1] = int(v[1])
-    except:
+    except (TypeError, ValueError):
         isInt = False
 
     if isInt:
@@ -79,7 +78,7 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
     try:
         lowest = int(lowest)
         highest = int(highest)
-    except:
+    except (TypeError, ValueError):
         isInt = False
 
     if isInt:
@@ -90,15 +89,15 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
 
         if ":" in lowest:
             # Sequence
-            lowest = [ x for x in lowest.split(":")]
-            highest = [ x for x in highest.split(":")]
+            lowest = [x for x in lowest.split(":")]
+            highest = [x for x in highest.split(":")]
 
             try:
                 lowestInt = [int(x) for x in lowest]
                 highestInt = [int(x) for x in highest]
                 lowest = lowestInt
                 highest = highestInt
-            except:
+            except (TypeError, ValueError):
                 pass
 
         expected = [lowest, highest]

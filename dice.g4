@@ -1,17 +1,26 @@
 
 grammar dice ;
 
-schema : assignment* WSPACE? sequence? WSPACE? EOF;
+schema : WSPACE? assignment* sequence? WSPACE? EOF;
 
-assignment : WSPACE? variable WSPACE? '=' WSPACE? dice_roll WSPACE? ';' WSPACE? ;
+assignment : store_variable WSPACE? '=' WSPACE? dice_roll WSPACE? END_ASSIGNMENT WSPACE? ;
 
-variable: '@' UPPER_CASE_STRING;
+access_variable: ACCESSOR UPPER_CASE_STRING;
+store_variable: STORAGE UPPER_CASE_STRING;
 
 sequence :
-    sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence #MultiItem |
+    sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence  #MultiItem |
     dice_roll #BubbleRoll;
 
-dice_roll : math_addsub ;
+dice_roll : alter_modifier ;
+
+alter_modifier:
+    alter_modifier bang #DoBang |
+    alter_modifier count #CountSuccess |
+    alter_modifier reroll #TryAgain |
+    alter_modifier subset #DoSubset |
+    alter_modifier force #DoForce |
+    math_addsub #BubbleModifier;
 
 // Math needs to have a heirarchy so that BOMDAS is observed
 math_addsub :
@@ -46,26 +55,25 @@ math_neg :
 math_leaf :
     // Unit or Brackets
     die_roll #Value |
-    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET die_modifier? #Brackets ;
+    OPEN_BRACKET WSPACE? math_addsub WSPACE? CLOSE_BRACKET #Brackets ;
+
 
 // A Die Roll Can be:
 // - NumdFace
 // - dFace (implicit Num=1)
 // - Value (implicit Face=1)
 die_roll :
-    (amount? (die faces | fateDie | variable) die_modifier* ) |
+    amount? (die faces | fateDie | access_variable) |
     amount;
 
-die_modifier : (subset | reroll | bang | force | count );
-
-count : ('£');
+count : '£' condition? ;
 
 bang : explode | implode ;
 
-explode : condition? '!'+ ;
-implode : condition? '~'+ ;
+explode : '!' condition? ;
+implode : '~' condition? ;
 
-force : condition;
+force : '?' condition;
 
 condition :
     '#' INTEGER_NUMBER #exactMatch |
@@ -75,7 +83,7 @@ condition :
     '>' INTEGER_NUMBER #greaterThan ;
 
 
-reroll : condition (rr_times | rr_all);
+reroll : (rr_times | rr_all) condition ;
 rr_times : 'r' amount? ;
 rr_all : 'rr' ;
 
@@ -128,8 +136,12 @@ MODULO     :  '%';
 DIV_RUP :  '|';
 SEVERAL : 'x';
 
+STORAGE : '#';
+ACCESSOR: '@';
+
 COMMA : ',';
 ITEM_SEPERATOR : ':';
+END_ASSIGNMENT: ';';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';
@@ -138,7 +150,7 @@ CLOSE_BRACE : '}';
 
 SNHigh : ('h');
 SNLow : ('l');
-RNHigh : ('k'|'kh');
+RNHigh : ('kh');
 RNLow : ('kl');
 // RNDHigh : ('dh');
 // RNDLow : ('dl' );  // d should be preserved as key letter
@@ -149,7 +161,7 @@ INTEGER_NUMBER : DIGIT+ ;
 WSPACE : BLANK+;
 
 
-SYMBOL    : (CHESS_U | CARDS_U | UPCHAR);
+SYMBOL    : (CHESS_U | CARDS_U | ZODIAC_U | RUNIC_U | ROMAN_NUMERALS_U | MISC_U | UPCHAR);
 UPPER_CASE_STRING : (UPCHAR|UNDERSCORE)+;
 LOWER_CASE_STRING : LOCHAR+;
 STRING : CHAR+;
@@ -165,3 +177,7 @@ fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');
 
 fragment CHESS_U : '\u2654'..'\u265F' ;
 fragment CARDS_U : '\u2660'..'\u2667' ; // Suits
+fragment ZODIAC_U : '\u2648'..'\u2653' | '\u26CE' ;
+fragment RUNIC_U : '\u16A0'..'\u16FE';
+fragment ROMAN_NUMERALS_U : '\u2160'..'\u217B';
+fragment MISC_U : '\u2596'..'\u27EF';

@@ -1,0 +1,6 @@
+// New Dice Types
+#POKER = d{9, 10, J, Q, K, A} ;
+#ZODIAC = d{♈,♉,♊,♋,♌,♍,♎,♏,♐,♑,♒,♓} ;
+
+// Macros for common rolls
+#DND_DROP_CHAR = 7d6kh ;
