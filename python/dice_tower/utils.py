@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from dice import roll
+from dice_tower.dice import roll
 
 from contextlib import contextmanager
 import os

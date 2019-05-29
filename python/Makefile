@@ -26,3 +26,9 @@ coverage:
 
 test:
 	python3 test.py
+
+package:
+	# Increment version
+	-sudo rm dice_tower/dist -r
+	sudo python3 setup.py develop sdist bdist_wheel
+	http_proxy="" https_proxy="" python3 -m twine upload dist/*

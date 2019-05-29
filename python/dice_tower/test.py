@@ -3,8 +3,8 @@
 import unittest
 import xmlrunner
 
-from dice import GrammarParsingException, InvalidDiceRoll
-from utils import check_values, suppress_prints, display
+from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
+from dice_tower.utils import check_values, suppress_prints, display
 
 import csv
 import os
@@ -54,11 +54,11 @@ class TestSuite(unittest.TestCase):
             supported += 1
             print("✓", end="")
 
-    def run_tests_from_file(self, path, debug=False):
+    def run_tests_from_file(self, path, debug=False, filename="", meta_file_name="meta_test_info.csv"):
 
-        print("\n==", getMetaInfo(path)["printname"], "==")
+        print("\n==", getMetaInfo(path, filename, meta_file_name)["printname"], "==")
 
-        with open(path, mode="r") as testfile:
+        with open(os.path.join(path, filename), mode="r") as testfile:
             reader = csv.DictReader(
                 filter(lambda row: row[0] != '#', testfile))
             # reader = csv.DictReader(testfile)
@@ -85,15 +85,17 @@ class TestSuite(unittest.TestCase):
                     print("Exception ", e, "["+x["roll"]+"]: ")
 
     def test_language_independant_dice(self):
-        path = "../tests/"
+        fp = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(fp, "../../tests/")
 
-        mpath = "../tests/meta_test_info.csv"
+        fname = "meta_test_info.csv"
+        mpath = path + fname
 
         with open(mpath, mode="r") as testfile:
             reader = csv.DictReader(
                 filter(lambda row: row[0] != '#', testfile))
             for x in reader:
-                self.run_tests_from_file(path+x["filename"])
+                self.run_tests_from_file(path, filename=x["filename"], meta_file_name=fname)
 
         print("\n")
         global supported
@@ -101,12 +103,15 @@ class TestSuite(unittest.TestCase):
         print(supported, "Supported,", unsupported, "Unsupported")
 
     def test_cmdline(self):
-        output = subprocess.check_output(["python3", "dice.py", "1d4", "-Q"])
+
+        fp = os.path.dirname(os.path.realpath(__file__))
+        fp = os.path.join(fp, "dice.py")
+        output = subprocess.check_output(["python3", fp, "1d4", "-Q"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
         self.assertIn(val, range(1, 5))
 
-        output = subprocess.check_output(["python3", "dice.py", "1d4", "-D"])
+        output = subprocess.check_output(["python3", fp, "1d4", "-D"])
         # output = output.decode('ascii')
         # val = int(output.split(":")[1])
         # self.assertIn(val, range(1, 5))
@@ -116,14 +121,11 @@ class TestSuite(unittest.TestCase):
         self.assertIn("1d4.png", os.listdir("."))
 
 
-def getMetaInfo(fname):
+def getMetaInfo(path, fname, meta_name):
     # TODO: Absolute Path
-    path = "../tests/meta_test_info.csv"
+    meta_file = path + meta_name
 
-    if '/' in fname:
-        fname = fname.split('/')[-1]
-
-    with open(path, mode="r") as testfile:
+    with open(meta_file, mode="r") as testfile:
         reader = csv.DictReader(filter(lambda row: row[0] != '#', testfile))
         for x in reader:
             if x["filename"] == fname:
