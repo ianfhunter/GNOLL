@@ -5,7 +5,7 @@ clean:
 python:
 	cd external ; make download ; cd ..
 	bash ./setup_antlr.sh 4.7.2 Python3
-	antlr4 dice.g4 -o python/grammar -Dlanguage=Python3
+	antlr4 dice.g4 -o python/dice_tower/grammar -Dlanguage=Python3
 	cd python ; make all ; cd ..
 
 javascript: clean

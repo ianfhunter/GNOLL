@@ -4,9 +4,9 @@ from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
 from antlr4.tree.Trees import Trees
 
-from grammar.diceLexer import diceLexer
-from grammar.diceParser import diceParser
-from grammar.diceListener import diceListener
+from dice_tower.grammar.diceLexer import diceLexer
+from dice_tower.grammar.diceParser import diceParser
+from dice_tower.grammar.diceListener import diceListener
 
 from random import choice
 import warnings
@@ -95,7 +95,9 @@ def choose_item(items):
 def predefined_macros():
     preloaded_var_table = {}
 
-    f = open(os.path.join(os.getcwd(), "../builtins/macros.dice"))
+
+    fp = os.path.dirname(os.path.realpath(__file__))
+    f = open(os.path.join(fp, "links/macros.dice"))
     for x in f:
         x = x.rstrip()
         if "//" in x or x.isspace():
@@ -114,6 +116,14 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
     global rand_fn
     global log
 
+
+    log = Verbosity(Verbosity.ERROR)
+    if not __loading_macros:
+        if override_rand is not None:
+            rand_fn = override_rand
+        else:
+            rand_fn = choose_item
+
     verbosity.strip()
 
     if verbosity != "null":
@@ -130,12 +140,6 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
         else:
             print("No Verbosity level named: \""+verbosity+"\"")
             raise ValueError
-
-    if not __loading_macros:
-        if override_rand is not None:
-            rand_fn = override_rand
-        else:
-            rand_fn = choose_item
 
     if load_predefines:  # and False:
         vt = predefined_macros()
