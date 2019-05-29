@@ -1,5 +1,5 @@
 <p align="center">
-<img src="logo.png" width="200" height="200">
+<img src="logo.png" height="200">
 </p>
 
 A comprehensive grammar and libraries for Dice-based RPG systems
