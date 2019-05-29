@@ -16,6 +16,7 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
    GM: You successfully pickpocket the goblin - but all he had were some crummy dice...
 ```
 
+[Follow Grindon's adventure through the dice syntax in our Wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes)
 
 ## Current Status
 
