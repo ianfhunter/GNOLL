@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dice_tower",
-    version="1.2.11",
+    version="1.2.13",
     author="Ian Hunter",
     author_email="hunterif@tcd.ie",
     description="Dice Rolling Package",
@@ -16,6 +16,9 @@ setuptools.setup(
     install_requires=[
         'antlr4-python3-runtime>=4.7.2'
     ],
+    package_data={
+        'dice_tower.links': ['*.dice'],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

@@ -97,7 +97,7 @@ def predefined_macros():
 
 
     fp = os.path.dirname(os.path.realpath(__file__))
-    f = open(os.path.join(fp, "../../builtins/macros.dice"))
+    f = open(os.path.join(fp, "links/macros.dice"))
     for x in f:
         x = x.rstrip()
         if "//" in x or x.isspace():
@@ -116,6 +116,14 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
     global rand_fn
     global log
 
+
+    log = Verbosity(Verbosity.ERROR)
+    if not __loading_macros:
+        if override_rand is not None:
+            rand_fn = override_rand
+        else:
+            rand_fn = choose_item
+
     verbosity.strip()
 
     if verbosity != "null":
@@ -132,12 +140,6 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
         else:
             print("No Verbosity level named: \""+verbosity+"\"")
             raise ValueError
-
-    if not __loading_macros:
-        if override_rand is not None:
-            rand_fn = override_rand
-        else:
-            rand_fn = choose_item
 
     if load_predefines:  # and False:
         vt = predefined_macros()
