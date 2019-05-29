@@ -1,4 +1,4 @@
-# Dice 
+# Dice Tower
 
 <p align="center">
 <img src="logo.png" width="200" height="200">
