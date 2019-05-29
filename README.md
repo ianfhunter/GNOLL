@@ -38,9 +38,10 @@ Several languages will be targetted as the project develops. Interested in somet
 
 Primary Support:
  - Python
+ 
 Intended Support for next major release:
- - C
  - Javascript
+ - C
 
 ## Getting Started
 
