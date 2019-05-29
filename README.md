@@ -141,5 +141,5 @@ Individiual arrangements can be made if this is an issue for your project - Cont
 
 ## Acknowledgments
 
-
 * **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Shopify** - *Logo Creator* - [Shopify](https://hatchful.shopify.com/)
