@@ -9,10 +9,12 @@ from dice_tower.utils import check_values, suppress_prints, display
 import csv
 import os
 import subprocess
+import sys
 
 supported = 0
 unsupported = 0
 
+unsupported_list = []
 
 class TestSuite(unittest.TestCase):
 
@@ -29,7 +31,9 @@ class TestSuite(unittest.TestCase):
             print(u'\u231B', end="")
             cond = False
             global unsupported
+            global unsupported_list
             unsupported += 1
+            unsupported_list.append(args)
 
         if cond:
             global supported
@@ -101,6 +105,11 @@ class TestSuite(unittest.TestCase):
         global supported
         global unsupported
         print(supported, "Supported,", unsupported, "Unsupported")
+
+        if "-v" in sys.argv:
+            print("Support needed for:")
+            for x in unsupported_list:
+                print("> ", x[0])
 
     def test_cmdline(self):
 

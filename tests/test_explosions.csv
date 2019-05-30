@@ -1,10 +1,10 @@
 roll,low,high,errors
-"d3!", 1, 60, False
-"dF!", -, ++++++++++++++++++++, False
-"d100!>75", 4, 28, False
-"d100~<75", 4, 28, False
-"dF~", --------------------, +, False
-#"d{A,B,C}~", --------------------, +, False
+"d3!", 1, 63, False
+"dF!", -, +++++++++++++++++++++, False
+"d100!>75", 1, 2100, False
+"d100~<75", 1, 1575, False
+"dF~", --------------------- +, False
+#"d{A,B,C}~", AAAAAAAAAAAAAAAAAAAA C, False
 "d1~", 20, 3, True
 "d1!", 20, 3, True
 "d0!", 20, 3, True
@@ -12,7 +12,7 @@ roll,low,high,errors
 
 # Should be negative only
 "d3~", 20, 3, True
-"d{-1,0,1}~", -20, 1, False
+"d{-1,0,1}~", -21, 1, False
 
 # How should these operate?
 "d3~~", 20, 3, True

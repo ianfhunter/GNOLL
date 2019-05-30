@@ -5,3 +5,10 @@ roll,low,high,errors
 
 "d4x0", 1, 4, True
 "d4x-1", 1, 4, True
+
+
+"d4 x d4", 1, "4:4:4:4", False
+"dF x d4", "-", "+:+:+:+", False
+
+#"d4xd4","1","4:4:4:4", False
+#"dFxd4","-","++++", False

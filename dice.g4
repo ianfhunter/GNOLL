@@ -68,10 +68,10 @@ die_roll :
 
 count : '£' condition? ;
 
-bang : explode | implode ;
+bang : (explode | implode) condition? ;
 
-explode : '!' condition? ;
-implode : '~' condition? ;
+explode : '!' ;
+implode : '~' ;
 
 force : '?' condition;
 

@@ -204,17 +204,23 @@ def getEmbeddedDiceRoll(ctx):
 
 def condition_met(values, condition):
     if condition is None:
+        log.dprint("No condition")
         return True
 
     if condition == "GREATER":
+        log.dprint(values[0],">", values[1])
         return values[0] > values[1]
     elif condition == "GREATER_EQUAL":
+        log.dprint(values[0],">=", values[1])
         return values[0] >= values[1]
     elif condition == "LESSER":
+        log.dprint(values[0],"<", values[1])
         return values[0] < values[1]
     elif condition == "LESSER_EQUAL":
+        log.dprint(values[0],"<=", values[1])
         return values[0] <= values[1]
     elif condition == "EQUAL":
+        log.dprint(values[0],"==", values[1])
         return values[0] == values[1]
     else:
         log.eprint("Condition not recognized:", condition)
@@ -339,6 +345,10 @@ class diceRollListener(diceListener):
         if self.sucks > 1 or self.bangs > 1:
             raise NotImplementedError
 
+        if not hasattr(self, "check"):
+            #todo storing on self is dangerous with multiconditions
+            self.check = "EQUAL"
+
     def exitForce(self, ctx):
         raise NotImplementedError
 
@@ -460,19 +470,6 @@ class diceRollListener(diceListener):
         if isinstance(self.current_face, int) and self.current_face < 1:
             raise InvalidDiceRoll
 
-        if hasattr(self, "bangs") and self.bangs > 1:
-            raise InvalidDiceRoll
-        if hasattr(self, "sucks") and self.sucks > 1:
-            raise InvalidDiceRoll
-        if hasattr(self, "bangs") and self.bangs > 0 and \
-                (not isinstance(d.highest, str) and
-                    d.highest < 2):
-            raise InvalidDiceRoll
-        if hasattr(self, "sucks") and self.sucks > 0 and \
-                (not isinstance(d.lowest, str) and
-                    d.lowest > -1):  # TODO: Better conditions can be made
-            raise InvalidDiceRoll
-
         if self.current_amount is None:
             # Case where we have d4 instead of 1d4
             self.current_amount = 1
@@ -481,62 +478,21 @@ class diceRollListener(diceListener):
             ctx.current_total = self.current_amount
             return
 
-        if hasattr(self, "bangs"):
-            exploding = (self.bangs > 0 and self.bangs is not None)
-        else:
-            exploding = False
-
-        if hasattr(self, "sucks"):
-            imploding = (self.sucks > 0 and self.sucks is not None)
-            if imploding and type(d.lowest) != str and d.lowest >= 0:
-                print("Cannot implode a roll which is positive")
-                raise InvalidDiceRoll
-        else:
-            imploding = False
-
-        # warping = exploding or imploding
-
-        approach_max_explosion = approach_max_implosion = 0
         rolled_dice = 0
 
         multi_roll = []
-        while approach_max_explosion < MAX_EXPLOSION and \
-                approach_max_implosion < MAX_IMPLOSION:
-            for _ in range(self.current_amount):
+        for _ in range(self.current_amount):
 
-                r = d.roll()
+            r = d.roll()
 
-                ctx.rolls.append(r)
-                multi_roll.append(r)
+            ctx.rolls.append(r)
+            multi_roll.append(r)
 
-            if (multi_roll[-1] == d.highest and exploding):
-                approach_max_explosion += 1
-                if d.type == "Alphabetic":
-                    rolled_dice = "".join(multi_roll)
-                else:
-                    rolled_dice = sum(multi_roll)
-            elif (multi_roll[-1] == d.lowest and imploding):
-                approach_max_implosion += 1
-                # SHould probably not be sum
-                if d.type == "Alphabetic":
-                    rolled_dice = "".join(multi_roll)
-                else:
-                    rolled_dice = sum(multi_roll)
-            else:
-                if d.type == "Alphabetic":
-                    ctx.current_total = "".join(multi_roll)
-                else:
-                    rolled_dice = sum(multi_roll)
-                    ctx.current_total = rolled_dice
-                break
-
-        if approach_max_explosion >= MAX_EXPLOSION or \
-                approach_max_implosion >= MAX_IMPLOSION:
-            log.wprint("Maximum Implosion/Explosion reached.")
+        if d.type == "Alphabetic":
+            ctx.current_total = "".join(multi_roll)
+        else:
+            rolled_dice = sum(multi_roll)
             ctx.current_total = rolled_dice
-
-        if False:
-            print("Die Roll: ", ctx.current_total)
 
     def exitBubbleMulDiv(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -622,9 +578,18 @@ class diceRollListener(diceListener):
         d = getEmbeddedDiceRoll(ctx)
         bvals = getEmbeddedValues(ctx)
 
+        # TODO: Verify Bracketed several
+
+
+        if (isinstance(d, list) and len(d) > 1 and
+            d[1].type == "Alphabetic"):
+            log.eprint("Cannot use a string as a multpland")
+            raise InvalidDiceRoll
+
+        log.iprint("the x operator is not fully stable")
         if type(d) is list and len(d) > 1:
-            log.iprint("Repeating Dice arithmetic is not supported yet")
-            raise NotImplementedError
+            # We shouldn't reroll a RHS dice
+            d = d[0]
 
         last_dice_roll = bvals[0]
         times_to_repeat = bvals[1] - 1
@@ -635,12 +600,15 @@ class diceRollListener(diceListener):
         log.iprint("Repeat")
         for x in range(times_to_repeat):
             v.extend(d.reroll(distinct=True))
+
         ctx.current_total = v
 
     def exitMul(self, ctx):
         vals = getEmbeddedValues(ctx)
-        if type(vals[0]) is str or type(vals[1]) is str:
-            raise NotImplementedError
+        if type(vals[0]) is str and type(vals[1]) is str:
+            raise InvalidDiceRoll
+        elif type(vals[0]) is str or type(vals[1]) is str:
+            ctx.current_total = vals[0] * vals[1]
         ctx.current_total = vals[0] * vals[1]
 
     def exitDivUp(self, ctx):
@@ -662,7 +630,77 @@ class diceRollListener(diceListener):
         ctx.current_total = vals[0] // vals[1]
 
     def exitDoBang(self, ctx):
-        raise NotImplementedError
+
+        d = getEmbeddedDiceRoll(ctx)
+        v = getEmbeddedValues(ctx)
+        if isinstance(v, list) and len(v)>1:
+            cmp_v = v[1]
+            vals = v[0]
+        else:
+            vals = v
+
+        # Error Checks
+        if hasattr(self, "bangs") and self.bangs > 0 and \
+                (not isinstance(d.highest, str) and
+                    d.highest < 2):
+            raise InvalidDiceRoll
+        if hasattr(self, "sucks") and self.sucks > 0 and \
+                (not isinstance(d.lowest, str) and
+                    d.lowest >= 0):  # TODO: Better conditions can be made
+            raise InvalidDiceRoll
+
+        cmp_passed = isinstance(v, list) and len(v) > 1 and \
+            condition_met(v, self.check)
+
+        # Detect which
+        if hasattr(self, "bangs") and (vals == d.highest or cmp_passed) :
+            exploding = True if (self.bangs > 0 and self.bangs is not None) else False
+        else:
+            exploding = False
+        if hasattr(self, "sucks") and (vals == d.lowest or cmp_passed):
+            imploding = True if (self.sucks > 0 and self.sucks is not None) else False
+        else:
+            imploding = False
+
+        approach_max_explosion = approach_max_implosion = 0
+
+        while approach_max_explosion < MAX_EXPLOSION and \
+            approach_max_implosion < MAX_IMPLOSION:
+
+            if not imploding and not exploding:
+                break
+            else:
+                multi_roll = d.reroll(replace=True)
+
+            if (multi_roll[-1] == d.highest and exploding):
+                log.dprint("Bang!")
+                approach_max_explosion += 1
+            elif (multi_roll[-1] == d.lowest and imploding):
+                log.dprint("Pop!")
+                approach_max_implosion += 1
+            else:
+                log.dprint("Fizz..")
+                imploding = exploding = False
+
+            if isinstance(v, list) and len(v) > 1:
+                chk = [multi_roll[-1], cmp_v]
+                if (not condition_met(chk, self.check)):
+                    print("not met 2")
+                    imploding = exploding = False
+
+
+            # Add Result
+            if d.type == "Alphabetic":
+                vals += "".join(multi_roll)
+            else:
+                vals += sum(multi_roll)
+
+        if approach_max_explosion >= MAX_EXPLOSION or \
+                approach_max_implosion >= MAX_IMPLOSION:
+            log.wprint("Maximum Implosion/Explosion reached.")
+
+        ctx.current_total = vals
+
 
     def exitDice_roll(self, ctx):
         ctx.current_total = 0
@@ -705,6 +743,10 @@ class diceRollListener(diceListener):
 
 
 if __name__ == "__main__":
+
+    # a = roll("1d100!>25", verbosity="DEBUG", load_predefines=False)
+    # print(a)
+
     if len(sys.argv) > 2 and sys.argv[2] == "-D":
         print("Debug Enabled")
         print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
