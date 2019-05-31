@@ -8,10 +8,13 @@ from dice_tower.grammar.diceLexer import diceLexer
 from dice_tower.grammar.diceParser import diceParser
 from dice_tower.grammar.diceListener import diceListener
 
-from random import choice
+from dice_tower.args import setup_arguments, validate_args, reformat_args
+from dice_tower.meta import InvalidDiceRoll, GrammarParsingException
+
 import warnings
 import math
 import sys
+import argparse
 import os
 
 rand_fn = None
@@ -56,14 +59,6 @@ class Verbosity():
             print(*args)
 
 
-class InvalidDiceRoll(Exception):
-    pass
-
-
-class GrammarParsingException(Exception):
-    pass
-
-
 class MyErrorListener(ErrorListener):
     def __init__(self):
         super(MyErrorListener, self).__init__()
@@ -88,13 +83,8 @@ class MyErrorListener(ErrorListener):
         raise InvalidDiceRoll
 
 
-def choose_item(items):
-    return choice(items)
-
-
 def predefined_macros():
     preloaded_var_table = {}
-
 
     fp = os.path.dirname(os.path.realpath(__file__))
     f = open(os.path.join(fp, "links/macros.dice"))
@@ -102,8 +92,8 @@ def predefined_macros():
         x = x.rstrip()
         if "//" in x or x.isspace():
             continue
-        r = roll(x, load_predefines=False,
-                 __loading_macros=True, verbosity="null")
+        r = roll(x, load_macros=False,
+                 __in_macro_recursion=True, verbosity="null")
         nvt = r[1]
         preloaded_var_table.update(nvt)
     f.close()
@@ -111,14 +101,20 @@ def predefined_macros():
     return preloaded_var_table
 
 
+def join_results(dice, result):
+    if dice.type == "Alphabetic":
+        result = "".join(result)
+    else:
+        result = sum(result)
+    return result
+
 def roll(s, override_rand=None, grammar_errors=True, debug=False,
-         verbosity="INFO", load_predefines=True, __loading_macros=False):
+         verbosity="INFO", load_macros=True, __in_macro_recursion=False):
     global rand_fn
     global log
 
 
-    log = Verbosity(Verbosity.ERROR)
-    if not __loading_macros:
+    if not __in_macro_recursion:
         if override_rand is not None:
             rand_fn = override_rand
         else:
@@ -141,7 +137,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
             print("No Verbosity level named: \""+verbosity+"\"")
             raise ValueError
 
-    if load_predefines:  # and False:
+    if load_macros:  # and False:
         vt = predefined_macros()
     else:
         vt = {}
@@ -157,9 +153,6 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
 
     tree = parser.schema()
 
-    log.dprint("\nParsed Pattern:", Trees.toStringTree(
-        tree, None, parser), "\n")
-
     printer = diceRollListener(vtable=vt)
 
     walker = ParseTreeWalker()
@@ -173,7 +166,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
 
         raise GrammarParsingException
 
-    if __loading_macros:
+    if __in_macro_recursion:
         return printer.result, printer.variable_table
     else:
         return printer.result
@@ -208,19 +201,19 @@ def condition_met(values, condition):
         return True
 
     if condition == "GREATER":
-        log.dprint(values[0],">", values[1])
+        log.dprint(values[0], ">", values[1])
         return values[0] > values[1]
     elif condition == "GREATER_EQUAL":
-        log.dprint(values[0],">=", values[1])
+        log.dprint(values[0], ">=", values[1])
         return values[0] >= values[1]
     elif condition == "LESSER":
-        log.dprint(values[0],"<", values[1])
+        log.dprint(values[0], "<", values[1])
         return values[0] < values[1]
     elif condition == "LESSER_EQUAL":
-        log.dprint(values[0],"<=", values[1])
+        log.dprint(values[0], "<=", values[1])
         return values[0] <= values[1]
     elif condition == "EQUAL":
-        log.dprint(values[0],"==", values[1])
+        log.dprint(values[0], "==", values[1])
         return values[0] == values[1]
     else:
         log.eprint("Condition not recognized:", condition)
@@ -382,10 +375,7 @@ class diceRollListener(diceListener):
                 log.iprint("Rerolling..")
                 rolled = d.reroll(replace=True)
 
-                if d.type == "Alphabetic":
-                    rolled_dice = "".join(rolled)
-                else:
-                    rolled_dice = sum(rolled)
+                rolled_dice = join_results(d, rolled)
 
                 log.iprint(rolled_dice, "replaces", a[0])
 
@@ -442,10 +432,8 @@ class diceRollListener(diceListener):
             ctx.current_total = sorted(b.roll_record)[amount:]
 
         if len(ctx.current_total) > 1:
-            if b.type == "Alphabetic":
-                ctx.current_total = "".join(ctx.current_total)
-            else:
-                ctx.current_total = sum(ctx.current_total)
+            ctx.current_total = join_results(b, ctx.current_total)
+
 
     def exitAccess_variable(self, ctx):
         ctx.saved_var = self.variable_table[ctx.getText()[1:]]
@@ -488,11 +476,7 @@ class diceRollListener(diceListener):
             ctx.rolls.append(r)
             multi_roll.append(r)
 
-        if d.type == "Alphabetic":
-            ctx.current_total = "".join(multi_roll)
-        else:
-            rolled_dice = sum(multi_roll)
-            ctx.current_total = rolled_dice
+        ctx.current_total = join_results(d, multi_roll)
 
     def exitBubbleMulDiv(self, ctx):
         vals = getEmbeddedValues(ctx)
@@ -599,7 +583,9 @@ class diceRollListener(diceListener):
         v = [last_dice_roll]
         log.iprint("Repeat")
         for x in range(times_to_repeat):
-            v.extend(d.reroll(distinct=True))
+            s = d.reroll(distinct=True)
+            s = join_results(d, s)
+            v.append(s)
 
         ctx.current_total = v
 
@@ -631,9 +617,14 @@ class diceRollListener(diceListener):
 
     def exitDoBang(self, ctx):
 
+        for c in ctx.getChildren():
+            if type(c) == diceParser.DoBangContext:
+                log.eprint("Multiple Explosion/Implosion not supported. ")
+                raise InvalidDiceRoll
+
         d = getEmbeddedDiceRoll(ctx)
         v = getEmbeddedValues(ctx)
-        if isinstance(v, list) and len(v)>1:
+        if isinstance(v, list) and len(v) > 1:
             cmp_v = v[1]
             vals = v[0]
         else:
@@ -652,12 +643,14 @@ class diceRollListener(diceListener):
         cmp_passed = isinstance(v, list) and len(v) > 1 and \
             condition_met(v, self.check)
 
+        damount = len(d.roll_record)
+
         # Detect which
-        if hasattr(self, "bangs") and (vals == d.highest or cmp_passed) :
+        if hasattr(self, "bangs") and (vals == d.highest*damount or cmp_passed) :
             exploding = True if (self.bangs > 0 and self.bangs is not None) else False
         else:
             exploding = False
-        if hasattr(self, "sucks") and (vals == d.lowest or cmp_passed):
+        if hasattr(self, "sucks") and (vals == damount*d.lowest or cmp_passed):
             imploding = True if (self.sucks > 0 and self.sucks is not None) else False
         else:
             imploding = False
@@ -685,15 +678,10 @@ class diceRollListener(diceListener):
             if isinstance(v, list) and len(v) > 1:
                 chk = [multi_roll[-1], cmp_v]
                 if (not condition_met(chk, self.check)):
-                    print("not met 2")
                     imploding = exploding = False
 
-
             # Add Result
-            if d.type == "Alphabetic":
-                vals += "".join(multi_roll)
-            else:
-                vals += sum(multi_roll)
+            vals += join_results(d, multi_roll)
 
         if approach_max_explosion >= MAX_EXPLOSION or \
                 approach_max_implosion >= MAX_IMPLOSION:
@@ -742,15 +730,25 @@ class diceRollListener(diceListener):
         log.dprint(ctx.__class__, "\t\tValue=", ct)
 
 
+
+def main(args):
+
+    validate_args(args)
+    args = reformat_args(args)
+
+    r = roll(
+            args.roll_string,
+            verbosity=args.verbosity,
+            load_macros=args.macros,
+            override_rand=args.rand_fn
+          )
+    return r
+
 if __name__ == "__main__":
 
-    # a = roll("1d100!>25", verbosity="DEBUG", load_predefines=False)
-    # print(a)
+    args = setup_arguments()
 
-    if len(sys.argv) > 2 and sys.argv[2] == "-D":
-        print("Debug Enabled")
-        print("Roll Result:", roll(sys.argv[1], verbosity="DEBUG"))
-    elif len(sys.argv) > 2 and sys.argv[2] == "-Q":
-        print("Roll Result:", roll(sys.argv[1], verbosity="SILENT"))
-    else:
-        print("Roll Result:", roll(sys.argv[1], verbosity="INFO"))
+    # args.roll_string = "1d2!!"
+    r = main(args)
+
+    print("Roll Result:", r)

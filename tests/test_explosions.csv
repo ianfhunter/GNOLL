@@ -2,8 +2,8 @@ roll,low,high,errors
 "d3!", 1, 63, False
 "dF!", -, +++++++++++++++++++++, False
 "d100!>75", 1, 2100, False
-"d100~<75", 1, 1575, False
-"dF~", --------------------- +, False
+"d100~<75", 1, 1575, True
+"dF~", ---------------------, +, False
 #"d{A,B,C}~", AAAAAAAAAAAAAAAAAAAA C, False
 "d1~", 20, 3, True
 "d1!", 20, 3, True

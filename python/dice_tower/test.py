@@ -6,6 +6,8 @@ import xmlrunner
 from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
 from dice_tower.utils import check_values, suppress_prints, display
 
+import antlr4
+
 import csv
 import os
 import subprocess
@@ -85,6 +87,7 @@ class TestSuite(unittest.TestCase):
                                         lowest=x["low"],
                                         highest=x["high"])
                 except Exception as e:
+                # except NameError as e:
                     print("✗")
                     print("Exception ", e, "["+x["roll"]+"]: ")
 
@@ -115,12 +118,12 @@ class TestSuite(unittest.TestCase):
 
         fp = os.path.dirname(os.path.realpath(__file__))
         fp = os.path.join(fp, "dice.py")
-        output = subprocess.check_output(["python3", fp, "1d4", "-Q"])
+        output = subprocess.check_output(["python3", fp, "1d4", "--silent"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
         self.assertIn(val, range(1, 5))
 
-        output = subprocess.check_output(["python3", fp, "1d4", "-D"])
+        output = subprocess.check_output(["python3", fp, "1d4", "--verbose"])
         # output = output.decode('ascii')
         # val = int(output.split(":")[1])
         # self.assertIn(val, range(1, 5))

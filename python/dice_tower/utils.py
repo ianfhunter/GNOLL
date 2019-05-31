@@ -1,10 +1,10 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-from dice_tower.dice import roll
-
 from contextlib import contextmanager
+
+from dice_tower.dice import main
+
 import os
 import sys
 
@@ -25,8 +25,9 @@ def graph(values, name):
 def display(s, amount=20):
     # Show a sample distribution
     v = []
+    args = EmulatedArg(s)
     for n in range(amount):
-        v.append(roll(s, verbosity="ERROR"))
+        v.append(main(args))
 
     graph(v, s)
     return v
@@ -39,6 +40,7 @@ def spread(s, fail=False):
     v = []
     l = testLow(s)
     h = testHigh(s)
+
     v.append(l)
     v.append(h)
 
@@ -59,20 +61,24 @@ def spread(s, fail=False):
         return list(v)
 
 
-def not_random_lowest(data):
-    return data[0]
-
-
-def not_random_highest(data):
-    return data[-1]
+class EmulatedArg():
+    def __init__(self, s, verbose=False, silent=True, hi=False, lo=False, macro=True):
+        self.roll_string = s
+        self.verbose = verbose
+        self.silent = silent
+        self.force_max = hi
+        self.force_min = lo
+        self.macros = macro
 
 
 def testHigh(s):
-    return roll(s, override_rand=not_random_highest, verbosity="ERROR")
+    a = EmulatedArg(s, hi=True)
+    return main(a)
 
 
 def testLow(s):
-    return roll(s, override_rand=not_random_lowest, verbosity="ERROR")
+    a = EmulatedArg(s, lo=True)
+    return main(a)
 
 
 def check_values(roll_text, lowest=0, highest=0, debug=False):
