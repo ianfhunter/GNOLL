@@ -6,13 +6,17 @@ import xmlrunner
 from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
 from dice_tower.utils import check_values, suppress_prints, display
 
+import antlr4
+
 import csv
 import os
 import subprocess
+import sys
 
 supported = 0
 unsupported = 0
 
+unsupported_list = []
 
 class TestSuite(unittest.TestCase):
 
@@ -29,7 +33,9 @@ class TestSuite(unittest.TestCase):
             print(u'\u231B', end="")
             cond = False
             global unsupported
+            global unsupported_list
             unsupported += 1
+            unsupported_list.append(args)
 
         if cond:
             global supported
@@ -81,6 +87,7 @@ class TestSuite(unittest.TestCase):
                                         lowest=x["low"],
                                         highest=x["high"])
                 except Exception as e:
+                # except NameError as e:
                     print("✗")
                     print("Exception ", e, "["+x["roll"]+"]: ")
 
@@ -102,16 +109,21 @@ class TestSuite(unittest.TestCase):
         global unsupported
         print(supported, "Supported,", unsupported, "Unsupported")
 
+        if "-v" in sys.argv:
+            print("Support needed for:")
+            for x in unsupported_list:
+                print("> ", x[0])
+
     def test_cmdline(self):
 
         fp = os.path.dirname(os.path.realpath(__file__))
         fp = os.path.join(fp, "dice.py")
-        output = subprocess.check_output(["python3", fp, "1d4", "-Q"])
+        output = subprocess.check_output(["python3", fp, "1d4", "--silent"])
         output = output.decode('ascii')
         val = int(output.split(":")[1])
         self.assertIn(val, range(1, 5))
 
-        output = subprocess.check_output(["python3", fp, "1d4", "-D"])
+        output = subprocess.check_output(["python3", fp, "1d4", "--verbose"])
         # output = output.decode('ascii')
         # val = int(output.split(":")[1])
         # self.assertIn(val, range(1, 5))
