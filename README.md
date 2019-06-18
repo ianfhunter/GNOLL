@@ -22,16 +22,26 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 ## Current Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
-[![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice?branch=master)
-[![Requirements Status](https://requires.io/github/ianfhunter/dice/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice/requirements/?branch=master)
-[![GitHub license](https://img.shields.io/github/license/ianfhunter/dice.svg)](https://github.com/ianfhunter/dice/blob/master/LICENSE)
-![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice.svg)
-![GitHub Community Standards](https://img.shields.io/badge/Github%20Community%20Standards-100%25-green.svg)
+### Build & Test
 
+[![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
+
+### Quality
+[![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice?branch=master)
+
+[![Requirements Status](https://requires.io/github/ianfhunter/dice/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice/requirements/?branch=master)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2797/badge)](https://bestpractices.coreinfrastructure.org/projects/2797)
 ![CII Best Practices Tiered Percentage](https://img.shields.io/cii/percentage/2797.svg?label=CII%20Best%20Practises)
 [![Security Scanner](https://img.shields.io/badge/Security%20Scanner-DeepCodeAI-ff69b4.svg)](https://www.deepcode.ai)
+![Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/ianfhunter/dice-tower.svg)
+![Complexity Issues](https://img.shields.io/codeclimate/issues/ianfhunter/dice-tower.svg)
+![Technical Debt](https://img.shields.io/codeclimate/tech-debt/ianfhunter/dice-tower.svg)
+
+
+### Meta
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/dice.svg)](https://github.com/ianfhunter/dice/blob/master/LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice.svg)
+![GitHub Community Standards](https://img.shields.io/badge/Github%20Community%20Standards-100%25-green.svg)
 
 [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
