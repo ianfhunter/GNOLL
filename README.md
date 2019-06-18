@@ -2,6 +2,10 @@
 <img src="logo.png" height="200">
 </p>
 
+<p align="center">
+<a href="site/demo.html">Try out our demo (Under Construction)</a>
+</p>
+
 A comprehensive grammar and libraries for Dice-based RPG systems
 
 In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/wiki/Dice_notation), that you can plug into your own dice-based projects
