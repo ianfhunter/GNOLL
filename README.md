@@ -27,6 +27,7 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 [![Requirements Status](https://requires.io/github/ianfhunter/dice/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice/requirements/?branch=master)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice.svg)](https://github.com/ianfhunter/dice/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice.svg)
+![GitHub Community Standards](https://img.shields.io/badge/Github%20Community%20Standards-100%25-green.svg)
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2797/badge)](https://bestpractices.coreinfrastructure.org/projects/2797)
 ![CII Best Practices Tiered Percentage](https://img.shields.io/cii/percentage/2797.svg?label=CII%20Best%20Practises)
@@ -147,3 +148,7 @@ Individiual arrangements can be made if this is an issue for your project - Cont
 
 * **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
 * **Shopify** - *Logo Creator* - [Shopify](https://hatchful.shopify.com/)
+
+## Donate
+
+[Keep this project alive](https://paypal.me/ianfhunter)
