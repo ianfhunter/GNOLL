@@ -38,11 +38,11 @@ def display(s, amount=20):
 def spread(s, fail=False):
 
     v = []
-    l = testLow(s)
-    h = testHigh(s)
+    low_result = testLow(s)
+    hi_result = testHigh(s)
 
-    v.append(l)
-    v.append(h)
+    v.append(low_result)
+    v.append(hi_result)
 
     isInt = True
     try:
@@ -51,8 +51,9 @@ def spread(s, fail=False):
         vts.append(int(v[1]))
     except (TypeError, ValueError):
         isInt = False
-        v[0] = v[0] if isinstance(v[0], list) else [v[0]]
-        v[1] = v[1] if isinstance(v[1], list) else [v[1]]
+        def arrayify(x, y): return x[y] if isinstance(x[y], list) else [x[y]]
+        v[0] = arrayify(v, 0)
+        v[1] = arrayify(v, 1)
 
     if isInt:
         vs = np.arange(vts[0], vts[1]+1)
@@ -62,7 +63,8 @@ def spread(s, fail=False):
 
 
 class EmulatedArg():
-    def __init__(self, s, verbose=False, silent=True, hi=False, lo=False, macro=True):
+    def __init__(self, s, verbose=False, silent=True,
+                 hi=False, lo=False, macro=True):
         self.roll_string = s
         self.verbose = verbose
         self.silent = silent
@@ -87,10 +89,10 @@ def check_values(roll_text, lowest=0, highest=0, debug=False):
 
     isInt = True
     try:
-        l = int(lowest)
-        h = int(highest)
-        lowest = l
-        highest = h
+        lo_int = int(lowest)
+        hi_int = int(highest)
+        lowest = lo_int
+        highest = hi_int
     except (TypeError, ValueError):
         isInt = False
 
