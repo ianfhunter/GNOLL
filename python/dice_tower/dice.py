@@ -543,6 +543,14 @@ class diceRollListener(diceListener):
         vals = getEmbeddedValues(ctx)
         ctx.current_total = vals
 
+    def exitDoIf(self, ctx):
+        vals = getEmbeddedValues(ctx)
+        a = condition_met(vals[:2], self.check)
+        if a:
+            ctx.current_total = vals[2]
+        else:
+            ctx.current_total = vals[3]
+
     def exitAdd(self, ctx):
         vals = getEmbeddedValues(ctx)
         if not isinstance(vals[0], type(vals[1])):

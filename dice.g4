@@ -12,10 +12,13 @@ sequence :
     sequence WSPACE? ITEM_SEPERATOR WSPACE? sequence  #MultiItem |
     dice_roll #BubbleRoll;
 
-dice_roll : alter_modifier ;
+dice_roll : alter_ifelse;
+
+alter_ifelse :
+    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? alter_modifier WSPACE? ' else ' WSPACE? alter_modifier WSPACE? #DoIf|
+    alter_modifier #BubbleIf;
 
 alter_modifier:
-    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? alter_modifier WSPACE? ' else ' WSPACE? alter_modifier WSPACE? #DoIf|
     alter_modifier bang #DoBang |
     alter_modifier count #CountSuccess |
     alter_modifier reroll #TryAgain |
@@ -77,11 +80,11 @@ implode : '~' ;
 force : '?' condition;
 
 condition :
-    '#' INTEGER_NUMBER #exactMatch |
-    '<=' INTEGER_NUMBER #lessOrEqualTo |
-    '>=' INTEGER_NUMBER #greaterOrEqualTo |
-    '<' INTEGER_NUMBER #lessThan |
-    '>' INTEGER_NUMBER #greaterThan ;
+    '==' WSPACE? INTEGER_NUMBER #exactMatch |
+    '<=' WSPACE? INTEGER_NUMBER #lessOrEqualTo |
+    '>=' WSPACE? INTEGER_NUMBER #greaterOrEqualTo |
+    '<' WSPACE? INTEGER_NUMBER #lessThan |
+    '>' WSPACE? INTEGER_NUMBER #greaterThan ;
 
 
 reroll : (rr_times | rr_all) condition ;

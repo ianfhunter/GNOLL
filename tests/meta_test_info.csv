@@ -9,9 +9,9 @@ test_rerolling.csv,Rerolling
 test_subsets.csv,Subsets
 test_count_successes.csv,Count Succeses
 test_explosions.csv,Explosion + Implosion
-#test_conditionals.csv,Conditionals
-test_conditions.csv,Conditionals
-#test_custom_dice.csv,Custom Dice
+test_conditionals.csv,Conditionals
+test_conditions.csv,Mini-Conditionals
+test_custom_dice.csv,Custom Dice
 test_clamping.csv,Clamping
 test_macros.csv,Macros
 test_several.csv,Repeats
