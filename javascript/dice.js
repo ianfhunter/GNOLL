@@ -23,20 +23,32 @@ dicePrinter.prototype.enterDie_roll = function(ctx){
     console.log("Begin");
     this.result = 20
     ctx.result = 30
-
 }
+
+dicePrinter.prototype.exitStandardFace = function(ctx){
+    console.log(">"+ctx.getText())
+}
+
+function bubbleImportantValues(ctx){
+    results = []
+    ctx.children.forEach(function(c){
+        console.log(c.getText())
+    })
+}
+
 dicePrinter.prototype.enterEveryRule = function(ctx){
-    console.log("h")
     ctx.result = 20
     this.result=42
-    dicePrinter.result = 22
+    // dicePrinter.result = 22
+    bubbleImportantValues(ctx)
+    console.log(ctx.getText())
 }
 
 
 function roll(str, fn){
 
-    // var input = str;
-    var input = "d4"
+    var input = str;
+    // var input = "d4"
     var chars = new antlr4.InputStream(input);
     var lexer = new DiceLexer(chars);
     var tokens  = new antlr4.CommonTokenStream(lexer);
