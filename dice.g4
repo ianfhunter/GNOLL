@@ -15,6 +15,7 @@ sequence :
 dice_roll : alter_modifier ;
 
 alter_modifier:
+    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? alter_modifier WSPACE? ' else ' WSPACE? alter_modifier WSPACE? #DoIf|
     alter_modifier bang #DoBang |
     alter_modifier count #CountSuccess |
     alter_modifier reroll #TryAgain |
