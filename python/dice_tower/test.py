@@ -6,8 +6,6 @@ import xmlrunner
 from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
 from dice_tower.utils import check_values, suppress_prints, display
 
-import antlr4
-
 import csv
 import os
 import subprocess
@@ -17,6 +15,7 @@ supported = 0
 unsupported = 0
 
 unsupported_list = []
+
 
 class TestSuite(unittest.TestCase):
 
@@ -60,9 +59,11 @@ class TestSuite(unittest.TestCase):
             supported += 1
             print("✓", end="")
 
-    def run_tests_from_file(self, path, debug=False, filename="", meta_file_name="meta_test_info.csv"):
+    def run_tests_from_file(self, path, debug=False,
+                            filename="", meta_file_name="meta_test_info.csv"):
 
-        print("\n==", getMetaInfo(path, filename, meta_file_name)["printname"], "==")
+        print("\n==", getMetaInfo(path, filename,
+                                  meta_file_name)["printname"], "==")
 
         with open(os.path.join(path, filename), mode="r") as testfile:
             reader = csv.DictReader(
@@ -87,7 +88,7 @@ class TestSuite(unittest.TestCase):
                                         lowest=x["low"],
                                         highest=x["high"])
                 except Exception as e:
-                # except NameError as e:
+                    # except NameError as e:
                     print("✗")
                     print("Exception ", e, "["+x["roll"]+"]: ")
 
@@ -102,7 +103,8 @@ class TestSuite(unittest.TestCase):
             reader = csv.DictReader(
                 filter(lambda row: row[0] != '#', testfile))
             for x in reader:
-                self.run_tests_from_file(path, filename=x["filename"], meta_file_name=fname)
+                self.run_tests_from_file(
+                    path, filename=x["filename"], meta_file_name=fname)
 
         print("\n")
         global supported
