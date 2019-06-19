@@ -15,7 +15,7 @@ sequence :
 dice_roll : alter_ifelse;
 
 alter_ifelse :
-    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? alter_modifier WSPACE? ' else ' WSPACE? alter_modifier WSPACE? #DoIf|
+    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? (alter_modifier|'keep') WSPACE? ' else ' WSPACE? (alter_modifier|'keep') WSPACE? #DoIf|
     alter_modifier #BubbleIf;
 
 alter_modifier:

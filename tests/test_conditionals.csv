@@ -6,6 +6,7 @@ roll,low,high,errors
 "if 1 > 3 then 1d4 else 1d6", 1, 6, False
 "if 1 >= 3 then 1d4 else 1d6", 1, 6, False
 "if 1 < 3 then 1d4 else 1d6", 1, 4, False
-"if 1 <= 3 then 1d4 else 1d6", 1, 4, False
+"if 1 >= 3 then 1d4 else 1d6", 1, 6, False
 
+"if 1d4 <= 4 then keep else 5", 1, 4, False
 #"if 1d3 == 1d3 then 1d4 else 1d6", 1, 4, False
