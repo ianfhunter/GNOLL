@@ -24,11 +24,11 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 ### Build & Test
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice)
+[![Build status](https://ci.appveyor.com/api/projects/status/jyx709w6f69dvy8s?svg=true)](https://ci.appveyor.com/project/ianfhunter/dice-tower)
 
 ### Quality
 [![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice?branch=master)
-[![Requirements Status](https://requires.io/github/ianfhunter/dice/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice/requirements/?branch=master)
+[![Requirements Status](https://requires.io/github/ianfhunter/dice-tower/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice-tower/requirements/?branch=master)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2797/badge)](https://bestpractices.coreinfrastructure.org/projects/2797)
 ![CII Best Practices Tiered Percentage](https://img.shields.io/cii/percentage/2797.svg?label=CII%20Best%20Practises)
 [![Security Scanner](https://img.shields.io/badge/Security%20Scanner-DeepCodeAI-ff69b4.svg)](https://www.deepcode.ai)
@@ -38,27 +38,29 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 
 ### Meta
-[![GitHub license](https://img.shields.io/github/license/ianfhunter/dice.svg)](https://github.com/ianfhunter/dice/blob/master/LICENSE)
-![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice.svg)
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice-tower.svg)
 ![GitHub Community Standards](https://img.shields.io/badge/Github%20Community%20Standards-100%25-green.svg)
 
 [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 ### Language Support
 
-Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
+Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice-tower).
 
 Primary Support:
  - Python
  
 Intended Support for next major release:
  - Javascript
+ 
+ And in the far future:
  - C
-
+ 
 ## Getting Started
 
 Get up and started with the project locally for integration into your own project, or just to mess around with it.
-More comprehensive setup guide available on [the Wiki](https://github.com/ianfhunter/dice/wiki)
+More comprehensive setup guide available on [the Wiki](https://github.com/ianfhunter/dice-tower/wiki)
 
 ### Prerequisites
 
@@ -70,7 +72,7 @@ pip3 install antlr4-runtime-something --user
 
 ### Installing
 
-Getting Dice installed on your system (currently you can't do this)
+Getting Dice Tower installed on your system (currently you can't do this)
 
 Compile binary
 
@@ -132,7 +134,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice-tower/tags). 
 
 ## Authors / Contributers / Attributions
 
