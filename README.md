@@ -123,8 +123,8 @@ See https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
 ## Built With
 
 * [ANTLR4](https://www.antlr.org/) - Grammar Parser
-* ? - Logo Creator
-* Love <3
+* [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
+* Love 💖
 
 ## Contributing
 
