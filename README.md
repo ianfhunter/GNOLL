@@ -140,13 +140,13 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
 
-See also the list of [contributors](https://github.com/ianfhunter/dice/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ianfhunter/dice-tower/contributors) who participated in this project.
 
 
 ## Issues / Bugs / FAQs / Feature Requests
 
 We are currently building a Wiki to help you in building on top of Dice. 
-In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice/issues).
+In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
 You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
 
 ## License
@@ -158,7 +158,6 @@ Individiual arrangements can be made if this is an issue for your project - Cont
 ## Acknowledgments
 
 * **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Shopify** - *Logo Creator* - [Shopify](https://hatchful.shopify.com/)
 
 ## Donate
 
