@@ -15,3 +15,5 @@ test_custom_dice.csv,Custom Dice
 test_clamping.csv,Clamping
 test_macros.csv,Macros
 test_several.csv,Repeats
+test_groups.csv,Groups
+test_strings.csv,Strings

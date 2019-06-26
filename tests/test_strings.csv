@@ -1,0 +1,4 @@
+roll,low,high,errors
+"d4 #We Rolled a dice!", 1, 4, False
+"d4 #We Rolled a dice! It was %", 1, 4, False
+"d4 #We Rolled a dice! It was {>=2: 'a good roll', <2: 'a bad roll'}", 1, 4, False

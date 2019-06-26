@@ -15,8 +15,15 @@ sequence :
 dice_roll : alter_ifelse;
 
 alter_ifelse :
-    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? (alter_modifier|'keep') WSPACE? ' else ' WSPACE? (alter_modifier|'keep') WSPACE? #DoIf|
+    'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? (alter_modifier|'keepl'|'keepr') WSPACE? ' else ' WSPACE? (alter_modifier|'keepl'|'keepr') WSPACE? #DoIf|
     alter_modifier #BubbleIf;
+
+// alter_condition : 
+//     alter_condition EQ alter_condition #exactMatch |
+//     alter_condition LTE alter_condition #lessOrEqualTo |
+//     alter_condition GTE alter_condition #greaterOrEqualTo |
+//     alter_condition LT alter_condition #lessThan |
+//     alter_condition GT alter_condition #greaterThan ;
 
 alter_modifier:
     alter_modifier bang #DoBang |
@@ -70,7 +77,11 @@ die_roll :
     amount? (die faces | fateDie | access_variable) |
     amount;
 
-count : '£' condition? ;
+count : 's' condition? #success |
+        'cs' condition? #cancelsuccess |
+        'f' condition? #fail |
+        'ms' condition? #marginofsuccess
+;
 
 bang : (explode | implode) condition? ;
 
@@ -80,11 +91,11 @@ implode : '~' ;
 force : '?' condition;
 
 condition :
-    '==' WSPACE? INTEGER_NUMBER #exactMatch |
-    '<=' WSPACE? INTEGER_NUMBER #lessOrEqualTo |
-    '>=' WSPACE? INTEGER_NUMBER #greaterOrEqualTo |
-    '<' WSPACE? INTEGER_NUMBER #lessThan |
-    '>' WSPACE? INTEGER_NUMBER #greaterThan ;
+    EQ WSPACE? INTEGER_NUMBER #exactMatch |
+    LTE WSPACE? INTEGER_NUMBER #lessOrEqualTo |
+    GTE WSPACE? INTEGER_NUMBER #greaterOrEqualTo |
+    LT WSPACE? INTEGER_NUMBER #lessThan |
+    GT WSPACE? INTEGER_NUMBER #greaterThan ;
 
 
 reroll : (rr_times | rr_all) condition ;
@@ -114,7 +125,6 @@ amount : INTEGER_NUMBER ;
 faces : INTEGER_NUMBER #StandardFace |
         OPEN_BRACE  WSPACE? numeric_sequence  WSPACE? CLOSE_BRACE #CustomFace ;
 
-// numeric_sequence : numeric_item  WSPACE? (','  WSPACE? numeric_item WSPACE?)*;
 numeric_sequence :
     numeric_sequence WSPACE? COMMA WSPACE? numeric_sequence #NSequence |
     numeric_item #NItem ;
@@ -123,12 +133,19 @@ numeric_item : seq_item |
                MINUS? INTEGER_NUMBER |
                (SYMBOL);
 
-seq_item : MINUS? INTEGER_NUMBER WSPACE?  '..' WSPACE? MINUS? INTEGER_NUMBER ;
+seq_item : MINUS? INTEGER_NUMBER WSPACE?  RANGE_CHAR WSPACE? MINUS? INTEGER_NUMBER ;
 
 
 // Symbols
 die     : 'd';
 fateDie : ('dF' | 'df');
+
+// Conditions
+EQ : '==';
+LTE : '<=';
+GTE : '>=';
+LT : '<';
+GT : '>';
 
 
 PLUS    : '+';
@@ -146,6 +163,7 @@ ACCESSOR: '@';
 COMMA : ',';
 ITEM_SEPERATOR : ':';
 END_ASSIGNMENT: ';';
+RANGE_CHAR : '..';
 
 OPEN_BRACKET : '(';
 CLOSE_BRACKET : ')';

@@ -64,7 +64,7 @@ class MyErrorListener(ErrorListener):
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         log.eprint("syntaxError")
-        raise InvalidDiceRoll
+        # raise InvalidDiceRoll
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex,
                         exact, ambigAlts, configs):
