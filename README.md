@@ -3,7 +3,8 @@
 </p>
 
 <p align="center">
-<a href="site/demo.html">Try out our demo (Under Construction)</a>
+   <a href="site/demo.html">Try out our demo (Warning: Non-Functional)</a>
+   <a href="https://discord.gg/NkDwYbU">Join our Discord</a>
 </p>
 
 A comprehensive grammar and libraries for Dice-based RPG systems
