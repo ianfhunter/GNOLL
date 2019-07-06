@@ -47,7 +47,7 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 ### Language Support
 
-Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice-tower).
+Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
 
 Primary Support:
  - Python
