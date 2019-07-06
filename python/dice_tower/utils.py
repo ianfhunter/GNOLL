@@ -1,12 +1,15 @@
+import os
+import sys
 
 import numpy as np
 import matplotlib.pyplot as plt
 from contextlib import contextmanager
 
-from dice_tower.dice import main
+try:
+    from dice import main
+except ModuleNotFoundError:
+    from dice_tower.dice import main
 
-import os
-import sys
 
 
 # Display Infrastructure

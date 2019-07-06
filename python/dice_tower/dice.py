@@ -1,20 +1,32 @@
 #!/usr/bin/env python3
 
+import warnings
+import math
+import os
+
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
 from antlr4.error.ErrorListener import ErrorListener
 from antlr4.tree.Trees import Trees
 
-from dice_tower.grammar.diceLexer import diceLexer
-from dice_tower.grammar.diceParser import diceParser
-from dice_tower.grammar.diceListener import diceListener
+try:
+    # Local
+    from grammar.diceLexer import diceLexer
+    from grammar.diceParser import diceParser
+    from grammar.diceListener import diceListener
 
-from dice_tower.args import setup_arguments, validate_args
-from dice_tower.args import reformat_args, choose_item
-from dice_tower.meta import InvalidDiceRoll, GrammarParsingException
+    from args import setup_arguments, validate_args
+    from args import reformat_args, choose_item
+    from meta import InvalidDiceRoll, GrammarParsingException
+except ModuleNotFoundError:
+    # Pip Package
+    from dice_tower.grammar.diceLexer import diceLexer
+    from dice_tower.grammar.diceParser import diceParser
+    from dice_tower.grammar.diceListener import diceListener
 
-import warnings
-import math
-import os
+    from dice_tower.args import setup_arguments, validate_args
+    from dice_tower.args import reformat_args, choose_item
+    from dice_tower.meta import InvalidDiceRoll, GrammarParsingException
+
 
 rand_fn = None
 log = None

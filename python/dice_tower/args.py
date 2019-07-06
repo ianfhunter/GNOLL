@@ -1,7 +1,14 @@
 from random import choice
 import argparse
 
-from dice_tower.meta import ArgumentError
+
+try:
+    # Local
+    from meta import ArgumentError
+except ModuleNotFoundError:
+    # Pip
+    from dice_tower.meta import ArgumentError
+
 
 def not_random_lowest(data):
     return data[0]
