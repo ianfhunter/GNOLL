@@ -2,7 +2,7 @@
 source = .
 omit = 
     # Auto-Generated Files
-    grammar/*
+    dice_tower/grammar/*
     # Python Library files
     */site-packages/
     */dist-packages/
