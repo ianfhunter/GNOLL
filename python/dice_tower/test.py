@@ -3,8 +3,15 @@
 import unittest
 import xmlrunner
 
-from .dice import GrammarParsingException, InvalidDiceRoll
-from .utils import check_values, suppress_prints, display
+try:
+    # Local
+    from dice import GrammarParsingException, InvalidDiceRoll
+    from utils import check_values, suppress_prints, display
+except:
+    # Pip Package
+    from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
+    from dice_tower.utils import check_values, suppress_prints, display
+    
 
 import csv
 import os
