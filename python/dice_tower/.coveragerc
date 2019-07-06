@@ -2,9 +2,9 @@
 source = .
 omit = 
     # Auto-Generated Files
-    dice_tower/grammar/*
+    */grammar/*
     # Python Library files
-    */site-packages/
-    */dist-packages/
+    */site-packages/*
+    */dist-packages/*
     # AppVeyor Files
     /home/appveyor/.local/*
