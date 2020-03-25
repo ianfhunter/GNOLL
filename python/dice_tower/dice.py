@@ -145,7 +145,7 @@ def roll(s, override_rand=None, grammar_errors=True, debug=False,
         elif verbosity == "DEBUG":
             log = Verbosity(Verbosity.DEBUG)
         else:
-            print("No Verbosity level named: \""+verbosity+"\"")
+            print("No Verbosity level named: \"" + verbosity + "\"")
             raise ValueError
 
     if load_macros:  # and False:
@@ -344,6 +344,9 @@ class diceRollListener(diceListener):
         self.result = getEmbeddedValues(ctx)
 
     def exitBang(self, ctx):
+        if "p" in ctx.getText():
+            raise NotImplementedError
+
         self.bangs = len([c for c in ctx.getText() if c == '!'])
         self.sucks = len([c for c in ctx.getText() if c == '~'])
         if self.sucks > 1 or self.bangs > 1:

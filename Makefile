@@ -1,3 +1,6 @@
+
+ANTLR4 := java -Xmx500M -jar ${PWD}/external/antlr-4.7.2-complete.jar
+
 clean:
 	-rm grammar/* -r
 	#alias antlr4
@@ -5,7 +8,7 @@ clean:
 python:
 	cd external ; make download ; cd ..
 	bash ./setup_antlr.sh 4.7.2 Python3
-	antlr4 dice.g4 -o python/dice_tower/grammar -Dlanguage=Python3
+	${ANTLR4} dice.g4 -o python/dice_tower/grammar -Dlanguage=Python3
 	cd python ; make all ; cd ..
 
 javascript: clean

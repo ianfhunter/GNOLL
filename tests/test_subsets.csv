@@ -7,11 +7,4 @@ roll,low,high,errors
 "3d20kh3", 3, 60, False
 "3d20kl4", 2, 14, True
 
-"2d20-l", 1, 20, False
-"2d20-h", 1, 20, False
-"3d20-2h", 1, 20, False
-"3d20-2l", 1, 20, False
-"3d20-3h", 3, 14, True
-"3d20-4h", 2, 14, True
-
-"2dF-l", '-', '+', False
+"2dFkl", '-', '+', False

@@ -18,7 +18,7 @@ alter_ifelse :
     'if ' WSPACE? alter_modifier WSPACE? condition  WSPACE?' then ' WSPACE? (alter_modifier|'keepl'|'keepr') WSPACE? ' else ' WSPACE? (alter_modifier|'keepl'|'keepr') WSPACE? #DoIf|
     alter_modifier #BubbleIf;
 
-// alter_condition : 
+// alter_condition :
 //     alter_condition EQ alter_condition #exactMatch |
 //     alter_condition LTE alter_condition #lessOrEqualTo |
 //     alter_condition GTE alter_condition #greaterOrEqualTo |
@@ -83,7 +83,7 @@ count : 's' condition? #success |
         'ms' condition? #marginofsuccess
 ;
 
-bang : (explode | implode) condition? ;
+bang : (explode | implode) PENETRATE? condition? ;
 
 explode : '!' ;
 implode : '~' ;
@@ -98,24 +98,15 @@ condition :
     GT WSPACE? INTEGER_NUMBER #greaterThan ;
 
 
-reroll : (rr_times | rr_all) condition ;
-rr_times : 'r' amount? ;
-rr_all : 'rr' ;
+reroll : 'r' (rr_all | rr_times) condition ;
+rr_all : 'r' ;
+rr_times : amount? ;
 
-subset : subset_standard_notation | subset_rolegate_notation; //  | subset_rolegate_drop_notation
-
-subset_standard_notation :
-    MINUS subset_size? SNLow #LowerSN |
-    MINUS subset_size? SNHigh #HigherSN ;
+subset :  subset_rolegate_notation; //  | subset_rolegate_drop_notation
 
 subset_rolegate_notation :
     RNLow subset_size? #LowerRN |
     RNHigh subset_size? #HigherRN ;
-
-// subset_rolegate_drop_notation :
-//     RNDLow subset_size? #LowerRND |
-//     RNDHigh subset_size? #HigherRND ;
-
 
 // NUMERIC MEANINGS
 subset_size : INTEGER_NUMBER;
@@ -147,6 +138,7 @@ GTE : '>=';
 LT : '<';
 GT : '>';
 
+PENETRATE: 'p';
 
 PLUS    : '+';
 POWER   : '^';
