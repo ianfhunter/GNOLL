@@ -23,3 +23,6 @@ else
     echo "Error, Setup Incorrect Params: $1, $2"
     exit 1
 fi
+
+type antlr4
+echo "Please Manually add antlr alias to your .bashrc"
