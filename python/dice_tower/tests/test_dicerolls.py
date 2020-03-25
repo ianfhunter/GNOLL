@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 def test_cmdline():
     fp = os.path.dirname(os.path.realpath(__file__))
-    fp = os.path.join(fp, "dice.py")
+    fp = os.path.join(fp, "../dice.py")
     output = subprocess.check_output(["python3", fp, "1d4", "--silent"])
     output = output.decode('ascii')
     val = int(output.split(":")[1])
@@ -53,14 +53,16 @@ def generate_test_cases(which="TP"):
                     true_negative_tests.append((
                             x["roll"],
                             x["low"],
-                            x["high"]
+                            x["high"],
+                            f
                         )
                     )
                 else:
                     true_positive_tests.append((
                             x["roll"],
                             x["low"],
-                            x["high"]
+                            x["high"],
+                            f
                         )
                     )
 
@@ -70,8 +72,9 @@ def generate_test_cases(which="TP"):
         return true_negative_tests
 
 
-@pytest.mark.parametrize("test_case,low,high", generate_test_cases("FP"))
-def test_bad_dice_rolls(test_case, low, high):
+
+@pytest.mark.parametrize("test_case,low,high,testfile", generate_test_cases("FP"))
+def test_bad_dice_rolls(test_case, low, high, testfile):
     """
     Rolls that are meant to fail
     """
@@ -88,8 +91,8 @@ def test_bad_dice_rolls(test_case, low, high):
         except NotImplementedError:
             pytest.xfail("Not Implemented Yet")
 
-@pytest.mark.parametrize("test_case,low,high", generate_test_cases("TP"))
-def test_good_dice_rolls(test_case, low, high):
+@pytest.mark.parametrize("test_case,low,high,testfile", generate_test_cases("TP"))
+def test_good_dice_rolls(test_case, low, high, testfile):
     """
     Rolls that should pass
     """
