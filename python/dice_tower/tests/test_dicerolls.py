@@ -10,7 +10,7 @@ try:
     # Local
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from dice import GrammarParsingException, InvalidDiceRoll
-    from ..utils import check_values, suppress_prints, display
+    from utils import check_values, suppress_prints, display
 except ImportError:
     # Pip Package
     from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
