@@ -9,8 +9,8 @@ import sys
 try:
     # Local
     sys.path.append("..")
-    from dice import GrammarParsingException, InvalidDiceRoll
-    from utils import check_values, suppress_prints, display
+    from ..dice import GrammarParsingException, InvalidDiceRoll
+    from ..utils import check_values, suppress_prints, display
 except ModuleNotFoundError:
     # Pip Package
     from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
