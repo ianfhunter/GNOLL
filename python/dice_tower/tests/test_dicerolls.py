@@ -8,10 +8,10 @@ import sys
 
 try:
     # Local
-    sys.path.append("../..")
+    sys.path.append(os.getcwd() + '/..')
     from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
     from ..utils import check_values, suppress_prints, display
-except ModuleNotFoundError:
+except ImportError:
     # Pip Package
     from dice_tower.dice import GrammarParsingException, InvalidDiceRoll
     from dice_tower.utils import check_values, suppress_prints, display
