@@ -8,7 +8,7 @@ import sys
 
 try:
     # Local
-    sys.path.append(os.getcwd() + '/..')
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from dice import GrammarParsingException, InvalidDiceRoll
     from ..utils import check_values, suppress_prints, display
 except ImportError:
