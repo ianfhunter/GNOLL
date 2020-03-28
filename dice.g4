@@ -190,7 +190,9 @@ fragment BLANK   : (' ' | '\t')+;
 fragment CHAR    : ('a'..'z'|'A'..'Z'|'_');
 
 fragment CHESS_U : '\u2654'..'\u265F' ;
-fragment CARDS_U : '\u2660'..'\u2667' ; // Suits
+fragment CARDS_U : SUITS_U | ICARD_U ;
+fragment SUITS_U : '\u2660'..'\u2667' ;
+fragment ICARD_U : '\u{1F0A1}'..'\u{1F0FF}' ;
 fragment ZODIAC_U : '\u2648'..'\u2653' | '\u26CE' ;
 fragment RUNIC_U : '\u16A0'..'\u16FE';
 fragment ROMAN_NUMERALS_U : '\u2160'..'\u217B';
