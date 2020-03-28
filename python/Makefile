@@ -25,7 +25,7 @@ coverage:
 	coverage report
 
 test:
-	python3 dice_tower/test.py
+	pytest dice_tower/tests/
 
 release_package:
 	# Increment version
