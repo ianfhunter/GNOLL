@@ -1,5 +1,7 @@
 
-ANTLR4 := java -Xmx500M -jar ${PWD}/external/antlr-4.7.2-complete.jar
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+mkfile_dir := $(dir $(mkfile_path))
+ANTLR4 := java -Xmx500M -jar ${mkfile_dir}/external/antlr-4.7.2-complete.jar
 
 clean:
 	-rm grammar/* -r
@@ -8,6 +10,7 @@ clean:
 python:
 	cd external ; make download ; cd ..
 	bash ./setup_antlr.sh 4.7.2 Python3
+
 	${ANTLR4} dice.g4 -o python/dice_tower/grammar -Dlanguage=Python3
 	cd python ; make all ; cd ..
 

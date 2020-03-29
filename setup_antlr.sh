@@ -4,12 +4,13 @@ export CLASSPATH=".:external/antlr-$1-complete.jar:$CLASSPATH"
 
 shopt -s expand_aliases
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null 2>&1 && pwd )"
-echo $DIR
 
-alias antlr4='java -Xmx500M -cp "$DIR/external/antlr-$1-complete.jar:$CLASSPATH" org.antlr4.v4.Tool'
+CUR_DIR="$(dirname $0)"
+echo $CUR_DIR
 
-alias antlr4='java -Xmx500M -jar $DIR/external/antlr-$1-complete.jar '
+alias antlr4='java -Xmx500M -cp "$CUR_DIR/external/antlr-$1-complete.jar:$CLASSPATH" org.antlr4.v4.Tool'
+
+alias antlr4='java -Xmx500M -jar $CUR_DIR/external/antlr-$1-complete.jar '
 
 alias antlr4
 
