@@ -32,7 +32,6 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 
 ### Quality
 [![Coverage Status](https://coveralls.io/repos/github/ianfhunter/dice-tower/badge.svg?branch=master)](https://coveralls.io/github/ianfhunter/dice-tower?branch=master)
-[![Requirements Status](https://requires.io/github/ianfhunter/dice-tower/requirements.svg?branch=master)](https://requires.io/github/ianfhunter/dice-tower/requirements/?branch=master)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2797/badge)](https://bestpractices.coreinfrastructure.org/projects/2797)
 ![CII Best Practices Tiered Percentage](https://img.shields.io/cii/percentage/2797.svg?label=CII%20Best%20Practises)
 [![Security Scanner](https://img.shields.io/badge/Security%20Scanner-DeepCodeAI-ff69b4.svg)](https://www.deepcode.ai)
