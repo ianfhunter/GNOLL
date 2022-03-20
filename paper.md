@@ -17,3 +17,17 @@ affiliations:
 date: 20 Mar 2022
 bibliography: paper.bib
 ---
+
+# Summary
+
+# Statement of Need
+
+# Mathematics
+
+# Citations
+
+# Figures
+
+# Acknowledgments
+
+# References
