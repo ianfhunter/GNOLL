@@ -20,28 +20,59 @@ int choice(int small, int big){
 
 %start dice
 
-%token DIGIT LETTER
+%token NUMBER SIDED_DIE FATE_DIE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN REPEAT PENETRATE KEEP_LOWEST KEEP_HIGHEST MACRO_ACCESSOR MACRO_STORAGE
 
-%left '|'
-%left '&'
+/* Defines Precedence from Lowest to Highest */
 %left '+' '-'
 %left '*' '/' '%'
-%left UMINUS  /*supplies precendecne for unary minus*/
-%left DIE
+%left UMINUS
 
 %%   /* Rules Section */
 
-dice: number die_symbol number
+// A Die Roll Can be:
+// - [x]d[y]
+// - (1)d[x]
+// - [x]dF
+// - (1)dF
+// - [x]
+dice: NUMBER SIDED_DIE NUMBER
 {
     int result = 0;
     for(int i = 0; i != $1; i++){
         result += choice(1, $3);
     }
     printf("%d\n", result);
+    $$ = result;
 }
+|
+SIDED_DIE NUMBER
+{
+    int result = choice(1, $2);
+    printf("%d\n", result);
+    $$ = result;
+}
+|
+NUMBER FATE_DIE
+{
+    int result = 0;
+    for(int i = 0; i != $1; i++){
+        result += choice(-1, 1);
+    }
+    printf("%d\n", result);
+    $$ = result;
+}
+|
+FATE_DIE
+{
+    int result = choice(-1, 1);
+    printf("%d\n", result);
+    $$ = result;
+}
+|
+NUMBER
 ;
 
-die_symbol: 'd' %prec DIE
+/* Macros */
 /*
 list:
      |
@@ -104,20 +135,9 @@ expr:    '(' expr ')'
         $$ = -$2;
     }
     |
-    number
+    NUMBER
     ;
 */
-
-number: DIGIT{
-        $$ = $1;
-        base = ($1==0) ? 8: 10;
-    }
-    |
-    number DIGIT
-    {
-        $$ = base * $1 + $2;
-    }
-    ;
 
 
 %%

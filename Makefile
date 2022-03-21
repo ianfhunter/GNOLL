@@ -43,15 +43,18 @@ yacc: yacc_clean
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 
-	lex src/grammar/dice.lex
+	lex src/grammar/dice.lex 
 	cp lex.yy.c build/lex.yy.c
 
 	cc build/y.tab.c build/lex.yy.c
-	mv ./a.out build/dice
+# Linux
+	mv ./a.out build/dice | true
+# Windows
+	mv ./a.exe build/dice | true
 
 #	./build/dice < tests/test_calc.txt
 	echo "== Python Test =="
-	python3 src/python/yacc_wrapper.py
-	python3 src/python/yacc_tests.py
+	python src/python/yacc_wrapper.py
+	python src/python/yacc_tests.py
 
 .PHONY: clean python javascript all

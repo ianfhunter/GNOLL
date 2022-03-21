@@ -1,17 +1,17 @@
 import subprocess
 import os
+import platform
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
 
 def roll(s):
     print("Rolling: ", s)
     # Todo: Threadsafe
-    fn = os.path.join(BUILD_DIR, "parse.request")
+    fn = os.path.join(BUILD_DIR, "parse.request").replace("\\","/")
     with open(fn, "w") as f:
         f.write(s)
 
-
-    cmd = os.path.join(BUILD_DIR, "dice")
+    cmd = os.path.join(BUILD_DIR, "dice").replace("\\","/")
     parser = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     out, err = parser.communicate(s.encode("ascii"))
