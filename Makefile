@@ -1,7 +1,6 @@
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
-ANTLR4 := java -Xmx500M -jar ${mkfile_dir}/external/antlr-4.7.2-complete.jar
 
 clean:
 	-rm grammar/* -r
@@ -34,5 +33,25 @@ install :
 	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn clean
 	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn -DskipTests install
 	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn package
+
+yacc_clean:
+	rm -rf build
+
+yacc: yacc_clean
+	mkdir -p build
+	yacc -d src/grammar/dice.yacc
+	mv y.tab.c build/y.tab.c
+	mv y.tab.h build/y.tab.h
+
+	lex src/grammar/dice.lex
+	cp lex.yy.c build/lex.yy.c
+
+	cc build/y.tab.c build/lex.yy.c
+	mv ./a.out build/dice
+
+#	./build/dice < tests/test_calc.txt
+	echo "== Python Test =="
+	python3 src/python/yacc_wrapper.py
+	python3 src/python/yacc_tests.py
 
 .PHONY: clean python javascript all

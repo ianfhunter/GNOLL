@@ -1,2 +1,0 @@
-
-int roll(char * str);
