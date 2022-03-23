@@ -112,6 +112,11 @@ reports/
 grammar/
 */grammar/
 
+
+# YACC/Lex
+lex.yy.*
+y.tab.*
+
 # Other
 .vscode/
 tmp

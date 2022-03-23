@@ -1,20 +1,5 @@
-roll,low,high,errors
-"dF", -, +, False
-"1dF", -, +, False
-"3dF", ---, +++, False
-"dF+dF", --, ++, False
-
-# Subtraction can make no sense for string dice if they do not contain the same items
-"10dF-2dF", -, ++++++++, True
-"2dF-20dF", ++++++++++++++++++, ------------------, True
-
-# You also should not be able to add numbers and strings together
-"d10+dF", -----------, +++++++++++, True
-
-#And you cannot use strings as a condition on numbers
-"2d4x3dF", ----, ++++++++++++++++++++++++++++, True
-
-# You can do the reverse though.
-"2dF x 2d4", "--:--", "++:++:++:++:++:++:++:++", False
-
-"3df!", ---, +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++, False
+roll,low,high,passes
+"dF",-1,1,True
+"2dF",-2,2,True
+"dF2",0,0,False
+"2dF2",0,0,False
