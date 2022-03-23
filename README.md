@@ -53,9 +53,11 @@ Several languages will be targetted as the project develops. Interested in somet
 
 Primary Support:
  - Commandline
+
 Secondary Support:
  - Python
  - C
+
 Tertiary Support:
  - Javascript
  - PHP
