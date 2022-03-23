@@ -1,0 +1,9 @@
+roll,low,high,passes
+# Keep Highest
+"2d20kh", 1, 20, True
+"2d20dl", 1, 20, True
+"2d20h", 1, 20, True
+# Keep Lowest
+"2d20kl", 1, 20, True
+"2d20dh", 1, 20, True
+"2d20l", 1, 20, True

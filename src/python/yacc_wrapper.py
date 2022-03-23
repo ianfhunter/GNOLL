@@ -4,8 +4,8 @@ import platform
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
 
-def roll(s):
-    print("Rolling: ", s)
+def roll(s, verbose=False):
+    if verbose: print("Rolling: ", s)
     # Todo: Threadsafe
     fn = os.path.join(BUILD_DIR, "parse.request").replace("\\","/")
     with open(fn, "w") as f:
@@ -18,11 +18,15 @@ def roll(s):
     return_code = parser.returncode
 
     out = out.decode("ascii").replace("\n","")
+    print(out, err, return_code)
+    if out.strip() == "":
+        return_code = 1
+        out = -123
 
-    print(out)
-    print(return_code)
+    if verbose: print(out)
+    if verbose: print(return_code)
     return int(return_code), int(out)
 
 
 if __name__=="__main__":
-    roll("1d3")
+    roll("2d20l", verbose=True)

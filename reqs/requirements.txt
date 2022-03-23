@@ -1,8 +1,7 @@
-antlr4-python3-runtime==4.7.2 
-matplotlib 
-numpy 
+matplotlib
+numpy
 coverage
-coveralls 
+coveralls
 pyflakes
 pytest
 pytest-cov

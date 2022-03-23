@@ -1,8 +1,7 @@
 %{
     #include <stdio.h>
     #include "y.tab.h"
-    int c;
-    extern int yylval;
+    #include "shared_header.h"
 %}
 
 %%
@@ -10,21 +9,25 @@
 
 [ \n]+ /* Eat Whitespace */;
 
-[0-9]+ {
-    yylval = atoi(yytext);
-    return(NUMBER);
+-?[0-9]+ {
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = atoi(yytext);
+    vector.length = 1;
+    yylval.values = vector;
+    return NUMBER;
 }
 
-[d|D] {
+d {
     return(SIDED_DIE);
 }
-[d|D][f|F] {
+df|dF {
     return(FATE_DIE);
 }
-[l|kl|dh] {
+kl|dh|l {
     return(KEEP_LOWEST);
 }
-[h|kh|dl] {
+kh|dl|h {
     return(KEEP_HIGHEST);
 }
 
