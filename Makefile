@@ -1,43 +1,7 @@
-
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-mkfile_dir := $(dir $(mkfile_path))
-
 clean:
-	-rm grammar/* -r
-	#alias antlr4
-
-python:
-	cd external ; make download ; cd ..
-	bash ./setup_antlr.sh 4.7.2 Python3
-
-	${ANTLR4} dice.g4 -o python/dice_tower/grammar -Dlanguage=Python3
-	cd python ; make all ; cd ..
-
-javascript: clean
-	cd external ; make download ; cd ..
-	# TODO - : on linux, ; on windows.
-	bash ./setup_antlr.sh 4.7.2 Javascript
-	npm install antlr4
-	cd javascript ; make all ; cd ..
-
-all : python
-	echo ""
-
-test : all
-	cd python ; make test ; cd ..
-
-lint :
-	cd python ; make lint ; cd ..
-
-install :
-	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn clean
-	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn -DskipTests install
-	cd external/antlr4/ ; export MAVEN_OPTS="-Xmx1G" ; mvn package
-
-yacc_clean:
 	rm -rf build
 
-yacc: yacc_clean
+all: clean
 	mkdir -p build
 	yacc -d src/grammar/dice.yacc
 	mv y.tab.c build/y.tab.c
@@ -51,11 +15,11 @@ yacc: yacc_clean
 	mv ./a.out build/dice | true
 # Windows
 	mv ./a.exe build/dice | true
+	echo "== Build Complete =="
 
-#	./build/dice < tests/test_calc.txt
-	# echo "== Python Code =="
-	# python3 src/python/yacc_wrapper.py
-	echo "== Python Test =="
+
+test : all
 	python3 -m pytest src/python/yacc_tests.py
 
-.PHONY: clean python javascript all
+
+.PHONY: clean all test
