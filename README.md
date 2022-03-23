@@ -52,13 +52,16 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
 
 Primary Support:
+ - Commandline
+Secondary Support:
  - Python
- 
-Intended Support for next major release:
- - Javascript
- 
- And in the far future:
  - C
+Tertiary Support:
+ - Javascript
+ - PHP
+ - Ruby
+
+The rationale for this is to enable general development, but also promote the usage for webapps.
  
 ## Getting Started
 
@@ -127,7 +130,7 @@ See https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8
 
 ## Built With
 
-* [ANTLR4](https://www.antlr.org/) - Grammar Parser
+* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
 * [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
 * Love 💖
 
