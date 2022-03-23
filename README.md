@@ -72,18 +72,15 @@ More comprehensive setup guide available on [the Wiki](https://github.com/ianfhu
 
 The following details are for Ubuntu 18.04 or higher. Visit the wiki for other platforms (note: nothing there yet)
 ```
-sudo apt-get install antlr4
-pip3 install antlr4-runtime-something --user
+sudo apt-get install bison flex
 ```
 
-### Installing
+### Building
 
-Getting Dice Tower installed on your system (currently you can't do this)
-
-Compile binary
+Compile the binary executable
 
 ```
-make install
+make all
 ```
 
 Add to path so you can refer to it easily. 
@@ -93,7 +90,7 @@ export PATH=$PATH:/path/to/dir/
 ```
 
 You should be able to try out rolling some dice now!
-
+(Note: currently you need to pipe a file into the program)
 ```
 $ dice 1d20
 20
@@ -111,7 +108,7 @@ We aren't 100% complete just yet, You can run our test suite to see our current 
 $ make test
 ```
 
-### Meta Tests
+### Meta Tests (not currently working)
 
 Code Coverage, Style Compliance, All those things that just make the world a little nicer.
 
