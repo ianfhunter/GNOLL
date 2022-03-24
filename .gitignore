@@ -116,7 +116,13 @@ grammar/
 # YACC/Lex
 lex.yy.*
 y.tab.*
+*.out
+*.exe
 
 # Other
 .vscode/
 tmp
+parse.request
+__pycache__/
+*.pyc
+.pytest_cache/
