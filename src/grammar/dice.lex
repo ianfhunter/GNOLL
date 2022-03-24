@@ -9,7 +9,7 @@
 
 [ \n]+ /* Eat Whitespace */;
 
--?[0-9]+ {
+[0-9]+ {
     vec vector;
     vector.content = malloc(sizeof(int));
     vector.content[0] = atoi(yytext);
@@ -60,4 +60,10 @@ kh|dl|h {
 }
 [@] {
     return(MACRO_ACCESSOR);
+}
+[(] {
+    return(LBRACE);
+}
+[)] {
+    return(RBRACE);
 }

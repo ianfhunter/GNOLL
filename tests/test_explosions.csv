@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "d3!", 1, 63, False
 "dF!", -, +++++++++++++++++++++, False
 "d100!>75", 1, 2100, False
@@ -21,7 +21,7 @@ roll,low,high,errors
 # Penetrating
 "d4!p", 1, 10, False
 
-# Multiple Dice 
+# Multiple Dice
 "2d4!", 1, 10, False
 "2d4!p", 1, 20, False
 

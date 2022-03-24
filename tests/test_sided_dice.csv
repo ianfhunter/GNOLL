@@ -7,6 +7,7 @@ roll,low,high,passes
 "d12", 1, 12, True
 "d20", 1, 20, True
 "d100", 1, 100, True
+"d 100", 1, 100, True
 # Number of Dice
 "1d4", 1, 4, True
 "2d6", 2, 12, True
@@ -15,10 +16,16 @@ roll,low,high,passes
 "5d12", 5, 60, True
 "6d20", 6, 120, True
 "10d100", 10, 1000, True
+# Strange Cases
 "1d1", 1, 1, True
+"-1d4", -4, -1, True
+"-1d1", -1, -1, True
+"0d1",0, 0, True
 # Failing Cases
 "4d", 0, 0, False
-"-1d1", 1, 1, False
+"1d0", 0, 0, False
 "1d-1", 1, 1, False
 "-1d-1", 1, 1, False
 "d-1", 1, 1, False
+"d", 1, 1, False
+"d2d", 1, 1, False

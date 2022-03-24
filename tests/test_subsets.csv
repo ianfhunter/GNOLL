@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "2d20kl", 1, 20, False
 #"2d20k", 1, 20, False
 "2d20kh", 1, 20, False

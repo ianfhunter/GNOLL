@@ -12,9 +12,7 @@
 #include "yacc_header.h"
 #include "shared_header.h"
 
-int regs[26];
-
-int base;
+int yydebug=1;
 
 int initialize(){
     srand(time(NULL));
@@ -25,6 +23,9 @@ void print_vec(vec vector){
     for(int i = 0; i != vector.length; i++){
         printf(" %d\n", vector.content[i]);
     }
+}
+int collapse(int * arr, int len){
+    return sum(arr, len);
 }
 
 int sum(int * arr, int len){
@@ -78,21 +79,24 @@ void pop(int * arr, int len, int value, int * new_arr){
 
 %start dice
 
-%token NUMBER SIDED_DIE FATE_DIE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN REPEAT PENETRATE MACRO_ACCESSOR MACRO_STORAGE
+%token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE MACRO_ACCESSOR MACRO_STORAGE
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
+%token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 
 /* Defines Precedence from Lowest to Highest */
-/* %left '+' '-'
-%left '*' '/' '%' */
-/* %left UMINUS */
+%left PLUS MINUS
+%left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
+%left UMINUS
+%left LBRACE RBRACE
+/* %left DIE SIDED_DIE FATE_DIE
+%left NUMBER */
+
+
 
 
 %union{
     vec values;
-    // int * values;
-    // struct dice * die;
-
 }
 /* %type<die> DIE; */
 %type<values> NUMBER;
@@ -100,61 +104,224 @@ void pop(int * arr, int len, int value, int * new_arr){
 %%
 /* Rules Section */
 
-dice: drop_keep{
+dice: collapse{
     vec vector;
     vector = $<values>1;
     printf("%d\n", vector.content[0]);
+    // YYACCEPT;
 }
 
-// A Die Roll Can be:
-// - [x]d[y]kh
-// - [x]d[y]kl
-// - [x]d[y]kh[z]
-// - [x]d[y]kl[z]
-// - [x]d[y]
-// - (1)d[x]
-// - [x]dF
-// - (1)dF
-// - [x]
-    /* NUMBER DIE KEEP_LOWEST {
-        // Original Array
-        int len = $<int>1;
-        int result[len];
-
-        // Dropped Array
-        int len2 = len -1;
-        int result2[len2];
-
-        // Get all values
-        for(int i = 0; i != len; i++){
-            result[i] = resolve_dice($2);
-            printf("Recorded Value: %d\n", result[i]);
-        }
-        // Get Minimum Values
-        int val = 0;
-        val += min(result, len);
-        printf("Minimum Value: %d\n", val);
-        pop(result, len, val, result2);
-
-        int total = 0;
-        for(int i = 0; i != len2; i++){
-            total += result2[i];
-            printf("Running Total: %d\n", total);
-        }
-
-        $<int>$ = total;
+collapse: math{
+    vec vector;
+    vector = $<values>1;
+    int c;
+    for(int i = 0; i != vector.length; i++){
+        c += vector.content[i];
+    }
+    vec new_vec;
+    new_vec.content = malloc(sizeof(int));
+    new_vec.content[0] = c;
+    new_vec.length = 1;
+    $<values>$ = new_vec;
+}
+math:
+    LBRACE math RBRACE{
+        $<values>$ =  $<values>2;
     }
     |
-    NUMBER DIE
-    {
-        int result = 0;
-        for(int i = 0; i != $<int>1; i++){
-            result += resolve_dice($2);
-        }
-        $<int>$ = result;
+    math MULT math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = v1 * v2;
+
+        $<values>$ = new_vec;
     }
-    | */
+    |
+    math DIVIDE_ROUND_UP math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = (v1+(v2-1))/ v2;
+
+        $<values>$ = new_vec;
+    }
+    |
+    math DIVIDE_ROUND_DOWN math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = v1 / v2;
+
+        $<values>$ = new_vec;
+    }
+    |
+    math MODULO math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = v1 % v2;
+
+        $<values>$ = new_vec;
+    }
+    |
+    math PLUS math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = v1 + v2;
+
+        $<values>$ = new_vec;
+    }
+    |
+    math MINUS math{
+        // Collapse both sides and subtract
+        vec vector1;
+        vec vector2;
+
+        vector1 = $<values>1;
+        vector2 = $<values>3;
+        int v1 = collapse(vector1.content, vector1.length);
+        int v2 = collapse(vector2.content, vector2.length);
+
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.length = 1;
+        new_vec.content[0] = v1 - v2;
+
+        $<values>$ = new_vec;
+    }
+    |
+    MINUS math %prec UMINUS{
+        // Eltwise Negation
+        vec vector;
+        vec new_vec;
+
+        vector = $<values>2;
+
+        new_vec.content = malloc(sizeof(int)*vector.length);
+        new_vec.length = vector.length;
+
+        for(int i = 0; i != vector.length; i++){
+            new_vec.content[i] = - vector.content[i];
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    drop_keep
+;
+
+
 drop_keep:
+    die_roll KEEP_HIGHEST NUMBER
+    {
+        // assert $0 is len 1
+        int available_amount = $<values>1.length;
+        int amount_to_keep = $<values>3.content[0];
+
+        if(available_amount > amount_to_keep){
+            vec new_vector;
+            new_vector.content = malloc(sizeof(int)*amount_to_keep);
+            new_vector.length = amount_to_keep;
+
+            int * arr = $<values>1.content;
+            int len = $<values>1.length;
+
+            int r = 0;
+            for(int i = 0; i != amount_to_keep; i++){
+                int m =  max(arr, len);
+                new_vector.content[i] = m;
+                pop(arr,len,m,arr);
+                len -= 1;
+            }
+
+            $<values>$ = new_vector;
+        }else if(available_amount < amount_to_keep){
+            // Warning: More asked to keep than actually produced
+            // e.g. 2d20k4
+            $<values>$ = $<values>1;
+        }else{
+            $<values>$ = $<values>1;
+        }
+    }
+    |
+    die_roll KEEP_LOWEST NUMBER
+    {
+        // assert $0 is len 1
+        int available_amount = $<values>1.length;
+        int amount_to_keep = $<values>3.content[0];
+
+        if(available_amount > amount_to_keep){
+            vec new_vector;
+            new_vector.content = malloc(sizeof(int)*amount_to_keep);
+            new_vector.length = amount_to_keep;
+
+            int * arr = $<values>1.content;
+            int len = $<values>1.length;
+
+            int r = 0;
+            for(int i = 0; i != amount_to_keep; i++){
+                int m =  min(arr, len);
+                new_vector.content[i] = m;
+                pop(arr,len,m,arr);
+                len -= 1;
+            }
+
+            $<values>$ = new_vector;
+        }else if(available_amount < amount_to_keep){
+            // Warning: More asked to keep than actually produced
+            // e.g. 2d20k4
+            $<values>$ = $<values>1;
+        }else{
+            $<values>$ = $<values>1;
+        }
+    }
+    |
     die_roll KEEP_HIGHEST
     {
         if($<values>1.length > 1){
@@ -206,10 +373,17 @@ die_roll:
         vec num_dice;
         num_dice = $<values>1;
         int instances = num_dice.content[0];
-        if (instances < 0){
-            printf("Cannot roll a negative amount of dice");
-            YYABORT;
-            yyclearin;
+        int make_negative = false;
+        if (instances == 0){
+            vec new_vector;
+            new_vector.content = malloc(sizeof(int)*instances);
+            new_vector.content[0] = 0;
+            new_vector.length = 1;
+            $<values>$ = new_vector;
+        }
+        else if (instances < 0){
+            make_negative = true;
+            instances = instances * -1;
         }
 
 
@@ -230,6 +404,7 @@ die_roll:
         int result = 0;
         for (int i = 0; i!= instances; i++){
             new_vector.content[i] += roll_numeric_die(1, max);
+            if (make_negative) new_vector.content[i] *= -1;
         }
 
         $<values>$ = new_vector;
@@ -285,74 +460,6 @@ die_roll:
         // return dice;
     }
     ; */
-
-/* Macros */
-/*
-list:
-     |
-    list stat '\n'
-     |
-    list error '\n'
-    {
-        yyerrok;
-    }
-    ;
-
-stat:    expr
-    {
-      printf("%d\n", $1);
-    }
-    ;
-
-expr:    '(' expr ')'
-    {
-      $$ = $2;
-    }
-    |
-    expr '*' expr
-    {
-        $$ = $1 * $3;
-    }
-    |
-    expr '/' expr
-    {
-        $$ = $1 / $3;
-    }
-    |
-    expr '%' expr
-    {
-        $$ = $1 % $3;
-    }
-    |
-    expr '+' expr
-    {
-        $$ = $1 + $3;
-    }
-    |
-    expr '-' expr
-    {
-        $$ = $1 - $3;
-    }
-    |
-    expr '&' expr
-    {
-        $$ = $1 & $3
-    }
-    |
-    expr '|' expr
-    {
-        $$ = $1 | $3
-    }
-    |
-    '-' expr %prec UMINUS
-    {
-        $$ = -$2;
-    }
-    |
-    NUMBER
-    ;
-*/
-
 
 %%
 

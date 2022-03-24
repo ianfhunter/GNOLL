@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 import platform
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
@@ -29,4 +30,7 @@ def roll(s, verbose=False):
 
 
 if __name__=="__main__":
-    roll("2d20l", verbose=True)
+    arg = sys.argv[1]
+    arg = arg if arg != "" else "1d20"
+    code, r = roll(arg, verbose=True)
+    print("Result:", r)

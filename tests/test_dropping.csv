@@ -7,3 +7,11 @@ roll,low,high,passes
 "2d20kl", 1, 20, True
 "2d20dh", 1, 20, True
 "2d20l", 1, 20, True
+
+# >1
+"3d20kh2", 2, 40, True
+"3d20kl2", 2, 40, True
+"4d1kl1",1,1,True
+"4d1kl2",2,2,True
+"4d1kl3",3,3,True
+"4d1kl4",4,4,True

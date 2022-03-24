@@ -1,0 +1,43 @@
+roll,low,high,passes
+# == Negation ==
+"-d4", -4, -1, True
+"-4", -4, -4, True
+"--4", 4, 4, True
+"---4", -4, -4, True
+"---------------4", -4, -4, True
+"-2d4", -8, -2, True
+# Note: This is resolves as -(2d4kh)
+# There are different standards here
+# but this is the primary mathematical method.
+# One common outlier is Excel.
+# The difference can be seen as follows:
+# -(2d4kh) -> -({1,3}kh) -> -3
+# (-2d4)kh -> {-1,-3}kh  -> -1
+
+# == Addition ==
+"1+1", 2, 2, True
+"1+(1)", 2, 2, True
+"1+d4", 2, 5, True
+"d4+d4", 2, 8, True
+"d4+-d4", -3, 3, True
+"1d4+-1", 0, 3, True
+"1d4+-2", -1, 2, True
+"1d4+1d6", 2, 10, True
+"2d4+1d6", 3, 14, True
+"1d4 + 1d6", 2, 10, True
+"1d4+2", 3, 6, True
+"1d4+----2", 3, 6, True
+"1d3+1d6+1d20", 3, 29, True
+"1d3+1d6 + 1d20", 3, 29, True
+"1d4-(2)", -1, 2, True
+# == Subtract ==
+"1d4-2", -1, 2, True
+"1d4----2", 3, 6, True
+# == Mul ==
+"1d4*2", 2, 8, True
+" ( 1d4 + 1d10 ) * 2", 4, 28, True
+# == Div ==
+"1d4/2", 0, 2, True
+"1d4\2", 1, 2, True
+# == Modulo ==
+"d20%2", 0, 1, True

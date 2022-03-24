@@ -1,0 +1,7 @@
+roll,low,high,passes
+# Should be supported if we move the drop logic to the math section
+# See note in test_arithmetic.csv
+"-(2d4)kh", -4, -1, True
+
+# == Pow ==
+"d4^d4", 1, 256, False

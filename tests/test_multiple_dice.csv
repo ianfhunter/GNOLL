@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "d4", 1, 4, False
 "2d4", 2, 8, False
 "4d4", 4, 16, False

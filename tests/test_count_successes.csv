@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "120s", 0, 1, False
 "120s>2", 0, 1, False
 "10d20s>15", 0, 10, False

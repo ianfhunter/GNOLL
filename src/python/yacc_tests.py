@@ -84,3 +84,81 @@ def test_dropping(test_case, low, high, is_pass, testfile):
 @pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_numbers"))
 def test_numbers(test_case, low, high, is_pass, testfile):
     core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_arithmetic"))
+def test_arithmetic(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_current_outliers"))
+def test_current_outliers(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_clamping"))
+def test_clamping(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_conditions"))
+def test_conditions(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_count_successes"))
+def test_count_successes(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_explosions"))
+def test_explosions(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_macros"))
+def test_macros(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_groups"))
+def test_groups(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_multiple_dice"))
+def test_multiple_dice(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_odd_inputs"))
+def test_odd_inputs(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_rerolling"))
+def test_rerolling(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_sequences"))
+def test_sequences(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_several"))
+def test_several(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_subsets"))
+def test_subsets(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("games/test_dungeons_and_dragons"))
+def test_dungeons_and_dragons(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("games/test_dungeons_and_dragons_online"))
+def test_dungeons_and_dragons_online(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)

@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "1d100?<50", 1, 49, False
 "1d100?<=50", 1, 50, False
 "1d100?>50", 51, 100, False

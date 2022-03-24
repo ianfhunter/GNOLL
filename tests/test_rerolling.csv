@@ -1,4 +1,4 @@
-roll,low,high,errors
+roll,low,high,passes
 "3d20r<15", 3, 60, False
 "3d20r<=15", 3, 60, False
 "3d20r>15", 3, 60, False
@@ -8,7 +8,7 @@ roll,low,high,errors
 "3d20r==10", 3,60, False
 
 # Reroll Num Times
-"3d20r2==10", 3,60, False  
+"3d20r2==10", 3,60, False
 "3d20r2<15", 3, 60, False
 
 # Reroll til condition fufilled
