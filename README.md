@@ -52,10 +52,10 @@ In other terms, A language for parsing [Dice Notation](https://en.wikipedia.org/
 Several languages will be targetted as the project develops. Interested in something in particular? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
 
 Primary Support:
- - Commandline
+ - Commandline (working)
 
 Secondary Support:
- - Python
+ - Python (working)
  - C
 
 Tertiary Support:
@@ -92,7 +92,7 @@ export PATH=$PATH:/path/to/dir/
 ```
 
 You should be able to try out rolling some dice now!
-(Note: currently you need to pipe a file into the program)
+(Note: currently you need to pipe a file into the program rather than what is said here
 ```
 $ dice 1d20
 20
