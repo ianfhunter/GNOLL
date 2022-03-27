@@ -15,6 +15,17 @@ def test_roll(s, mock_random=None):
             "return rand()%(big+1-small)+small;",
             "return rand()%(length_of_symbolic_array);"
         ]
+        if isinstance(mock_random, tuple):
+            new_code = ""
+            for i, x in enumerate(mock_random):
+                new_code += f"""
+                    if(random_mock_count == {i}){{
+                        random_mock_count++;
+                        return {x};
+                    }}
+                """
+        else:
+            new_code = f"return {mock_random};"
 
         with open(target_file,'r',encoding='utf-8') as file:
             data = file.readlines()
@@ -22,7 +33,7 @@ def test_roll(s, mock_random=None):
         for x in range(len(data)):
             for r in replacements:
                 if r in data[x]:
-                    data[x] = f"return {mock_random};"
+                    data[x] = new_code
 
         target_file = os.path.join(PY_DIR, "../grammar/test_dice.yacc")
 

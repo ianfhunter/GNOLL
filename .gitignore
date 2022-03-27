@@ -106,13 +106,6 @@ venv.bak/
 #binaries
 *.png
 
-#Antrl
-\.antlr/
-reports/
-grammar/
-*/grammar/
-
-
 # YACC/Lex
 lex.yy.*
 y.tab.*

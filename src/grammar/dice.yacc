@@ -17,6 +17,8 @@ int yylex(void);
 int yyerror(const char* s);
 
 int yydebug=1;
+// random_mock_count is used only for testing
+int random_mock_count=0;
 
 int initialize(){
     srand(time(NULL));
