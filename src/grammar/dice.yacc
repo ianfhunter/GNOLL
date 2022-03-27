@@ -1,7 +1,8 @@
 %code requires{
     #include "shared_header.h"
 }
-%error-verbose
+/* %error-verbose  - Deprecated + not supported by POSIX*/
+%define parse.error verbose
 %{
 
 #include <stdio.h>
@@ -13,7 +14,7 @@
 #include "shared_header.h"
 
 int yylex(void);
-int yyerror(char* s);
+int yyerror(const char* s);
 
 int yydebug=1;
 
@@ -472,7 +473,7 @@ int main(){
 }
 
 int yyerror(s)
-char *s;
+const char *s;
 {
     fprintf(stderr, "%s\n", s);
     return(1);

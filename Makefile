@@ -40,7 +40,7 @@ test : all
 	python3 -m pytest src/python/yacc_tests.py
 
 __test : all
-	python3 -m pytest src/python/simple_dice.py
+	python3 -m pytest src/python/
 
 
 .PHONY: clean all test
