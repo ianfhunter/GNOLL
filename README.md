@@ -74,9 +74,9 @@ More comprehensive setup guide available on [the Wiki](https://github.com/ianfhu
 
 ### Prerequisites
 
-The following details are for Ubuntu 18.04 or higher. Visit the wiki for other platforms (note: nothing there yet)
+The following details are for Ubuntu 18.04 or higher. 
 ```
-sudo apt-get install bison flex
+sudo apt-get install bison flex make python3-pip -y
 ```
 
 ### Building
