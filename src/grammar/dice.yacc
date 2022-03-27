@@ -13,7 +13,7 @@
 #include "shared_header.h"
 
 int yylex(void);
-int yyerror(char* s);
+int yyerror(const char* s);
 
 int yydebug=1;
 
