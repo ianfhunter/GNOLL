@@ -12,6 +12,9 @@
 #include "yacc_header.h"
 #include "shared_header.h"
 
+int yylex(void);
+int yyerror(char* s);
+
 int yydebug=1;
 
 int initialize(){
