@@ -37,7 +37,7 @@ roll,low,high,passes
 "1d4*2", 2, 8, True
 " ( 1d4 + 1d10 ) * 2", 4, 28, True
 # == Div ==
-"1d4/2", 0, 2, True
-"1d4\2", 1, 2, True
+"1d4/2", 1, 2, True
+"1d4\2", 0, 2, True
 # == Modulo ==
 "d20%2", 0, 1, True
