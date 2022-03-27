@@ -1,3 +1,5 @@
+<h2>Note: DiceTower is currently undergoing an overhaul and is to be treated as unstable.</h2>
+
 <p align="center">
 <img src="media/logo.png" height="200">
 </p>
