@@ -111,6 +111,12 @@ lex.yy.*
 y.tab.*
 *.out
 *.exe
+*.interp
+*.tokens
+
+# Temp YACC Files
+test_dice.yacc
+*.yacc~
 
 # Other
 .vscode/
