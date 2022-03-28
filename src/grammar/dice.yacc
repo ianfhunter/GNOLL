@@ -1,7 +1,11 @@
+/* Defines */
 %code requires{
     #include "shared_header.h"
+    #include "vector_functions.h"
 }
-%error-verbose
+/* %error-verbose  - Deprecated + not supported by POSIX*/
+%define parse.error verbose
+/* %error-verbose */
 %{
 
 #include <stdio.h>
@@ -10,23 +14,20 @@
 #include <limits.h>
 #include <stdbool.h>
 #include "yacc_header.h"
+#include "vector_functions.h"
 #include "shared_header.h"
 
 int yylex(void);
-int yyerror(char* s);
+int yyerror(const char* s);
 
 int yydebug=1;
+// random_mock_count is used only for testing
+int random_mock_count=0;
 
 int initialize(){
     srand(time(NULL));
 }
 
-void print_vec(vec vector){
-    printf("Vector Size: %d\n", vector.length);
-    for(int i = 0; i != vector.length; i++){
-        printf(" %d\n", vector.content[i]);
-    }
-}
 int collapse(int * arr, int len){
     return sum(arr, len);
 }
@@ -45,37 +46,6 @@ int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
     return rand()%(length_of_symbolic_array);
 }
-
-int min(int * arr, int len){
-    int lowest = INT_MAX;
-    for(int i = 0; i != len; i++){
-        if (arr[i] < lowest) lowest = arr[i];
-    }
-    return lowest;
-}
-int max(int * arr, int len){
-    int highest = INT_MIN;
-    for(int i = 0; i != len; i++){
-        if (arr[i] > highest) highest = arr[i];
-    }
-    return highest;
-}
-void pop(int * arr, int len, int value, int * new_arr){
-    // This could be done in-place.
-    bool seen = false;
-    for(int i = 0; i != len; i++){
-        if (arr[i] == value && !seen){
-            seen = true;
-        }
-        else if(seen){
-            new_arr[i] = arr[i + 1];
-        }else{
-            new_arr[i] = arr[i];
-        }
-    }
-}
-
-
 
 %}
 
@@ -111,23 +81,24 @@ void pop(int * arr, int len, int value, int * new_arr){
 dice: collapse{
     vec vector;
     vector = $<values>1;
-    if (vector.dtype == SYMBOLIC){
-        printf("dice, escalate\n");
-        printf("%c\n", vector.symbols[0][0]);
-    }else{
-        printf("%d\n", vector.content[0]);
+
+    for(int i = 0; i!= vector.length;i++){
+        if (vector.dtype == SYMBOLIC){
+            printf("%c\n", vector.symbols[i][0]);
+        }else{
+            // TODO: Strings >1 character
+            printf("%d\n", vector.content[i]);
+        }
     }
-    // YYACCEPT;
 }
 
 collapse: math{
-    if ($<values>1.dtype == SYMBOLIC){
-        printf("collapse, escalate\n");
+    vec vector;
+    vector = $<values>1;
 
-        $<values>$ = $<values>1;
+    if (vector.dtype == SYMBOLIC){
+        $<values>$ = vector;
     }else{
-        vec vector;
-        vector = $<values>1;
         int c;
         for(int i = 0; i != vector.length; i++){
             c += vector.content[i];
@@ -136,6 +107,7 @@ collapse: math{
         new_vec.content = malloc(sizeof(int));
         new_vec.content[0] = c;
         new_vec.length = 1;
+        new_vec.dtype = vector.dtype;
         $<values>$ = new_vec;
     }
 }
@@ -275,77 +247,91 @@ math:
 drop_keep:
     die_roll KEEP_HIGHEST NUMBER
     {
+        vec roll_vector, keep_vector;
+        roll_vector = $<values>1;
+        keep_vector = $<values>3;
 
-        if ($<values>1.dtype == SYMBOLIC){
+        if (roll_vector.dtype == SYMBOLIC){
             printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
             YYABORT;
             yyclearin;
         }
         // assert $0 is len 1
-        int available_amount = $<values>1.length;
-        int amount_to_keep = $<values>3.content[0];
+        int available_amount =roll_vector.length;
+        int amount_to_keep = keep_vector.content[0];
 
         if(available_amount > amount_to_keep){
             vec new_vector;
             new_vector.content = malloc(sizeof(int)*amount_to_keep);
             new_vector.length = amount_to_keep;
 
-            int * arr = $<values>1.content;
-            int len = $<values>1.length;
+            int * arr = roll_vector.content;
+            int * new_arr;
+            int len = roll_vector.length;
 
             int r = 0;
             for(int i = 0; i != amount_to_keep; i++){
                 int m =  max(arr, len);
                 new_vector.content[i] = m;
-                pop(arr,len,m,arr);
+                new_arr = malloc(sizeof(int) *(len-1));
+                pop(arr,len,m,new_arr);
+                free(arr);
+                arr = new_arr;
                 len -= 1;
             }
 
-            new_vector.dtype = $<values>1.dtype;
+            new_vector.dtype = roll_vector.dtype;
             $<values>$ = new_vector;
-        }else if(available_amount < amount_to_keep){
-            // Warning: More asked to keep than actually produced
-            // e.g. 2d20k4
-            $<values>$ = $<values>1;
         }else{
+            // Warning: More asked to keep than actually produced
+            // or the same amount
+            // e.g. 2d20k4 / 2d20kh2
             $<values>$ = $<values>1;
         }
     }
     |
     die_roll KEEP_LOWEST NUMBER
     {
-        if ($<values>1.dtype == SYMBOLIC){
+
+        vec roll_vector, keep_vector;
+        roll_vector = $<values>1;
+        keep_vector = $<values>3;
+
+        if (roll_vector.dtype == SYMBOLIC){
             printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
             YYABORT;
             yyclearin;
         }
         // assert $0 is len 1
-        int available_amount = $<values>1.length;
-        int amount_to_keep = $<values>3.content[0];
+        int available_amount =roll_vector.length;
+        int amount_to_keep = keep_vector.content[0];
 
         if(available_amount > amount_to_keep){
             vec new_vector;
-            new_vector.content = malloc(sizeof(int)*amount_to_keep);
+            new_vector.content = calloc(sizeof(int), amount_to_keep);
             new_vector.length = amount_to_keep;
 
-            int * arr = $<values>1.content;
-            int len = $<values>1.length;
+            int * arr = roll_vector.content;
+            int * new_arr;
+            int len = roll_vector.length;
 
             int r = 0;
             for(int i = 0; i != amount_to_keep; i++){
                 int m =  min(arr, len);
                 new_vector.content[i] = m;
-                pop(arr,len,m,arr);
+                new_arr = calloc(sizeof(int), len-1);
+                pop(arr,len,m,new_arr);
+                free(arr);
+                arr = new_arr;
                 len -= 1;
             }
 
-            new_vector.dtype = $<values>1.dtype;
+            new_vector.dtype = roll_vector.dtype;
             $<values>$ = new_vector;
-        }else if(available_amount < amount_to_keep){
-            // Warning: More asked to keep than actually produced
-            // e.g. 2d20k4
-            $<values>$ = $<values>1;
         }else{
+            // Warning: More asked to keep than actually produced
+            // or the same amount
+            // e.g. 2d20k4 / 2d20kh2
             $<values>$ = $<values>1;
         }
     }
@@ -394,26 +380,26 @@ drop_keep:
     |
     die_roll
     {
-        printf("die_roll\n");
-        if ($<values>1.dtype == SYMBOLIC){
-            // Symbolic, Impossible to collapse
-            printf("die_roll, escalate\n");
+        vec vector;
+        vector = $<values>1;
 
-            $<values>$ = $<values>1;
+        if (vector.dtype == SYMBOLIC){
+            // Symbolic, Impossible to collapse
+            $<values>$ = vector;
         }
         else{
             // Numeric.
             // Collapse if Nessicary
-            if($<values>1.length > 1){
-                int result = sum($<values>1.content, $<values>1.length);
-                vec vector;
-                vector.dtype = $<values>1.dtype;
-                vector.content = malloc(sizeof(int));
-                vector.content[0] = result;
-                vector.length = 1;
-                $<values>$ = vector;
+            if(vector.length > 1){
+                int result = sum(vector.content, vector.length);
+                vec new_vec;
+                new_vec.dtype = vector.dtype;
+                new_vec.content = malloc(sizeof(int));
+                new_vec.content[0] = result;
+                new_vec.length = 1;
+                $<values>$ = new_vec;
             }else{
-                $<values>$ = $<values>1;
+                $<values>$ = vector;
             }
 
         }
@@ -442,22 +428,26 @@ die_roll:
 
         vec vector;
         vector = $<values>3;
-        int max = vector.content[0];
-        if (max <= 0){
-            printf("Cannot roll a zero or negative number");
-            YYABORT;
-            yyclearin;
-        }
-
 
         vec new_vector;
         new_vector.content = malloc(sizeof(int)*instances);
         new_vector.length = instances;
 
+        int max = vector.content[0];
         int result = 0;
-        for (int i = 0; i!= instances; i++){
-            new_vector.content[i] += roll_numeric_die(1, max);
-            if (make_negative) new_vector.content[i] *= -1;
+        if (max <= 0){
+            printf("Cannot roll a dice with a negative amount of sides.");
+            YYABORT;
+            yyclearin;
+        }else if (max > 0){
+            for (int i = 0; i!= instances; i++){
+                new_vector.content[i] += roll_numeric_die(1, max);
+                if (make_negative) new_vector.content[i] *= -1;
+            }
+        }else{
+            for (int i = 0; i!= instances; i++){
+                new_vector.content[i] += 0;
+            }
         }
 
         new_vector.dtype = NUMERIC;
@@ -471,20 +461,46 @@ die_roll:
         vec vector;
         vector = $<values>2;
         int max = vector.content[0];
-        if (max <= 0){
-            printf("Cannot roll a zero or negative number");
+        int result = 0;
+        if (max < 0){
+            printf("Cannot roll a dice with a negative amount of sides.");
             YYABORT;
             yyclearin;
-        }
+        }else if(max > 0){
+            result = roll_numeric_die(1, max);
+        } // else == 0
 
 
-        int result = roll_numeric_die(1, max);
+
 
         vec new_vector;
         new_vector.content = malloc(sizeof(int));
         new_vector.content[0] = result;
         new_vector.length = 1;
         new_vector.dtype = NUMERIC;
+
+        $<values>$ = new_vector;
+    }
+    |
+    NUMBER FATE_DIE
+    {
+        // e.g. dF, it is implied that it is a single dice
+
+        vec vector;
+        vector = $<values>2;
+
+        int instances =  $<values>1.content[0];
+
+        vec new_vector;
+        new_vector.symbols = malloc(sizeof(char**)*instances);
+        new_vector.length = instances;
+        new_vector.dtype = vector.dtype;
+        int idx;
+
+        for (int i = 0; i != instances;i++){
+            idx = roll_symbolic_die(vector.length);
+            new_vector.symbols[i] = vector.symbols[idx] ;
+        }
 
         $<values>$ = new_vector;
     }
@@ -503,8 +519,6 @@ die_roll:
         new_vector.symbols = &vector.symbols[idx];
         new_vector.length = 1;
 
-        printf("FATE_DIE: %c\n", vector.symbols[idx][0]);
-
         $<values>$ = new_vector;
     }
     |
@@ -512,14 +526,14 @@ die_roll:
     ;
 
 %%
-
+/* Subroutines */
 int main(){
     initialize();
     return(yyparse());
 }
 
 int yyerror(s)
-char *s;
+const char *s;
 {
     fprintf(stderr, "%s\n", s);
     return(1);

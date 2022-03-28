@@ -28,3 +28,7 @@ roll,low,high,passes
 # Diminishing
 "d20![d12,d10,d8,d6,d4]", 1, 60, False
 "d20![d2]", 1, 22, False
+
+
+# I think we should probably have to define what symbol should explode
+"3df!", ---, +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++, False

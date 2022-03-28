@@ -2,3 +2,11 @@ roll,low,high,passes
 "d4:d4", "1:1", "4:4", False
 "(d4:d4)", "1:1", "4:4", True
 "d1:d2:d3:d4", "1:1:1:1", "1:2:3:4", False
+
+
+
+#And you cannot use strings as a condition on numbers
+"2d4x3df", ----, ++++++++++++++++++++++++++++, True
+
+# You can do the reverse though.
+"2dF x 2d4", "--:--", "++:++:++:++:++:++:++:++", False

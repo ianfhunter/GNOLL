@@ -1,27 +1,46 @@
+.PHONY: clean
 clean:
 	rm -rf build
+	rm src/grammar/test_dice.yacc | true
 
-all: clean
+.PHONY: yacc
+yacc:
 	mkdir -p build
-	# yacc -d src/grammar/dice.yacc
-	yacc -d src/grammar/dice.yacc --debug --verbose
+	yacc -d src/grammar/dice.yacc
+	# yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true
 
-	lex src/grammar/dice.lex
-	cp lex.yy.c build/lex.yy.c
+.PHONY: mocked_yacc
+mocked_yacc:
+	mkdir -p build
+	yacc -d src/grammar/test_dice.yacc
+	# yacc -d src/grammar/dice.yacc --debug --verbose
+	mv y.tab.c build/y.tab.c
+	mv y.tab.h build/y.tab.h
 
-	cc build/y.tab.c build/lex.yy.c -Isrc/grammar/
+.PHONY: lex
+lex:
+	lex src/grammar/dice.lex
+	mv lex.yy.c build/lex.yy.c
+
+.PHONY: compile
+compile:
+	cc build/y.tab.c src/grammar/vector_functions.c build/lex.yy.c -Isrc/grammar/
 # Linux
 	mv ./a.out build/dice | true
 # Windows
 	mv ./a.exe build/dice | true
+
+.PHONY: all
+all: clean yacc lex compile
 	echo "== Build Complete =="
 
+.PHONY: mock
+mock: mocked_yacc lex compile
+	echo "== Build Complete =="
 
+.PHONY: test
 test : all
-	python3 -m pytest src/python/yacc_tests.py
-
-
-.PHONY: clean all test
+	python3 -m pytest src/python/

@@ -106,18 +106,17 @@ venv.bak/
 #binaries
 *.png
 
-#Antrl
-\.antlr/
-reports/
-grammar/
-*/grammar/
-
-
 # YACC/Lex
 lex.yy.*
 y.tab.*
 *.out
 *.exe
+*.interp
+*.tokens
+
+# Temp YACC Files
+test_dice.yacc
+*.yacc~
 
 # Other
 .vscode/
@@ -126,3 +125,4 @@ parse.request
 __pycache__/
 *.pyc
 .pytest_cache/
+*.output

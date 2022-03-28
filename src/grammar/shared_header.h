@@ -1,7 +1,11 @@
 #ifndef SHARED_YACC_HEADER
 #define SHARED_YACC_HEADER
 
-typedef enum {SYMBOLIC, NUMERIC} DIE_TYPE;
+typedef enum {
+    // 0 is invalid
+    SYMBOLIC=1,
+    NUMERIC=2
+} DIE_TYPE;
 
 typedef struct vec{
     DIE_TYPE dtype;
