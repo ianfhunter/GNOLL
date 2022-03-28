@@ -3,6 +3,7 @@
 }
 /* %error-verbose  - Deprecated + not supported by POSIX*/
 %define parse.error verbose
+/* %error-verbose */
 %{
 
 #include <stdio.h>
