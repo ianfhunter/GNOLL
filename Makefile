@@ -6,10 +6,11 @@ clean:
 .PHONY: yacc
 yacc:
 	mkdir -p build
-	yacc -d src/grammar/dice.yacc
-# --verbose --debug
+	# yacc -d src/grammar/dice.yacc
+	yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
+	mv y.output build/y.output | true
 
 .PHONY: mocked_yacc
 mocked_yacc:

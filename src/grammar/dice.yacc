@@ -94,6 +94,7 @@ void pop(int * arr, int len, int value, int * new_arr){
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
+%left KEEP_LOWEST KEEP_HIGHEST
 %left UMINUS
 %left LBRACE RBRACE
 /* %left DIE SIDED_DIE FATE_DIE
@@ -114,22 +115,33 @@ void pop(int * arr, int len, int value, int * new_arr){
 dice: collapse{
     vec vector;
     vector = $<values>1;
-    printf("%d\n", vector.content[0]);
+    if (vector.dtype == SYMBOLIC){
+        printf("dice, escalate\n");
+        printf("%c\n", vector.symbols[0][0]);
+    }else{
+        printf("%d\n", vector.content[0]);
+    }
     // YYACCEPT;
 }
 
 collapse: math{
-    vec vector;
-    vector = $<values>1;
-    int c;
-    for(int i = 0; i != vector.length; i++){
-        c += vector.content[i];
+    if ($<values>1.dtype == SYMBOLIC){
+        printf("collapse, escalate\n");
+
+        $<values>$ = $<values>1;
+    }else{
+        vec vector;
+        vector = $<values>1;
+        int c;
+        for(int i = 0; i != vector.length; i++){
+            c += vector.content[i];
+        }
+        vec new_vec;
+        new_vec.content = malloc(sizeof(int));
+        new_vec.content[0] = c;
+        new_vec.length = 1;
+        $<values>$ = new_vec;
     }
-    vec new_vec;
-    new_vec.content = malloc(sizeof(int));
-    new_vec.content[0] = c;
-    new_vec.length = 1;
-    $<values>$ = new_vec;
 }
 math:
     LBRACE math RBRACE{
@@ -267,6 +279,12 @@ math:
 drop_keep:
     die_roll KEEP_HIGHEST NUMBER
     {
+
+        if ($<values>1.dtype == SYMBOLIC){
+            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+            YYABORT;
+            yyclearin;
+        }
         // assert $0 is len 1
         int available_amount = $<values>1.length;
         int amount_to_keep = $<values>3.content[0];
@@ -287,6 +305,7 @@ drop_keep:
                 len -= 1;
             }
 
+            new_vector.dtype = $<values>1.dtype;
             $<values>$ = new_vector;
         }else if(available_amount < amount_to_keep){
             // Warning: More asked to keep than actually produced
@@ -299,6 +318,11 @@ drop_keep:
     |
     die_roll KEEP_LOWEST NUMBER
     {
+        if ($<values>1.dtype == SYMBOLIC){
+            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+            YYABORT;
+            yyclearin;
+        }
         // assert $0 is len 1
         int available_amount = $<values>1.length;
         int amount_to_keep = $<values>3.content[0];
@@ -319,6 +343,7 @@ drop_keep:
                 len -= 1;
             }
 
+            new_vector.dtype = $<values>1.dtype;
             $<values>$ = new_vector;
         }else if(available_amount < amount_to_keep){
             // Warning: More asked to keep than actually produced
@@ -331,6 +356,11 @@ drop_keep:
     |
     die_roll KEEP_HIGHEST
     {
+        if ($<values>1.dtype == SYMBOLIC){
+            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+            YYABORT;
+            yyclearin;
+        }
         if($<values>1.length > 1){
             // print_vec($<values>1);
             int result = max($<values>1.content, $<values>1.length);
@@ -338,6 +368,7 @@ drop_keep:
             vector.content = malloc(sizeof(int));
             vector.content[0] = result;
             vector.length = 1;
+            vector.dtype = $<values>1.dtype;
             $<values>$ = vector;
         }else{
             $<values>$ = $<values>1;
@@ -346,6 +377,11 @@ drop_keep:
     |
     die_roll KEEP_LOWEST
     {
+        if ($<values>1.dtype == SYMBOLIC){
+            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+            YYABORT;
+            yyclearin;
+        }
         if($<values>1.length > 1){
             // print_vec($<values>1);
             int result = min($<values>1.content, $<values>1.length);
@@ -353,6 +389,7 @@ drop_keep:
             vector.content = malloc(sizeof(int));
             vector.content[0] = result;
             vector.length = 1;
+            vector.dtype = $<values>1.dtype;
             $<values>$ = vector;
         }else{
             $<values>$ = $<values>1;
@@ -361,15 +398,28 @@ drop_keep:
     |
     die_roll
     {
-        if($<values>1.length > 1){
-            int result = sum($<values>1.content, $<values>1.length);
-            vec vector;
-            vector.content = malloc(sizeof(int));
-            vector.content[0] = result;
-            vector.length = 1;
-            $<values>$ = vector;
-        }else{
+        printf("die_roll\n");
+        if ($<values>1.dtype == SYMBOLIC){
+            // Symbolic, Impossible to collapse
+            printf("die_roll, escalate\n");
+
             $<values>$ = $<values>1;
+        }
+        else{
+            // Numeric.
+            // Collapse if Nessicary
+            if($<values>1.length > 1){
+                int result = sum($<values>1.content, $<values>1.length);
+                vec vector;
+                vector.dtype = $<values>1.dtype;
+                vector.content = malloc(sizeof(int));
+                vector.content[0] = result;
+                vector.length = 1;
+                $<values>$ = vector;
+            }else{
+                $<values>$ = $<values>1;
+            }
+
         }
     }
 die_roll:
@@ -414,6 +464,8 @@ die_roll:
             if (make_negative) new_vector.content[i] *= -1;
         }
 
+        new_vector.dtype = NUMERIC;
+
         $<values>$ = new_vector;
     }
     |
@@ -436,37 +488,32 @@ die_roll:
         new_vector.content = malloc(sizeof(int));
         new_vector.content[0] = result;
         new_vector.length = 1;
+        new_vector.dtype = NUMERIC;
+
+        $<values>$ = new_vector;
+    }
+    |
+    FATE_DIE
+    {
+        // e.g. dF, it is implied that it is a single dice
+
+        vec vector;
+        vector = $<values>1;
+        int idx = roll_symbolic_die(vector.length);
+
+        vec new_vector;
+        new_vector.dtype = vector.dtype;
+        new_vector.symbols = malloc(sizeof(char **));
+        new_vector.symbols = &vector.symbols[idx];
+        new_vector.length = 1;
+
+        printf("FATE_DIE: %c\n", vector.symbols[idx][0]);
 
         $<values>$ = new_vector;
     }
     |
     NUMBER
     ;
-
-
-
-/* die_result:
-    SIDED_DIE NUMBER
-    {
-        struct numericalDice die;
-        die.minValue = 1;
-        die.maxValue = 2;
-        $<die>$ = die;
-        // return die;
-    }
-    |
-    FATE_DIE
-    {
-        struct symbolicDice die;
-        die.symbols = malloc(sizeof(char)*2);
-        die.symbols[0] = '-';
-        die.symbols[1] = '+';
-        die.num_symbols = 2;
-        // $$.die = die;
-        $<die>$ = die;
-        // return dice;
-    }
-    ; */
 
 %%
 

@@ -1,0 +1,18 @@
+version: 2.0.{build}
+image: Ubuntu1804
+install:
+- sh: >-
+    export DEBIAN_FRONTEND=noninteractive
+    sudo -E apt-get update
+    sudo -E apt-get install -y bison flex python3-pip libjpeg-dev zlib1g-dev
+    yes | pip3 install -r reqs/requirements.txt
+build_script:
+- sh: make all
+test_script:
+- ps: >-
+    make test
+notifications:
+- provider: GitHubPullRequest
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
