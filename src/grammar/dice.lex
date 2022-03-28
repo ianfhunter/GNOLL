@@ -33,7 +33,7 @@ df|dF {
     minus[0] = '-';
 
     vec vector;
-    vector.dtype = NUMERIC;
+    vector.dtype = SYMBOLIC;
     vector.symbols = malloc(sizeof(char **) * 3);
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
@@ -86,3 +86,4 @@ kh|dl|h {
 [)] {
     return(RBRACE);
 }
+q       return;

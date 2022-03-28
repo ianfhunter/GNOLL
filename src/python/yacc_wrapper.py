@@ -17,17 +17,25 @@ def roll(s, verbose=False):
     parser = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     out, err = parser.communicate(s.encode("ascii"))
+    parser.wait()
     return_code = parser.returncode
 
     out = out.decode("ascii").replace("\n","")
-    # print(out, err, return_code)
+    if verbose:
+        print("STDOUT:")
+        print(out)
+        print("STDERR:")
+        print(err)
     if out.strip() == "":
         return_code = 1
         out = -123
 
-    # if verbose: print(out)
-    # if verbose: print(return_code)
-    return int(return_code), int(out)
+    try:
+        out = int(out)
+    except:
+        pass
+
+    return int(return_code), out
 
 
 if __name__=="__main__":

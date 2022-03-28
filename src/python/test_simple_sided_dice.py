@@ -9,7 +9,7 @@ from util import roll
 
 def test_random_roll():
     # Prove Random roll Is Working
-    a,b,c,d = False
+    a = b = c = d = False
     for x in range(100):
         result = roll("d4")
         assert(result > 0)
@@ -22,6 +22,8 @@ def test_random_roll():
             c = True
         if result == 4:
             d = True
+        if (a and b and c and d):
+            break
     assert(a)
     assert(b)
     assert(c)

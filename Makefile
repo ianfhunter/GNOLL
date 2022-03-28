@@ -6,8 +6,8 @@ clean:
 .PHONY: yacc
 yacc:
 	mkdir -p build
-	# yacc -d src/grammar/dice.yacc
-	yacc -d src/grammar/dice.yacc --debug --verbose
+	yacc -d src/grammar/dice.yacc
+	# yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true
@@ -16,6 +16,7 @@ yacc:
 mocked_yacc:
 	mkdir -p build
 	yacc -d src/grammar/test_dice.yacc
+	# yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 
@@ -26,7 +27,7 @@ lex:
 
 .PHONY: compile
 compile:
-	cc build/y.tab.c build/lex.yy.c -Isrc/grammar/
+	cc build/y.tab.c src/grammar/vector_functions.c build/lex.yy.c -Isrc/grammar/
 # Linux
 	mv ./a.out build/dice | true
 # Windows

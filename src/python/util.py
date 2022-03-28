@@ -11,7 +11,7 @@ from yacc_wrapper import roll as dice_tower_roll
 def roll(s, mock_random=None):
     target_file = os.path.join(GRAMMAR_DIR, "dice.yacc")
 
-    cmd = "make clean"
+    cmd = "make clean -s"
     cleanup = subprocess.Popen(cmd, shell=True)
     cleanup.wait()
 
@@ -51,7 +51,7 @@ def roll(s, mock_random=None):
     print("Target File:", target_file)
     assert(os.path.exists(target_file))
 
-    cmd = "make mock"
+    cmd = "make mock -s"
     parser = subprocess.Popen(cmd, shell=True)
     parser.wait()
 

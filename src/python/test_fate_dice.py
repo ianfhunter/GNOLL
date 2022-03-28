@@ -11,30 +11,32 @@ def test_fate():
     # Assure Symbols are correct
     # TODO: Maybe it would be better to return "PLUS", "ZERO" "MINUS"?
     result = roll("dF", mock_random=(0))
-    assert(result == "-")
-    result = roll("dF", mock_random=(1))
-    assert(result == "0")
-    result = roll("dF", mock_random=(2))
     assert(result == "+")
+    result = roll("dF", mock_random=(1))
+    assert(result == 0)
+    result = roll("dF", mock_random=(2))
+    assert(result == "-")
 
 def test_multidie():
     result = roll("2dF", mock_random=(2,2))
-    assert(result == "++")
+    assert(result == "--")
 
 @pytest.mark.xfail
 def test_fate_addition():
     # Addition = Concatination
     result = roll("dF+dF", mock_random=(2,2))
-    assert(result == "++")
+    assert(result == "--")
 
+@pytest.mark.xfail
 def test_fate_subtraction():
     # Subtraction = Removing common elements IF PRESENT
     result = roll("3dF-dF", mock_random=2)
-    assert(result == "++")
+    assert(result == "--")
     result = roll("dF-dF", mock_random=(0,1))
-    assert(result == "-")
+    assert(result == "+")
 
 
+@pytest.mark.xfail
 def test_fate_numeral_interoperability():
     # Most of the time, using the two together doesn't make sense
     with pytest.raises(Exception):
