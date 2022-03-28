@@ -72,9 +72,13 @@ def core_test_logic(test_case, low, high, is_pass):
 def test_sided_dice(test_case, low, high, is_pass, testfile):
     core_test_logic(test_case, low, high, is_pass)
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_fate_dice"))
 def test_fate_dice(test_case, low, high, is_pass, testfile):
+    core_test_logic(test_case, low, high, is_pass)
+
+@pytest.mark.xfail
+@pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_fate_dice_math"))
+def test_fate_dice_math(test_case, low, high, is_pass, testfile):
     core_test_logic(test_case, low, high, is_pass)
 
 @pytest.mark.parametrize("test_case,low,high,is_pass,testfile", generate_test_cases("test_dropping"))

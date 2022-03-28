@@ -3,9 +3,11 @@ clean:
 
 all: clean
 	mkdir -p build
-	yacc -d src/grammar/dice.yacc
+	# yacc -d src/grammar/dice.yacc
+	yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
+	mv y.output build/y.output | true
 
 	lex src/grammar/dice.lex
 	cp lex.yy.c build/lex.yy.c

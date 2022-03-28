@@ -1,9 +1,5 @@
 
 
-typedef enum {NUMERIC, SYMBOLIC, MIXED} dice_type;
-
-
-
 int initialize();
 // int resolve_dice(dice die);
 
