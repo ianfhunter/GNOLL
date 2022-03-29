@@ -1,3 +1,11 @@
 [build-system]
 # Minimum requirements for the build system to execute.
 requires = ["setuptools", "wheel"]  # PEP 508 specifications
+
+[metadata]
+name = dicetower
+version = 0.0.1
+description = a comprehensive dice notation Peter
+
+[options]
+packages = find:
