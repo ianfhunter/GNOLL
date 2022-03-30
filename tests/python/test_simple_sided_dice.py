@@ -69,4 +69,4 @@ def test_bad_simple_rolls():
 
 def test_dice_numbers():
     result = roll("2d6", mock_random=4)
-    assert(result, 8)
+    assert(result == 8)
