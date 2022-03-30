@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: python deps
-      run: python3 -m pip install pytest
+      run: python3 -m pip install -r deps/requirements.txt
     - name: make test
       run: make test
