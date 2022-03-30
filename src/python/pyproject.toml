@@ -1,11 +1,26 @@
 [build-system]
-# Minimum requirements for the build system to execute.
-requires = ["setuptools", "wheel"]  # PEP 508 specifications
+requires = ["setuptools", "wheel"]
 
 [metadata]
-name = dicetower
-version = 0.0.1
-description = a comprehensive dice notation Peter
-
-[options]
-packages = find:
+name = "dicetower"
+version = "2.1.0"
+description = "a comprehensive dice notation parser"
+url = "https://github.com/ianfhunter/dicetower"
+classifiers = [
+    "Development Status :: 4 :: Beta",
+    "Programming Language :: Unix Shell",
+    "Programming Language :: C",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Unix",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Topic :: Games/Entertainment :: Board Games",
+    "Topic :: Games/Entertainment :: Role-Playing",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing"
+]

@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <limits.h>
 #include <stdbool.h>
@@ -23,6 +24,9 @@ int yyerror(const char* s);
 int yydebug=1;
 // random_mock_count is used only for testing
 int random_mock_count=0;
+
+bool write_to_file = false;
+char * output_file;
 
 int initialize(){
     srand(time(NULL));
@@ -40,11 +44,11 @@ int sum(int * arr, int len){
 
 int roll_numeric_die(int small, int big){
     // Returns random value between small and big
-    return rand()%(big+1-small)+small;
+    printf("roll_numeric_die\n");return rand()%(big+1-small)+small;
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    return rand()%(length_of_symbolic_array);
+    printf("roll_symbolic_die\n");return rand()%(length_of_symbolic_array);
 }
 
 %}
@@ -81,14 +85,28 @@ int roll_symbolic_die(int length_of_symbolic_array){
 dice: collapse{
     vec vector;
     vector = $<values>1;
+    FILE *fp;
+
+    if(write_to_file){
+        fp = fopen(output_file, "w+");
+    }
 
     for(int i = 0; i!= vector.length;i++){
         if (vector.dtype == SYMBOLIC){
             printf("%c\n", vector.symbols[i][0]);
+            if(write_to_file){
+                fprintf(fp, "%c", vector.symbols[i][0]);
+            };
         }else{
             // TODO: Strings >1 character
             printf("%d\n", vector.content[i]);
+            if(write_to_file){
+                fprintf(fp, "%d", vector.content[i]);
+            };
         }
+    }
+    if(write_to_file){
+        fclose(fp);
     }
 }
 
@@ -99,15 +117,17 @@ collapse: math{
     if (vector.dtype == SYMBOLIC){
         $<values>$ = vector;
     }else{
-        int c;
+        int c = 0;
         for(int i = 0; i != vector.length; i++){
             c += vector.content[i];
         }
+
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.content[0] = c;
         new_vec.length = 1;
         new_vec.dtype = vector.dtype;
+
         $<values>$ = new_vec;
     }
 }
@@ -127,9 +147,10 @@ math:
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
         new_vec.content[0] = v1 * v2;
+        new_vec.dtype = vector1.dtype;
 
         $<values>$ = new_vec;
     }
@@ -145,9 +166,10 @@ math:
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
         new_vec.content[0] = (v1+(v2-1))/ v2;
+        new_vec.dtype = vector1.dtype;
 
         $<values>$ = new_vec;
     }
@@ -163,9 +185,10 @@ math:
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
         new_vec.content[0] = v1 / v2;
+        new_vec.dtype = vector1.dtype;
 
         $<values>$ = new_vec;
     }
@@ -181,9 +204,10 @@ math:
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
         new_vec.content[0] = v1 % v2;
+        new_vec.dtype = vector1.dtype;
 
         $<values>$ = new_vec;
     }
@@ -195,13 +219,16 @@ math:
 
         vector1 = $<values>1;
         vector2 = $<values>3;
+
         int v1 = collapse(vector1.content, vector1.length);
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
+        new_vec.dtype = vector1.dtype;
         new_vec.content[0] = v1 + v2;
+
 
         $<values>$ = new_vec;
     }
@@ -217,9 +244,10 @@ math:
         int v2 = collapse(vector2.content, vector2.length);
 
         vec new_vec;
-        new_vec.content = malloc(sizeof(int));
+        new_vec.content = calloc(sizeof(int), 1);
         new_vec.length = 1;
         new_vec.content[0] = v1 - v2;
+        new_vec.dtype = vector1.dtype;
 
         $<values>$ = new_vec;
     }
@@ -231,8 +259,10 @@ math:
 
         vector = $<values>2;
 
-        new_vec.content = malloc(sizeof(int)*vector.length);
+        new_vec.content = calloc(sizeof(int), vector.length);
         new_vec.length = vector.length;
+        new_vec.dtype = vector.dtype;
+
 
         for(int i = 0; i != vector.length; i++){
             new_vec.content[i] = - vector.content[i];
@@ -262,7 +292,7 @@ drop_keep:
 
         if(available_amount > amount_to_keep){
             vec new_vector;
-            new_vector.content = malloc(sizeof(int)*amount_to_keep);
+            new_vector.content = calloc(sizeof(int), amount_to_keep);
             new_vector.length = amount_to_keep;
 
             int * arr = roll_vector.content;
@@ -273,7 +303,7 @@ drop_keep:
             for(int i = 0; i != amount_to_keep; i++){
                 int m =  max(arr, len);
                 new_vector.content[i] = m;
-                new_arr = malloc(sizeof(int) *(len-1));
+                new_arr = calloc(sizeof(int), (len-1));
                 pop(arr,len,m,new_arr);
                 free(arr);
                 arr = new_arr;
@@ -292,6 +322,7 @@ drop_keep:
     |
     die_roll KEEP_LOWEST NUMBER
     {
+        printf("KLOW NUM\n");
 
         vec roll_vector, keep_vector;
         roll_vector = $<values>1;
@@ -347,7 +378,7 @@ drop_keep:
             // print_vec($<values>1);
             int result = max($<values>1.content, $<values>1.length);
             vec vector;
-            vector.content = malloc(sizeof(int));
+            vector.content = calloc(sizeof(int), 1);
             vector.content[0] = result;
             vector.length = 1;
             vector.dtype = $<values>1.dtype;
@@ -359,6 +390,8 @@ drop_keep:
     |
     die_roll KEEP_LOWEST
     {
+        printf("KLOW\n");
+        print_vec($<values>1);
         if ($<values>1.dtype == SYMBOLIC){
             printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
             YYABORT;
@@ -368,7 +401,7 @@ drop_keep:
             // print_vec($<values>1);
             int result = min($<values>1.content, $<values>1.length);
             vec vector;
-            vector.content = malloc(sizeof(int));
+            vector.content = calloc(sizeof(int), 1);
             vector.content[0] = result;
             vector.length = 1;
             vector.dtype = $<values>1.dtype;
@@ -394,7 +427,7 @@ drop_keep:
                 int result = sum(vector.content, vector.length);
                 vec new_vec;
                 new_vec.dtype = vector.dtype;
-                new_vec.content = malloc(sizeof(int));
+                new_vec.content = calloc(sizeof(int), 1);
                 new_vec.content[0] = result;
                 new_vec.length = 1;
                 $<values>$ = new_vec;
@@ -408,14 +441,18 @@ die_roll:
     NUMBER SIDED_DIE NUMBER
     {
         // e.g. 2d20
+        printf("DIE ROLL\n");
 
         vec num_dice;
         num_dice = $<values>1;
         int instances = num_dice.content[0];
+
+        printf("DIE ROLL %d\n", instances);
+
         int make_negative = false;
         if (instances == 0){
             vec new_vector;
-            new_vector.content = malloc(sizeof(int)*instances);
+            new_vector.content = calloc(sizeof(int), instances);
             new_vector.content[0] = 0;
             new_vector.length = 1;
             $<values>$ = new_vector;
@@ -430,18 +467,22 @@ die_roll:
         vector = $<values>3;
 
         vec new_vector;
-        new_vector.content = malloc(sizeof(int)*instances);
+        new_vector.content = calloc(sizeof(int), instances);
         new_vector.length = instances;
 
         int max = vector.content[0];
+
+        printf("Sides %d\n", max);
         int result = 0;
         if (max <= 0){
             printf("Cannot roll a dice with a negative amount of sides.");
             YYABORT;
             yyclearin;
         }else if (max > 0){
+            printf("In Here!\n");
             for (int i = 0; i!= instances; i++){
                 new_vector.content[i] += roll_numeric_die(1, max);
+                printf("Rolled Value: %d!\n", new_vector.content[i]);
                 if (make_negative) new_vector.content[i] *= -1;
             }
         }else{
@@ -451,6 +492,8 @@ die_roll:
         }
 
         new_vector.dtype = NUMERIC;
+
+        print_vec(new_vector);
 
         $<values>$ = new_vector;
     }
@@ -474,7 +517,7 @@ die_roll:
 
 
         vec new_vector;
-        new_vector.content = malloc(sizeof(int));
+        new_vector.content = calloc(sizeof(int), 1);
         new_vector.content[0] = result;
         new_vector.length = 1;
         new_vector.dtype = NUMERIC;
@@ -492,10 +535,10 @@ die_roll:
         int instances =  $<values>1.content[0];
 
         vec new_vector;
-        new_vector.symbols = malloc(sizeof(char**)*instances);
+        new_vector.symbols = calloc(sizeof(char**), instances);
         new_vector.length = instances;
         new_vector.dtype = vector.dtype;
-        int idx;
+        int idx = 0;
 
         for (int i = 0; i != instances;i++){
             idx = roll_symbolic_die(vector.length);
@@ -515,7 +558,7 @@ die_roll:
 
         vec new_vector;
         new_vector.dtype = vector.dtype;
-        new_vector.symbols = malloc(sizeof(char **));
+        new_vector.symbols = calloc(sizeof(char **), 1);
         new_vector.symbols = &vector.symbols[idx];
         new_vector.length = 1;
 
@@ -527,16 +570,70 @@ die_roll:
 
 %%
 /* Subroutines */
-int main(){
+
+typedef struct yy_buffer_state * YY_BUFFER_STATE;
+extern int yyparse();
+extern YY_BUFFER_STATE yy_scan_string(char * str);
+extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
+
+int roll(char * s){
     initialize();
-    return(yyparse());
+    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    yyparse();
+
+    yy_delete_buffer(buffer);
+    return 0;
+}
+int roll_and_write(char * s, char * f){
+    /* Write the result to file. */
+    write_to_file = true;
+    output_file = f;
+    printf("Rolling: %s\n", s);
+    return roll(s);
+}
+
+char * concat(char ** s, int num_s){
+    int size_total = 0;
+    bool spaces = false;
+    for(int i = 1; i != num_s + 1; i++){
+        size_total += strlen(s[i]) + 1;
+    }
+    if (num_s > 1){
+        spaces = true;
+        size_total -= 1;  // no need for trailing space
+    }
+    char * result;
+    result = (char *)calloc(sizeof(char), (size_total+1));
+
+    for(int i = 1; i != num_s + 1; i++){
+        strcat(result, s[i]);
+        if (spaces && i < num_s){
+            strcat(result, " ");    // Add spaces
+        }
+    }
+
+    return result;
+
+}
+
+int main(int argc, char **str){
+    char * s = concat(str, argc - 1);
+    return roll(s);
 }
 
 int yyerror(s)
 const char *s;
 {
     fprintf(stderr, "%s\n", s);
+
+    if(write_to_file){
+        FILE *fp;
+        fp = fopen(output_file, "w+");
+        fprintf(fp, "%s", s);
+        fclose(fp);
+    }
     return(1);
+
 }
 
 int yywrap(){

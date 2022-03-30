@@ -14,4 +14,7 @@ typedef struct vec{
     char ** symbols;
 } vec;
 
+int roll(char * s);
+int roll_and_write(char * s, char * f);
+
 #endif
