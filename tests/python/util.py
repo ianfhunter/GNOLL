@@ -3,10 +3,20 @@ import os
 import subprocess
 import importlib
 import importlib.util as iu
+from enum import Enum
 
 GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/grammar'))
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/python/dicetower/'))
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+
+first_run = True
+
+class Mock(Enum):
+    NO_MOCK=0
+    RETURN_CONSTANT_THREE=1
+    RETURN_INCREMENTING=2
+    RETURN_DECREMENTING=3
+
 
 def get_roll():
 
@@ -20,68 +30,32 @@ def get_roll():
     dice_tower_roll = dt.roll
     return dice_tower_roll
 
-
-def roll(s, mock_random=None):
-
-
-
-    target_file = os.path.join(GRAMMAR_DIR, "dice.yacc")
-
+def make_clean():
     cmd = "make clean -s -C " + MK_DIR
     cleanup = subprocess.Popen(cmd, shell=True)
     cleanup.communicate()
     if cleanup.returncode:
         raise ValueError
 
-
-    with open(target_file,'r',encoding='utf-8') as file:
-        yacc = file.readlines()
-
-    if mock_random is not None:
-        # print("MOCKING!")
-
-        replacements = [
-            "return rand()%(big+1-small)+small;",
-            "return rand()%(length_of_symbolic_array);"
-        ]
-        if isinstance(mock_random, tuple):
-            new_code = ""
-            for i, x in enumerate(mock_random):
-                new_code += f"""
-                    if(random_mock_count == {i}){{
-                        random_mock_count++;
-                        printf("Mocking! %d: \\n", {x});
-                        return {x};
-                    }}
-                """
-        else:
-            new_code = f"return {mock_random};"
-
-        for x in range(len(yacc)):
-            for r in replacements:
-                if r in yacc[x]:
-                    yacc[x] = new_code
-    else:
-        # print("NO MOCKING!")
-        pass
-
-    target_file = os.path.join(GRAMMAR_DIR, "test_dice.yacc")
-    with open(target_file,'w+', encoding='utf-8') as test_yacc:
-        test_yacc.writelines(yacc)
-
-    print("Target File:", target_file)
-    assert(os.path.exists(target_file))
-
-    cmd = "make mock -s -C " + MK_DIR
+def make_all():
+    cmd = "make all -s -C " + MK_DIR
     parser = subprocess.Popen(cmd, shell=True)
     parser.communicate()
     if parser.returncode:
         raise ValueError
 
+def roll(s, mock_random=Mock.NO_MOCK):
+    global first_run
+    if first_run:
+        make_clean()
+        make_all()
+    if mock_random is None:
+        mock_random = Mock.NO_MOCK
+    first_run = False
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    exit_code, result = dice_tower_roll(s)
+    exit_code, result = dice_tower_roll(s, mock=mock_random.value, quiet=True)
 
     if exit_code:
         print("Failing Case stdout:", parser.stdout)

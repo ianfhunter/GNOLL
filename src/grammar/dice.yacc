@@ -22,14 +22,17 @@ int yylex(void);
 int yyerror(const char* s);
 
 int yydebug=1;
-// random_mock_count is used only for testing
-int random_mock_count=0;
-
+MOCK_METHOD random_mock=NO_MOCK;
+int mock_return_value = 0;
+bool verbose = true;
+bool seeded = false;
 bool write_to_file = false;
 char * output_file;
 
 int initialize(){
-    srand(time(NULL));
+    if (!seeded)
+        srand(time(0));
+        seeded = true;
 }
 
 int collapse(int * arr, int len){
@@ -44,11 +47,26 @@ int sum(int * arr, int len){
 
 int roll_numeric_die(int small, int big){
     // Returns random value between small and big
-    printf("roll_numeric_die\n");return rand()%(big+1-small)+small;
+    if (random_mock == NO_MOCK){
+        return rand()%(big+1-small)+small;
+    }
+    if (random_mock == RETURN_CONSTANT_THREE){
+        return 3;
+    }
+    if (random_mock == RETURN_INCREMENTING){
+        mock_return_value++;
+        return mock_return_value;
+    }
+    if (random_mock == RETURN_DECREMENTING){
+        mock_return_value--;
+        return mock_return_value;
+    }
+
+
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    printf("roll_symbolic_die\n");return rand()%(length_of_symbolic_array);
+    return rand()%(length_of_symbolic_array);
 }
 
 %}
@@ -93,16 +111,20 @@ dice: collapse{
 
     for(int i = 0; i!= vector.length;i++){
         if (vector.dtype == SYMBOLIC){
-            printf("%c\n", vector.symbols[i][0]);
+            // TODO: Strings >1 character
+            if (verbose){
+                printf("%c\n", vector.symbols[i][0]);
+            }
             if(write_to_file){
                 fprintf(fp, "%c", vector.symbols[i][0]);
-            };
+            }
         }else{
-            // TODO: Strings >1 character
-            printf("%d\n", vector.content[i]);
+            if(verbose){
+                printf("%d\n", vector.content[i]);
+            }
             if(write_to_file){
                 fprintf(fp, "%d", vector.content[i]);
-            };
+            }
         }
     }
     if(write_to_file){
@@ -263,7 +285,6 @@ math:
         new_vec.length = vector.length;
         new_vec.dtype = vector.dtype;
 
-
         for(int i = 0; i != vector.length; i++){
             new_vec.content[i] = - vector.content[i];
         }
@@ -282,7 +303,7 @@ drop_keep:
         keep_vector = $<values>3;
 
         if (roll_vector.dtype == SYMBOLIC){
-            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+            if(verbose) printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
             YYABORT;
             yyclearin;
         }
@@ -322,8 +343,6 @@ drop_keep:
     |
     die_roll KEEP_LOWEST NUMBER
     {
-        printf("KLOW NUM\n");
-
         vec roll_vector, keep_vector;
         roll_vector = $<values>1;
         keep_vector = $<values>3;
@@ -390,8 +409,7 @@ drop_keep:
     |
     die_roll KEEP_LOWEST
     {
-        printf("KLOW\n");
-        print_vec($<values>1);
+        // print_vec($<values>1);
         if ($<values>1.dtype == SYMBOLIC){
             printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
             YYABORT;
@@ -441,13 +459,9 @@ die_roll:
     NUMBER SIDED_DIE NUMBER
     {
         // e.g. 2d20
-        printf("DIE ROLL\n");
-
         vec num_dice;
         num_dice = $<values>1;
         int instances = num_dice.content[0];
-
-        printf("DIE ROLL %d\n", instances);
 
         int make_negative = false;
         if (instances == 0){
@@ -472,17 +486,14 @@ die_roll:
 
         int max = vector.content[0];
 
-        printf("Sides %d\n", max);
         int result = 0;
         if (max <= 0){
             printf("Cannot roll a dice with a negative amount of sides.");
             YYABORT;
             yyclearin;
         }else if (max > 0){
-            printf("In Here!\n");
             for (int i = 0; i!= instances; i++){
                 new_vector.content[i] += roll_numeric_die(1, max);
-                printf("Rolled Value: %d!\n", new_vector.content[i]);
                 if (make_negative) new_vector.content[i] *= -1;
             }
         }else{
@@ -493,7 +504,7 @@ die_roll:
 
         new_vector.dtype = NUMERIC;
 
-        print_vec(new_vector);
+        // print_vec(new_vector);
 
         $<values>$ = new_vector;
     }
@@ -588,8 +599,15 @@ int roll_and_write(char * s, char * f){
     /* Write the result to file. */
     write_to_file = true;
     output_file = f;
-    printf("Rolling: %s\n", s);
+    if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
+}
+int mock_roll(char * s, char * f, int mock_value, bool quiet){
+    random_mock = mock_value;
+    mock_return_value = 0;
+    verbose = ! quiet;
+
+    return roll_and_write(s, f);
 }
 
 char * concat(char ** s, int num_s){

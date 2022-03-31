@@ -61,10 +61,10 @@ kh|dl|h {
     return(MODULO);
 }
 [/] {
-    return(DIVIDE_ROUND_UP);
+    return(DIVIDE_ROUND_DOWN);
 }
 [\\] {
-    return(DIVIDE_ROUND_DOWN);
+    return(DIVIDE_ROUND_UP);
 }
 [x] {
     return(REPEAT);

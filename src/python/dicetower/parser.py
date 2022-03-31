@@ -16,18 +16,23 @@ cppyy.load_library(C_SHARED_LIB)
 
 import tempfile
 
-def roll(s, verbose=False):
+def roll(s, verbose=False, mock=None, quiet=True):
     if verbose: print("Rolling: ", s)
 
 
     temp = tempfile.NamedTemporaryFile(prefix="dicetower_roll_", suffix=".die")
     f = str(temp.name)
+    print("File: ", f)
 
-    return_code = cppyy.gbl.roll_and_write(s, f)
+    if mock is None:
+        return_code = cppyy.gbl.roll_and_write(s, f)
+    else:
+        # Testing Only
+        return_code = cppyy.gbl.mock_roll(s, f, mock, quiet)
 
     with open(temp.name) as f:
         results = f.readlines()
-        if verbose or True:
+        if verbose:
             print("--Parsed Output--")
             print(results)
             print("--Parsed Output END--")
