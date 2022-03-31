@@ -52,11 +52,11 @@ mock: mocked_yacc lex compile
 	echo "== Mocking Complete =="
 
 .PHONY: test
-test : all pip_release
+test : all pip
 	python3 -m pytest tests/python/
 
-.PHONY: pip_release
-pip_release : all
+.PHONY: pip
+pip : all
 	cd src/python/ ; python3 -m build
 	pip install src/python/dist/DiceTower-2.1.0-py3-none-any.whl --force-reinstall
-	python3 -c "import dicetower"
+	python3 -c "import dicetower;dicetower.roll('1d2')"
