@@ -16,7 +16,7 @@ cppyy.load_library(C_SHARED_LIB)
 
 import tempfile
 
-def roll(s, verbose=False, mock=None, quiet=True):
+def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     if verbose: print("Rolling: ", s)
 
 
@@ -28,7 +28,7 @@ def roll(s, verbose=False, mock=None, quiet=True):
         return_code = cppyy.gbl.roll_and_write(s, f)
     else:
         # Testing Only
-        return_code = cppyy.gbl.mock_roll(s, f, mock, quiet)
+        return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
     with open(temp.name) as f:
         results = f.readlines()

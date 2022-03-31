@@ -69,5 +69,5 @@ def test_bad_simple_rolls():
         roll("-1d-1")
 
 def test_dice_numbers():
-    result = roll("2d6", mock_random=Mock.RETURN_CONSTANT_THREE)
+    result = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)
     assert(result == 6)

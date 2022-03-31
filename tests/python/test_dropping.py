@@ -24,5 +24,5 @@ from util import roll, Mock
 ])
 
 def test_dropping(r, out, mock):
-    result = roll(r, mock_random=mock)
+    result = roll(r, mock_mode=mock)
     assert(result == out)

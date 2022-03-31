@@ -52,7 +52,7 @@ mock: mocked_yacc lex compile
 	echo "== Mocking Complete =="
 
 .PHONY: test
-test : all pip
+test : all  # pip
 	python3 -m pytest tests/python/
 
 .PHONY: pip

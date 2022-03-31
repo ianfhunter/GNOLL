@@ -24,6 +24,7 @@ int yyerror(const char* s);
 int yydebug=1;
 MOCK_METHOD random_mock=NO_MOCK;
 int mock_return_value = 0;
+int mock_constant = 0;
 bool verbose = true;
 bool seeded = false;
 bool write_to_file = false;
@@ -50,8 +51,8 @@ int roll_numeric_die(int small, int big){
     if (random_mock == NO_MOCK){
         return rand()%(big+1-small)+small;
     }
-    if (random_mock == RETURN_CONSTANT_THREE){
-        return 3;
+    if (random_mock == RETURN_CONSTANT){
+        return mock_constant;
     }
     if (random_mock == RETURN_INCREMENTING){
         mock_return_value++;
@@ -61,12 +62,23 @@ int roll_numeric_die(int small, int big){
         mock_return_value--;
         return mock_return_value;
     }
-
-
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    return rand()%(length_of_symbolic_array);
+    if (random_mock == NO_MOCK){
+        return rand()%(length_of_symbolic_array);
+    }
+    if (random_mock == RETURN_CONSTANT){
+        return mock_constant;
+    }
+    if (random_mock == RETURN_INCREMENTING){
+        mock_return_value++;
+        return mock_return_value;
+    }
+    if (random_mock == RETURN_DECREMENTING){
+        mock_return_value--;
+        return mock_return_value;
+    }
 }
 
 %}
@@ -602,8 +614,9 @@ int roll_and_write(char * s, char * f){
     if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
 }
-int mock_roll(char * s, char * f, int mock_value, bool quiet){
+int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
     random_mock = mock_value;
+    mock_constant = mock_const;
     mock_return_value = 0;
     verbose = ! quiet;
 

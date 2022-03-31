@@ -39,15 +39,15 @@ setup(
         'Programming Language :: Python :: 3.9',
     ],
     ext_modules=[
-        # Extension('dicetower.core', [
-        #         '../../build/y.tab.c',
-        #         '../../build/lex.yy.c',
-        #         '../../src/grammar/vector_functions.c',
-        #     ]
-            # include_dirs=[
-            #     '../../src/grammar/'
-            # ]
-        # )
+        Extension('dicetower.core', [
+                '../../build/y.tab.c',
+                '../../build/lex.yy.c',
+                '../../src/grammar/vector_functions.c',
+            ],
+            include_dirs=[
+                '../../src/grammar/'
+            ]
+        )
     ]
     # cmdclass={
     #     "build_ext": Build,

@@ -13,7 +13,7 @@ first_run = True
 
 class Mock(Enum):
     NO_MOCK=0
-    RETURN_CONSTANT_THREE=1
+    RETURN_CONSTANT=1
     RETURN_INCREMENTING=2
     RETURN_DECREMENTING=3
 
@@ -44,18 +44,18 @@ def make_all():
     if parser.returncode:
         raise ValueError
 
-def roll(s, mock_random=Mock.NO_MOCK):
+def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
     global first_run
     if first_run:
         make_clean()
         make_all()
-    if mock_random is None:
-        mock_random = Mock.NO_MOCK
+    if mock_mode is None:
+        mock_mode = Mock.NO_MOCK
     first_run = False
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    exit_code, result = dice_tower_roll(s, mock=mock_random.value, quiet=True)
+    exit_code, result = dice_tower_roll(s, mock=mock_mode.value, quiet=True, mock_const=mock_const)
 
     if exit_code:
         print("Failing Case stdout:", parser.stdout)
