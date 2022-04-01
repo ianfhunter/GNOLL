@@ -125,20 +125,24 @@ dice: collapse{
         if (vector.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%c\n", vector.symbols[i][0]);
+                printf("%c", vector.symbols[i][0]);
             }
             if(write_to_file){
                 fprintf(fp, "%c", vector.symbols[i][0]);
             }
         }else{
             if(verbose){
-                printf("%d\n", vector.content[i]);
+                printf("%d", vector.content[i]);
             }
             if(write_to_file){
                 fprintf(fp, "%d", vector.content[i]);
             }
         }
     }
+    if(verbose){
+        printf("\n");
+    }
+
     if(write_to_file){
         fclose(fp);
     }
@@ -250,30 +254,52 @@ math:
         // Collapse both sides and subtract
         vec vector1;
         vec vector2;
-
         vector1 = $<values>1;
         vector2 = $<values>3;
 
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
+        if (vector1.dtype == SYMBOLIC){
+            vec new_vec;
+            unsigned int concat_length = vector1.length + vector2.length;
+            new_vec.symbols = calloc(sizeof(char *), concat_length);
+            int max_symbol_length = 1;  // TODO.
+            for (int i = 0; i != concat_length; i++){
+                new_vec.symbols[i] = calloc(sizeof(char), max_symbol_length);
+            }
+            new_vec.length = concat_length;
+            new_vec.dtype = vector1.dtype;
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.dtype = vector1.dtype;
-        new_vec.content[0] = v1 + v2;
+            concat_symbols(
+                vector1.symbols, vector1.length,
+                vector2.symbols, vector2.length,
+                new_vec.symbols
+            );
+            // free(vector1.symbols);
+            // free(vector2.symbols);
 
+            $<values>$ = new_vec;
 
-        $<values>$ = new_vec;
+        }else{
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
+
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.dtype = vector1.dtype;
+            new_vec.content[0] = v1 + v2;
+
+            $<values>$ = new_vec;
+        }
+
     }
     |
     math MINUS math{
         // Collapse both sides and subtract
         vec vector1;
         vec vector2;
-
         vector1 = $<values>1;
         vector2 = $<values>3;
+
         int v1 = collapse(vector1.content, vector1.length);
         int v2 = collapse(vector2.content, vector2.length);
 
@@ -623,7 +649,7 @@ int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
     return roll_and_write(s, f);
 }
 
-char * concat(char ** s, int num_s){
+char * concat_strings(char ** s, int num_s){
     int size_total = 0;
     bool spaces = false;
     for(int i = 1; i != num_s + 1; i++){
@@ -648,7 +674,7 @@ char * concat(char ** s, int num_s){
 }
 
 int main(int argc, char **str){
-    char * s = concat(str, argc - 1);
+    char * s = concat_strings(str, argc - 1);
     return roll(s);
 }
 

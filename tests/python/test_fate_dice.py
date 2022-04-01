@@ -21,10 +21,9 @@ def test_multidie():
     result = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert(result == "--")
 
-@pytest.mark.xfail
 def test_fate_addition():
     # Addition = Concatination
-    result = roll("dF+dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result = roll("df+df") #, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert(result == "--")
 
 @pytest.mark.xfail
