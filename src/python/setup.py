@@ -2,14 +2,7 @@ import sys
 import subprocess
 from setuptools import setup
 from setuptools.command.build_ext import build_ext
-
-
-class Build(build_ext):
-    def run(self):
-        protoc_command = ["make" "all"]
-        if subprocess.call(protoc_command) != 0:
-            sys.exit(-1)
-            build_ext.run(self)
+from distutils.core import Extension
 
 setup(
     name='DiceTower',
@@ -19,9 +12,10 @@ setup(
     author='Ian Hunter',
     author_email='ianfhunter@gmail.com',
     license='GPL v3',
-    py_modules=['parser'],
+    py_modules=['dicetower.parser'],
     install_requires=[],
-    packages=["dicetower"],
+    include_package_date=True,
+    # packages=["dicetower"],
 
     classifiers=[
         'Development Status :: 1 - Planning',
@@ -37,18 +31,19 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-    ],
-    ext_modules=[
-        Extension('dicetower.core', [
-                '../../build/y.tab.c',
-                '../../build/lex.yy.c',
-                '../../src/grammar/vector_functions.c',
-            ],
-            include_dirs=[
-                '../../src/grammar/'
-            ]
-        )
     ]
+    # ,ext_modules=[
+    #     Extension('dicetower.core', [
+    #             'c_build/y.tab.c',
+    #             'c_build/lex.yy.c',
+    #             'c_includes/vector_functions.c',
+    #         ],
+    #         language='c',
+    #         include_dirs=[
+    #             'c_includes/'
+    #         ]
+    #     )
+    # ]
     # cmdclass={
     #     "build_ext": Build,
     # }

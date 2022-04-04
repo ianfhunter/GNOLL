@@ -7,10 +7,10 @@ import io
 from contextlib import redirect_stdout, redirect_stderr
 from importlib import reload
 
-
-BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
-C_HEADER = os.path.join(os.path.dirname(__file__), '../../grammar/shared_header.h')
-C_SHARED_LIB = os.path.join(os.path.dirname(__file__), '../../../build/dice.so')
+# BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
+BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../c_build'))
+C_HEADER = os.path.join(os.path.dirname(__file__), '../c_includes')
+C_SHARED_LIB = os.path.join(BUILD_DIR, 'dice.so')
 cppyy.c_include(C_HEADER)
 cppyy.load_library(C_SHARED_LIB)
 

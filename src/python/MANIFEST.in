@@ -1,2 +1,4 @@
-include ../../build/*
-include ../../Makefile
+recursive-include c_build *
+recursive-include c_includes *
+include ../../LICENSE
+include ../../README.md
