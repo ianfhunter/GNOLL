@@ -5,13 +5,14 @@ import pytest
 import csv
 import os
 import sys
-from util import roll
+from util import roll, Mock
 
 def test_random_roll():
     # Prove Random roll Is Working
     a = b = c = d = False
     for x in range(100):
         result = roll("d4")
+        print(result)
         assert(result > 0)
         assert(result < 5)
         if result == 1:
@@ -68,5 +69,5 @@ def test_bad_simple_rolls():
         roll("-1d-1")
 
 def test_dice_numbers():
-    result = roll("2d6", mock_random=4)
-    assert(result, 8)
+    result = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)
+    assert(result == 6)

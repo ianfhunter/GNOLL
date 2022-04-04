@@ -5,3 +5,7 @@ coveralls
 pyflakes
 pytest
 pytest-cov
+cppyy
+
+# For Pip Releasing
+build

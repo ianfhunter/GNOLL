@@ -6,7 +6,6 @@
 
 %%
 
-
 [ \n]+ /* Eat Whitespace */;
 
 [0-9]+ {
@@ -23,7 +22,6 @@ d {
     return(SIDED_DIE);
 }
 df|dF {
-
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
     plus[0] = '+';
@@ -63,10 +61,10 @@ kh|dl|h {
     return(MODULO);
 }
 [/] {
-    return(DIVIDE_ROUND_UP);
+    return(DIVIDE_ROUND_DOWN);
 }
 [\\] {
-    return(DIVIDE_ROUND_DOWN);
+    return(DIVIDE_ROUND_UP);
 }
 [x] {
     return(REPEAT);
@@ -86,4 +84,3 @@ kh|dl|h {
 [)] {
     return(RBRACE);
 }
-q       return;
