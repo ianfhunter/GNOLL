@@ -23,10 +23,10 @@ def test_multidie():
 
 def test_fate_addition():
     # Addition = Concatination
-    result = roll("df+df") #, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert(result == "--")
 
-@pytest.mark.xfail
+@pytest.mark.skip(reason="Not supported yet and may cause memory issue")
 def test_fate_subtraction():
     # Subtraction = Removing common elements IF PRESENT
     result = roll("3dF-dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
@@ -35,7 +35,7 @@ def test_fate_subtraction():
     assert(result == "+")
 
 
-@pytest.mark.xfail
+@pytest.mark.skip(reason="Not supported yet and may cause memory issue")
 def test_fate_numeral_interoperability():
     # Most of the time, using the two together doesn't make sense
     with pytest.raises(Exception):
