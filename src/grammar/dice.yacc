@@ -178,57 +178,75 @@ math:
         // Collapse both sides and subtract
         vec vector1;
         vec vector2;
-
         vector1 = $<values>1;
         vector2 = $<values>3;
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.content[0] = v1 * v2;
-        new_vec.dtype = vector1.dtype;
+        if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
+            printf("Division unsupported for symbolic dice.");
+            YYABORT;
+            yyclearin;
+        }else{
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
 
-        $<values>$ = new_vec;
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.content[0] = v1 * v2;
+            new_vec.dtype = vector1.dtype;
+
+            $<values>$ = new_vec;
+        }
     }
     |
     math DIVIDE_ROUND_UP math{
         // Collapse both sides and subtract
         vec vector1;
         vec vector2;
-
         vector1 = $<values>1;
         vector2 = $<values>3;
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.content[0] = (v1+(v2-1))/ v2;
-        new_vec.dtype = vector1.dtype;
+        if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
+            printf("Division unsupported for symbolic dice.");
+            YYABORT;
+            yyclearin;
+        }else{
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
 
-        $<values>$ = new_vec;
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.content[0] = (v1+(v2-1))/ v2;
+            new_vec.dtype = vector1.dtype;
+
+            $<values>$ = new_vec;
+        }
     }
     |
     math DIVIDE_ROUND_DOWN math{
         // Collapse both sides and subtract
         vec vector1;
         vec vector2;
-
         vector1 = $<values>1;
         vector2 = $<values>3;
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.content[0] = v1 / v2;
-        new_vec.dtype = vector1.dtype;
+        if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
+            printf("Modulo unsupported for symbolic dice.");
+            YYABORT;
+            yyclearin;
+        }else{
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
 
-        $<values>$ = new_vec;
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.content[0] = v1 / v2;
+            new_vec.dtype = vector1.dtype;
+
+            $<values>$ = new_vec;
+        }
     }
     |
     math MODULO math{
@@ -238,16 +256,23 @@ math:
 
         vector1 = $<values>1;
         vector2 = $<values>3;
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.content[0] = v1 % v2;
-        new_vec.dtype = vector1.dtype;
+        if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
+            printf("Modulo unsupported for symbolic dice.");
+            YYABORT;
+            yyclearin;
+        }else{
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
 
-        $<values>$ = new_vec;
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.content[0] = v1 % v2;
+            new_vec.dtype = vector1.dtype;
+
+            $<values>$ = new_vec;
+        }
     }
     |
     math PLUS math{
@@ -257,7 +282,14 @@ math:
         vector1 = $<values>1;
         vector2 = $<values>3;
 
-        if (vector1.dtype == SYMBOLIC){
+        if (
+            (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
+            (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
+        ){
+            printf("Subtract not supported with mixed dice types.");
+            YYABORT;
+            yyclearin;
+        } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
             new_vec.symbols = calloc(sizeof(char *), concat_length);
@@ -294,39 +326,70 @@ math:
     }
     |
     math MINUS math{
-        // Collapse both sides and subtract
         vec vector1;
         vec vector2;
         vector1 = $<values>1;
         vector2 = $<values>3;
+        if (
+            (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
+            (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
+        ){
+            printf("Subtract not supported with mixed dice types.");
+            YYABORT;
+            yyclearin;
+        }else if (vector1.dtype == SYMBOLIC){
+            // Remove if present.
 
-        int v1 = collapse(vector1.content, vector1.length);
-        int v2 = collapse(vector2.content, vector2.length);
+            printf("Unsupported right now");
+            YYABORT;
+            yyclearin;
+            vec new_vec;
 
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.length = 1;
-        new_vec.content[0] = v1 - v2;
-        new_vec.dtype = vector1.dtype;
+            // new_vec.content = calloc(sizeof(int), vector1.length);
+            // unsigned int new_vec_len = remove_if_present(vector1, len1, vector2, len2, new_vec)
+            // new_vec.length = new_vec_len;
+            // new_vec.dtype = vector1.dtype;
 
-        $<values>$ = new_vec;
+            // $<values>$ = new_vec;
+        }else{
+            // Collapse both sides and subtract
+
+            int v1 = collapse(vector1.content, vector1.length);
+            int v2 = collapse(vector2.content, vector2.length);
+
+            vec new_vec;
+            new_vec.content = calloc(sizeof(int), 1);
+            new_vec.length = 1;
+            new_vec.content[0] = v1 - v2;
+            new_vec.dtype = vector1.dtype;
+
+            $<values>$ = new_vec;
+        }
+
     }
     |
     MINUS math %prec UMINUS{
         // Eltwise Negation
         vec vector;
-        vec new_vec;
-
         vector = $<values>2;
 
-        new_vec.content = calloc(sizeof(int), vector.length);
-        new_vec.length = vector.length;
-        new_vec.dtype = vector.dtype;
+        if (vector.dtype == SYMBOLIC){
+            printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.");
+            YYABORT;
+            yyclearin;
+        } else {
+            vec new_vec;
 
-        for(int i = 0; i != vector.length; i++){
-            new_vec.content[i] = - vector.content[i];
+            new_vec.content = calloc(sizeof(int), vector.length);
+            new_vec.length = vector.length;
+            new_vec.dtype = vector.dtype;
+
+            for(int i = 0; i != vector.length; i++){
+                new_vec.content[i] = - vector.content[i];
+            }
+            $<values>$ = new_vec;
+
         }
-        $<values>$ = new_vec;
     }
     |
     drop_keep
