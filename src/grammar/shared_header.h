@@ -29,5 +29,6 @@ typedef struct vec{
 int roll(char * s);
 int roll_and_write(char * s, char * f);
 int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const);
+void reset();
 
 #endif

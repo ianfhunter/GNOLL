@@ -544,6 +544,31 @@ drop_keep:
         }
     }
 die_roll:
+    SIDED_DIE NUMBER EXPLOSION
+    {
+        vec vector;
+        vector = $<values>2;
+        int max = vector.content[0];
+
+
+        int err = validate_roll(1, max);
+        if (err){
+            YYABORT;
+            yyclearin;
+        }else{
+            // e.g. d4, it is implied that it is a single dice
+            int result = perform_roll(1, max, true, mock_style, mock_constant);
+
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), 1);
+            new_vector.content[0] = result;
+            new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
+
+            $<values>$ = new_vector;
+        }
+    }
+    |
     NUMBER SIDED_DIE NUMBER
     {
         // e.g. 2d20
@@ -603,14 +628,14 @@ die_roll:
         vector = $<values>2;
         int max = vector.content[0];
 
-        // e.g. d4, it is implied that it is a single dice
 
         int err = validate_roll(1, max);
         if (err){
             YYABORT;
             yyclearin;
         }else{
-            int result = perform_roll(1, max);
+            // e.g. d4, it is implied that it is a single dice
+            int result = perform_roll(1, max, false, mock_style, mock_constant);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
@@ -673,6 +698,12 @@ extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
+void reset(){
+    mock_style=NO_MOCK;
+    mock_return_value = 0;
+    mock_constant = 0;
+    reset_mocking();
+}
 int roll(char * s){
     initialize();
     YY_BUFFER_STATE buffer = yy_scan_string(s);

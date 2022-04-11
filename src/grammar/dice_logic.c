@@ -6,6 +6,11 @@
 
 int random_fn_run_count = 0;
 
+
+void reset_mocking(){
+    random_fn_run_count = 0;
+}
+
 int random_fn(int small, int big, MOCK_METHOD mock_style, int mock_constant ){
 
     if(small >= big ){
@@ -28,6 +33,7 @@ int random_fn(int small, int big, MOCK_METHOD mock_style, int mock_constant ){
     }
     if (mock_style == RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE){
         random_fn_run_count++;
+
         if(random_fn_run_count >= 3){
             return 1;
         }else{
@@ -36,10 +42,35 @@ int random_fn(int small, int big, MOCK_METHOD mock_style, int mock_constant ){
     }
 }
 
-unsigned int perform_roll(int number_of_dice, int die_sides)
+unsigned int perform_roll(
+    int number_of_dice,
+    int die_sides,
+    bool explode,
+    MOCK_METHOD mock_style,
+    int mock_constant
+)
 {
-    return roll_numeric_die(number_of_dice, die_sides);
+    int explosion_result = 0;
+    int explosion_condition_score = 0;
+
+    int all_dice_roll = 0;
+    int single_die_roll = 0;
+    int final_result = 0;
+    do{
+        all_dice_roll = 0;
+        for(int i = 0; i < number_of_dice; i++){
+            // TODO: Don't hardocde 1
+            single_die_roll = random_fn(1, die_sides,mock_style, mock_constant);
+            all_dice_roll += single_die_roll;
+        }
+        explosion_condition_score = number_of_dice*die_sides;
+        explosion_result += all_dice_roll;
+    }while(explode && (all_dice_roll == explosion_condition_score));
+
+    final_result = explosion_result;
+    return final_result;
 }
+
 int validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){
