@@ -84,3 +84,9 @@ kh|dl|h {
 [)] {
     return(RBRACE);
 }
+[!] {
+    return(EXPLOSION);
+}
+[~] {
+    return(IMPLOSION);
+}

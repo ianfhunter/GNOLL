@@ -2,6 +2,7 @@
 %code requires{
     #include "shared_header.h"
     #include "vector_functions.h"
+    #include "dice_logic.h"
 }
 /* %error-verbose  - Deprecated + not supported by POSIX*/
 %define parse.error verbose
@@ -17,12 +18,13 @@
 #include "yacc_header.h"
 #include "vector_functions.h"
 #include "shared_header.h"
+#include "dice_logic.h"
 
 int yylex(void);
 int yyerror(const char* s);
 
 int yydebug=1;
-MOCK_METHOD random_mock=NO_MOCK;
+MOCK_METHOD mock_style=NO_MOCK;
 int mock_return_value = 0;
 int mock_constant = 0;
 bool verbose = true;
@@ -31,9 +33,10 @@ bool write_to_file = false;
 char * output_file;
 
 int initialize(){
-    if (!seeded)
+    if (!seeded){
         srand(time(0));
         seeded = true;
+    }
 }
 
 int collapse(int * arr, int len){
@@ -47,38 +50,21 @@ int sum(int * arr, int len){
 }
 
 int roll_numeric_die(int small, int big){
-    // Returns random value between small and big
-    if (random_mock == NO_MOCK){
-        return rand()%(big+1-small)+small;
-    }
-    if (random_mock == RETURN_CONSTANT){
-        return mock_constant;
-    }
-    if (random_mock == RETURN_INCREMENTING){
+    int v = 0;
+    if (mock_style == RETURN_INCREMENTING){
         mock_return_value++;
-        return mock_return_value;
+        v = mock_return_value;
+    }else if (mock_style == RETURN_DECREMENTING){
+        mock_return_value++;
+        v = mock_return_value;
+    }else{
+        v = mock_constant;
     }
-    if (random_mock == RETURN_DECREMENTING){
-        mock_return_value--;
-        return mock_return_value;
-    }
+    return random_fn(small, big, mock_style, v);
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    if (random_mock == NO_MOCK){
-        return rand()%(length_of_symbolic_array);
-    }
-    if (random_mock == RETURN_CONSTANT){
-        return mock_constant;
-    }
-    if (random_mock == RETURN_INCREMENTING){
-        mock_return_value++;
-        return mock_return_value;
-    }
-    if (random_mock == RETURN_DECREMENTING){
-        mock_return_value--;
-        return mock_return_value;
-    }
+    return roll_numeric_die(0, length_of_symbolic_array);
 }
 
 %}
@@ -90,6 +76,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
+%token EXPLOSION IMPLOSION
 
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
@@ -612,29 +599,27 @@ die_roll:
     |
     SIDED_DIE NUMBER
     {
-        // e.g. d4, it is implied that it is a single dice
         vec vector;
         vector = $<values>2;
         int max = vector.content[0];
-        int result = 0;
-        if (max < 0){
-            printf("Cannot roll a dice with a negative amount of sides.");
+
+        // e.g. d4, it is implied that it is a single dice
+
+        int err = validate_roll(1, max);
+        if (err){
             YYABORT;
             yyclearin;
-        }else if(max > 0){
-            result = roll_numeric_die(1, max);
-        } // else == 0
+        }else{
+            int result = perform_roll(1, max);
 
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), 1);
+            new_vector.content[0] = result;
+            new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
 
-
-
-        vec new_vector;
-        new_vector.content = calloc(sizeof(int), 1);
-        new_vector.content[0] = result;
-        new_vector.length = 1;
-        new_vector.dtype = NUMERIC;
-
-        $<values>$ = new_vector;
+            $<values>$ = new_vector;
+        }
     }
     |
     NUMBER FATE_DIE
@@ -704,7 +689,7 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
-    random_mock = mock_value;
+    mock_style = mock_value;
     mock_constant = mock_const;
     mock_return_value = 0;
     verbose = ! quiet;

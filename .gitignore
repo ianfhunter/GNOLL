@@ -126,3 +126,9 @@ __pycache__/
 *.pyc
 .pytest_cache/
 *.output
+
+# Packaging Artifacts
+src/LICENSE
+src/Makefile
+src/README.md
+src/src/

@@ -16,6 +16,7 @@ class Mock(Enum):
     RETURN_CONSTANT=1
     RETURN_INCREMENTING=2
     RETURN_DECREMENTING=3
+    RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
 
 
 def get_roll():
@@ -58,7 +59,5 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
     exit_code, result = dice_tower_roll(s, mock=mock_mode.value, quiet=True, mock_const=mock_const)
 
     if exit_code:
-        print("Failing Case stdout:", parser.stdout)
-        print("             stderr:", parser.stderr)
         raise ValueError
     return result

@@ -28,13 +28,14 @@ lex:
 .PHONY: compile
 compile:
 # Executable
-	cc build/y.tab.c src/grammar/vector_functions.c build/lex.yy.c -Isrc/grammar/
+	cc build/y.tab.c src/grammar/vector_functions.c src/grammar/dice_logic.c build/lex.yy.c -Isrc/grammar/
 
 # Shared Lib
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/vector_functions.c -o build/vec.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/dice_logic.c -o build/die.o -Isrc/grammar/
 	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
-	cc -shared -o build/dice.so  build/tab.o build/lex.o build/vec.o
+	cc -shared -o build/dice.so build/die.o build/tab.o build/lex.o build/vec.o
 
 	# ar rcs build/dice.a build/tab.o build/lex.o build/vec.o
 
