@@ -24,6 +24,8 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     f = str(temp.name)
     print("File: ", f)
 
+    cppyy.gbl.reset()
+
     if mock is None:
         return_code = cppyy.gbl.roll_and_write(s, f)
     else:

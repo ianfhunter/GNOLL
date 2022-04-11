@@ -13,7 +13,8 @@ typedef enum {
     NO_MOCK=0,
     RETURN_CONSTANT=1,
     RETURN_INCREMENTING=2,
-    RETURN_DECREMENTING=3
+    RETURN_DECREMENTING=3,
+    RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
 } MOCK_METHOD;
 
 typedef struct vec{
@@ -28,5 +29,6 @@ typedef struct vec{
 int roll(char * s);
 int roll_and_write(char * s, char * f);
 int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const);
+void reset();
 
 #endif
