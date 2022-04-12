@@ -24,7 +24,9 @@ def test_multiple_symbolic_dice(r, out, mock):
     assert(result == out)
 
 @pytest.mark.parametrize("r,out,mock",[
-    ("d{HEARTS,SPADES,CLUBS,DIAMONDS}", "DIAMONDS", Mock.RETURN_CONSTANT)
+    ("d{HEARTS,SPADES,CLUBS,DIAMONDS}", "DIAMONDS", Mock.RETURN_CONSTANT),
+    # Star Wars FFG
+    ("d{DARKSIDE, DARKSIDE, DARKSIDE, DARKSIDE, DARKSIDE, DARKSIDE, DARKSIDE_DARKSIDE, LIGHTSIDE, LIGHTSIDE, LIGHTSIDE_LIGHTSIDE, LIGHTSIDE_LIGHTSIDE, LIGHTSIDE_LIGHTSIDE}", "DARKSIDE", Mock.RETURN_CONSTANT)
 ])
 def test_long_string(r, out, mock):
     result = roll(r, mock_mode=mock)

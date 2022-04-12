@@ -9,7 +9,7 @@
 [ \n]+ /* Eat Whitespace */;
 
     /* TODO */
-[A-Z]+ {
+[A-Z_]+ {
     vec vector;
     vector.symbols = malloc(sizeof(char **));
     vector.symbols[0] = strdup(yytext);
@@ -90,6 +90,10 @@ kh|dl|h {
 [@] {
     return(MACRO_ACCESSOR);
 }
+; {
+
+    return(MACRO_SEPERATOR);
+}
 [(] {
     return(LBRACE);
 }
@@ -107,6 +111,9 @@ kh|dl|h {
 }
 [!] {
     return(EXPLOSION);
+}
+[\=] {
+    return(ASSIGNMENT);
 }
 [~] {
     return(IMPLOSION);
