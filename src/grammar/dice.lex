@@ -8,6 +8,18 @@
 
 [ \n]+ /* Eat Whitespace */;
 
+    /* TODO */
+[A-Z]+ {
+    vec vector;
+    vector.symbols = malloc(sizeof(char **));
+    vector.symbols[0] = strdup(yytext);
+    vector.dtype = SYMBOLIC;
+    vector.length = 1;
+
+    yylval.values = vector;
+    return CAPITAL_STRING;
+}
+
 [0-9]+ {
     vec vector;
     vector.content = malloc(sizeof(int));
@@ -24,11 +36,11 @@ d {
 df|dF {
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
-    plus[0] = '+';
+    plus = "+";
     zero = (char *)malloc(sizeof(char *));
-    zero[0] = '0';
+    zero = "0";
     minus = (char *)malloc(sizeof(char *));
-    minus[0] = '-';
+    minus = "-";
 
     vec vector;
     vector.dtype = SYMBOLIC;
@@ -83,6 +95,15 @@ kh|dl|h {
 }
 [)] {
     return(RBRACE);
+}
+[\{] {
+    return(SYMBOL_LBRACE);
+}
+[\}] {
+    return(SYMBOL_RBRACE);
+}
+[,] {
+    return(SYMBOL_SEPERATOR);
 }
 [!] {
     return(EXPLOSION);

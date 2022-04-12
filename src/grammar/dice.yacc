@@ -32,6 +32,9 @@ bool seeded = false;
 bool write_to_file = false;
 char * output_file;
 
+// TODO: It would be better to fit arbitrary length strings.
+unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
+
 int initialize(){
     if (!seeded){
         srand(time(0));
@@ -64,7 +67,7 @@ int roll_numeric_die(int small, int big){
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    return roll_numeric_die(0, length_of_symbolic_array);
+    return roll_numeric_die(0, length_of_symbolic_array -1);
 }
 
 %}
@@ -77,6 +80,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION
+%token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
 
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
@@ -112,10 +116,10 @@ dice: collapse{
         if (vector.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%c", vector.symbols[i][0]);
+                printf("%s", vector.symbols[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%c", vector.symbols[i][0]);
+                fprintf(fp, "%s", vector.symbols[i]);
             }
         }else{
             if(verbose){
@@ -280,9 +284,8 @@ math:
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
             new_vec.symbols = calloc(sizeof(char *), concat_length);
-            int max_symbol_length = 1;  // TODO.
             for (int i = 0; i != concat_length; i++){
-                new_vec.symbols[i] = calloc(sizeof(char), max_symbol_length);
+                new_vec.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
             }
             new_vec.length = concat_length;
             new_vec.dtype = vector1.dtype;
@@ -687,8 +690,56 @@ die_roll:
         $<values>$ = new_vector;
     }
     |
+    custom_symbol_dice
+    |
     NUMBER
     ;
+
+custom_symbol_dice:
+    SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
+    {
+
+        vec vector;
+        vector = $<values>3;
+        int idx = roll_symbolic_die(vector.length);
+
+        vec new_vector;
+        new_vector.dtype = vector.dtype;
+        new_vector.symbols = calloc(sizeof(char **), 1);
+        new_vector.symbols = &vector.symbols[idx];
+        new_vector.length = 1;
+
+        $<values>$ = new_vector;
+    }
+    ;
+csd:
+    CAPITAL_STRING SYMBOL_SEPERATOR csd{
+        // TODO: A, B -> C
+        vec l;
+        vec r;
+        l = $<values>1;
+        r = $<values>3;
+
+        vec new_vector;
+        new_vector.dtype = l.dtype;
+        new_vector.length = l.length + r.length;
+
+        new_vector.symbols = calloc(sizeof(char *), new_vector.length);
+        for (int i = 0; i != new_vector.length; i++){
+            new_vector.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
+        }
+        concat_symbols(
+            l.symbols, l.length,
+            r.symbols, r.length,
+            new_vector.symbols
+        );
+        $<values>$ = new_vector;
+
+    }
+    |
+    CAPITAL_STRING
+    ;
+
 
 %%
 /* Subroutines */

@@ -2,6 +2,11 @@
 clean:
 	rm -rf build
 	rm src/grammar/test_dice.yacc | true
+	rm src/python/src/ | true
+	rm src/python/dist/ | true
+	rm src/python/build/ | true
+	rm src/python/LICENSE | true
+	rm src/python/Makefile | true
 
 .PHONY: yacc
 yacc:
