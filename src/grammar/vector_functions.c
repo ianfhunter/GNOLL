@@ -6,12 +6,14 @@
 #include <string.h>
 #include "shared_header.h"
 
+// extern unsigned int MAX_SYMBOL_TEXT_LENGTH;
+
 void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
     for(int i = 0; i != len1; i++){
-        new_arr[i][0] = arr1[i][0];
+        strcpy(new_arr[i], arr1[i]);
     }
     for(int i = 0; i != len2; i++){
-        new_arr[len1+i][0] = arr2[i][0];
+        strcpy(new_arr[len1+i], arr2[i]);
     }
 }
 

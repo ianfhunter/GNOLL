@@ -3,6 +3,7 @@
     #include "shared_header.h"
     #include "vector_functions.h"
     #include "dice_logic.h"
+    #include "uthash.h"
 }
 /* %error-verbose  - Deprecated + not supported by POSIX*/
 %define parse.error verbose
@@ -19,6 +20,7 @@
 #include "vector_functions.h"
 #include "shared_header.h"
 #include "dice_logic.h"
+#include "uthash.h"
 
 int yylex(void);
 int yyerror(const char* s);
@@ -31,6 +33,41 @@ bool verbose = true;
 bool seeded = false;
 bool write_to_file = false;
 char * output_file;
+
+// Registers
+
+// TODO: It would be better to fit arbitrary length strings.
+unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
+
+struct macro_struct {
+    int id;                    /* key */
+    // char name[MAX_SYMBOL_TEXT_LENGTH];
+    vec stored_dice_roll;
+    UT_hash_handle hh;         /* makes this structure hashable */
+};
+struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
+
+void register_macro(char * skey, vec *to_store) {
+    int key = atoi(skey);
+
+    struct macro_struct *s;
+
+    HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
+    if (s == NULL){
+        s = (struct macro_struct*)malloc(sizeof *s);
+        s->id = key;
+        HASH_ADD_INT(macros, id, s);  /* id: name of key field */
+    }
+    memcpy(&s->stored_dice_roll, &to_store, sizeof(to_store));
+}
+struct macro_struct *search_macros(char * skey, vec *to_store) {
+    int key = atoi(skey);
+    struct macro_struct *s;
+
+    HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
+    return s;
+}
+
 
 int initialize(){
     if (!seeded){
@@ -64,7 +101,7 @@ int roll_numeric_die(int small, int big){
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
-    return roll_numeric_die(0, length_of_symbolic_array);
+    return roll_numeric_die(0, length_of_symbolic_array -1);
 }
 
 %}
@@ -72,11 +109,13 @@ int roll_symbolic_die(int length_of_symbolic_array){
 
 %start dice
 
-%token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE MACRO_ACCESSOR MACRO_STORAGE
+%token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
+%token MACRO_ACCESSOR MACRO_STORAGE MACRO_SEPERATOR ASSIGNMENT
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION
+%token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
 
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
@@ -87,9 +126,6 @@ int roll_symbolic_die(int length_of_symbolic_array){
 /* %left DIE SIDED_DIE FATE_DIE
 %left NUMBER */
 
-
-
-
 %union{
     vec values;
 }
@@ -99,7 +135,21 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %%
 /* Rules Section */
 
-dice: collapse{
+dice:
+    macros executable_statement
+    |
+    executable_statement
+;
+macros:
+    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice MACRO_SEPERATOR {
+        vec key = $<values>2;
+        vec value = $<values>4;
+
+        register_macro(key.symbols[0], &value);
+    }
+;
+
+executable_statement: collapsed_roll_statement{
     vec vector;
     vector = $<values>1;
     FILE *fp;
@@ -112,10 +162,10 @@ dice: collapse{
         if (vector.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%c", vector.symbols[i][0]);
+                printf("%s", vector.symbols[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%c", vector.symbols[i][0]);
+                fprintf(fp, "%s", vector.symbols[i]);
             }
         }else{
             if(verbose){
@@ -135,7 +185,7 @@ dice: collapse{
     }
 }
 
-collapse: math{
+collapsed_roll_statement: roll_statement{
     vec vector;
     vector = $<values>1;
 
@@ -156,6 +206,9 @@ collapse: math{
         $<values>$ = new_vec;
     }
 }
+
+roll_statement: math;
+
 math:
     LBRACE math RBRACE{
         $<values>$ =  $<values>2;
@@ -280,9 +333,8 @@ math:
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
             new_vec.symbols = calloc(sizeof(char *), concat_length);
-            int max_symbol_length = 1;  // TODO.
             for (int i = 0; i != concat_length; i++){
-                new_vec.symbols[i] = calloc(sizeof(char), max_symbol_length);
+                new_vec.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
             }
             new_vec.length = concat_length;
             new_vec.dtype = vector1.dtype;
@@ -687,8 +739,65 @@ die_roll:
         $<values>$ = new_vector;
     }
     |
+    custom_symbol_dice
+    |
     NUMBER
     ;
+
+custom_symbol_dice:
+    SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
+    {
+        vec vector;
+        vector = $<values>3;
+        int idx = roll_symbolic_die(vector.length);
+
+        vec new_vector;
+        new_vector.dtype = vector.dtype;
+        new_vector.symbols = calloc(sizeof(char **), 1);
+        new_vector.symbols = &vector.symbols[idx];
+        new_vector.length = 1;
+
+        $<values>$ = new_vector;
+    }
+    |
+    MACRO_ACCESSOR CAPITAL_STRING{
+        vec vector;
+        vector = $<values>2;
+        char * name = vector.symbols[0];
+
+        vec new_vector;
+        struct macro_struct *s = search_macros(name, &new_vector);
+        $<values>$ = new_vector;
+    }
+    ;
+csd:
+    CAPITAL_STRING SYMBOL_SEPERATOR csd{
+
+        vec l;
+        vec r;
+        l = $<values>1;
+        r = $<values>3;
+
+        vec new_vector;
+        new_vector.dtype = l.dtype;
+        new_vector.length = l.length + r.length;
+
+        new_vector.symbols = calloc(sizeof(char *), new_vector.length);
+        for (int i = 0; i != new_vector.length; i++){
+            new_vector.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
+        }
+        concat_symbols(
+            l.symbols, l.length,
+            r.symbols, r.length,
+            new_vector.symbols
+        );
+        $<values>$ = new_vector;
+
+    }
+    |
+    CAPITAL_STRING
+    ;
+
 
 %%
 /* Subroutines */

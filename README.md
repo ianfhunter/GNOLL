@@ -80,7 +80,8 @@ Again, please see the wiki for the various languages instructions [the Wiki](htt
 
 * [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
 * [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
-* Love 💖
+* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+* Love! 💖
 
 ## Contributing
 
@@ -88,7 +89,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice-tower/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice-tower/tags).
 
 ## Authors / Contributers / Attributions
 
@@ -98,7 +99,7 @@ See also the list of [contributors](https://github.com/ianfhunter/dice-tower/con
 
 ## Issues / Bugs / FAQs / Feature Requests
 
-We are currently building a Wiki to help you in building on top of Dice Tower. 
+We are currently building a Wiki to help you in building on top of Dice Tower.
 In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
 You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
 
