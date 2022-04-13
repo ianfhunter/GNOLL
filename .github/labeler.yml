@@ -1,0 +1,8 @@
+grammar:
+- src/grammar
+
+python:
+- src/python
+
+macros:
+- builtins/
