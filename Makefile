@@ -51,17 +51,9 @@ test : all  # pip
 
 .PHONY: pip
 pip : all
-	cd src/python/ ; python3 setup.py build --force
-	cd src/python/ ; sudo python3 setup.py install --force
-	cd src/python/ ; python3 setup.py sdist bdist_wheel
-	# pip install src/python/dist/DiceTower-2.2.1-py3-none-any.whl --force-reinstall
-	python3 -c "import dicetower.parser as dt;dt.roll('1d2')"
-
-.PHONY: python_build
-python_build: all
-	echo "-----------------Build-------------------------"
+	echo "----------------- BUILD -------------------------"
 	cd src/python/ ; python3 -m build
 	echo "------------------INSTALL------------------------"
-	python3 -m pip install -vvv --user src/python/dist/dicetower-2.2.1-py3-none-any.whl --force-reinstall --ignore-installed
-	echo "--------------------Test----------------------"
+	python3 -m pip install -vvv --user --no-index --find-links=src/python/dist/ --force-reinstall --ignore-installed dicetower
+	echo "-------------------- TEST ----------------------"
 	python3 -c "from dicetower import parser as dt; dt.roll('2')"
