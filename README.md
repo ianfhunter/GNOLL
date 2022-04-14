@@ -37,7 +37,7 @@ We wrote DiceTower to be the definitive solution to dice notation. We've written
 #### Backlog
 Want to show your interest in a particular language? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
 
- - Javascript
+ - JavaScript
  - PHP
  - Ruby
 
