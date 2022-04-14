@@ -3,7 +3,6 @@ import os
 import sys
 import tempfile
 
-# BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
@@ -12,12 +11,12 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
-    if verbose: 
+    if verbose:
         print("Rolling: ", s)
 
     temp = tempfile.NamedTemporaryFile(prefix="dicetower_roll_", suffix=".die")
     f = str(temp.name)
-    if verbose: 
+    if verbose:
         print("File: ", f)
 
     cppyy.gbl.reset()
