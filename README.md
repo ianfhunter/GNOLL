@@ -77,7 +77,9 @@ $ dice 1d20
 Again, please see the wiki for the various languages instructions [the Wiki](https://github.com/ianfhunter/dice-tower/wiki)
 
 #### Python
+
 `pip install dicetower`
+
 Then
 ```
 exit_code, result = roll("1d4")
