@@ -9,3 +9,4 @@ cppyy
 
 # For Pip Releasing
 build
+twine

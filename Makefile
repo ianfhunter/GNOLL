@@ -46,7 +46,7 @@ all: clean yacc lex compile
 	echo "== Build Complete =="
 
 .PHONY: test
-test : all  # pip
+test : pip
 	python3 -m pytest tests/python/ -x
 
 .PHONY: pip
@@ -54,6 +54,12 @@ pip : all
 	echo "----------------- BUILD -------------------------"
 	cd src/python/ ; python3 -m build
 	echo "------------------INSTALL------------------------"
-	python3 -m pip install -vvv --user --no-index --find-links=src/python/dist/ --force-reinstall --ignore-installed dicetower
+	python3 -m pip install -vvv --user --no-index --find-links=src/python/dist/ --force-reinstall --ignore-installed dice_tower
 	echo "-------------------- TEST ----------------------"
 	python3 -c "from dicetower import parser as dt; dt.roll('2')"
+
+
+.PHONY: publish
+publish: test
+	#twine upload --repository-url https://test.pypi.org/legacy/ src/python/dist/*
+	twine upload src/python/dist/*
