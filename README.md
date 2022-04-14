@@ -6,8 +6,6 @@
 <img src="media/logo.png" height="200">
 </p>
 
-
-
 A comprehensive grammar-based library for rolling dice. DiceTower parses [Dice Notation](https://en.wikipedia.org/wiki/Dice_notation) for your project, so that you don't have to. Ideal for software or researchers of tabletop gaming.
 
 Here's an example of how you might use DiceTower:
@@ -32,7 +30,9 @@ We wrote DiceTower to be the definitive solution to dice notation. We've written
 
 #### Currently
 - C
-- Python (However, we have not released it on pip yet)
+- Python
+
+**Note:** There is no Windows/POSIX support yet.
 
 #### Backlog
 Want to show your interest in a particular language? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
@@ -81,10 +81,12 @@ Again, please see the wiki for the various languages instructions [the Wiki](htt
 
 #### Python
 
-`pip install dicetower`
+```bash
+pip install dicetower
+```
 
 Then
-```
+```python
 exit_code, result = roll("1d4")
 ```
 
