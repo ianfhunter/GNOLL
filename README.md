@@ -76,6 +76,14 @@ $ dice 1d20
 ### Use it in your application
 Again, please see the wiki for the various languages instructions [the Wiki](https://github.com/ianfhunter/dice-tower/wiki)
 
+#### Python
+`pip install dicetower`
+Then
+```
+exit_code, result = roll("1d4")
+```
+
+
 ## Built With
 
 * [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing

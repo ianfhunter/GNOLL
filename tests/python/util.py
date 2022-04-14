@@ -6,7 +6,7 @@ import importlib.util as iu
 from enum import Enum
 
 GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/grammar'))
-SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/python/dicetower/'))
+SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/python/code/dicetower/'))
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 
 first_run = True

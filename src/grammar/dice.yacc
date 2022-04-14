@@ -22,6 +22,9 @@
 #include "dice_logic.h"
 #include "uthash.h"
 
+#define UNUSED(x) (void)(x)
+
+
 int yylex(void);
 int yyerror(const char* s);
 
@@ -70,10 +73,12 @@ struct macro_struct *search_macros(char * skey, vec *to_store) {
 
 
 int initialize(){
+
     if (!seeded){
         srand(time(0));
         seeded = true;
     }
+    return 0;
 }
 
 int collapse(int * arr, int len){
@@ -382,14 +387,7 @@ math:
             printf("Unsupported right now");
             YYABORT;
             yyclearin;
-            vec new_vec;
 
-            // new_vec.content = calloc(sizeof(int), vector1.length);
-            // unsigned int new_vec_len = remove_if_present(vector1, len1, vector2, len2, new_vec)
-            // new_vec.length = new_vec_len;
-            // new_vec.dtype = vector1.dtype;
-
-            // $<values>$ = new_vec;
         }else{
             // Collapse both sides and subtract
 
@@ -460,7 +458,6 @@ drop_keep:
             int * new_arr;
             int len = roll_vector.length;
 
-            int r = 0;
             for(int i = 0; i != amount_to_keep; i++){
                 int m =  max(arr, len);
                 new_vector.content[i] = m;
@@ -505,7 +502,6 @@ drop_keep:
             int * new_arr;
             int len = roll_vector.length;
 
-            int r = 0;
             for(int i = 0; i != amount_to_keep; i++){
                 int m =  min(arr, len);
                 new_vector.content[i] = m;
@@ -651,7 +647,6 @@ die_roll:
 
         int max = vector.content[0];
 
-        int result = 0;
         if (max <= 0){
             printf("Cannot roll a dice with a negative amount of sides.");
             YYABORT;
@@ -766,7 +761,7 @@ custom_symbol_dice:
         char * name = vector.symbols[0];
 
         vec new_vector;
-        struct macro_struct *s = search_macros(name, &new_vector);
+        search_macros(name, &new_vector);
         $<values>$ = new_vector;
     }
     ;

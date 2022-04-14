@@ -79,4 +79,5 @@ unsigned int remove_if_present(char ** arr1, int len1,
 
         }
     }
+    return -1;  // Not implemented
 }
