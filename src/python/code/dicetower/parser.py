@@ -1,11 +1,6 @@
-import subprocess
+import cppyy
 import os
 import sys
-import platform
-import cppyy
-import io
-from contextlib import redirect_stdout, redirect_stderr
-from importlib import reload
 import tempfile
 
 # BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../build'))
@@ -48,7 +43,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
 
     try:
         out = int(out)
-    except:
+    except ValueError:
         pass
 
     return int(return_code), out
