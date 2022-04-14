@@ -37,9 +37,9 @@ We wrote DiceTower to be the definitive solution to dice notation. We've written
 #### Backlog
 Want to show your interest in a particular language? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
 
- - JavaScript
- - PHP
- - Ruby
+- JavaScript
+- PHP
+- Ruby
 
 ## Getting Started
 
@@ -52,7 +52,7 @@ Some languages may have other prerequsites, but these will be common throughout:
 - Linux Support (We have an open issue with support on POSIX systems e.g. Cygwin, WSL)
 
 Apt:
-```
+```bash
 sudo apt-get install bison flex make python3-pip -y
 ```
 
@@ -71,8 +71,8 @@ You can run our tests too:
 
 (Note: The following is currently not live. As of now, you can pipe a file containing the roll into the script)
 You should be able to try out rolling some dice now!
-```
-$ dice 1d20
+```bash
+$ ./dice 1d20
 20
 ```
 
