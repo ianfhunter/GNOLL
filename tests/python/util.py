@@ -5,18 +5,18 @@ import importlib
 import importlib.util as iu
 from enum import Enum
 
-GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/grammar'))
-SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src/python/code/dicetower/'))
-MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/grammar"))
+SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/dicetower/"))
+MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 first_run = True
 
 class Mock(Enum):
-    NO_MOCK=0
-    RETURN_CONSTANT=1
-    RETURN_INCREMENTING=2
-    RETURN_DECREMENTING=3
-    RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
+    NO_MOCK = 0
+    RETURN_CONSTANT = 1
+    RETURN_INCREMENTING = 2
+    RETURN_DECREMENTING = 3
+    RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE = 4
 
 
 def get_roll():
