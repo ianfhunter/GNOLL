@@ -1,4 +1,4 @@
-recursive-include c_build *.so
-recursive-include c_includes *.h
+graft c_build
+include c_build
+include c_includes
 include LICENSE
-include README.md
