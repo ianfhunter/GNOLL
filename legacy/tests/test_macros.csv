@@ -1,5 +1,0 @@
-roll,low,high,passes
-"#DND_LOWEST = d4; d4",1,4, False
-"#DND_LOWEST = d4; @DND_LOWEST",1,4, False
-"@POKER",9,A, False
-"@ZODIAC",♈,♓, False
