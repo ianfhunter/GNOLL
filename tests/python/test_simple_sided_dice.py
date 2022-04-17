@@ -42,7 +42,7 @@ def test_non_rolling_roll():
     result = roll("d1")
     assert result == 1
     result = roll("-d0")
-    assert result == 0)
+    assert result == 0
     result = roll("0d4")
     assert result == 0
 
