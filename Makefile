@@ -25,7 +25,7 @@ lex:
 .PHONY: compile
 compile:
 # Executable
-	cc build/y.tab.c src/grammar/vector_functions.c src/grammar/dice_logic.c build/lex.yy.c -Isrc/grammar/
+	cc -O3 build/y.tab.c src/grammar/vector_functions.c src/grammar/dice_logic.c build/lex.yy.c -Isrc/grammar/
 
 # Shared Lib
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
