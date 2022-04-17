@@ -1,12 +1,9 @@
-matplotlib
-numpy
-coverage
-coveralls
-pyflakes
-pytest
-pytest-cov
+# core
 cppyy
 
-# For Pip Releasing
+# tests
+pytest
+
+# distribution
 build
 twine
