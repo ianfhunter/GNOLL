@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-from unittest import mock
 import pytest
-import csv
-import os
-import sys
 from util import roll, Mock
 
 
@@ -22,7 +18,6 @@ from util import roll, Mock
     ("3d20kh2", 5, Mock.RETURN_INCREMENTING),
     ("3d20kl2", 3, Mock.RETURN_INCREMENTING),
 ])
-
 def test_dropping(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out

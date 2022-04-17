@@ -5,9 +5,10 @@
     #include "dice_logic.h"
     #include "uthash.h"
 }
-/* %error-verbose  - Deprecated + not supported by POSIX*/
+
 %define parse.error verbose
 /* %error-verbose */
+
 %{
 
 #include <stdio.h>
@@ -23,7 +24,6 @@
 #include "uthash.h"
 
 #define UNUSED(x) (void)(x)
-
 
 int yylex(void);
 int yyerror(const char* s);
@@ -675,6 +675,29 @@ die_roll:
         vector = $<values>2;
         int max = vector.content[0];
 
+
+        int err = validate_roll(1, max);
+        if (err){
+            YYABORT;
+            yyclearin;
+        }else{
+            // e.g. d4, it is implied that it is a single dice
+            int result = perform_roll(1, max, false, mock_style, mock_constant);
+
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), 1);
+            new_vector.content[0] = result;
+            new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
+
+            $<values>$ = new_vector;
+        }
+    }
+    |
+    SIDED_DIE MODULO
+    {
+        vec vector;
+        int max = 100;
 
         int err = validate_roll(1, max);
         if (err){

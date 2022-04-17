@@ -1,39 +1,38 @@
 #!/usr/bin/env python3
 
-from unittest import mock
 import pytest
-import csv
-import os
-import sys
 from util import roll, Mock
 
 def test_fate():
     # Assure Symbols are correct
     # TODO: Maybe it would be better to return "PLUS", "ZERO" "MINUS"?
     result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
-    assert(result == "+")
+    assert result == "+"
     result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
-    assert(result == 0)
+    assert result == 0
     result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert(result == "-")
+    assert result == "-"
+
 
 def test_multidie():
     result = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert(result == "--")
+    assert result == "--"
+
 
 def test_fate_addition():
     # Addition = Concatination
     result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert(result == "--")
+    assert result == "--"
+
 
 # @pytest.mark.skip(reason="Not supported yet and may cause memory issue")
 @pytest.mark.xfail()
 def test_fate_subtraction():
     # Subtraction = Removing common elements IF PRESENT
     result = roll("3dF-dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert(result == "--")
+    assert result == "--"
     result = roll("dF-dF", mock_mode=Mock.RETURN_INCREMENTING)
-    assert(result == "+")
+    assert result == "+"
 
 
 # @pytest.mark.skip(reason="Not supported yet and may cause memory issue")
