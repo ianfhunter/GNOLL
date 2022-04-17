@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-from unittest import mock
 import pytest
-import csv
-import os
-import sys
 from util import roll, Mock
 
 @pytest.mark.parametrize("r,out,mock",[
@@ -12,7 +8,7 @@ from util import roll, Mock
 ])
 def test_macro_storage(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out
 
 @pytest.mark.skip()
 @pytest.mark.parametrize("r,out,mock",[
@@ -20,4 +16,4 @@ def test_macro_storage(r, out, mock):
 ])
 def test_macro_usage(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out
