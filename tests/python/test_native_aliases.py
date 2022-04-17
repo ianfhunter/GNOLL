@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
-from unittest import mock
 import pytest
-import csv
-import os
-import sys
-from util imp
+from util import roll, Mock
 
 # TODO: better tests for percentage dice - not fool proof
 
