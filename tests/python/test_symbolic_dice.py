@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 
-from unittest import mock
 import pytest
-import csv
-import os
-import sys
 from util import roll, Mock
+
 
 @pytest.mark.parametrize("r,out,mock",[
     ("d{A}", "A", Mock.NO_MOCK),
@@ -13,7 +10,8 @@ from util import roll, Mock
 ])
 def test_symbolic_dice(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out
+
 
 @pytest.mark.skip()
 @pytest.mark.parametrize("r,out,mock",[
@@ -21,7 +19,8 @@ def test_symbolic_dice(r, out, mock):
 ])
 def test_multiple_symbolic_dice(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out
+
 
 @pytest.mark.parametrize("r,out,mock",[
     ("d{HEARTS,SPADES,CLUBS,DIAMONDS}", "DIAMONDS", Mock.RETURN_CONSTANT),
@@ -30,4 +29,4 @@ def test_multiple_symbolic_dice(r, out, mock):
 ])
 def test_long_string(r, out, mock):
     result = roll(r, mock_mode=mock)
-    assert(result == out)
+    assert result == out
