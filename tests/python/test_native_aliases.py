@@ -12,7 +12,7 @@ def test_percentile_dice():
     assert result < 100
 
 
-def test_percentile_dice():
+def test_percentile_dice_with_modulo():
     result = roll("d%%2")
     assert result >= 0
     assert result < 2
