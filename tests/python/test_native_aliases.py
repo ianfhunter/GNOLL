@@ -18,7 +18,7 @@ def test_percentile_dice_with_modulo():
     assert result < 2
 
 
-@pytest.mark.xfail("Logic not defined yet")
+@pytest.mark.xfail
 def test_multi_percentile_dice():
     result = roll("2d%")
     assert result > 0
