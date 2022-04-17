@@ -7,10 +7,10 @@ from util import roll, Mock
 
 def test_percentile_dice():
     result = roll("d%")
-    assert(result > 0)
-    assert(result < 100)
+    assert result > 0
+    assert result < 100
 
 def test_percentile_dice():
     result = roll("d%%2")
-    assert(result >= 0)
-    assert(result < 2)
+    assert result >= 0
+    assert result < 2
