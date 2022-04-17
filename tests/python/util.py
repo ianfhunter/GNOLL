@@ -1,7 +1,5 @@
-import sys
 import os
 import subprocess
-import importlib
 import importlib.util as iu
 from enum import Enum
 
@@ -10,6 +8,7 @@ SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/pyt
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 first_run = True
+
 
 class Mock(Enum):
     NO_MOCK = 0
@@ -32,6 +31,7 @@ def get_roll():
     dice_tower_roll = dt.roll
     return dice_tower_roll
 
+
 def make_clean():
     cmd = "make clean -s -C " + MK_DIR
     cleanup = subprocess.Popen(cmd, shell=True)
@@ -39,12 +39,14 @@ def make_clean():
     if cleanup.returncode:
         raise ValueError
 
+
 def make_all():
     cmd = "make all -s -C " + MK_DIR
     parser = subprocess.Popen(cmd, shell=True)
     parser.communicate()
     if parser.returncode:
         raise ValueError
+
 
 def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
     global first_run
