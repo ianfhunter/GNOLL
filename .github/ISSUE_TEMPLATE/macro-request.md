@@ -1,17 +1,17 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Macro Request
+about: Suggest a built-in command for this project
 title: ''
-labels: ''
-assignees: ianfhunter
+labels: Macro Request
+assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
+**Is your macro request related to a particular system? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
 **Describe the solution you'd like**
-A clear and concise description of what you want to happen. Provide an example if possible
+A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 A clear and concise description of any alternative solutions or features you've considered.
