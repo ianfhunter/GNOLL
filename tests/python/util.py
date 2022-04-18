@@ -1,6 +1,6 @@
+import importlib.util as iu
 import os
 import subprocess
-import importlib.util as iu
 from enum import Enum
 
 GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/grammar"))
