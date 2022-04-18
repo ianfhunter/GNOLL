@@ -6,13 +6,14 @@
 <img src="media/logo.png" height="200">
 </p>
 
-A comprehensive grammar-based library for rolling dice. DiceTower parses [Dice Notation](https://en.wikipedia.org/wiki/Dice_notation) for your project, so that you don't have to. Ideal for software or researchers of tabletop gaming.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C and Python.
+Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regex and tears.
 
 Here's an example of how you might use DiceTower:
 ```markdown
-   Gridon The Brave: I want to steal from the goblin sitting at the bar.
+   Grindon The Brave: I want to steal from the goblin sitting at the bar.
    Dungeon Master: Okay, give me a stealth check!
-   Gridon The Brave: Okay, that's a <1d20+5>
+   Grindon The Brave: Okay, that's a <1d20+5>
    [DiceTower]: 21
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
@@ -20,83 +21,58 @@ Here's an example of how you might use DiceTower:
 [You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes)
 
 ## Current Status
-
-### Dice Notation
-DiceTower supports a lot of different notations. Too many to explain here so [we've got a seperate section in our wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes).
-
 ### Language Support
 
-We wrote DiceTower to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding wrappers for you to access DiceTower's functionality in the near future.
+We wrote DiceTower to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access DiceTower's functionality through different languages in the near future.
 
-#### Currently
+#### Current Support
 - C
 - Python
 
 **Note:** There is no Windows/POSIX support yet.
 
-#### Backlog
-Want to show your interest in a particular language? [Vote on FeatHub](https://feathub.com/ianfhunter/dice).
+### Dice Notation
+- XdY notation
+- Arithmetic
+- Fate Dice
+- Miscellaneous Symbolic Dice
+- Macros 
+- Explosions
+- Drop/Keep
 
-- JavaScript
-- PHP
-- Ruby
+For the specific details of supported notation, [we've got a dedicated section in our wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes).
+And feel free to ask for anything we're missing!
 
 ## Getting Started
-
-Setup for the various languages can be found on [the Wiki](https://github.com/ianfhunter/dice-tower/wiki)
-
 ### Prerequisites
-
-Some languages may have other prerequsites, but these will be common throughout:
 
 - Linux Support (We have an open issue with support on POSIX systems e.g. Cygwin, WSL)
 
-Apt:
 ```bash
 sudo apt-get install bison flex make python3-pip -y
+make all
 ```
+That's it for the basics, for specific language installs, check the wiki!
 
-### Build and Test
-
-Simply run the following to build the application:
-```bash
-   make all
-```
-
-You can run our tests too:
+To verify your setup, try our tests:
 ```bash
    make test
 ```
+Or, just try some commands yourself!
 
-
-(Note: The following is currently not live. As of now, you can pipe a file containing the roll into the script)
-You should be able to try out rolling some dice now!
 ```bash
 $ ./dice 1d20
 20
 ```
 
-### Use it in your application
-Again, please see the wiki for the various languages instructions [the Wiki](https://github.com/ianfhunter/dice-tower/wiki)
 
-#### Python
+## Issues / Bugs / FAQs / Feature Requests
 
-```bash
-pip install dicetower
-```
+We are currently building a Wiki to help you in building on top of Dice Tower.
+In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
+You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
 
-Then
-```python
-exit_code, result = roll("1d4")
-```
-
-
-## Built With
-
-* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
-* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
-* Love! 💖
+Please bear with us as we build a project charter to define the scope of the project.
 
 ## Contributing
 
@@ -112,14 +88,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 See also the list of [contributors](https://github.com/ianfhunter/dice-tower/contributors) who participated in this project.
 
-## Issues / Bugs / FAQs / Feature Requests
-
-We are currently building a Wiki to help you in building on top of Dice Tower.
-In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
-You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
-
-Please bear with us as we build a project charter to define the scope of the project.
-
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
@@ -129,6 +97,13 @@ Individiual licensing arrangements can be made if this is an issue for your proj
 ## Acknowledgments
 
 * **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+
+## Built With
+
+* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+* [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
+* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+* Love! 💖
 
 ## Donate
 
