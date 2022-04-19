@@ -7,7 +7,7 @@
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C and Python.
-Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regex and tears.
+Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use DiceTower:
 ```markdown
