@@ -18,11 +18,10 @@ def test_percentile_dice_with_modulo():
     assert result < 2
 
 
-@pytest.mark.xfail
 def test_multi_percentile_dice():
     result = roll("2d%")
-    assert result > 0
-    assert result <= 100
+    assert result > 2
+    assert result <= 200
 
 
 def test_negative_percentile_dice():

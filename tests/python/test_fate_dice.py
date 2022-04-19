@@ -24,19 +24,6 @@ def test_fate_addition():
     result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "--"
 
-
-# @pytest.mark.skip(reason="Not supported yet and may cause memory issue")
-@pytest.mark.xfail()
-def test_fate_subtraction():
-    # Subtraction = Removing common elements IF PRESENT
-    result = roll("3dF-dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert result == "--"
-    result = roll("dF-dF", mock_mode=Mock.RETURN_INCREMENTING)
-    assert result == "+"
-
-
-# @pytest.mark.skip(reason="Not supported yet and may cause memory issue")
-@pytest.mark.xfail()
 def test_fate_numeral_interoperability():
     # Most of the time, using the two together doesn't make sense
     with pytest.raises(Exception):
@@ -44,13 +31,15 @@ def test_fate_numeral_interoperability():
     with pytest.raises(Exception):
         result = roll("d10-dF", mock_mode=(0,1))
 
-    # Multiplication and Division are ambigious
+    # Much arithmithic is ambigious with symbols
     # e.g.
     # dF * 2 could mean:
     # - roll 2 dF dice (2dF -> -+)
     # or
     # - multiply the result of dF by 2 (+ -> ++)
     # Unless there is evidence of that priority defined somewhere
+    with pytest.raises(Exception):
+        result = roll("d10-d10", mock_mode=(0,1))
     with pytest.raises(Exception):
         result = roll("dF*2")
     with pytest.raises(Exception):

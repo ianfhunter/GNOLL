@@ -1,13 +1,5 @@
-/* Defines */
-%code requires{
-    #include "shared_header.h"
-    #include "vector_functions.h"
-    #include "dice_logic.h"
-    #include "uthash.h"
-}
-
-%define parse.error verbose
-/* %error-verbose */
+/* Uncomment for better errors! (non-POSIX compliant) */
+/* %define parse.error verbose */
 
 %{
 
@@ -119,8 +111,10 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
-%token EXPLOSION IMPLOSION
+%token EXPLOSION IMPLOSION REROLL_IF
 %token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
+
+%token NE EQ GT LT LE GE
 
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
@@ -128,14 +122,12 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %left KEEP_LOWEST KEEP_HIGHEST
 %left UMINUS
 %left LBRACE RBRACE
-/* %left DIE SIDED_DIE FATE_DIE
-%left NUMBER */
 
 %union{
     vec values;
 }
 /* %type<die> DIE; */
-%type<values> NUMBER;
+/* %type<values> NUMBER; */
 
 %%
 /* Rules Section */
@@ -375,19 +367,13 @@ math:
         vector1 = $<values>1;
         vector2 = $<values>3;
         if (
-            (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
-            (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
+            (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC)
         ){
-            printf("Subtract not supported with mixed dice types.");
+            // It's not clear whether {+,-} - {-, 0} should be {+} or {+, 0}!
+            // Therfore, we'll exclude it.
+            printf("Subtract not supported with symbolic dice.");
             YYABORT;
             yyclearin;
-        }else if (vector1.dtype == SYMBOLIC){
-            // Remove if present.
-
-            printf("Unsupported right now");
-            YYABORT;
-            yyclearin;
-
         }else{
             // Collapse both sides and subtract
 
@@ -434,6 +420,11 @@ math:
 
 
 drop_keep:
+
+    /* REROLL_IF drop_keep EQ NUMBER{
+
+    }
+    | */
     die_roll KEEP_HIGHEST NUMBER
     {
         vec roll_vector, keep_vector;
@@ -591,7 +582,38 @@ drop_keep:
 
         }
     }
+;
+
 die_roll:
+   NUMBER SIDED_DIE NUMBER EXPLOSION
+    {
+        vec vector;
+        vector = $<values>3;
+        int max = vector.content[0];
+
+        vec vector2;
+        vector2 = $<values>1;
+        int amount = vector2.content[0];
+
+
+        int err = validate_roll(1, max);
+        if (err){
+            YYABORT;
+            yyclearin;
+        }else{
+            // e.g. d4, it is implied that it is a single dice
+            int result = perform_roll(amount, max, true, mock_style, mock_constant);
+
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), 1);
+            new_vector.content[0] = result;
+            new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
+
+            $<values>$ = new_vector;
+        }
+    }
+    |
     SIDED_DIE NUMBER EXPLOSION
     {
         vec vector;
@@ -694,9 +716,34 @@ die_roll:
         }
     }
     |
-    SIDED_DIE MODULO
+    NUMBER SIDED_DIE MODULO
     {
         vec vector;
+        vector = $<values>1;
+        int num = vector.content[0];
+
+        int max = 100;
+
+        int err = validate_roll(1, max);
+        if (err){
+            YYABORT;
+            yyclearin;
+        }else{
+            // e.g. d4, it is implied that it is a single dice
+            int result = perform_roll(num, max, false, mock_style, mock_constant);
+
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), 1);
+            new_vector.content[0] = result;
+            new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
+
+            $<values>$ = new_vector;
+        }
+    }
+    |
+    SIDED_DIE MODULO
+    {
         int max = 100;
 
         int err = validate_roll(1, max);
@@ -730,10 +777,9 @@ die_roll:
         new_vector.symbols = calloc(sizeof(char**), instances);
         new_vector.length = instances;
         new_vector.dtype = vector.dtype;
-        int idx = 0;
 
         for (int i = 0; i != instances;i++){
-            idx = roll_symbolic_die(vector.length);
+            int idx = roll_symbolic_die(vector.length);
             new_vector.symbols[i] = vector.symbols[idx] ;
         }
 
@@ -763,6 +809,30 @@ die_roll:
     ;
 
 custom_symbol_dice:
+    NUMBER SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
+    {
+        vec num_vector;
+        vec vector;
+        num_vector = $<values>1;
+        vector = $<values>4;
+        int idx = roll_symbolic_die(vector.length);
+        int instances = num_vector.content[0];
+
+
+        vec new_vector;
+        new_vector.symbols = calloc(sizeof(char**), instances);
+        new_vector.length = instances;
+        new_vector.dtype = vector.dtype;
+
+        for (int i = 0; i != instances;i++){
+            idx = roll_symbolic_die(vector.length);
+            new_vector.symbols[i] = vector.symbols[idx] ;
+        }
+
+        $<values>$ = new_vector;
+
+    }
+    |
     SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
         vec vector;
@@ -833,6 +903,7 @@ void reset(){
 }
 int roll(char * s){
     initialize();
+    verbose = false;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
 

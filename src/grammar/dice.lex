@@ -1,7 +1,7 @@
 %{
     #include <stdio.h>
-    #include "y.tab.h"
     #include "shared_header.h"
+    #include "y.tab.h"
 %}
 
 %%
@@ -84,6 +84,9 @@ kh|dl|h {
 [p] {
     return(PENETRATE);
 }
+[r] {
+    return(REROLL_IF);
+}
 [#] {
     return(MACRO_STORAGE);
 }
@@ -112,6 +115,26 @@ kh|dl|h {
 [!] {
     return(EXPLOSION);
 }
+    /* Comparitors */
+\!\= {
+    return(NE);
+}
+\=\= {
+    return(EQ);
+}
+\< {
+    return(LT);
+}
+\> {
+    return(GT);
+}
+\<\= {
+    return(LE);
+}
+\>\= {
+    return(GE);
+}
+    /* Macros*/
 [\=] {
     return(ASSIGNMENT);
 }
