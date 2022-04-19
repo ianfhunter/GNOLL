@@ -1,13 +1,13 @@
 /* Defines */
-%code requires{
+/* %code requires{
     #include "shared_header.h"
     #include "vector_functions.h"
     #include "dice_logic.h"
     #include "uthash.h"
-}
+} */
 
-%define parse.error verbose
-/* %error-verbose */
+/* Uncomment for better errors! (non-POSIX compliant) */
+/* %define parse.error verbose */
 
 %{
 
@@ -122,20 +122,20 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token EXPLOSION IMPLOSION
 %token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
 
+%token NE EQ GT LT LE GE
+
 /* Defines Precedence from Lowest to Highest */
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
 %left KEEP_LOWEST KEEP_HIGHEST
 %left UMINUS
 %left LBRACE RBRACE
-/* %left DIE SIDED_DIE FATE_DIE
-%left NUMBER */
 
 %union{
     vec values;
 }
 /* %type<die> DIE; */
-%type<values> NUMBER;
+/* %type<values> NUMBER; */
 
 %%
 /* Rules Section */
