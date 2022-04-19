@@ -13,7 +13,6 @@ def test_symbolic_dice(r, out, mock):
     assert result == out
 
 
-@pytest.mark.skip()
 @pytest.mark.parametrize("r,out,mock",[
     ("2d{A,B,C,D}", "DD", Mock.RETURN_CONSTANT)
 ])
