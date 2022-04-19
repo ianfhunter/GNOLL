@@ -1,11 +1,3 @@
-/* Defines */
-/* %code requires{
-    #include "shared_header.h"
-    #include "vector_functions.h"
-    #include "dice_logic.h"
-    #include "uthash.h"
-} */
-
 /* Uncomment for better errors! (non-POSIX compliant) */
 /* %define parse.error verbose */
 
@@ -119,7 +111,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
-%token EXPLOSION IMPLOSION
+%token EXPLOSION IMPLOSION REROLL_IF
 %token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
 
 %token NE EQ GT LT LE GE
@@ -428,6 +420,11 @@ math:
 
 
 drop_keep:
+
+    /* REROLL_IF drop_keep EQ NUMBER{
+
+    }
+    | */
     die_roll KEEP_HIGHEST NUMBER
     {
         vec roll_vector, keep_vector;
@@ -585,6 +582,8 @@ drop_keep:
 
         }
     }
+;
+
 die_roll:
    NUMBER SIDED_DIE NUMBER EXPLOSION
     {

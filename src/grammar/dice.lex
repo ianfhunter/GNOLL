@@ -84,6 +84,9 @@ kh|dl|h {
 [p] {
     return(PENETRATE);
 }
+[r] {
+    return(REROLL_IF);
+}
 [#] {
     return(MACRO_STORAGE);
 }
