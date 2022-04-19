@@ -903,6 +903,7 @@ void reset(){
 }
 int roll(char * s){
     initialize();
+    verbose = false;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
 

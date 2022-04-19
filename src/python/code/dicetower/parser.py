@@ -28,7 +28,8 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         # Testing Only
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
-    print("Temp File:", temp.name)
+    if verbose:
+        print("Temp File:", temp.name)
     with open(temp.name) as f:
         results = f.readlines()
         if verbose:
