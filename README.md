@@ -2,9 +2,17 @@
 [![Build + Test](https://github.com/ianfhunter/DiceTower/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/DiceTower/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice-tower.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
+<!-- Dark and Light Mode switches -->
 <p align="center">
-<img src="media/logo.png" height="200">
+  <a href="https://linearmouse.org/#gh-light-mode-only">
+     <img src="media/logo.png" height="200">
+  </a>
+  <a href="https://linearmouse.org/#gh-dark-mode-only">
+      <img src="media/logo.png" height="200">
+  </a>
 </p>
+
+
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
