@@ -9,7 +9,7 @@ tags:
   - game design
 authors:
   - name: Ian Frederick Vigogne Goodbody Hunter
-    orcid: 0000-00
+    orcid: 0000-0003-3408-8138
     affiliation: 1
 affiliations:
  - name: Independent Researcher
@@ -26,12 +26,17 @@ DiceTower is a highly compatible dice-rolling library supporting a large range o
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which is:
 - Open source 
 - Using a low level language like C for maximal integration
+- Multiple language bindings
 - supporting multiple notation standards
 - supporting non-simplex combinations of notation. 
 
 While some solutions may offer one or two of these, DiceTower addresses all of these points.
 
 # Mathematics
+DiceTower builds upon actual use-cases of how dice are specified in software, rather than theoretical mathematical notations.
+The simplest of these representations is {x}d{y} where x and y are integers. This asks that we roll X number of Y-sided dice. e.g. 3d6 would be requesting 3 6-sided dice.
+
+
 
 # Citations
 
