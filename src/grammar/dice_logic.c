@@ -71,6 +71,17 @@ unsigned int perform_roll(
     return final_result;
 }
 
+
+unsigned int do_roll(roll_params rp){
+    return perform_roll(
+        rp.number_of_dice,
+        rp.die_sides,
+        rp.explode,
+        rp.mock_style,
+        rp.mock_constant
+    );
+}
+
 int validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){

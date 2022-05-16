@@ -12,6 +12,9 @@ unsigned int perform_roll(
     MOCK_METHOD mock_style,
     int mock_constant
 );
+unsigned int do_roll(
+    roll_params rrp
+);
 
 int validate_roll(int number_of_dice, int die_side);
 

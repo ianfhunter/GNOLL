@@ -434,20 +434,17 @@ math:
 
 dice_operations:
 
-    dice_operations REROLL_IF EQ NUMBER{
+    die_roll REROLL_IF EQ NUMBER{
 
     }
     |
     die_roll KEEP_HIGHEST NUMBER
     {
-        vec roll_vector;
-        vec keep_vector;
-        unsigned int num_to_hold;
-        roll_vector = $<values>1;
-        keep_vector = $<values>3;
-        num_to_hold = keep_vector.content[0];
-
+        vec roll_vector = $<values>1;
+        vec keep_vector = $<values>3;
         vec new_vec;
+        unsigned int num_to_hold = keep_vector.content[0];
+
         unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
 
         if(err){
@@ -545,8 +542,7 @@ dice_operations:
 die_roll:
    NUMBER SIDED_DIE NUMBER EXPLOSION
     {
-        vec vector;
-        vector = $<values>3;
+        vec vector = $<values>3;
         int max = vector.content[0];
 
         vec vector2;
@@ -662,13 +658,22 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, false, mock_style, mock_constant);
+            // int result = perform_roll(1, max, false, mock_style, mock_constant);
+            roll_params rp;
+            rp.number_of_dice = 1;
+            rp.die_sides = max;
+            rp.explode = false;
+            rp.mock_style=mock_style;
+            rp.mock_constant=mock_constant;
+            int result = do_roll(rp);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
             new_vector.content[0] = result;
             new_vector.length = 1;
             new_vector.dtype = NUMERIC;
+
+            new_vector.source = rp;
 
             $<values>$ = new_vector;
         }
