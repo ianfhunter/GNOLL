@@ -104,7 +104,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %}
 
 
-%start dice
+%start dicetower_statement
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
 %token MACRO_ACCESSOR MACRO_STORAGE MACRO_SEPERATOR ASSIGNMENT
@@ -132,12 +132,12 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %%
 /* Rules Section */
 
-dice:
-    macros executable_statement
+dicetower_statement:
+    macro_statement dice_statement
     |
-    executable_statement
+    dice_statement
 ;
-macros:
+macro_statement:
     MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice MACRO_SEPERATOR {
         vec key = $<values>2;
         vec value = $<values>4;
@@ -146,30 +146,50 @@ macros:
     }
 ;
 
-executable_statement: collapsed_roll_statement{
+dice_statement: math{
     vec vector;
     vector = $<values>1;
     FILE *fp;
 
+    vec new_vec;
+
+    //  Step 1: Collapse
+    if (vector.dtype == SYMBOLIC){
+        new_vec = vector;
+    }else{
+        int c = 0;
+        for(int i = 0; i != vector.length; i++){
+            c += vector.content[i];
+        }
+
+        new_vec.content = calloc(sizeof(int), 1);
+        new_vec.content[0] = c;
+        new_vec.length = 1;
+        new_vec.dtype = vector.dtype;
+
+        $<values>$ = new_vec;
+    }
+
+    // Step 2: Output
     if(write_to_file){
         fp = fopen(output_file, "w+");
     }
 
-    for(int i = 0; i!= vector.length;i++){
-        if (vector.dtype == SYMBOLIC){
+    for(int i = 0; i!= new_vec.length;i++){
+        if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%s", vector.symbols[i]);
+                printf("%s", new_vec.symbols[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%s", vector.symbols[i]);
+                fprintf(fp, "%s", new_vec.symbols[i]);
             }
         }else{
             if(verbose){
-                printf("%d", vector.content[i]);
+                printf("%d", new_vec.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%d", vector.content[i]);
+                fprintf(fp, "%d", new_vec.content[i]);
             }
         }
     }
@@ -182,7 +202,7 @@ executable_statement: collapsed_roll_statement{
     }
 }
 
-collapsed_roll_statement: roll_statement{
+/* collapsed_roll_statement: roll_statement{
     vec vector;
     vector = $<values>1;
 
@@ -204,7 +224,7 @@ collapsed_roll_statement: roll_statement{
     }
 }
 
-roll_statement: math;
+roll_statement: math; */
 
 math:
     LBRACE math RBRACE{
@@ -417,6 +437,7 @@ math:
     |
     drop_keep
 ;
+
 
 
 drop_keep:
