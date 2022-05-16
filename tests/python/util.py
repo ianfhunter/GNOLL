@@ -32,14 +32,6 @@ def get_roll():
     return dice_tower_roll
 
 
-def make_clean():
-    cmd = "make clean -s -C " + MK_DIR
-    cleanup = subprocess.Popen(cmd, shell=True)
-    cleanup.communicate()
-    if cleanup.returncode:
-        raise ValueError
-
-
 def make_all():
     cmd = "make all -s -C " + MK_DIR
     parser = subprocess.Popen(cmd, shell=True)
@@ -52,7 +44,6 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
     global first_run
 
     if first_run:
-        make_clean()
         make_all()
     if mock_mode is None:
         mock_mode = Mock.NO_MOCK
