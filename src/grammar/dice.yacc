@@ -101,6 +101,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
     return roll_numeric_die(0, length_of_symbolic_array -1);
 }
 
+
 %}
 
 
@@ -148,29 +149,16 @@ macro_statement:
 
 dice_statement: math{
     vec vector;
-    vector = $<values>1;
-    FILE *fp;
-
     vec new_vec;
+    vector = $<values>1;
 
-    //  Step 1: Collapse
-    if (vector.dtype == SYMBOLIC){
-        new_vec = vector;
-    }else{
-        int c = 0;
-        for(int i = 0; i != vector.length; i++){
-            c += vector.content[i];
-        }
-
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.content[0] = c;
-        new_vec.length = 1;
-        new_vec.dtype = vector.dtype;
-
-        $<values>$ = new_vec;
-    }
+    new_vec = vector;
+    //  Step 1: Collapse pool to a single value if nessicary
+    collapse_vector(&vector, &new_vec);
 
     // Step 2: Output
+    FILE *fp;
+
     if(write_to_file){
         fp = fopen(output_file, "w+");
     }
@@ -201,30 +189,6 @@ dice_statement: math{
         fclose(fp);
     }
 }
-
-/* collapsed_roll_statement: roll_statement{
-    vec vector;
-    vector = $<values>1;
-
-    if (vector.dtype == SYMBOLIC){
-        $<values>$ = vector;
-    }else{
-        int c = 0;
-        for(int i = 0; i != vector.length; i++){
-            c += vector.content[i];
-        }
-
-        vec new_vec;
-        new_vec.content = calloc(sizeof(int), 1);
-        new_vec.content[0] = c;
-        new_vec.length = 1;
-        new_vec.dtype = vector.dtype;
-
-        $<values>$ = new_vec;
-    }
-}
-
-roll_statement: math; */
 
 math:
     LBRACE math RBRACE{
@@ -435,146 +399,119 @@ math:
         }
     }
     |
-    drop_keep
+    dice_operations
+    /* { */
+        // Collapse if nessicary
+        //    2d20 + 2d20
+        // Collapsed Version:
+        // {10,12} + {1,2} = {22+3} 25
+        // Uncollapsed Version (Eltwise):
+        // {10,12} + {1,2} = {11,14}
+        // Less predictable - 3elem + 2 ? how to broadcast?
+        
+        // vec vector;
+        // vec new_vec;
+        // vector = $<values>1;
+
+        // collapse_vector(&vector, &new_vec);
+        // $<values>$ = new_vec;
+
+        // if (vector.dtype == NUMERIC && vector.length > 1){
+        //     int result = sum(vector.content, vector.length);
+        //     vec new_vec;
+        //     new_vec.dtype = vector.dtype;
+        //     new_vec.content = calloc(sizeof(int), 1);
+        //     new_vec.content[0] = result;
+        //     new_vec.length = 1;
+        //     $<values>$ = new_vec;
+        // }else{
+        //     $<values>$ = vector;
+        // }
+    /* } */
 ;
 
 
 
-drop_keep:
+dice_operations:
 
-    /* REROLL_IF drop_keep EQ NUMBER{
+    dice_operations REROLL_IF EQ NUMBER{
 
     }
-    | */
+    |
     die_roll KEEP_HIGHEST NUMBER
     {
-        vec roll_vector, keep_vector;
+        vec roll_vector;
+        vec keep_vector;
+        unsigned int num_to_hold;
         roll_vector = $<values>1;
         keep_vector = $<values>3;
+        num_to_hold = keep_vector.content[0];
 
-        if (roll_vector.dtype == SYMBOLIC){
-            if(verbose) printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        vec new_vec;
+        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighestN.");
             YYABORT;
             yyclearin;
         }
-        // assert $0 is len 1
-        int available_amount =roll_vector.length;
-        int amount_to_keep = keep_vector.content[0];
-
-        if(available_amount > amount_to_keep){
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), amount_to_keep);
-            new_vector.length = amount_to_keep;
-
-            int * arr = roll_vector.content;
-            int * new_arr;
-            int len = roll_vector.length;
-
-            for(int i = 0; i != amount_to_keep; i++){
-                int m =  max(arr, len);
-                new_vector.content[i] = m;
-                new_arr = calloc(sizeof(int), (len-1));
-                pop(arr,len,m,new_arr);
-                free(arr);
-                arr = new_arr;
-                len -= 1;
-            }
-
-            new_vector.dtype = roll_vector.dtype;
-            $<values>$ = new_vector;
-        }else{
-            // Warning: More asked to keep than actually produced
-            // or the same amount
-            // e.g. 2d20k4 / 2d20kh2
-            $<values>$ = $<values>1;
-        }
+        $<values>$ = new_vec;
     }
     |
     die_roll KEEP_LOWEST NUMBER
     {
-        vec roll_vector, keep_vector;
+        vec roll_vector;
+        vec keep_vector;
+        unsigned int num_to_hold;
         roll_vector = $<values>1;
         keep_vector = $<values>3;
+        num_to_hold = keep_vector.content[0];
 
-        if (roll_vector.dtype == SYMBOLIC){
-            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        vec new_vec;
+        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepLowestN.");
             YYABORT;
             yyclearin;
         }
-        // assert $0 is len 1
-        int available_amount =roll_vector.length;
-        int amount_to_keep = keep_vector.content[0];
-
-        if(available_amount > amount_to_keep){
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), amount_to_keep);
-            new_vector.length = amount_to_keep;
-
-            int * arr = roll_vector.content;
-            int * new_arr;
-            int len = roll_vector.length;
-
-            for(int i = 0; i != amount_to_keep; i++){
-                int m =  min(arr, len);
-                new_vector.content[i] = m;
-                new_arr = calloc(sizeof(int), len-1);
-                pop(arr,len,m,new_arr);
-                free(arr);
-                arr = new_arr;
-                len -= 1;
-            }
-
-            new_vector.dtype = roll_vector.dtype;
-            $<values>$ = new_vector;
-        }else{
-            // Warning: More asked to keep than actually produced
-            // or the same amount
-            // e.g. 2d20k4 / 2d20kh2
-            $<values>$ = $<values>1;
-        }
+        $<values>$ = new_vec;
     }
     |
     die_roll KEEP_HIGHEST
     {
-        if ($<values>1.dtype == SYMBOLIC){
-            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        vec roll_vector;
+        unsigned int num_to_hold;
+        roll_vector = $<values>1;
+        num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
             YYABORT;
             yyclearin;
         }
-        if($<values>1.length > 1){
-            // print_vec($<values>1);
-            int result = max($<values>1.content, $<values>1.length);
-            vec vector;
-            vector.content = calloc(sizeof(int), 1);
-            vector.content[0] = result;
-            vector.length = 1;
-            vector.dtype = $<values>1.dtype;
-            $<values>$ = vector;
-        }else{
-            $<values>$ = $<values>1;
-        }
+        $<values>$ = new_vec;
     }
     |
     die_roll KEEP_LOWEST
     {
-        // print_vec($<values>1);
-        if ($<values>1.dtype == SYMBOLIC){
-            printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        vec roll_vector;
+        unsigned int num_to_hold;
+        roll_vector = $<values>1;
+        num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
             YYABORT;
             yyclearin;
         }
-        if($<values>1.length > 1){
-            // print_vec($<values>1);
-            int result = min($<values>1.content, $<values>1.length);
-            vec vector;
-            vector.content = calloc(sizeof(int), 1);
-            vector.content[0] = result;
-            vector.length = 1;
-            vector.dtype = $<values>1.dtype;
-            $<values>$ = vector;
-        }else{
-            $<values>$ = $<values>1;
-        }
+        $<values>$ = new_vec;
     }
     |
     die_roll
@@ -602,7 +539,7 @@ drop_keep:
             }
 
         }
-    }
+     } 
 ;
 
 die_roll:
