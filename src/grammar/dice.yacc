@@ -586,13 +586,18 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int * result = perform_roll(1, max, true);
+            roll_params rp;
+            rp.number_of_dice = 1;
+            rp.die_sides = max;
+            rp.explode = true;
 
+            int * result = do_roll(rp);
+           
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
+            initialize_vector(&new_vector, NUMERIC, 1);
             new_vector.content = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
+            new_vector.source = rp;
+
 
             $<values>$ = new_vector;
         }
@@ -609,10 +614,16 @@ die_roll:
         if (instances == 0 || sides == 0){
             // 0dY or Xd0
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), instances);
-            new_vector.content[0] = 0;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
+            initialize_vector(&new_vector, NUMERIC, instances);
+            for(int i=0; i != instances;i++){
+                new_vector.content[i] = 0;
+            }
+            roll_params rp;
+            rp.number_of_dice=0;
+            rp.die_sides=0;
+            rp.explode=false;
+
+            new_vector.source = rp;
             $<values>$ = new_vector;
         }
         else if (instances < 0){
@@ -634,11 +645,9 @@ die_roll:
             int * result = do_roll(rp);
            
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), instances);
-            new_vector.length = instances;
-            new_vector.dtype = NUMERIC;
-            new_vector.source = rp;
+            initialize_vector(&new_vector, NUMERIC, instances);
             new_vector.content = result;
+            new_vector.source = rp;
 
             $<values>$ = new_vector;
         }
@@ -663,10 +672,8 @@ die_roll:
             int * result = do_roll(rp);
 
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
+            initialize_vector(&new_vector, NUMERIC, 1);
             new_vector.content = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
             new_vector.source = rp;
 
             $<values>$ = new_vector;
@@ -678,7 +685,6 @@ die_roll:
         vec vector;
         vector = $<values>1;
         int num = vector.content[0];
-
         int max = 100;
 
         int err = validate_roll(1, max);
@@ -687,13 +693,17 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int * result = perform_roll(num, max, false);
+            roll_params rp;
+            rp.number_of_dice = num;
+            rp.die_sides = max;
+            rp.explode = false;
+            int * result = do_roll(rp);
 
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
+            initialize_vector(&new_vector, NUMERIC, num);
             new_vector.content = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
+            new_vector.source = rp;
+
 
             $<values>$ = new_vector;
         }
@@ -701,64 +711,64 @@ die_roll:
     |
     SIDED_DIE MODULO
     {
+        int num = 1;
         int max = 100;
 
-        int err = validate_roll(1, max);
-        if (err){
-            YYABORT;
-            yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-            int * result = perform_roll(1, max, false);
+        roll_params rp;
+        rp.number_of_dice = num;
+        rp.die_sides = max;
+        rp.explode = false;
+        int * result = do_roll(rp);
 
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
+        vec new_vector;
+        initialize_vector(&new_vector, NUMERIC, 1);
+        new_vector.content = result;
+        new_vector.source = rp;
 
-            $<values>$ = new_vector;
-        }
+        $<values>$ = new_vector;
+
     }
     |
     NUMBER FATE_DIE
     {
         // e.g. dF, it is implied that it is a single dice
 
-        vec vector;
-        vector = $<values>2;
-
+        vec vector = $<values>2;
         int instances =  $<values>1.content[0];
-
         vec new_vector;
-        new_vector.symbols = calloc(sizeof(char**), instances);
-        new_vector.length = instances;
-        new_vector.dtype = vector.dtype;
+        initialize_vector(&new_vector, SYMBOLIC, instances);
+        
+        roll_params rp;
+        rp.number_of_dice = instances ;
+        rp.die_sides = vector.length - 1 ;
+        rp.explode = false;
+        rp.symbol_pool = vector.symbols;
+ 
+        int * indexes = do_roll(rp);
+        extract_symbols(vector.symbols, new_vector.symbols, indexes, rp.number_of_dice);
 
-        for (int i = 0; i != instances;i++){
-            int idx = roll_symbolic_die(vector.length);
-            new_vector.symbols[i] = vector.symbols[idx] ;
-        }
+        $<values>$ = new_vector;  
 
-        $<values>$ = new_vector;
     }
     |
     FATE_DIE
     {
         // e.g. dF, it is implied that it is a single dice
 
-        vec vector;
-        vector = $<values>1;
-        int idx = roll_symbolic_die(vector.length);
-
+        vec vector = $<values>1;
         vec new_vector;
-        new_vector.dtype = vector.dtype;
-        new_vector.symbols = calloc(sizeof(char **), 1);
-        new_vector.symbols = &vector.symbols[idx];
-        new_vector.length = 1;
-
-        $<values>$ = new_vector;
+        initialize_vector(&new_vector, SYMBOLIC, 1);
         
+        roll_params rp;
+        rp.number_of_dice = 1;
+        rp.die_sides = vector.length -1;
+        rp.explode = false;
+        rp.symbol_pool = vector.symbols;
+ 
+        int * indexes = do_roll(rp);
+        extract_symbols(vector.symbols, new_vector.symbols, indexes, rp.number_of_dice);
+
+        $<values>$ = new_vector;        
     }
     |
     custom_symbol_dice

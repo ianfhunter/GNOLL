@@ -62,14 +62,15 @@ int random_fn(int small, int big){
         return big;
     };
 
+    int value = 0;
     if (global_mock_style == NO_MOCK){
-        return rand()%(big+1-small)+small;
+        value = rand()%(big+1-small)+small;
     }else{
-        int value = global_mock_value;
+        value = global_mock_value;
         mocking_tick();
-        // printf("Mocked Value: %i\n", value);
-        return value;
     }
+    // printf("Dice Roll Value: %i\n", value);
+    return value;
 }
 
 unsigned int * perform_roll(
