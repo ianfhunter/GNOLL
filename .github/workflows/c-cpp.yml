@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  ubuntuTest:
 
     runs-on: ubuntu-latest
 
@@ -16,4 +16,18 @@ jobs:
     - name: python deps
       run: python3 -m pip install -r reqs/requirements.txt
     - name: make test
+      run: make test
+  
+  wslTest:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: uses: Vampire/setup-wsl@v1
+    - uses: actions/checkout@v2
+    - name: python deps
+      shell: wsl-bash
+      run: python3 -m pip install -r reqs/requirements.txt
+    - name: make test
+      shell: wsl-bash
       run: make test
