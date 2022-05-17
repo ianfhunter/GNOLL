@@ -527,16 +527,15 @@ dice_operations:
             $<values>$ = vector;
         }
         else{
-            // Numeric.
             // Collapse if Nessicary
             if(vector.length > 1){
                 int result = sum(vector.content, vector.length);
-                vec new_vec;
-                new_vec.dtype = vector.dtype;
-                new_vec.content = calloc(sizeof(int), 1);
-                new_vec.content[0] = result;
-                new_vec.length = 1;
-                $<values>$ = new_vec;
+
+                vec new_vector;
+                initialize_vector(&new_vector, NUMERIC, 1);
+                new_vector.content[0] = sum(vector.content, vector.length);
+
+                $<values>$ = new_vector;
             }else{
                 $<values>$ = vector;
             }
@@ -562,13 +561,18 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int * result = perform_roll(amount, max, true);
+
+            roll_params rp;
+            rp.number_of_dice = amount;
+            rp.die_sides = max;
+            rp.explode = true;
+
+            int * result = do_roll(rp);
 
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
+            initialize_vector(&new_vector, NUMERIC, amount);
             new_vector.content = result;
-            new_vector.length = amount;
-            new_vector.dtype = NUMERIC;
+            new_vector.source = rp;
 
             $<values>$ = new_vector;
         }
@@ -611,46 +615,27 @@ die_roll:
         int instances = num_dice.content[0];
         int sides = vector.content[0];
 
-        if (instances == 0 || sides == 0){
-            // 0dY or Xd0
-            vec new_vector;
-            initialize_vector(&new_vector, NUMERIC, instances);
-            for(int i=0; i != instances;i++){
-                new_vector.content[i] = 0;
-            }
-            roll_params rp;
-            rp.number_of_dice=0;
-            rp.die_sides=0;
-            rp.explode=false;
-
-            new_vector.source = rp;
-            $<values>$ = new_vector;
-        }
-        else if (instances < 0){
-            printf("Negative Sides. Should not be met. (use NEG condition instead)\n");
+    
+        int err = validate_roll(instances, sides);
+        if (err){
             YYABORT;
             yyclearin;
-        }else{
-            int err = validate_roll(instances, sides);
-            if (err){
-                YYABORT;
-                yyclearin;
-            }
-            
-            roll_params rp;
-            rp.number_of_dice = instances;
-            rp.die_sides = sides;
-            rp.explode = false;
-
-            int * result = do_roll(rp);
-           
-            vec new_vector;
-            initialize_vector(&new_vector, NUMERIC, instances);
-            new_vector.content = result;
-            new_vector.source = rp;
-
-            $<values>$ = new_vector;
         }
+        
+        roll_params rp;
+        rp.number_of_dice = instances;
+        rp.die_sides = sides;
+        rp.explode = false;
+
+        int * result = do_roll(rp);
+        
+        vec new_vector;
+        initialize_vector(&new_vector, NUMERIC, instances);
+        new_vector.content = result;
+        new_vector.source = rp;
+
+        $<values>$ = new_vector;
+        
     }
     |
     SIDED_DIE NUMBER
