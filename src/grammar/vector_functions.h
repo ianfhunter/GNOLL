@@ -15,5 +15,11 @@ unsigned int remove_if_present(char ** arr1, int len1,
                     char ** arr2, int len2,
                     char ** new_arr);
 
+void collapse_vector(vec * vector, vec * new_vector);
+
+unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
+unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
+// unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high);
+
 void print_vec(vec vector);
 #endif

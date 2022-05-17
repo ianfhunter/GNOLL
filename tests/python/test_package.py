@@ -1,6 +1,7 @@
 import pytest
 from util import roll
 
+@pytest.mark.skip()
 def test_pip_package():
     from dicetower.parser import roll
 

@@ -15,7 +15,7 @@ yacc:
 	# yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
-	mv y.output build/y.output | true
+	mv y.output build/y.output | true	# Only present with verbose
 
 .PHONY: lex
 lex:
@@ -44,6 +44,10 @@ compile:
 .PHONY: all
 all: clean yacc lex compile
 	echo "== Build Complete =="
+
+.PHONY: test_no_pip
+test_no_pip : 
+	python3 -m pytest tests/python/ -x
 
 .PHONY: test
 test : pip
