@@ -60,9 +60,7 @@ struct macro_struct *search_macros(char * skey, vec *to_store) {
     return s;
 }
 
-
 int initialize(){
-
     if (!seeded){
         srand(time(0));
         seeded = true;
@@ -418,7 +416,6 @@ math:
 ;
 
 
-
 dice_operations:
 
     die_roll REROLL_IF EQ NUMBER{
@@ -438,8 +435,8 @@ dice_operations:
         }else{
             if (die_vector.content[0] == num_vector.content[0]){
                 roll_params rp = die_vector.source;
-                int result = do_roll(rp);
-                die_vector.content[0] = result;            
+                int * result = do_roll(rp);
+                die_vector.content = result;            
             }else{
                 // N.Eq.
             }
@@ -565,12 +562,12 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(amount, max, true);
+            int * result = perform_roll(amount, max, true);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
+            new_vector.content = result;
+            new_vector.length = amount;
             new_vector.dtype = NUMERIC;
 
             $<values>$ = new_vector;
@@ -583,18 +580,17 @@ die_roll:
         vector = $<values>2;
         int max = vector.content[0];
 
-
         int err = validate_roll(1, max);
         if (err){
             YYABORT;
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, true);
+            int * result = perform_roll(1, max, true);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
+            new_vector.content = result;
             new_vector.length = 1;
             new_vector.dtype = NUMERIC;
 
@@ -605,59 +601,52 @@ die_roll:
     NUMBER SIDED_DIE NUMBER
     {
         // e.g. 2d20
-        vec num_dice;
-        num_dice = $<values>1;
+        vec num_dice = $<values>1;
+        vec vector = $<values>3;
         int instances = num_dice.content[0];
+        int sides = vector.content[0];
 
-        int make_negative = false;
-        if (instances == 0){
+        if (instances == 0 || sides == 0){
+            // 0dY or Xd0
             vec new_vector;
             new_vector.content = calloc(sizeof(int), instances);
             new_vector.content[0] = 0;
             new_vector.length = 1;
+            new_vector.dtype = NUMERIC;
             $<values>$ = new_vector;
         }
         else if (instances < 0){
-            make_negative = true;
-            instances = instances * -1;
-        }
-
-
-        vec vector;
-        vector = $<values>3;
-
-        vec new_vector;
-        new_vector.content = calloc(sizeof(int), instances);
-        new_vector.length = instances;
-
-        int max = vector.content[0];
-
-        if (max <= 0){
-            printf("Cannot roll a dice with a negative amount of sides.");
+            printf("Negative Sides. Should not be met. (use NEG condition instead)\n");
             YYABORT;
             yyclearin;
-        }else if (max > 0){
-            for (int i = 0; i!= instances; i++){
-                new_vector.content[i] += roll_numeric_die(1, max);
-                if (make_negative) new_vector.content[i] *= -1;
-            }
         }else{
-            for (int i = 0; i!= instances; i++){
-                new_vector.content[i] += 0;
+            int err = validate_roll(instances, sides);
+            if (err){
+                YYABORT;
+                yyclearin;
             }
+            
+            roll_params rp;
+            rp.number_of_dice = instances;
+            rp.die_sides = sides;
+            rp.explode = false;
+
+            int * result = do_roll(rp);
+           
+            vec new_vector;
+            new_vector.content = calloc(sizeof(int), instances);
+            new_vector.length = instances;
+            new_vector.dtype = NUMERIC;
+            new_vector.source = rp;
+            new_vector.content = result;
+
+            $<values>$ = new_vector;
         }
-
-        new_vector.dtype = NUMERIC;
-
-        // print_vec(new_vector);
-
-        $<values>$ = new_vector;
     }
     |
     SIDED_DIE NUMBER
     {
-        vec vector;
-        vector = $<values>2;
+        vec vector = $<values>2;
         int max = vector.content[0];
 
 
@@ -671,14 +660,13 @@ die_roll:
             rp.number_of_dice = 1;
             rp.die_sides = max;
             rp.explode = false;
-            int result = do_roll(rp);
+            int * result = do_roll(rp);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
+            new_vector.content = result;
             new_vector.length = 1;
             new_vector.dtype = NUMERIC;
-
             new_vector.source = rp;
 
             $<values>$ = new_vector;
@@ -699,11 +687,11 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(num, max, false);
+            int * result = perform_roll(num, max, false);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
+            new_vector.content = result;
             new_vector.length = 1;
             new_vector.dtype = NUMERIC;
 
@@ -721,11 +709,11 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, false);
+            int * result = perform_roll(1, max, false);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
+            new_vector.content = result;
             new_vector.length = 1;
             new_vector.dtype = NUMERIC;
 
@@ -770,6 +758,7 @@ die_roll:
         new_vector.length = 1;
 
         $<values>$ = new_vector;
+        
     }
     |
     custom_symbol_dice
