@@ -23,7 +23,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: uses: Vampire/setup-wsl@v1
+    - uses: Vampire/setup-wsl@v1
     - uses: actions/checkout@v2
     - name: python deps
       shell: wsl-bash
