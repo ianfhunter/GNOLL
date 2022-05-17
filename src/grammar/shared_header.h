@@ -21,8 +21,6 @@ typedef struct roll_params{
     int number_of_dice;
     int die_sides;
     bool explode;
-    MOCK_METHOD mock_style;
-    int mock_constant;
 } roll_params;
 
 typedef struct vec{
@@ -38,6 +36,5 @@ typedef struct vec{
 int roll(char * s);
 int roll_and_write(char * s, char * f);
 int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const);
-void reset();
 
 #endif

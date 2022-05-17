@@ -21,9 +21,6 @@ int yylex(void);
 int yyerror(const char* s);
 
 int yydebug=1;
-MOCK_METHOD mock_style=NO_MOCK;
-int mock_return_value = 0;
-int mock_constant = 0;
 bool verbose = true;
 bool seeded = false;
 bool write_to_file = false;
@@ -84,17 +81,7 @@ int sum(int * arr, int len){
 }
 
 int roll_numeric_die(int small, int big){
-    int v = 0;
-    if (mock_style == RETURN_INCREMENTING){
-        mock_return_value++;
-        v = mock_return_value;
-    }else if (mock_style == RETURN_DECREMENTING){
-        mock_return_value++;
-        v = mock_return_value;
-    }else{
-        v = mock_constant;
-    }
-    return random_fn(small, big, mock_style, v);
+    return random_fn(small, big);
 }
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
@@ -436,6 +423,28 @@ dice_operations:
 
     die_roll REROLL_IF EQ NUMBER{
 
+        vec die_vector = $<values>1;
+        vec num_vector = $<values>4;
+
+        // TODO: Set-Based Equals.
+        // TODO: Symbolic Dice
+        // TODO: All Dice Rolls
+
+        printf("Warn: Only partial reroll support at present.");
+        if (die_vector.dtype == SYMBOLIC){
+            printf("Symbolic Dice not supported in reroll logic yet\n");
+            YYABORT;
+            yyclearin;
+        }else{
+            if (die_vector.content[0] == num_vector.content[0]){
+                roll_params rp = die_vector.source;
+                int result = do_roll(rp);
+                die_vector.content[0] = result;            
+            }else{
+                // N.Eq.
+            }
+        }
+        $<values>$ = die_vector;
     }
     |
     die_roll KEEP_HIGHEST NUMBER
@@ -556,7 +565,7 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(amount, max, true, mock_style, mock_constant);
+            int result = perform_roll(amount, max, true);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
@@ -581,7 +590,7 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, true, mock_style, mock_constant);
+            int result = perform_roll(1, max, true);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
@@ -658,13 +667,10 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            // int result = perform_roll(1, max, false, mock_style, mock_constant);
             roll_params rp;
             rp.number_of_dice = 1;
             rp.die_sides = max;
             rp.explode = false;
-            rp.mock_style=mock_style;
-            rp.mock_constant=mock_constant;
             int result = do_roll(rp);
 
             vec new_vector;
@@ -693,7 +699,7 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(num, max, false, mock_style, mock_constant);
+            int result = perform_roll(num, max, false);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
@@ -715,7 +721,7 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, false, mock_style, mock_constant);
+            int result = perform_roll(1, max, false);
 
             vec new_vector;
             new_vector.content = calloc(sizeof(int), 1);
@@ -858,12 +864,6 @@ extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
-void reset(){
-    mock_style=NO_MOCK;
-    mock_return_value = 0;
-    mock_constant = 0;
-    reset_mocking();
-}
 int roll(char * s){
     initialize();
     verbose = false;
@@ -881,11 +881,8 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
-    mock_style = mock_value;
-    mock_constant = mock_const;
-    mock_return_value = 0;
-    verbose = ! quiet;
-
+    init_mocking(mock_value, mock_const);
+    verbose = !quiet;
     return roll_and_write(s, f);
 }
 
