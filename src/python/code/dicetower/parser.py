@@ -15,6 +15,7 @@ C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
 
 cppyy.c_include(os.path.join(C_HEADER, "shared_header.h"))
+cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
 cppyy.load_library(C_SHARED_LIB)
 
 
@@ -27,7 +28,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     if verbose:
         print("File: ", f)
 
-    cppyy.gbl.reset()
+    cppyy.gbl.reset_mocking()
 
     if mock is None:
         return_code = cppyy.gbl.roll_and_write(s, f)
