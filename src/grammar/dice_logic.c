@@ -62,48 +62,53 @@ int random_fn(int small, int big){
         return big;
     };
 
+    int value = 0;
     if (global_mock_style == NO_MOCK){
-        return rand()%(big+1-small)+small;
+        value = rand()%(big+1-small)+small;
     }else{
-        int value = global_mock_value;
+        value = global_mock_value;
         mocking_tick();
-        // printf("Mocked Value: %i\n", value);
-        return value;
     }
+    // printf("Dice Roll Value: %i\n", value);
+    return value;
 }
 
-unsigned int perform_roll(
+unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
     bool explode
 )
 {
-    int explosion_result = 0;
     int explosion_condition_score = 0;
     int explosion_count = 0;
 
-    int all_dice_roll = 0;
+    int * all_dice_roll = calloc(number_of_dice, sizeof(int));
     int single_die_roll = 0;
-    int final_result = 0;
+    int exploded_result = 0;
+
+    for(int i = 0; i < number_of_dice; i++){
+        all_dice_roll[i] = 0;
+    }
+
     do{
-        all_dice_roll = 0;
         for(int i = 0; i < number_of_dice; i++){
 
             // TODO: Don't hardcode 1
             single_die_roll = random_fn(1, die_sides);
-            all_dice_roll += single_die_roll;
-            
+            all_dice_roll[i] += single_die_roll;   
+
+            exploded_result += single_die_roll;
         }
         explosion_condition_score += number_of_dice*die_sides;
-        final_result += all_dice_roll;
+        
         explosion_count++;
-    }while(explode && (final_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
+    }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
 
-    return final_result;
+    return all_dice_roll;
 }
 
 
-unsigned int do_roll(roll_params rp){
+unsigned int * do_roll(roll_params rp){
     // printf("Number of Dice: %i\n", rp.number_of_dice);
     // printf("Die Sides: %i\n", rp.die_sides);
     // printf("Explode: %i\n", rp.explode);

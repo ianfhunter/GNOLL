@@ -6,7 +6,21 @@
 #include <string.h>
 #include "shared_header.h"
 
-// extern unsigned int MAX_SYMBOL_TEXT_LENGTH;
+
+void initialize_vector(vec * vector, DIE_TYPE dt, int items){
+    vector->dtype = dt;
+    vector->length = items;
+
+    if (dt == NUMERIC){
+        vector->content = calloc(items, sizeof (int));
+    }
+    else if (dt == SYMBOLIC){
+        vector->symbols = calloc(items, sizeof(char *));
+        for (int i=0; i<items; i++){
+            vector->symbols[i] = calloc(100, sizeof (char));
+        }
+    }
+}
 
 void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
     for(int i = 0; i != len1; i++){
@@ -145,4 +159,14 @@ unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int num
 }
 unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     return keep_logic(vector, new_vector, number_to_keep, 1);
+}
+void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length){
+    int index = 0;
+    // result_symbols = calloc(idx_length, sizeof(char **));
+    for (int i = 0; i != idx_length;i++){
+        index = indexes[i];
+        printf("%i <- %i: \n", i, index);
+        strcpy(result_symbols[i], symbols_list[index]);
+        // result_symbols[i] = symbols_list[index];
+    }
 }

@@ -21,6 +21,7 @@ typedef struct roll_params{
     int number_of_dice;
     int die_sides;
     bool explode;
+    char ** symbol_pool;
 } roll_params;
 
 typedef struct vec{

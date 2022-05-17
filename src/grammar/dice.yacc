@@ -14,6 +14,7 @@
 #include "shared_header.h"
 #include "dice_logic.h"
 #include "uthash.h"
+#include "rolls/sided_dice.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -60,9 +61,7 @@ struct macro_struct *search_macros(char * skey, vec *to_store) {
     return s;
 }
 
-
 int initialize(){
-
     if (!seeded){
         srand(time(0));
         seeded = true;
@@ -387,36 +386,7 @@ math:
     }
     |
     dice_operations
-    /* { */
-        // Collapse if nessicary
-        //    2d20 + 2d20
-        // Collapsed Version:
-        // {10,12} + {1,2} = {22+3} 25
-        // Uncollapsed Version (Eltwise):
-        // {10,12} + {1,2} = {11,14}
-        // Less predictable - 3elem + 2 ? how to broadcast?
-        
-        // vec vector;
-        // vec new_vec;
-        // vector = $<values>1;
-
-        // collapse_vector(&vector, &new_vec);
-        // $<values>$ = new_vec;
-
-        // if (vector.dtype == NUMERIC && vector.length > 1){
-        //     int result = sum(vector.content, vector.length);
-        //     vec new_vec;
-        //     new_vec.dtype = vector.dtype;
-        //     new_vec.content = calloc(sizeof(int), 1);
-        //     new_vec.content[0] = result;
-        //     new_vec.length = 1;
-        //     $<values>$ = new_vec;
-        // }else{
-        //     $<values>$ = vector;
-        // }
-    /* } */
 ;
-
 
 
 dice_operations:
@@ -438,8 +408,8 @@ dice_operations:
         }else{
             if (die_vector.content[0] == num_vector.content[0]){
                 roll_params rp = die_vector.source;
-                int result = do_roll(rp);
-                die_vector.content[0] = result;            
+                int * result = do_roll(rp);
+                die_vector.content = result;            
             }else{
                 // N.Eq.
             }
@@ -530,16 +500,15 @@ dice_operations:
             $<values>$ = vector;
         }
         else{
-            // Numeric.
             // Collapse if Nessicary
             if(vector.length > 1){
                 int result = sum(vector.content, vector.length);
-                vec new_vec;
-                new_vec.dtype = vector.dtype;
-                new_vec.content = calloc(sizeof(int), 1);
-                new_vec.content[0] = result;
-                new_vec.length = 1;
-                $<values>$ = new_vec;
+
+                vec new_vector;
+                initialize_vector(&new_vector, NUMERIC, 1);
+                new_vector.content[0] = sum(vector.content, vector.length);
+
+                $<values>$ = new_vector;
             }else{
                 $<values>$ = vector;
             }
@@ -565,13 +534,18 @@ die_roll:
             yyclearin;
         }else{
             // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(amount, max, true);
+
+            roll_params rp;
+            rp.number_of_dice = amount;
+            rp.die_sides = max;
+            rp.explode = true;
+
+            int * result = do_roll(rp);
 
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
+            initialize_vector(&new_vector, NUMERIC, amount);
+            new_vector.content = result;
+            new_vector.source = rp;
 
             $<values>$ = new_vector;
         }
@@ -583,84 +557,6 @@ die_roll:
         vector = $<values>2;
         int max = vector.content[0];
 
-
-        int err = validate_roll(1, max);
-        if (err){
-            YYABORT;
-            yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, true);
-
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
-
-            $<values>$ = new_vector;
-        }
-    }
-    |
-    NUMBER SIDED_DIE NUMBER
-    {
-        // e.g. 2d20
-        vec num_dice;
-        num_dice = $<values>1;
-        int instances = num_dice.content[0];
-
-        int make_negative = false;
-        if (instances == 0){
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), instances);
-            new_vector.content[0] = 0;
-            new_vector.length = 1;
-            $<values>$ = new_vector;
-        }
-        else if (instances < 0){
-            make_negative = true;
-            instances = instances * -1;
-        }
-
-
-        vec vector;
-        vector = $<values>3;
-
-        vec new_vector;
-        new_vector.content = calloc(sizeof(int), instances);
-        new_vector.length = instances;
-
-        int max = vector.content[0];
-
-        if (max <= 0){
-            printf("Cannot roll a dice with a negative amount of sides.");
-            YYABORT;
-            yyclearin;
-        }else if (max > 0){
-            for (int i = 0; i!= instances; i++){
-                new_vector.content[i] += roll_numeric_die(1, max);
-                if (make_negative) new_vector.content[i] *= -1;
-            }
-        }else{
-            for (int i = 0; i!= instances; i++){
-                new_vector.content[i] += 0;
-            }
-        }
-
-        new_vector.dtype = NUMERIC;
-
-        // print_vec(new_vector);
-
-        $<values>$ = new_vector;
-    }
-    |
-    SIDED_DIE NUMBER
-    {
-        vec vector;
-        vector = $<values>2;
-        int max = vector.content[0];
-
-
         int err = validate_roll(1, max);
         if (err){
             YYABORT;
@@ -670,106 +566,159 @@ die_roll:
             roll_params rp;
             rp.number_of_dice = 1;
             rp.die_sides = max;
-            rp.explode = false;
-            int result = do_roll(rp);
+            rp.explode = true;
 
+            int * result = do_roll(rp);
+           
             vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
-
+            initialize_vector(&new_vector, NUMERIC, 1);
+            new_vector.content = result;
             new_vector.source = rp;
 
+
             $<values>$ = new_vector;
+        }
+    }
+    |
+    NUMBER SIDED_DIE NUMBER
+    {
+        
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = 1;
+
+        int err = roll_plain_sided_dice(
+            &$<values>1,
+            &$<values>3,
+            &$<values>$
+        );
+        switch(err){
+            case 1:
+            {
+                printf("Negative Dice Sides not Allowed\n");
+                YYABORT;
+                yyclearin;
+            }
+            case 0:
+                break;
+        }
+    }
+    |
+    SIDED_DIE NUMBER
+    {
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = 1;
+
+        int err = roll_plain_sided_dice(
+            &number_of_dice,
+            &$<values>2,
+            &$<values>$
+        );
+        switch(err){
+            case 1:
+            {
+                printf("Negative Dice Sides not Allowed\n");
+                YYABORT;
+                yyclearin;
+            }
+            case 0:
+                break;
         }
     }
     |
     NUMBER SIDED_DIE MODULO
     {
-        vec vector;
-        vector = $<values>1;
-        int num = vector.content[0];
+        vec dice_sides;
+        initialize_vector(&dice_sides, NUMERIC, 1);
+        dice_sides.content[0] = 100;
 
-        int max = 100;
-
-        int err = validate_roll(1, max);
-        if (err){
-            YYABORT;
-            yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(num, max, false);
-
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
-
-            $<values>$ = new_vector;
+        int err = roll_plain_sided_dice(
+            &$<values>1,
+            &dice_sides,
+            &$<values>$
+        );
+        switch(err){
+            case 1:
+            {
+                printf("Negative Dice Sides not Allowed\n");
+                YYABORT;
+                yyclearin;
+            }
+            case 0:
+                break;
         }
+
     }
     |
     SIDED_DIE MODULO
     {
-        int max = 100;
+        
+        vec num_dice;
+        initialize_vector(&num_dice, NUMERIC, 1);
+        num_dice.content[0] = 1;
+        vec dice_sides;
+        initialize_vector(&dice_sides, NUMERIC, 1);
+        dice_sides.content[0] = 100;
 
-        int err = validate_roll(1, max);
-        if (err){
-            YYABORT;
-            yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-            int result = perform_roll(1, max, false);
-
-            vec new_vector;
-            new_vector.content = calloc(sizeof(int), 1);
-            new_vector.content[0] = result;
-            new_vector.length = 1;
-            new_vector.dtype = NUMERIC;
-
-            $<values>$ = new_vector;
+        int err = roll_plain_sided_dice(
+            &num_dice,
+            &dice_sides,
+            &$<values>$
+        );
+        switch(err){
+            case 1:
+            {
+                printf("Negative Dice Sides not Allowed\n");
+                YYABORT;
+                yyclearin;
+            }
+            case 0:
+                break;
         }
+
     }
     |
     NUMBER FATE_DIE
     {
         // e.g. dF, it is implied that it is a single dice
 
-        vec vector;
-        vector = $<values>2;
-
+        vec vector = $<values>2;
         int instances =  $<values>1.content[0];
-
         vec new_vector;
-        new_vector.symbols = calloc(sizeof(char**), instances);
-        new_vector.length = instances;
-        new_vector.dtype = vector.dtype;
+        initialize_vector(&new_vector, SYMBOLIC, instances);
+        
+        roll_params rp;
+        rp.number_of_dice = instances ;
+        rp.die_sides = vector.length - 1 ;
+        rp.explode = false;
+        rp.symbol_pool = vector.symbols;
+ 
+        int * indexes = do_roll(rp);
+        extract_symbols(vector.symbols, new_vector.symbols, indexes, rp.number_of_dice);
 
-        for (int i = 0; i != instances;i++){
-            int idx = roll_symbolic_die(vector.length);
-            new_vector.symbols[i] = vector.symbols[idx] ;
-        }
+        $<values>$ = new_vector;  
 
-        $<values>$ = new_vector;
     }
     |
     FATE_DIE
     {
         // e.g. dF, it is implied that it is a single dice
 
-        vec vector;
-        vector = $<values>1;
-        int idx = roll_symbolic_die(vector.length);
-
+        vec vector = $<values>1;
         vec new_vector;
-        new_vector.dtype = vector.dtype;
-        new_vector.symbols = calloc(sizeof(char **), 1);
-        new_vector.symbols = &vector.symbols[idx];
-        new_vector.length = 1;
+        initialize_vector(&new_vector, SYMBOLIC, 1);
+        
+        roll_params rp;
+        rp.number_of_dice = 1;
+        rp.die_sides = vector.length -1;
+        rp.explode = false;
+        rp.symbol_pool = vector.symbols;
+ 
+        int * indexes = do_roll(rp);
+        extract_symbols(vector.symbols, new_vector.symbols, indexes, rp.number_of_dice);
 
-        $<values>$ = new_vector;
+        $<values>$ = new_vector;        
     }
     |
     custom_symbol_dice
@@ -932,4 +881,8 @@ const char *s;
 
 int yywrap(){
     return (1);
+}
+
+void handle_errors(code){
+    
 }

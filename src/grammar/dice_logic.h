@@ -11,12 +11,12 @@ void init_mocking(MOCK_METHOD mock_style, int starting_value);
 int random_fn(int small, int big );
 
 // Rolling Functions
-unsigned int perform_roll(
+unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
     bool explode
 );
-unsigned int do_roll(
+unsigned int * do_roll(
     roll_params rp
 );
 
