@@ -15,6 +15,7 @@
 #include "dice_logic.h"
 #include "uthash.h"
 #include "rolls/sided_dice.h"
+#include "rolls/condition_checking.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -392,30 +393,35 @@ math:
 
 dice_operations:
 
-    die_roll REROLL_IF EQ NUMBER{
+    die_roll REROLL_IF condition NUMBER{
 
-        vec die_vector = $<values>1;
-        vec num_vector = $<values>4;
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
 
-        // TODO: Set-Based Equals.
-        // TODO: Symbolic Dice
-        // TODO: All Dice Rolls
+        if(dice.dtype == NUMERIC){
+            if (check_condition(&dice, &$<values>4, check)){
 
-        printf("Warn: Only partial reroll support at present.");
-        if (die_vector.dtype == SYMBOLIC){
-            printf("Symbolic Dice not supported in reroll logic yet\n");
-            YYABORT;
-            yyclearin;
-        }else{
-            if (die_vector.content[0] == num_vector.content[0]){
-                roll_params rp = die_vector.source;
-                int * result = do_roll(rp);
-                die_vector.content = result;            
+                vec number_of_dice;
+                initialize_vector(&number_of_dice, NUMERIC, 1);
+                number_of_dice.content[0] = dice.source.number_of_dice;
+
+                vec die_sides;
+                initialize_vector(&die_sides, NUMERIC, 1);
+                die_sides.content[0] = dice.source.die_sides;
+
+                roll_plain_sided_dice(
+                    &number_of_dice,
+                    &die_sides,
+                    &$<values>$,
+                    dice.source.explode
+                );
             }else{
-                // N.Eq.
+                // No need to reroll
+                $<values>$ = $<values>1;
             }
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
         }
-        $<values>$ = die_vector;
     }
     |
     die_roll KEEP_HIGHEST NUMBER
@@ -766,6 +772,9 @@ csd:
     |
     CAPITAL_STRING
     ;
+
+condition: EQ | LT | GT | LE | GE | NE ;
+
 
 
 %%

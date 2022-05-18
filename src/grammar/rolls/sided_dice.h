@@ -8,6 +8,7 @@ int roll_plain_sided_dice(
     vec * result,
     bool explode
 );
+
 int roll_symbolic_dice(
     vec * x, 
     vec * y, 

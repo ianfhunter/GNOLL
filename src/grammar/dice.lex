@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include "shared_header.h"
+    #include "rolls/condition_checking.h"
     #include "y.tab.h"
 %}
 
@@ -117,21 +118,57 @@ kh|dl|h {
 }
     /* Comparitors */
 \!\= {
-    return(NE);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = NOT_EQUAL;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return NE;
 }
 \=\= {
-    return(EQ);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return EQ;
 }
 \< {
-    return(LT);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = LESS_THAN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return LT;
 }
 \> {
-    return(GT);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = GREATER_THAN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return GT;
 }
 \<\= {
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = LESS_OR_EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
     return(LE);
 }
 \>\= {
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = GREATER_OR_EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
     return(GE);
 }
     /* Macros*/
