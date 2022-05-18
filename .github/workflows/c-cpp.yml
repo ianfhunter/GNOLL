@@ -24,6 +24,13 @@ jobs:
 
     steps:
     - uses: Vampire/setup-wsl@v1
+      with:
+        additional-packages:
+          python3-dev
+          bison
+          flex
+          python3-pip
+    
     - uses: actions/checkout@v2
     - name: python deps
       shell: wsl-bash {0}
