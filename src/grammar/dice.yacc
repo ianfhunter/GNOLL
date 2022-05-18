@@ -521,64 +521,43 @@ dice_operations:
 die_roll:
    NUMBER SIDED_DIE NUMBER EXPLOSION
     {
-        vec vector = $<values>3;
-        int max = vector.content[0];
+        
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = 1;
 
-        vec vector2;
-        vector2 = $<values>1;
-        int amount = vector2.content[0];
-
-
-        int err = validate_roll(1, max);
-        if (err){
+        int err = roll_plain_sided_dice(
+            &$<values>1,
+            &$<values>3,
+            &$<values>$,
+            true
+        );
+        print_err_if_present(err);
+        if(err){
             YYABORT;
             yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-
-            roll_params rp;
-            rp.number_of_dice = amount;
-            rp.die_sides = max;
-            rp.explode = true;
-
-            int * result = do_roll(rp);
-
-            vec new_vector;
-            initialize_vector(&new_vector, NUMERIC, amount);
-            new_vector.content = result;
-            new_vector.source = rp;
-
-            $<values>$ = new_vector;
         }
     }
     |
     SIDED_DIE NUMBER EXPLOSION
     {
-        vec vector;
-        vector = $<values>2;
-        int max = vector.content[0];
 
-        int err = validate_roll(1, max);
-        if (err){
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = 1;
+
+        int err = roll_plain_sided_dice(
+            &number_of_dice,
+            &$<values>2,
+            &$<values>$,
+            true
+        );
+        print_err_if_present(err);
+        if(err){
             YYABORT;
             yyclearin;
-        }else{
-            // e.g. d4, it is implied that it is a single dice
-            roll_params rp;
-            rp.number_of_dice = 1;
-            rp.die_sides = max;
-            rp.explode = true;
-
-            int * result = do_roll(rp);
-           
-            vec new_vector;
-            initialize_vector(&new_vector, NUMERIC, 1);
-            new_vector.content = result;
-            new_vector.source = rp;
-
-
-            $<values>$ = new_vector;
         }
+
     }
     |
     NUMBER SIDED_DIE NUMBER
@@ -591,7 +570,8 @@ die_roll:
         int err = roll_plain_sided_dice(
             &$<values>1,
             &$<values>3,
-            &$<values>$
+            &$<values>$,
+            false
         );
         print_err_if_present(err);
         if(err){
@@ -609,7 +589,8 @@ die_roll:
         int err = roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
-            &$<values>$
+            &$<values>$,
+            false
         );
         print_err_if_present(err);
         if(err){
@@ -627,7 +608,8 @@ die_roll:
         int err = roll_plain_sided_dice(
             &$<values>1,
             &dice_sides,
-            &$<values>$
+            &$<values>$,
+            false
         );
         print_err_if_present(err);
         if(err){
@@ -650,7 +632,8 @@ die_roll:
         int err = roll_plain_sided_dice(
             &num_dice,
             &dice_sides,
-            &$<values>$
+            &$<values>$,
+            false
         );
         print_err_if_present(err);
         if(err){

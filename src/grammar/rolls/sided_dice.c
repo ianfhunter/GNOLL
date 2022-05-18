@@ -7,7 +7,12 @@
 #include <stdio.h>
 
 
-int roll_plain_sided_dice(vec * x, vec * y, vec * result){
+int roll_plain_sided_dice(
+    vec * x, 
+    vec * y, 
+    vec * result,
+    bool explode
+){
     // XdY
     int num_dice = x->content[0];
     int sides = y->content[0];
@@ -20,7 +25,7 @@ int roll_plain_sided_dice(vec * x, vec * y, vec * result){
         roll_params rp;
         rp.number_of_dice = num_dice;
         rp.die_sides = sides;
-        rp.explode = false;
+        rp.explode = explode;
         int * roll_result = do_roll(rp);
 
         initialize_vector(result, NUMERIC, num_dice);
