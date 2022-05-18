@@ -29,3 +29,24 @@ int roll_plain_sided_dice(vec * x, vec * y, vec * result){
     }
     return 0;
 }
+
+int roll_symbolic_dice(vec * x, vec * y, vec * result){
+    // XdY
+    int num_dice = x->content[0];
+
+    int err = validate_roll(num_dice, 1);
+    if (err){
+        return 1;
+    }else{
+        // e.g. d4, it is implied that it is a single dice
+        roll_params rp;
+        rp.number_of_dice = num_dice ;
+        rp.die_sides = y->length - 1 ;
+        rp.explode = false;
+        rp.symbol_pool = y->symbols;
+ 
+        int * indexes = do_roll(rp);
+        extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
+    }
+    return 0;
+}
