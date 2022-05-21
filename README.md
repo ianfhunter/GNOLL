@@ -5,10 +5,10 @@
 <!-- Dark and Light Mode switches -->
 <p align="center">
   <a href="https://linearmouse.org/#gh-light-mode-only">
-     <img src="media/logo.png" height="200">
+     <img src="media/gnoll.png" height="200">
   </a>
   <a href="https://linearmouse.org/#gh-dark-mode-only">
-      <img src="media/logo.png" height="200">
+      <img src="media/gnoll.png" height="200">
   </a>
 </p>
 
