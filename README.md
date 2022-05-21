@@ -107,7 +107,6 @@ Individiual licensing arrangements can be made if this is an issue for your proj
 ## 🏗️ Built With
 
 * [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [Hatchful](https://hatchful.shopify.com/onboarding/select-logo) - Logo Creation Tool
 * [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
 * Love! 💖
 
