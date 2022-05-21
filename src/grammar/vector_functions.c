@@ -162,11 +162,8 @@ unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int nu
 }
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length){
     int index = 0;
-    // result_symbols = calloc(idx_length, sizeof(char **));
     for (int i = 0; i != idx_length;i++){
         index = indexes[i];
-        printf("%i <- %i: \n", i, index);
         strcpy(result_symbols[i], symbols_list[index]);
-        // result_symbols[i] = symbols_list[index];
     }
 }

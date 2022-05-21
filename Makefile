@@ -2,6 +2,7 @@
 clean:
 	rm -rf build
 	rm src/grammar/test_dice.yacc | true
+# Python Packaging can create extraoneous files
 	rm src/python/src/ | true
 	rm src/python/dist/ | true
 	rm src/python/build/ | true
@@ -27,6 +28,7 @@ compile:
 # Executable
 	cc -O3 build/y.tab.c \
 		src/grammar/rolls/sided_dice.c \
+		src/grammar/rolls/condition_checking.c \
 		src/grammar/vector_functions.c \
 		src/grammar/dice_logic.c \
 		build/lex.yy.c \
@@ -37,8 +39,9 @@ compile:
 	cc -fPIC -c src/grammar/vector_functions.c -o build/vec.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/dice_logic.c -o build/die.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
 	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
-	cc -shared -o build/dice.so build/die.o build/tab.o build/lex.o build/vec.o build/rso.o
+	cc -shared -o build/dice.so build/die.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
 
 	# ar rcs build/dice.a build/tab.o build/lex.o build/vec.o
 
