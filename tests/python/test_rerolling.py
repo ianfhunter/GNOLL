@@ -25,9 +25,9 @@ def test_symbolic_rerolling(r, out, mock, mock_const):
     result = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
-@pytest.mark.skip()
 @pytest.mark.parametrize("r,out,mock,mock_const",[
-    ("2d4r==1", 2, Mock.RETURN_INCREMENTING, 1),
+    ("2d4r==1", 3, Mock.RETURN_INCREMENTING, 1),
+    ("2d4r==3", 7, Mock.RETURN_INCREMENTING, 1),
 ])
 def test_rerolling_multidice(r, out, mock, mock_const):
     result = roll(r, mock_mode=mock, mock_const=mock_const)

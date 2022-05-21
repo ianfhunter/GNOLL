@@ -7,32 +7,40 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * @brief Comparision of a collapsed vector to a value
+ * 
+ * @param x vector containing dice rolls
+ * @param y vector containing 1 comparision value
+ * @param c enum indicating comparsion type
+ * @return true - the condition is True
+ * @return false - the condition is False
+ */
 bool check_condition(
     vec * x, 
     vec * y, 
     COMPARATOR c
 ){
-    // TODO: How will reroll work with >1 Value?
-    // - Collapse
-    // - Element-Wise Checking? (1-N, N-N, N-1 considations)
+    int dvalue = collapse(x->content, x->length);
+    int cvalue = y->content[0];
     switch(c){
         case EQUALS:{
-            return x->content[0] == y->content[0];
+            return dvalue == cvalue;
         }
         case NOT_EQUAL:{
-            return x->content[0] != y->content[0];
+            return dvalue != cvalue;
         }
         case LESS_THAN:{
-            return x->content[0] < y->content[0];
+            return dvalue < cvalue;
         }
         case GREATER_THAN:{
-            return x->content[0] > y->content[0];
+            return dvalue > cvalue;
         }
         case LESS_OR_EQUALS:{
-            return x->content[0] <= y->content[0];
+            return dvalue <= cvalue;
         }
         case GREATER_OR_EQUALS:{
-            return x->content[0] >= y->content[0];
+            return dvalue >= cvalue;
         }
     }
 }
