@@ -1,5 +1,5 @@
-# Dice Tower
-[![Build + Test](https://github.com/ianfhunter/DiceTower/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/DiceTower/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
+# GNOLL
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice-tower.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <!-- Dark and Light Mode switches -->
@@ -17,12 +17,12 @@
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
-Here's an example of how you might use DiceTower:
+Here's an example of how you might use GNOLL:
 ```markdown
    Grindon The Brave: I want to steal from the goblin sitting at the bar.
    Dungeon Master: Okay, give me a stealth check!
    Grindon The Brave: Okay, that's a <1d20+5>
-   [DiceTower]: 21
+   [GNOLL]: 21
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
@@ -31,7 +31,7 @@ Here's an example of how you might use DiceTower:
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote DiceTower to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access DiceTower's functionality through different languages in the near future.
+We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access GNOLL's functionality through different languages in the near future.
 
 - C
 - Python
@@ -74,7 +74,7 @@ $ ./dice 1d20
 
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 
-We are currently building a Wiki to help you in building on top of Dice Tower.
+We are currently building a Wiki to help you in building on top of GNOLL.
 In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
 You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
 
