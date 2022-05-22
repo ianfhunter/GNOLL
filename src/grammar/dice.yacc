@@ -13,7 +13,7 @@
 #include "vector_functions.h"
 #include "shared_header.h"
 #include "dice_logic.h"
-#include "uthash.h"
+#include "macro_logic.h"
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
 
@@ -34,34 +34,6 @@ char * output_file;
 // TODO: It would be better to fit arbitrary length strings.
 unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
 
-struct macro_struct {
-    int id;                    /* key */
-    // char name[MAX_SYMBOL_TEXT_LENGTH];
-    vec stored_dice_roll;
-    UT_hash_handle hh;         /* makes this structure hashable */
-};
-struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
-
-void register_macro(char * skey, vec *to_store) {
-    int key = atoi(skey);
-
-    struct macro_struct *s;
-
-    HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
-    if (s == NULL){
-        s = (struct macro_struct*)malloc(sizeof *s);
-        s->id = key;
-        HASH_ADD_INT(macros, id, s);  /* id: name of key field */
-    }
-    memcpy(&s->stored_dice_roll, &to_store, sizeof(to_store));
-}
-struct macro_struct *search_macros(char * skey, vec *to_store) {
-    int key = atoi(skey);
-    struct macro_struct *s;
-
-    HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
-    return s;
-}
 
 int initialize(){
     if (!seeded){
@@ -106,6 +78,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token NE EQ GT LT LE GE
 
 /* Defines Precedence from Lowest to Highest */
+%left STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
 %left KEEP_LOWEST KEEP_HIGHEST
@@ -134,11 +107,16 @@ sub_statement:
 
 
 macro_statement:
-    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice {
+    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
+        // TODO: Is not recalculating if used twice.
         vec key = $<values>2;
         vec value = $<values>4;
+        if (value.dtype == SYMBOLIC){
+            register_symbolic(key.symbols[0], &value);
+        }else{
+            register_numeric(key.content[0], &value);
+        }
 
-        register_macro(key.symbols[0], &value);
     }
 ;
 

@@ -12,8 +12,8 @@ clean:
 .PHONY: yacc
 yacc:
 	mkdir -p build
-	yacc -d src/grammar/dice.yacc
-	# yacc -d src/grammar/dice.yacc --debug --verbose
+	yacc -d src/grammar/dice.yacc 
+	#yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
@@ -31,6 +31,7 @@ compile:
 		src/grammar/rolls/condition_checking.c \
 		src/grammar/vector_functions.c \
 		src/grammar/dice_logic.c \
+		src/grammar/macro_logic.c \
 		build/lex.yy.c \
 		-Isrc/grammar/
 
@@ -38,12 +39,11 @@ compile:
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/vector_functions.c -o build/vec.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/dice_logic.c -o build/die.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/macro_logic.c -o build/macro.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
 	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
-	cc -shared -o build/dice.so build/die.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
-
-	# ar rcs build/dice.a build/tab.o build/lex.o build/vec.o
+	cc -shared -o build/dice.so build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
 
 # Linux
 	mv ./a.out build/dice | true
