@@ -94,9 +94,8 @@ kh|dl|h {
 [@] {
     return(MACRO_ACCESSOR);
 }
-; {
-
-    return(MACRO_SEPERATOR);
+, {
+    return(SYMBOL_SEPERATOR);
 }
 [(] {
     return(LBRACE);
@@ -110,8 +109,8 @@ kh|dl|h {
 [\}] {
     return(SYMBOL_RBRACE);
 }
-[,] {
-    return(SYMBOL_SEPERATOR);
+; {
+    return(STATEMENT_SEPERATOR);
 }
 [!] {
     return(EXPLOSION);

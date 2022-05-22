@@ -96,12 +96,12 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %start dicetower_statement
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
-%token MACRO_ACCESSOR MACRO_STORAGE MACRO_SEPERATOR ASSIGNMENT
+%token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
 %token DIE
 %token KEEP_LOWEST KEEP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION REROLL_IF
-%token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
+%token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
 
 %token NE EQ GT LT LE GE
 
@@ -122,12 +122,19 @@ int roll_symbolic_die(int length_of_symbolic_array){
 /* Rules Section */
 
 dicetower_statement:
-    macro_statement dice_statement
+    dicetower_statement STATEMENT_SEPERATOR dicetower_statement
+    |
+    sub_statement
+;
+sub_statement: 
+    macro_statement
     |
     dice_statement
 ;
+
+
 macro_statement:
-    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice MACRO_SEPERATOR {
+    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice {
         vec key = $<values>2;
         vec value = $<values>4;
 
@@ -148,24 +155,24 @@ dice_statement: math{
     FILE *fp;
 
     if(write_to_file){
-        fp = fopen(output_file, "w+");
+        fp = fopen(output_file, "a+");
     }
 
     for(int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%s", new_vec.symbols[i]);
+                printf("%s;", new_vec.symbols[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%s", new_vec.symbols[i]);
+                fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
             if(verbose){
-                printf("%d", new_vec.content[i]);
+                printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%d", new_vec.content[i]);
+                fprintf(fp, "%d;", new_vec.content[i]);
             }
         }
     }
@@ -794,6 +801,15 @@ int roll(char * s){
     yy_delete_buffer(buffer);
     return 0;
 }
+int roll_verbose(char * s){
+    initialize();
+    verbose = true;
+    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    yyparse();
+
+    yy_delete_buffer(buffer);
+    return 0;
+}
 int roll_and_write(char * s, char * f){
     /* Write the result to file. */
     write_to_file = true;
@@ -833,7 +849,7 @@ char * concat_strings(char ** s, int num_s){
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
-    return roll(s);
+    return roll_verbose(s);
 }
 
 int yyerror(s)
@@ -843,8 +859,8 @@ const char *s;
 
     if(write_to_file){
         FILE *fp;
-        fp = fopen(output_file, "w+");
-        fprintf(fp, "%s", s);
+        fp = fopen(output_file, "a+");
+        fprintf(fp, "%s;", s);
         fclose(fp);
     }
     return(1);
