@@ -21,7 +21,8 @@ void collapse_vector(vec * vector, vec * new_vector);
 
 unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
 unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
-// unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high);
+unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
+unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
 
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length);
 

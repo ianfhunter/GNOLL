@@ -69,8 +69,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
 %token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
-%token DIE
-%token KEEP_LOWEST KEEP_HIGHEST
+%token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION REROLL_IF
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
@@ -81,7 +80,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %left STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
-%left KEEP_LOWEST KEEP_HIGHEST
+%left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
 %left UMINUS
 %left LBRACE RBRACE
 
@@ -111,12 +110,7 @@ macro_statement:
         // TODO: Is not recalculating if used twice.
         vec key = $<values>2;
         vec value = $<values>4;
-        if (value.dtype == SYMBOLIC){
-            register_symbolic(key.symbols[0], &value);
-        }else{
-            register_numeric(key.content[0], &value);
-        }
-
+        register_macro(key.symbols[0], &value);
     }
 ;
 
@@ -280,7 +274,7 @@ math:
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
-            printf("Subtract not supported with mixed dice types.");
+            printf("Addition not supported with mixed dice types.");
             YYABORT;
             yyclearin;
         } else if (vector1.dtype == SYMBOLIC){
@@ -372,7 +366,35 @@ math:
         }
     }
     |
-    dice_operations
+    collapsed_dice_operations
+;
+
+collapsed_dice_operations:
+    dice_operations{
+
+        vec vector;
+        vector = $<values>1;
+
+        if (vector.dtype == SYMBOLIC){
+            // Symbolic, Impossible to collapse
+            $<values>$ = vector;
+        }
+        else{
+            // Collapse if Nessicary
+            if(vector.length > 1){
+                int result = sum(vector.content, vector.length);
+
+                vec new_vector;
+                initialize_vector(&new_vector, NUMERIC, 1);
+                new_vector.content[0] = sum(vector.content, vector.length);
+
+                $<values>$ = new_vector;
+            }else{
+                $<values>$ = vector;
+            }
+
+        }
+    }
 ;
 
 
@@ -409,14 +431,13 @@ dice_operations:
         }
     }
     |
-    die_roll KEEP_HIGHEST NUMBER
+    dice_operations KEEP_HIGHEST NUMBER
     {
-        vec roll_vector = $<values>1;
         vec keep_vector = $<values>3;
         vec new_vec;
         unsigned int num_to_hold = keep_vector.content[0];
 
-        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighestN.");
@@ -426,17 +447,32 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_LOWEST NUMBER
+    dice_operations DROP_HIGHEST NUMBER
+    {
+        vec keep_vector = $<values>3;
+        vec new_vec;
+        unsigned int num_to_hold = keep_vector.content[0];
+
+        unsigned int err = drop_highest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighestN.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_LOWEST NUMBER
     {
         vec roll_vector;
         vec keep_vector;
         unsigned int num_to_hold;
-        roll_vector = $<values>1;
         keep_vector = $<values>3;
         num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepLowestN.");
@@ -446,15 +482,30 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_HIGHEST
+    dice_operations DROP_LOWEST NUMBER
     {
         vec roll_vector;
+        vec keep_vector;
         unsigned int num_to_hold;
-        roll_vector = $<values>1;
-        num_to_hold = 1;
+        keep_vector = $<values>3;
+        num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = drop_lowest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepLowestN.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_HIGHEST
+    {
+        unsigned int num_to_hold = 1;
+        vec new_vec;
+        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighest1.");
@@ -464,15 +515,44 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_LOWEST
+    dice_operations DROP_HIGHEST
     {
-        vec roll_vector;
-        unsigned int num_to_hold;
-        roll_vector = $<values>1;
-        num_to_hold = 1;
+        vec roll_vec = $<values>1;
+        unsigned int num_to_hold = 1;
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = drop_highest_values(&roll_vec, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_LOWEST
+    {
+        unsigned int num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations DROP_LOWEST
+    {
+        vec roll_vec = $<values>1;
+        unsigned int num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighest1.");
@@ -484,29 +564,7 @@ dice_operations:
     |
     die_roll
     {
-        vec vector;
-        vector = $<values>1;
-
-        if (vector.dtype == SYMBOLIC){
-            // Symbolic, Impossible to collapse
-            $<values>$ = vector;
-        }
-        else{
-            // Collapse if Nessicary
-            if(vector.length > 1){
-                int result = sum(vector.content, vector.length);
-
-                vec new_vector;
-                initialize_vector(&new_vector, NUMERIC, 1);
-                new_vector.content[0] = sum(vector.content, vector.length);
-
-                $<values>$ = new_vector;
-            }else{
-                $<values>$ = vector;
-            }
-
-        }
-     } 
+    } 
 ;
 
 die_roll:
@@ -727,6 +785,9 @@ custom_symbol_dice:
 
         vec new_vector;
         search_macros(name, &new_vector);
+
+        // TODO: Apply rerolls!
+
         $<values>$ = new_vector;
     }
     ;

@@ -54,12 +54,10 @@ df|dF {
 
     return(FATE_DIE);
 }
-kl|dh|l {
-    return(KEEP_LOWEST);
-}
-kh|dl|h {
-    return(KEEP_HIGHEST);
-}
+dl { return(DROP_LOWEST); }
+dh { return(DROP_HIGHEST); }
+kl { return(KEEP_LOWEST); }
+kh { return(KEEP_HIGHEST); }
 
 [+] {
     return(PLUS);

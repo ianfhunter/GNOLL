@@ -160,6 +160,25 @@ unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int num
 unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     return keep_logic(vector, new_vector, number_to_keep, 1);
 }
+unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    int calc_keep = vector->length - number_to_keep;
+    if (calc_keep > 0){
+        number_to_keep = calc_keep;
+    }else{
+        number_to_keep = vector->length;
+    }
+    return keep_logic(vector, new_vector, number_to_keep, 1);
+}
+unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    int calc_keep = vector->length - number_to_keep;
+    if (calc_keep > 0){
+        number_to_keep = calc_keep;
+    }else{
+        number_to_keep = vector->length;
+    }
+    return keep_logic(vector, new_vector, number_to_keep, 0);
+}
+
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length){
     int index = 0;
     for (int i = 0; i != idx_length;i++){

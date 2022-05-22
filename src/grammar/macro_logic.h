@@ -15,8 +15,8 @@ struct macro_struct {
     UT_hash_handle hh;         /* makes this structure hashable */
 };
 
-void register_symbolic(char * skey, vec *to_store);
-void register_numeric(int key, vec *to_store);
+void register_macro(char * skey, vec *to_store);
+
 struct macro_struct *search_macros(char * skey, vec *to_store);
 
 #endif
