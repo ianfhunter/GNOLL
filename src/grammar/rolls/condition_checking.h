@@ -18,4 +18,10 @@ bool check_condition(
     vec * y, 
     COMPARATOR c
 );
+
+bool check_condition_scalar(
+    int x, 
+    int y, 
+    COMPARATOR c
+);
 #endif

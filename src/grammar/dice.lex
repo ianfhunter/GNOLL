@@ -58,6 +58,7 @@ dl { return(DROP_LOWEST); }
 dh { return(DROP_HIGHEST); }
 kl { return(KEEP_LOWEST); }
 kh { return(KEEP_HIGHEST); }
+f { return(FILTER); }
 
 [+] {
     return(PLUS);

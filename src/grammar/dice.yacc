@@ -70,6 +70,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
 %token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
 %token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
+%token FILTER
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION REROLL_IF
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
@@ -430,6 +431,23 @@ dice_operations:
             printf("No support for Symbolic die rerolling yet!");
         }
     }
+    |
+    dice_operations FILTER condition NUMBER{
+        vec new_vec;
+        vec dice = $<values>1;
+        vec condition = $<values>4;
+        int check = $<values>3.content[0];
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
+            filter(&dice, &condition, check, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+
+    } 
     |
     dice_operations KEEP_HIGHEST NUMBER
     {

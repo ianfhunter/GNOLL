@@ -27,4 +27,6 @@ unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int num
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length);
 
 void print_vec(vec vector);
+
+void filter(vec * dice, vec * cond, int comparitor, vec * output);
 #endif

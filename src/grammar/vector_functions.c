@@ -5,6 +5,7 @@
 #include <limits.h>
 #include <string.h>
 #include "shared_header.h"
+#include "rolls/condition_checking.h"
 
 
 void initialize_vector(vec * vector, DIE_TYPE dt, int items){
@@ -185,4 +186,20 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
         index = indexes[i];
         strcpy(result_symbols[i], symbols_list[index]);
     }
+}
+
+void filter(vec * dice, vec * cond, int comp_op, vec * output){
+    int success_idx = 0;
+    for(int i = 0; i != dice->length; i++){
+        int v = dice->content[i];
+        int compare_to = cond->content[0];
+        // TODO: Non-First value
+        // printf("%i == %i\n", v, compare_to);
+
+        if(check_condition_scalar(v, compare_to, comp_op)){
+            output->content[success_idx] = v;
+            success_idx++;
+        }
+    }
+    output->length = success_idx;
 }
