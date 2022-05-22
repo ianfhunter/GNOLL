@@ -54,6 +54,7 @@ df|dF {
 
     return(FATE_DIE);
 }
+
 dl { return(DROP_LOWEST); }
 dh { return(DROP_HIGHEST); }
 kl { return(KEEP_LOWEST); }
