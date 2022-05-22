@@ -81,9 +81,6 @@ f { return(FILTER); }
 [x] {
     return(REPEAT);
 }
-[p] {
-    return(PENETRATE);
-}
 [r] {
     return(REROLL_IF);
 }
@@ -111,9 +108,22 @@ f { return(FILTER); }
 ; {
     return(STATEMENT_SEPERATOR);
 }
+
+c {
+    return(DO_COUNT);
+}
+u {
+    return (MAKE_UNIQUE);
+}
+
+    /* Explosions */
 [!] {
     return(EXPLOSION);
 }
+[p] {
+    return(PENETRATE);
+}
+
     /* Comparitors */
 \!\= {
     vec vector;

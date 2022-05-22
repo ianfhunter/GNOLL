@@ -10,7 +10,8 @@ typedef enum {
     LESS_THAN=3,
     GREATER_OR_EQUALS=4,
     LESS_OR_EQUALS=5,
-    NOT_EQUAL=6
+    NOT_EQUAL=6,
+    UNIQUE=7
 } COMPARATOR;
 
 bool check_condition(

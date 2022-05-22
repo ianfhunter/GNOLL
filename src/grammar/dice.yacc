@@ -74,7 +74,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION REROLL_IF
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
-
+%token DO_COUNT MAKE_UNIQUE
 %token NE EQ GT LT LE GE
 
 /* Defines Precedence from Lowest to Highest */
@@ -367,10 +367,33 @@ math:
         }
     }
     |
-    collapsed_dice_operations
+    collapsing_dice_operations
 ;
 
-collapsed_dice_operations:
+collapsing_dice_operations:
+    dice_operations DO_COUNT condition NUMBER{
+
+        vec new_vec;    
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
+        int cond = $<values>4.content[0];  // TODO: non scalar
+        initialize_vector(&new_vec, NUMERIC, 1);                
+
+        int count = 0;
+        if(dice.dtype == NUMERIC){
+            for(int i; i != dice.length; i++){
+                int v = dice.content[i];
+                if(check_condition_scalar(v, cond, check)){
+                    count+=1;
+                }
+            }
+            new_vec.content[0] = count;
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+    }
+    |
     dice_operations{
 
         vec vector;
@@ -441,6 +464,25 @@ dice_operations:
         if(dice.dtype == NUMERIC){
             initialize_vector(&new_vec, NUMERIC, dice.length);                
             filter(&dice, &condition, check, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+
+    } 
+    |
+    dice_operations MAKE_UNIQUE{
+        // TODO
+        vec new_vec;
+        vec cond_vec;
+        vec dice = $<values>1;
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
+            initialize_vector(&cond_vec, NUMERIC, 1); 
+            cond_vec.content[0] = UNIQUE;
+            filter(&dice, &cond_vec, 0, &new_vec);
 
             $<values>$ = new_vec;
         }else{
