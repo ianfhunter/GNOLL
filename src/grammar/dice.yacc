@@ -13,7 +13,7 @@
 #include "vector_functions.h"
 #include "shared_header.h"
 #include "dice_logic.h"
-#include "uthash.h"
+#include "macro_logic.h"
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
 
@@ -34,34 +34,6 @@ char * output_file;
 // TODO: It would be better to fit arbitrary length strings.
 unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
 
-struct macro_struct {
-    int id;                    /* key */
-    // char name[MAX_SYMBOL_TEXT_LENGTH];
-    vec stored_dice_roll;
-    UT_hash_handle hh;         /* makes this structure hashable */
-};
-struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
-
-void register_macro(char * skey, vec *to_store) {
-    int key = atoi(skey);
-
-    struct macro_struct *s;
-
-    HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
-    if (s == NULL){
-        s = (struct macro_struct*)malloc(sizeof *s);
-        s->id = key;
-        HASH_ADD_INT(macros, id, s);  /* id: name of key field */
-    }
-    memcpy(&s->stored_dice_roll, &to_store, sizeof(to_store));
-}
-struct macro_struct *search_macros(char * skey, vec *to_store) {
-    int key = atoi(skey);
-    struct macro_struct *s;
-
-    HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
-    return s;
-}
 
 int initialize(){
     if (!seeded){
@@ -96,19 +68,20 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %start dicetower_statement
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT PENETRATE
-%token MACRO_ACCESSOR MACRO_STORAGE MACRO_SEPERATOR ASSIGNMENT
-%token DIE
-%token KEEP_LOWEST KEEP_HIGHEST
+%token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
+%token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
+%token FILTER
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token EXPLOSION IMPLOSION REROLL_IF
-%token SYMBOL_LBRACE SYMBOL_RBRACE SYMBOL_SEPERATOR CAPITAL_STRING
-
+%token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
+%token DO_COUNT MAKE_UNIQUE
 %token NE EQ GT LT LE GE
 
 /* Defines Precedence from Lowest to Highest */
+%left STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
-%left KEEP_LOWEST KEEP_HIGHEST
+%left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
 %left UMINUS
 %left LBRACE RBRACE
 
@@ -122,15 +95,22 @@ int roll_symbolic_die(int length_of_symbolic_array){
 /* Rules Section */
 
 dicetower_statement:
-    macro_statement dice_statement
+    dicetower_statement STATEMENT_SEPERATOR dicetower_statement
+    |
+    sub_statement
+;
+sub_statement: 
+    macro_statement
     |
     dice_statement
 ;
+
+
 macro_statement:
-    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT custom_symbol_dice MACRO_SEPERATOR {
+    MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
+        // TODO: Is not recalculating if used twice.
         vec key = $<values>2;
         vec value = $<values>4;
-
         register_macro(key.symbols[0], &value);
     }
 ;
@@ -148,24 +128,24 @@ dice_statement: math{
     FILE *fp;
 
     if(write_to_file){
-        fp = fopen(output_file, "w+");
+        fp = fopen(output_file, "a+");
     }
 
     for(int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%s", new_vec.symbols[i]);
+                printf("%s;", new_vec.symbols[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%s", new_vec.symbols[i]);
+                fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
             if(verbose){
-                printf("%d", new_vec.content[i]);
+                printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%d", new_vec.content[i]);
+                fprintf(fp, "%d;", new_vec.content[i]);
             }
         }
     }
@@ -295,7 +275,7 @@ math:
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
-            printf("Subtract not supported with mixed dice types.");
+            printf("Addition not supported with mixed dice types.");
             YYABORT;
             yyclearin;
         } else if (vector1.dtype == SYMBOLIC){
@@ -387,7 +367,58 @@ math:
         }
     }
     |
-    dice_operations
+    collapsing_dice_operations
+;
+
+collapsing_dice_operations:
+    dice_operations DO_COUNT condition NUMBER{
+
+        vec new_vec;    
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
+        int cond = $<values>4.content[0];  // TODO: non scalar
+        initialize_vector(&new_vec, NUMERIC, 1);                
+
+        int count = 0;
+        if(dice.dtype == NUMERIC){
+            for(int i; i != dice.length; i++){
+                int v = dice.content[i];
+                if(check_condition_scalar(v, cond, check)){
+                    count+=1;
+                }
+            }
+            new_vec.content[0] = count;
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+    }
+    |
+    dice_operations{
+
+        vec vector;
+        vector = $<values>1;
+
+        if (vector.dtype == SYMBOLIC){
+            // Symbolic, Impossible to collapse
+            $<values>$ = vector;
+        }
+        else{
+            // Collapse if Nessicary
+            if(vector.length > 1){
+                int result = sum(vector.content, vector.length);
+
+                vec new_vector;
+                initialize_vector(&new_vector, NUMERIC, 1);
+                new_vector.content[0] = sum(vector.content, vector.length);
+
+                $<values>$ = new_vector;
+            }else{
+                $<values>$ = vector;
+            }
+
+        }
+    }
 ;
 
 
@@ -424,14 +455,49 @@ dice_operations:
         }
     }
     |
-    die_roll KEEP_HIGHEST NUMBER
+    dice_operations FILTER condition NUMBER{
+        vec new_vec;
+        vec dice = $<values>1;
+        vec condition = $<values>4;
+        int check = $<values>3.content[0];
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
+            filter(&dice, &condition, check, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+
+    } 
+    |
+    dice_operations MAKE_UNIQUE{
+        // TODO
+        vec new_vec;
+        vec cond_vec;
+        vec dice = $<values>1;
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
+            initialize_vector(&cond_vec, NUMERIC, 1); 
+            cond_vec.content[0] = UNIQUE;
+            filter(&dice, &cond_vec, 0, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+
+    } 
+    |
+    dice_operations KEEP_HIGHEST NUMBER
     {
-        vec roll_vector = $<values>1;
         vec keep_vector = $<values>3;
         vec new_vec;
         unsigned int num_to_hold = keep_vector.content[0];
 
-        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighestN.");
@@ -441,17 +507,32 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_LOWEST NUMBER
+    dice_operations DROP_HIGHEST NUMBER
+    {
+        vec keep_vector = $<values>3;
+        vec new_vec;
+        unsigned int num_to_hold = keep_vector.content[0];
+
+        unsigned int err = drop_highest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighestN.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_LOWEST NUMBER
     {
         vec roll_vector;
         vec keep_vector;
         unsigned int num_to_hold;
-        roll_vector = $<values>1;
         keep_vector = $<values>3;
         num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepLowestN.");
@@ -461,15 +542,30 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_HIGHEST
+    dice_operations DROP_LOWEST NUMBER
     {
         vec roll_vector;
+        vec keep_vector;
         unsigned int num_to_hold;
-        roll_vector = $<values>1;
-        num_to_hold = 1;
+        keep_vector = $<values>3;
+        num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = keep_highest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = drop_lowest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepLowestN.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_HIGHEST
+    {
+        unsigned int num_to_hold = 1;
+        vec new_vec;
+        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighest1.");
@@ -479,15 +575,44 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    die_roll KEEP_LOWEST
+    dice_operations DROP_HIGHEST
     {
-        vec roll_vector;
-        unsigned int num_to_hold;
-        roll_vector = $<values>1;
-        num_to_hold = 1;
+        vec roll_vec = $<values>1;
+        unsigned int num_to_hold = 1;
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&roll_vector, &new_vec, num_to_hold);
+        unsigned int err = drop_highest_values(&roll_vec, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations KEEP_LOWEST
+    {
+        unsigned int num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
+
+        if(err){
+            printf("Error in: KeepHighest1.");
+            YYABORT;
+            yyclearin;
+        }
+        $<values>$ = new_vec;
+    }
+    |
+    dice_operations DROP_LOWEST
+    {
+        vec roll_vec = $<values>1;
+        unsigned int num_to_hold = 1;
+
+        vec new_vec;
+        unsigned int err = drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         if(err){
             printf("Error in: KeepHighest1.");
@@ -499,29 +624,7 @@ dice_operations:
     |
     die_roll
     {
-        vec vector;
-        vector = $<values>1;
-
-        if (vector.dtype == SYMBOLIC){
-            // Symbolic, Impossible to collapse
-            $<values>$ = vector;
-        }
-        else{
-            // Collapse if Nessicary
-            if(vector.length > 1){
-                int result = sum(vector.content, vector.length);
-
-                vec new_vector;
-                initialize_vector(&new_vector, NUMERIC, 1);
-                new_vector.content[0] = sum(vector.content, vector.length);
-
-                $<values>$ = new_vector;
-            }else{
-                $<values>$ = vector;
-            }
-
-        }
-     } 
+    } 
 ;
 
 die_roll:
@@ -742,6 +845,9 @@ custom_symbol_dice:
 
         vec new_vector;
         search_macros(name, &new_vector);
+
+        // TODO: Apply rerolls!
+
         $<values>$ = new_vector;
     }
     ;
@@ -794,6 +900,15 @@ int roll(char * s){
     yy_delete_buffer(buffer);
     return 0;
 }
+int roll_verbose(char * s){
+    initialize();
+    verbose = true;
+    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    yyparse();
+
+    yy_delete_buffer(buffer);
+    return 0;
+}
 int roll_and_write(char * s, char * f){
     /* Write the result to file. */
     write_to_file = true;
@@ -833,7 +948,7 @@ char * concat_strings(char ** s, int num_s){
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
-    return roll(s);
+    return roll_verbose(s);
 }
 
 int yyerror(s)
@@ -843,8 +958,8 @@ const char *s;
 
     if(write_to_file){
         FILE *fp;
-        fp = fopen(output_file, "w+");
-        fprintf(fp, "%s", s);
+        fp = fopen(output_file, "a+");
+        fprintf(fp, "%s;", s);
         fclose(fp);
     }
     return(1);

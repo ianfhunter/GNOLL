@@ -16,13 +16,13 @@ def test_fate():
 
 def test_multidie():
     result = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert result == "--"
+    assert result == ['-', '-']
 
 
 def test_fate_addition():
     # Addition = Concatination
     result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    assert result == "--"
+    assert result == ['-', '-']
 
 def test_fate_numeral_interoperability():
     # Most of the time, using the two together doesn't make sense

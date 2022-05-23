@@ -24,6 +24,8 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         print("Rolling: ", s)
 
     temp = tempfile.NamedTemporaryFile(prefix="dicetower_roll_", suffix=".die")
+    # temp.name = "dice.roll"
+    os.remove(temp.name)
     f = str(temp.name)
     if verbose:
         print("File: ", f)
@@ -39,21 +41,29 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     if verbose:
         print("Temp File:", temp.name)
     with open(temp.name) as f:
-        results = f.readlines()
+        results = f.readlines()[0].split(";")[:-1]
         if verbose:
             print("--Parsed Output--")
             print(results)
             print("--Parsed Output END--")
-        out = results[0]
+        out = results
 
         for i in results:
             if "error" in i:
                 return_code = 1
 
-    try:
+    print("OUT:", out)
+
+    if isinstance(out, list) and len(out) == 1:
+        out = out[0]
+
+    print("OUT:", out)
+
+    if isinstance(out, list):
+        if out[0].lstrip("-").isdigit():
+            out = [int(o) for o in out]
+    elif out.lstrip("-").isdigit():
         out = int(out)
-    except ValueError:
-        pass
 
     return int(return_code), out
 
@@ -62,4 +72,4 @@ if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
     code, r = roll(arg, verbose=True)
-    print("Result:", r, ", Exit Code:", code)
+    print(f"Result: {r}. Exit Code: {code}")

@@ -44,3 +44,32 @@ bool check_condition(
         }
     }
 }
+
+bool check_condition_scalar(
+    int x, 
+    int y, 
+    COMPARATOR c
+){
+    int dvalue = x;
+    int cvalue = y;
+    switch(c){
+        case EQUALS:{
+            return dvalue == cvalue;
+        }
+        case NOT_EQUAL:{
+            return dvalue != cvalue;
+        }
+        case LESS_THAN:{
+            return dvalue < cvalue;
+        }
+        case GREATER_THAN:{
+            return dvalue > cvalue;
+        }
+        case LESS_OR_EQUALS:{
+            return dvalue <= cvalue;
+        }
+        case GREATER_OR_EQUALS:{
+            return dvalue >= cvalue;
+        }
+    }
+}

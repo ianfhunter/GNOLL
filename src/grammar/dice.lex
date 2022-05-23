@@ -54,12 +54,12 @@ df|dF {
 
     return(FATE_DIE);
 }
-kl|dh|l {
-    return(KEEP_LOWEST);
-}
-kh|dl|h {
-    return(KEEP_HIGHEST);
-}
+
+dl { return(DROP_LOWEST); }
+dh { return(DROP_HIGHEST); }
+kl { return(KEEP_LOWEST); }
+kh { return(KEEP_HIGHEST); }
+f { return(FILTER); }
 
 [+] {
     return(PLUS);
@@ -82,9 +82,6 @@ kh|dl|h {
 [x] {
     return(REPEAT);
 }
-[p] {
-    return(PENETRATE);
-}
 [r] {
     return(REROLL_IF);
 }
@@ -94,9 +91,8 @@ kh|dl|h {
 [@] {
     return(MACRO_ACCESSOR);
 }
-; {
-
-    return(MACRO_SEPERATOR);
+, {
+    return(SYMBOL_SEPERATOR);
 }
 [(] {
     return(LBRACE);
@@ -110,12 +106,25 @@ kh|dl|h {
 [\}] {
     return(SYMBOL_RBRACE);
 }
-[,] {
-    return(SYMBOL_SEPERATOR);
+; {
+    return(STATEMENT_SEPERATOR);
 }
+
+c {
+    return(DO_COUNT);
+}
+u {
+    return (MAKE_UNIQUE);
+}
+
+    /* Explosions */
 [!] {
     return(EXPLOSION);
 }
+[p] {
+    return(PENETRATE);
+}
+
     /* Comparitors */
 \!\= {
     vec vector;
