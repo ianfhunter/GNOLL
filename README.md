@@ -33,7 +33,7 @@ Here's an example of how you might use GNOLL:
 
 We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access GNOLL's functionality through different languages in the near future.
 
-- C
+- C / C++
 - Python
 
 **Note:** There is no Windows/POSIX support yet.
