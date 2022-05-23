@@ -121,6 +121,9 @@ u {
 [!] {
     return(EXPLOSION);
 }
+o {
+    return(ONCE);
+}
 [p] {
     return(PENETRATE);
 }

@@ -1,6 +1,9 @@
 #ifndef VECFN_HEADER
 #define VECFN_HEADER
+
 #include "shared_header.h"
+#include "rolls/dice_enums.h"
+#include "rolls/vec.h"
 
 void initialize_vector(vec * vector, DIE_TYPE dt, int num);
 
@@ -29,4 +32,7 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
 void print_vec(vec vector);
 
 void filter(vec * dice, vec * cond, int comparitor, vec * output);
+
+void filter_unique(vec * dice, vec * new_vec);
+
 #endif

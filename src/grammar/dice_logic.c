@@ -1,8 +1,9 @@
 #include <stddef.h>
-#include "shared_header.h"
-#include "yacc_header.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "shared_header.h"
+#include "yacc_header.h"
+#include "rolls/dice_enums.h"
 
 
 #define EXPLOSION_LIMIT 50
@@ -76,7 +77,7 @@ int random_fn(int small, int big){
 unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
-    bool explode
+    EXPLOSION_TYPE explode
 )
 {
     int explosion_condition_score = 0;
@@ -92,15 +93,22 @@ unsigned int * perform_roll(
 
     do{
         for(int i = 0; i < number_of_dice; i++){
-
             // TODO: Don't hardcode 1
             single_die_roll = random_fn(1, die_sides);
             all_dice_roll[i] += single_die_roll;   
 
             exploded_result += single_die_roll;
         }
-        explosion_condition_score += number_of_dice*die_sides;
         
+        explosion_condition_score += number_of_dice*die_sides;
+        if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
+            break;
+        }
+        if (explode == PENETRATING_EXPLOSION){
+            die_sides--;
+            printf("Pen: %i\n", exploded_result);
+            if (die_sides <= 0){ break; }
+        }
         explosion_count++;
     }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
 

@@ -71,6 +71,7 @@ Or, just try some commands yourself!
 $ ./dice 1d20
 20
 ```
+(Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 
