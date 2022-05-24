@@ -47,7 +47,7 @@ int roll_symbolic_dice(vec * x, vec * y, vec * result){
         roll_params rp;
         rp.number_of_dice = num_dice ;
         rp.die_sides = y->length - 1 ;
-        rp.explode = false;
+        rp.explode = 0;
         rp.symbol_pool = y->symbols;
  
         int * indexes = do_roll(rp);

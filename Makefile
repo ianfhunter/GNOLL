@@ -76,3 +76,9 @@ pip : all
 publish: test
 	#twine upload --repository-url https://test.pypi.org/legacy/ src/python/dist/*
 	twine upload src/python/dist/*
+
+# Just an example
+.PHONY: swig
+swig:
+	mkdir -p build/pl/
+	swig -perl -outdir build/pl/ src/swig/gnoll.i 

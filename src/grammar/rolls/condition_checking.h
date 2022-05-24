@@ -14,13 +14,13 @@ typedef enum {
     UNIQUE=7
 } COMPARATOR;
 
-bool check_condition(
+int check_condition(
     vec * x, 
     vec * y, 
     COMPARATOR c
 );
 
-bool check_condition_scalar(
+int check_condition_scalar(
     int x, 
     int y, 
     COMPARATOR c
