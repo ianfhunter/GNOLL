@@ -33,7 +33,7 @@ compile:
 		src/grammar/dice_logic.c \
 		src/grammar/macro_logic.c \
 		build/lex.yy.c \
-		-Isrc/grammar/
+		-Isrc/grammar/ 
 
 # Shared Lib
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/

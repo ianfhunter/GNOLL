@@ -11,7 +11,7 @@ int roll_plain_sided_dice(
     vec * x, 
     vec * y, 
     vec * result,
-    bool explode
+    EXPLOSION_TYPE explode
 ){
     // XdY
     int num_dice = x->content[0];

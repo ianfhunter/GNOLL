@@ -50,6 +50,13 @@ void pop(int * arr, int len, int value, int * new_arr){
     }
 }
 
+bool contains(int * arr, int len, int value){
+    for(int i = 0; i != len; i++){
+        if (arr[i] == value) return true;
+    }
+    return false;
+}
+
 int min(int * arr, int len){
     int lowest = INT_MAX;
     for(int i = 0; i != len; i++){
@@ -202,4 +209,18 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
         }
     }
     output->length = success_idx;
+}
+
+void filter_unique(vec * dice, vec * new_vec){
+    int tracker_idx = 0;
+    for(int i = 0; i != dice->length; i++){
+        
+        int v = dice->content[i];
+
+        if(! contains(new_vec->content, new_vec->length, v)){
+            new_vec->content[tracker_idx] = v;
+            tracker_idx++;
+        }
+    }
+    new_vec->length = tracker_idx;
 }

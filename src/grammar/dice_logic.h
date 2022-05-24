@@ -2,6 +2,7 @@
 #define __DIE_LOGIC_H__
 
 #include "shared_header.h"
+#include "rolls/dice_enums.h"
 
 // Mocking Util
 void reset_mocking();
@@ -14,7 +15,7 @@ int random_fn(int small, int big );
 unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
-    bool explode
+    EXPLOSION_TYPE explode
 );
 unsigned int * do_roll(
     roll_params rp
