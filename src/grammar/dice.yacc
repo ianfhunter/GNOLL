@@ -33,7 +33,7 @@ char * output_file;
 
 // TODO: It would be better to fit arbitrary length strings.
 unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
-
+unsigned int MAX_ITERATION = 100;
 
 int initialize(){
     if (!seeded){
@@ -73,7 +73,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
 %token FILTER
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
-%token REROLL_IF
+%token REROLL
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
 %token DO_COUNT MAKE_UNIQUE
 %token NE EQ GT LT LE GE
@@ -412,7 +412,41 @@ collapsing_dice_operations:
 
 dice_operations:
 
-    die_roll REROLL_IF condition NUMBER{
+    die_roll REROLL REROLL condition NUMBER{
+
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
+
+        if(dice.dtype == NUMERIC){
+            int count = 0;
+            while (check_condition(&dice, &$<values>4, check)){
+                if (count > MAX_ITERATION){
+                    printf("MAX ITERATION LIMIT EXCEEDED: REROLL");
+                    break;
+                }
+                vec number_of_dice;
+                initialize_vector(&number_of_dice, NUMERIC, 1);
+                number_of_dice.content[0] = dice.source.number_of_dice;
+
+                vec die_sides;
+                initialize_vector(&die_sides, NUMERIC, 1);
+                die_sides.content[0] = dice.source.die_sides;
+
+                roll_plain_sided_dice(
+                    &number_of_dice,
+                    &die_sides,
+                    &dice,
+                    dice.source.explode
+                );
+                count ++;
+
+            }
+            $<values>$ = dice;
+        }else{
+            printf("No support for Symbolic die rerolling yet!");
+        }
+    }
+    |die_roll REROLL condition NUMBER{
 
         vec dice = $<values>1;
         int check = $<values>3.content[0];

@@ -83,7 +83,7 @@ f { return(FILTER); }
     return(REPEAT);
 }
 [r] {
-    return(REROLL_IF);
+    return(REROLL);
 }
 [#] {
     return(MACRO_STORAGE);
