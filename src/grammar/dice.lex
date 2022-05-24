@@ -106,6 +106,9 @@ f { return(FILTER); }
 [\}] {
     return(SYMBOL_RBRACE);
 }
+\.\. {
+    return(RANGE);
+}
 ; {
     return(STATEMENT_SEPERATOR);
 }

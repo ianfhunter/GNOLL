@@ -8,6 +8,7 @@ typedef struct roll_params{
     int die_sides;
     EXPLOSION_TYPE explode;
     char ** symbol_pool;
+    int start_value;
 } roll_params;
 
 #endif

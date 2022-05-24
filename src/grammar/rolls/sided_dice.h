@@ -10,7 +10,8 @@ int roll_plain_sided_dice(
     vec * x, 
     vec * y, 
     vec * result,
-    EXPLOSION_TYPE explode
+    EXPLOSION_TYPE explode,
+    int start_offset
 );
 
 int roll_symbolic_dice(

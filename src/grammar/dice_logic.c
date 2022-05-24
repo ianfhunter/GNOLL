@@ -74,10 +74,14 @@ int random_fn(int small, int big){
     return value;
 }
 
+
+// TODO: have min and max range rather than sides and start_offset
+
 unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
-    EXPLOSION_TYPE explode
+    EXPLOSION_TYPE explode,
+    int start_value
 )
 {
     int explosion_condition_score = 0;
@@ -94,7 +98,7 @@ unsigned int * perform_roll(
     do{
         for(int i = 0; i < number_of_dice; i++){
             // TODO: Don't hardcode 1
-            single_die_roll = random_fn(1, die_sides);
+            single_die_roll = random_fn(start_value, die_sides);
             all_dice_roll[i] += single_die_roll;   
 
             exploded_result += single_die_roll;
@@ -106,7 +110,6 @@ unsigned int * perform_roll(
         }
         if (explode == PENETRATING_EXPLOSION){
             die_sides--;
-            printf("Pen: %i\n", exploded_result);
             if (die_sides <= 0){ break; }
         }
         explosion_count++;
@@ -123,7 +126,8 @@ unsigned int * do_roll(roll_params rp){
     return perform_roll(
         rp.number_of_dice,
         rp.die_sides,
-        rp.explode
+        rp.explode,
+        rp.start_value
     );
 }
 
