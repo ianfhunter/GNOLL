@@ -33,7 +33,7 @@ char * output_file;
 
 // TODO: It would be better to fit arbitrary length strings.
 unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
-unsigned int MAX_ITERATION = 100;
+unsigned int MAX_ITERATION = 20;
 
 int initialize(){
     if (!seeded){
@@ -415,11 +415,11 @@ dice_operations:
     die_roll REROLL REROLL condition NUMBER{
 
         vec dice = $<values>1;
-        int check = $<values>3.content[0];
+        int check = $<values>4.content[0];
 
         if(dice.dtype == NUMERIC){
             int count = 0;
-            while (check_condition(&dice, &$<values>4, check)){
+            while (! check_condition(&dice, &$<values>5, check)){
                 if (count > MAX_ITERATION){
                     printf("MAX ITERATION LIMIT EXCEEDED: REROLL");
                     break;
@@ -439,7 +439,6 @@ dice_operations:
                     dice.source.explode
                 );
                 count ++;
-
             }
             $<values>$ = dice;
         }else{
