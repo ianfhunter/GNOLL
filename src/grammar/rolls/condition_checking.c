@@ -16,7 +16,7 @@
  * @return true - the condition is True
  * @return false - the condition is False
  */
-bool check_condition(
+int check_condition(
     vec * x, 
     vec * y, 
     COMPARATOR c
@@ -45,7 +45,7 @@ bool check_condition(
     }
 }
 
-bool check_condition_scalar(
+int check_condition_scalar(
     int x, 
     int y, 
     COMPARATOR c

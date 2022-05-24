@@ -8,7 +8,6 @@
 #include <string.h>
 #include <time.h>
 #include <limits.h>
-#include <stdbool.h>
 #include "yacc_header.h"
 #include "vector_functions.h"
 #include "shared_header.h"
@@ -24,9 +23,9 @@ int yyerror(const char* s);
 void print_err_if_present(int err_code);
 
 int yydebug=1;
-bool verbose = true;
-bool seeded = false;
-bool write_to_file = false;
+int verbose = 1;
+int seeded = 0;
+int write_to_file = 0;
 char * output_file;
 
 // Registers
@@ -38,7 +37,7 @@ unsigned int MAX_ITERATION = 20;
 int initialize(){
     if (!seeded){
         srand(time(0));
-        seeded = true;
+        seeded = 1;
     }
     return 0;
 }
@@ -993,7 +992,7 @@ extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
     initialize();
-    verbose = false;
+    verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
 
@@ -1002,7 +1001,7 @@ int roll(char * s){
 }
 int roll_verbose(char * s){
     initialize();
-    verbose = true;
+    verbose = 1;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
 
@@ -1011,12 +1010,12 @@ int roll_verbose(char * s){
 }
 int roll_and_write(char * s, char * f){
     /* Write the result to file. */
-    write_to_file = true;
+    write_to_file = 1;
     output_file = f;
     if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
 }
-int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
+int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
     init_mocking(mock_value, mock_const);
     verbose = !quiet;
     return roll_and_write(s, f);
@@ -1024,12 +1023,12 @@ int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const){
 
 char * concat_strings(char ** s, int num_s){
     int size_total = 0;
-    bool spaces = false;
+    int spaces = 0;
     for(int i = 1; i != num_s + 1; i++){
         size_total += strlen(s[i]) + 1;
     }
     if (num_s > 1){
-        spaces = true;
+        spaces = 1;
         size_total -= 1;  // no need for trailing space
     }
     char * result;
