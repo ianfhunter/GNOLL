@@ -76,3 +76,12 @@ pip : all
 publish: test
 	#twine upload --repository-url https://test.pypi.org/legacy/ src/python/dist/*
 	twine upload src/python/dist/*
+
+.PHONY: swig
+swig:
+    swig -python -outdir build/py -o py/interface_wrap.c src/swig/interface.i
+    swig -perl -outdir build/perl -o perl/interface_wrap.c src/swig/interface.i
+    swig -php -outdir build/php -o php/interface_wrap.c src/swig/interface.i
+    swig -go -outdir build/go -o go/interface_wrap.c src/swig/interface.i
+    swig -java -outdir build/java -o java/interface_wrap.c src/swig/interface.i
+    swig -javascript -outdir build/js -o js/interface_wrap.c src/swig/interface.i
