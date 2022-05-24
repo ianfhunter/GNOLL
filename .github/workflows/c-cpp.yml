@@ -15,5 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: python deps
       run: python3 -m pip install -r reqs/requirements.txt
+    - name: make swig
+      run: make swig
     - name: make test
       run: make test
