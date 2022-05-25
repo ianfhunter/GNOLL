@@ -52,12 +52,8 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
             if "error" in i:
                 return_code = 1
 
-    print("OUT:", out)
-
     if isinstance(out, list) and len(out) == 1:
         out = out[0]
-
-    print("OUT:", out)
 
     if isinstance(out, list):
         if out[0].lstrip("-").isdigit():

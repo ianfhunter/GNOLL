@@ -15,7 +15,8 @@ int random_fn(int small, int big );
 unsigned int * perform_roll(
     int number_of_dice,
     int die_sides,
-    EXPLOSION_TYPE explode
+    EXPLOSION_TYPE explode,
+    int start_value
 );
 unsigned int * do_roll(
     roll_params rp
