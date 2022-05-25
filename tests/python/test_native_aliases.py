@@ -11,7 +11,6 @@ def test_percentile_dice():
     assert result > 0
     assert result <= 100
 
-@pytest.mark.skip()
 def test_percentile_dice():
     result = roll("dc")
     assert result > 0

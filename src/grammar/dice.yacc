@@ -864,6 +864,53 @@ die_roll:
 
     }
     |
+    |
+    NUMBER SIDED_DIE DO_COUNT
+    {
+        vec dice_sides;
+        initialize_vector(&dice_sides, NUMERIC, 1);
+        dice_sides.content[0] = 2;
+
+        int err = roll_plain_sided_dice(
+            &$<values>1,
+            &dice_sides,
+            &$<values>$,
+            NO_EXPLOSION,
+            1
+        );
+        print_err_if_present(err);
+        if(err){
+            YYABORT;
+            yyclearin;
+        }
+
+    }
+    |
+    SIDED_DIE DO_COUNT
+    {
+       
+        vec num_dice;
+        initialize_vector(&num_dice, NUMERIC, 1);
+        num_dice.content[0] = 1;
+        vec dice_sides;
+        initialize_vector(&dice_sides, NUMERIC, 1);
+        dice_sides.content[0] = 2;
+
+        int err = roll_plain_sided_dice(
+            &num_dice,
+            &dice_sides,
+            &$<values>$,
+            NO_EXPLOSION,
+            1
+        );
+        print_err_if_present(err);
+        if(err){
+            YYABORT;
+            yyclearin;
+        }
+
+    }
+    |
     NUMBER FATE_DIE
     {
         vec result_vec;
