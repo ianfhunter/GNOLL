@@ -124,6 +124,9 @@ u {
 [!] {
     return(EXPLOSION);
 }
+e {
+    return(EXPLOSION);
+}
 o {
     return(ONCE);
 }
