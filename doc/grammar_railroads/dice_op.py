@@ -5,14 +5,15 @@ Diagram(
        Sequence(
            NonTerminal('<DiceOp>'),
           'r',
-           Choice(0, 'r', NonTerminal('<condition>'))
+           Optional('r'),
+           NonTerminal('<condition>')
         ),
         "Rerolling"
       ),
      Group(
        Sequence(
            NonTerminal('<DiceOp>'),
-          '!',
+          Choice(0, '!', 'e'),
            Optional(Choice(0, 'o', 'p'))
         ),
         "Explosion"
@@ -20,7 +21,7 @@ Diagram(
      Group(
        Sequence(
 
-           NonTerminal('<DiceOp>*'),
+           NonTerminal('<DiceOp>'),
            Choice(0, 'k', 'd'),
            Choice(0, 'h', 'l')
         ),
