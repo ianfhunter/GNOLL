@@ -1,0 +1,22 @@
+Diagram(
+   Choice(0, 
+      NonTerminal("diceOp"),
+      Sequence(
+         NonTerminal("mathOp"),
+         Choice(0,
+             "+",
+             "-",
+             "*",
+             "/",
+             "\\",
+             "%",
+         ),
+         NonTerminal("mathOp")
+      ),
+      Sequence(
+        "(",
+         NonTerminal("mathOp"),
+        ")",
+      )
+   )
+)
