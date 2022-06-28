@@ -11,14 +11,17 @@ int roll_plain_sided_dice(
     vec * x, 
     vec * y, 
     vec * result,
-    EXPLOSION_TYPE explode
+    EXPLOSION_TYPE explode,
+    int start_offset
 ){
+
     // XdY
     int num_dice = x->content[0];
     int sides = y->content[0];
-
+    
     int err = validate_roll(num_dice, sides);
     if (err){
+        printf("Validation Error\n");
         return 1;
     }else{
         // e.g. d4, it is implied that it is a single dice
@@ -26,8 +29,8 @@ int roll_plain_sided_dice(
         rp.number_of_dice = num_dice;
         rp.die_sides = sides;
         rp.explode = explode;
+        rp.start_value = start_offset;
         int * roll_result = do_roll(rp);
-
         initialize_vector(result, NUMERIC, num_dice);
         result->content = roll_result;
         result->source = rp;
@@ -47,8 +50,9 @@ int roll_symbolic_dice(vec * x, vec * y, vec * result){
         roll_params rp;
         rp.number_of_dice = num_dice ;
         rp.die_sides = y->length - 1 ;
-        rp.explode = false;
+        rp.explode = 0;
         rp.symbol_pool = y->symbols;
+        rp.start_value = 0; // First index of array
  
         int * indexes = do_roll(rp);
         extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);

@@ -1,5 +1,3 @@
-
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
@@ -34,12 +32,12 @@ void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_
 
 void pop(int * arr, int len, int value, int * new_arr){
     // This could be done in-place.
-    bool seen = false;
+    int seen = 0;
     // new_arr = calloc(sizeof(int), (len-1));
 
     for(int i = 0; i != len; i++){
         if (arr[i] == value && !seen){
-            seen = true;
+            seen = 1;
             // Don't insert into new area.
         }
         else if(seen){
@@ -50,11 +48,11 @@ void pop(int * arr, int len, int value, int * new_arr){
     }
 }
 
-bool contains(int * arr, int len, int value){
+int contains(int * arr, int len, int value){
     for(int i = 0; i != len; i++){
-        if (arr[i] == value) return true;
+        if (arr[i] == value) return 1;
     }
-    return false;
+    return 0;
 }
 
 int min(int * arr, int len){

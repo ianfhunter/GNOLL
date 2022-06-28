@@ -16,60 +16,60 @@
  * @return true - the condition is True
  * @return false - the condition is False
  */
-bool check_condition(
+int check_condition(
     vec * x, 
     vec * y, 
     COMPARATOR c
 ){
-    int dvalue = collapse(x->content, x->length);
-    int cvalue = y->content[0];
+    int xvalue = collapse(x->content, x->length);
+    int yvalue = y->content[0];
     switch(c){
         case EQUALS:{
-            return dvalue == cvalue;
+            return xvalue == yvalue;
         }
         case NOT_EQUAL:{
-            return dvalue != cvalue;
+            return xvalue != yvalue;
         }
         case LESS_THAN:{
-            return dvalue < cvalue;
+            return xvalue < yvalue;
         }
         case GREATER_THAN:{
-            return dvalue > cvalue;
+            return xvalue > yvalue;
         }
         case LESS_OR_EQUALS:{
-            return dvalue <= cvalue;
+            return xvalue <= yvalue;
         }
         case GREATER_OR_EQUALS:{
-            return dvalue >= cvalue;
+            return xvalue >= yvalue;
         }
     }
 }
 
-bool check_condition_scalar(
+int check_condition_scalar(
     int x, 
     int y, 
     COMPARATOR c
 ){
-    int dvalue = x;
-    int cvalue = y;
+    int xvalue = x;
+    int yvalue = y;
     switch(c){
         case EQUALS:{
-            return dvalue == cvalue;
+            return xvalue == yvalue;
         }
         case NOT_EQUAL:{
-            return dvalue != cvalue;
+            return xvalue != yvalue;
         }
         case LESS_THAN:{
-            return dvalue < cvalue;
+            return xvalue < yvalue;
         }
         case GREATER_THAN:{
-            return dvalue > cvalue;
+            return xvalue > yvalue;
         }
         case LESS_OR_EQUALS:{
-            return dvalue <= cvalue;
+            return xvalue <= yvalue;
         }
         case GREATER_OR_EQUALS:{
-            return dvalue >= cvalue;
+            return xvalue >= yvalue;
         }
     }
 }

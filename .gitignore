@@ -132,3 +132,7 @@ src/LICENSE
 src/Makefile
 src/README.md
 src/src/
+
+# Swig Artifacts
+*_wrap.c
+*.pm
