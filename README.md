@@ -14,7 +14,7 @@
 
 
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++ and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Perl and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
