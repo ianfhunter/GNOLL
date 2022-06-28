@@ -83,25 +83,25 @@ swig: swig_perl swig_php swig_java swig_go swig_js
 
 .PHONY: swig_perl
 swig_perl:
-    mkdir -p build/pl/
-    swig -perl -outdir build/perl -o perl/interface_wrap.c src/swig/interface.i
+	mkdir -p build/pl/
+	swig -perl -outdir build/perl -o perl/interface_wrap.c src/swig/interface.i
     
 .PHONY: swig_php
 swig_php:
-    mkdir -p build/php/
-    swig -php -outdir build/php -o php/interface_wrap.c src/swig/interface.i
+	mkdir -p build/php/
+	swig -php -outdir build/php -o php/interface_wrap.c src/swig/interface.i
     
 .PHONY: swig_go
 swig_go:
-    mkdir -p build/go/
-    swig -go -outdir build/go -o go/interface_wrap.c src/swig/interface.i
+	mkdir -p build/go/
+	swig -go -outdir build/go -o go/interface_wrap.c src/swig/interface.i
     
 .PHONY: swig_java
 swig_java:
-    mkdir -p build/java/
-    swig -java -outdir build/java -o java/interface_wrap.c src/swig/interface.i
+	mkdir -p build/java/
+	swig -java -outdir build/java -o java/interface_wrap.c src/swig/interface.i
     
 .PHONY: swig_js
 swig_js:
-    mkdir -p build/js/
-    swig -javascript -outdir build/js -o js/interface_wrap.c src/swig/interface.i
+	mkdir -p build/js/
+	swig -javascript -outdir build/js -o js/interface_wrap.c src/swig/interface.i
