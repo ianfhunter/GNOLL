@@ -8,6 +8,10 @@ clean:
 	rm src/python/build/ | true
 	rm src/python/LICENSE | true
 	rm src/python/Makefile | true
+# Perl Artifacts
+	rm MYMETA.json | true
+	rm MYMETA.yml | true
+	rm result.die | true
 
 .PHONY: yacc
 yacc:
@@ -79,29 +83,61 @@ publish: test
 
 # An example
 .PHONY: swig
-swig: swig_perl swig_php swig_java swig_go swig_js
-
-.PHONY: swig_perl
-swig_perl:
-	mkdir -p build/pl/
-	swig -perl -outdir build/perl -o perl/interface_wrap.c src/swig/interface.i
-    
-.PHONY: swig_php
-swig_php:
-	mkdir -p build/php/
-	swig -php -outdir build/php -o php/interface_wrap.c src/swig/interface.i
+swig: swig_perl swig_java swig_go swig_js
     
 .PHONY: swig_go
 swig_go:
 	mkdir -p build/go/
-	swig -go -outdir build/go -o go/interface_wrap.c src/swig/interface.i
+	swig -go -outdir build/go -o src/go/gnoll_wrap.c src/swig/GNOLL.i
     
 .PHONY: swig_java
 swig_java:
 	mkdir -p build/java/
-	swig -java -outdir build/java -o java/interface_wrap.c src/swig/interface.i
+	swig -java -outdir build/java -o src/java/gnoll_wrap.c src/swig/GNOLL.i
     
 .PHONY: swig_js
 swig_js:
 	mkdir -p build/js/
-	swig -javascript -outdir build/js -o js/interface_wrap.c src/swig/interface.i
+	swig -javascript -outdir build/js -o src/js/gnoll_wrap.c src/swig/GNOLL.i
+
+
+# ========= PHP =========
+# Note: SWIG only supports PHP 5.0 - 5.3 which is very outdated
+# Current version at time of writing is 8.0
+
+# ========= PERL =========
+.PHONY: swig_perl compile_perl perl
+swig_perl: clean yacc lex
+	mkdir -p build/perl/
+	swig -perl -outdir build/perl -o build/perl/gnoll_wrap.c src/swig/GNOLL.i
+
+compile_perl: swig_perl
+# Executable
+	cc -O3 build/y.tab.c \
+		src/grammar/rolls/sided_dice.c \
+		src/grammar/rolls/condition_checking.c \
+		src/grammar/vector_functions.c \
+		src/grammar/dice_logic.c \
+		src/grammar/macro_logic.c \
+		build/lex.yy.c \
+		-Isrc/grammar/ 
+
+# Shared Lib
+	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/vector_functions.c -o build/vec.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/dice_logic.c -o build/die.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/macro_logic.c -o build/macro.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
+	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
+	
+# Perl
+	cc -fPIC -c build/perl/gnoll_wrap.c -I/usr/lib/x86_64-linux-gnu/perl/5.30/CORE/ -Dbool=char -Doff64_t=__off64_t -o build/gnoll_perl_wrap.o
+	
+	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o 
+
+perl: compile_perl	
+	echo "Done"
+	cp build/perl/gnoll.pm src/perl/gnoll.pm
+	cp build/gnoll.so src/perl/gnoll.so
+	perl src/perl/hello_world.pl

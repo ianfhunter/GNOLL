@@ -136,3 +136,8 @@ src/src/
 # Swig Artifacts
 *_wrap.c
 *.pm
+*.o
+
+# Perl Artifacts
+MYMETA.*
+result.die
