@@ -35,8 +35,9 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 
 - C / C++
 - Python
+- Perl
 
-**Note:** There is no Windows/POSIX support yet.
+Tested on Linux (Ubuntu) and Windows (10, WSL).
 
 ### 🎲 Dice Notation
 - XdY notation
