@@ -140,4 +140,4 @@ perl: compile_perl
 	echo "Done"
 	cp build/perl/gnoll.pm src/perl/gnoll.pm
 	cp build/gnoll.so src/perl/gnoll.so
-	perl src/perl/hello_world.pl
+	perl src/perl/example_application.pl
