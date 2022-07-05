@@ -3,7 +3,7 @@
     extern int roll(char * s);
     extern int roll_verbose(char * s);
     extern int roll_and_write(char * s, char * f);
-    extern int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const);
+    extern int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const);
 %}
 
 /**
@@ -13,6 +13,14 @@
  * @return int Exit Code
  */
 extern int roll(char * s);
+
+/**
+ * @brief   Roll dice and print to screen with extra verbosity.
+ * 
+ * @param s Dice Notation to roll
+ * @return int Exit Code
+ */
+extern int roll_verbose(char * s);
 
 /**
  * @brief Roll dice and write to file.
