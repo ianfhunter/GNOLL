@@ -1,0 +1,19 @@
+name: Perl Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: perl install
+      run: sudo apt install perl
+    - name: make perl
+      run: make perl
