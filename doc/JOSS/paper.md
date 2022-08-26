@@ -39,7 +39,7 @@ Without a larger project for reference/integration, many software developers hav
 
 # Related Reading
 
-There are not many publications that specifically discuss dice notation. The most prominent papers are named `ROLL`[@ROLL] and `TROLL` [@TROLL]. To distinguish this research and still pay homage to the original work, GNOLL is a recursive acronym expanded from `GNOLL's Not *OLL`. The reason for its distinction is that `GNOLL`'s notation is focused on real-world gaming usage of dice notation, whereas `ROLL` and `TROLL` are notations targetted at statistics research.
+There are not many publications that specifically discuss dice notation. The most prominent papers are named `ROLL`[@ROLL] and `TROLL` [@TROLL]. To distinguish this research and still pay homage to the original work, GNOLL is a recursive acronym expanded from "GNOLL's Not *OLL". The reason for its distinction is that `GNOLL`'s notation is focused on real-world gaming usage of dice notation, whereas `ROLL` and `TROLL` are notations targetted at statistics research.
 
 # Example Notation
 
@@ -56,18 +56,18 @@ The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ 
 # Figures
 ## Figure 1 - GNOLL Performance (C)
 
-Comparison of `GNOLL`'s performance against other C/C++/SML dice notation parsers
+Comparison of `GNOLL`'s performance against other C/C++/SmallTalk dice notation parsers - [TROLL](http://hjemmesider.diku.dk/~torbenm/Troll/) and [E Bailey's 'Dice Parser'](https://github.com/EBailey67/DiceParser).
 
 ![A graph showing GNOLL's performance on different sizes of dice rolls. It is faster than TROLL and ROLL on each tick](C++.PNG)
 
 ## Figure 2 - GNOLL Performance (Python)
 
-Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi])
+Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi] - ["Dice"](https://pypi.org/project/dice/), ["RPG Dice"](https://pypi.org/project/rpg-dice/), ["Python Dice"](https://pypi.org/project/python-dice/))
 
 ![A graph showing GNOLL's performance (via Python binding) on different sizes of dice rolls. It slightly underperforms for small sizes, but is faster than other python libraries for large sizes.](py.PNG)
 
 # Acknowledgments
-Thanks to my dog for desk-side companionship.
+Thanks to my dog for the desk-side companionship and the demand for healthy stick-fetching breaks.
 Thank you also to the various TTRPG publishers and online communities for enabling people all over the world to play make-believe together.
 
 # References
