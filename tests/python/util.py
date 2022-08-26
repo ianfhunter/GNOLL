@@ -4,7 +4,7 @@ import subprocess
 from enum import Enum
 
 GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/grammar"))
-SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/dicetower/"))
+SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 first_run = True

@@ -64,7 +64,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %}
 
 
-%start dicetower_statement
+%start gnoll_statement
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT 
 %token EXPLOSION IMPLOSION PENETRATE ONCE
@@ -95,8 +95,8 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %%
 /* Rules Section */
 
-dicetower_statement:
-    dicetower_statement STATEMENT_SEPERATOR dicetower_statement
+gnoll_statement:
+    gnoll_statement STATEMENT_SEPERATOR gnoll_statement
     |
     sub_statement
 ;

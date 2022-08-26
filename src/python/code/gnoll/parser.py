@@ -23,7 +23,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     if verbose:
         print("Rolling: ", s)
 
-    temp = tempfile.NamedTemporaryFile(prefix="dicetower_roll_", suffix=".die")
+    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
     # temp.name = "dice.roll"
     os.remove(temp.name)
     f = str(temp.name)
