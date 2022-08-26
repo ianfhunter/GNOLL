@@ -1,3 +1,4 @@
+name: "Publish: JOSS Paper"
 on: [push]
 
 jobs:
