@@ -1,5 +1,5 @@
 ---
-title: 'GNOLL: A multi-language library for typical dice notation'
+title: 'GNOLL: Efficient Multi-Lingual Software for Real-World Dice Notation and Extensions'
 tags:
   - Python
   - Perl
@@ -22,7 +22,11 @@ bibliography: paper.bib
 
 # Summary
 
-GNOLL is a highly compatible dice-rolling library supporting a large range of dice notation syntax common in tabletop roleplaying (TTRPG) games.
+Dice Notation is a system for describing how to roll collections of dice. It is often used to assist understanding of rules of games - particularly tabletop roleplaying games. Existing research software in this space has been primarily designed for other researchers and statisticians despite the fact that a large population of those actually playing these games are young [@DNDDemographics2019] or not involved in statistical research.
+
+GNOLL is a software library for dice notation — A method of describing how to roll collections of dice. GNOLL’s dice notation syntax is focused on parsing a language that tabletop role-players and board gamers already use for specifying dice rolls in many popular software applications. Existing implementations of such a syntax are either incomplete, fragile, or proprietary, meaning that anyone hoping to use such syntax in their application likely needs to write their own solution. GNOLL offers researchers and engineers a multi-lingual implementation that can serve as a reference for this style of notation, 
+
+GNOLL is an open-source project using the compilation tool ‘YACC’ and lexical tool ‘LEX’ which can be integrated into many applications with relative ease. This paper explores GNOLL’s extended dice notation syntax and its competitive performance
 
 # Statement of Need
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which is:
