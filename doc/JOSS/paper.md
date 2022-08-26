@@ -1,7 +1,9 @@
 ---
-title: 'DiceTower: A library for dice notation'
+title: 'GNOLL: A multi-language library for typical dice notation'
 tags:
   - Python
+  - Perl
+  - C
   - C++
   - statistics
   - board games
@@ -14,13 +16,13 @@ authors:
 affiliations:
  - name: Independent Researcher
    index: 1
-date: 20 Mar 2022
+date: 26 August 2022
 bibliography: paper.bib
 ---
 
 # Summary
 
-DiceTower is a highly compatible dice-rolling library supporting a large range of dice notation syntax common in tabletop roleplaying (TTRPG) games.
+GNOLL is a highly compatible dice-rolling library supporting a large range of dice notation syntax common in tabletop roleplaying (TTRPG) games.
 
 # Statement of Need
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which is:
@@ -30,10 +32,10 @@ Whilst there are several dice rolling utilities on the market for research/comme
 - supporting multiple notation standards
 - supporting non-simplex combinations of notation. 
 
-While some solutions may offer one or two of these, DiceTower addresses all of these points.
+While some solutions may offer one or two of these, GNOLL addresses all of these points.
 
 # Mathematics
-DiceTower builds upon actual use-cases of how dice are specified in software, rather than theoretical mathematical notations.
+GNOLL builds upon actual use-cases of how dice are specified in software, rather than theoretical mathematical notations.
 The simplest of these representations is {x}d{y} where x and y are integers. This asks that we roll X number of Y-sided dice. e.g. 3d6 would be requesting 3 6-sided dice.
 
 
