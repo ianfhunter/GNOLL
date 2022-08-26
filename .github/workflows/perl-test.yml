@@ -1,4 +1,4 @@
-name: Perl Test
+name: "Test: Perl"
 
 on:
   push:
