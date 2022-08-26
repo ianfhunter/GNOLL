@@ -56,11 +56,11 @@ The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ 
 # Figures
 ## Figure 1 - GNOLL Performance (C)
 Comparison of `GNOLL`'s performance against other C/C++/SML dice notation parsers
-![C++.PNG]
+![A graph showing GNOLL's performance on different sizes of dice rolls. It is faster than TROLL and ROLL on each tick](C++.PNG)
 
 ## Figure 2 - GNOLL Performance (Python)
 Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi])
-![py.PNG]
+![A graph showing GNOLL's performance (via Python binding) on different sizes of dice rolls. It slightly underperforms for small sizes, but is faster than other python libraries for large sizes.](py.PNG)
 
 # Acknowledgments
 Thanks to my dog for desk-side companionship.
