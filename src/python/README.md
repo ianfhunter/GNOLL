@@ -2,14 +2,8 @@
 [![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/dice-tower.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
-<!-- Dark and Light Mode switches -->
 <p align="center">
-  <a href="https://linearmouse.org/#gh-light-mode-only">
-     <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
-  </a>
-  <a href="https://linearmouse.org/#gh-dark-mode-only">
-      <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
-  </a>
+  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
 
 
