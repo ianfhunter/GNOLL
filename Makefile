@@ -16,7 +16,7 @@ clean:
 .PHONY: yacc
 yacc:
 	mkdir -p build
-	yacc -d src/grammar/dice.yacc 
+	yacc -d src/grammar/dice.yacc
 	#yacc -d src/grammar/dice.yacc --debug --verbose
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
@@ -37,7 +37,7 @@ compile:
 		src/grammar/dice_logic.c \
 		src/grammar/macro_logic.c \
 		build/lex.yy.c \
-		-Isrc/grammar/ 
+		-Isrc/grammar/
 
 # Shared Lib
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
@@ -59,7 +59,7 @@ all: clean yacc lex compile
 	echo "== Build Complete =="
 
 .PHONY: test_no_pip
-test_no_pip : 
+test_no_pip :
 	python3 -m pytest tests/python/ -x
 
 .PHONY: test
@@ -69,6 +69,14 @@ test : pip
 .PHONY: pip
 pip : all
 	echo "----------------- BUILD -------------------------"
+	# Copy Build
+	rm -rf src/python/code/gnoll/c_build/
+	rm -rf src/python/code/gnoll/c_includes/
+	rm -rf src/python/code/gnoll.egg-info/
+
+	cp -r build/  src/python/code/gnoll/c_build/
+	cp -r src/grammar/  src/python/code/gnoll/c_includes/
+
 	cd src/python/ ; python3 -m build
 	echo "------------------INSTALL------------------------"
 	python3 -m pip install -vvv --user --no-index --find-links=src/python/dist/ --force-reinstall --ignore-installed gnoll
@@ -84,17 +92,17 @@ publish: test
 # An example
 .PHONY: swig
 swig: swig_perl swig_java swig_go swig_js
-    
+
 .PHONY: swig_go
 swig_go:
 	mkdir -p build/go/
 	swig -go -outdir build/go -o src/go/gnoll_wrap.c src/swig/GNOLL.i
-    
+
 .PHONY: swig_java
 swig_java:
 	mkdir -p build/java/
 	swig -java -outdir build/java -o src/java/gnoll_wrap.c src/swig/GNOLL.i
-    
+
 .PHONY: swig_js
 swig_js:
 	mkdir -p build/js/
@@ -120,7 +128,7 @@ compile_perl: swig_perl
 		src/grammar/dice_logic.c \
 		src/grammar/macro_logic.c \
 		build/lex.yy.c \
-		-Isrc/grammar/ 
+		-Isrc/grammar/
 
 # Shared Lib
 	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
@@ -130,13 +138,13 @@ compile_perl: swig_perl
 	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
 	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
-	
+
 # Perl
 	cc -fPIC -c build/perl/gnoll_wrap.c -I/usr/lib/x86_64-linux-gnu/perl/5.30/CORE/ -Dbool=char -Doff64_t=__off64_t -o build/gnoll_perl_wrap.o
-	
-	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o 
 
-perl: compile_perl	
+	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
+
+perl: compile_perl
 	echo "Done"
 	cp build/perl/gnoll.pm src/perl/gnoll.pm
 	cp build/gnoll.so src/perl/gnoll.so

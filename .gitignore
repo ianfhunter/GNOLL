@@ -132,6 +132,8 @@ src/LICENSE
 src/Makefile
 src/README.md
 src/src/
+src/python/code/gnoll/c_include
+src/python/code/gnoll/c_build
 
 # Swig Artifacts
 *_wrap.c
