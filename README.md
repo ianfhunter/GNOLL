@@ -1,17 +1,9 @@
 # GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/dice-tower.svg)](https://github.com/ianfhunter/dice-tower/blob/master/LICENSE)
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <!-- Dark and Light Mode switches -->
-<p align="center">
-  <a href="https://linearmouse.org/#gh-light-mode-only">
-     <img src="media/gnoll.png" height="200">
-  </a>
-  <a href="https://linearmouse.org/#gh-dark-mode-only">
-      <img src="media/gnoll.png" height="200">
-  </a>
-</p>
-
+ <img src="media/gnoll.png" height="200">
 
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Perl and Python.
@@ -26,7 +18,7 @@ Here's an example of how you might use GNOLL:
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes)
+[You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes)
 
 ## Current Status
 ### 🧑‍💻 Language Support
@@ -48,19 +40,19 @@ Tested on Linux (Ubuntu) and Windows (10, WSL).
 - Explosions
 - Drop/Keep
 
-For the specific details of supported notation, [we've got a dedicated section in our wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes).
+For the specific details of supported notation, [we've got a dedicated section in our wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes).
 And feel free to ask for anything we're missing!
 
 ## Getting Started
 ### 🛠️ Prerequisites
 
-- Linux Support (We have an open issue with support on POSIX systems e.g. Cygwin, WSL)
+- Linux 
+- Windows (via WSL)
 
 ```bash
 sudo apt-get install bison flex make python3-pip -y
 make all
 ```
-That's it for the basics, for specific language installs, check the wiki!
 
 To verify your setup, try our tests:
 ```bash
@@ -74,13 +66,15 @@ $ ./dice 1d20
 ```
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
+```python
+from gnoll import roll
+roll("1d20")
+>> 7
+```
+
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 
-We are currently building a Wiki to help you in building on top of GNOLL.
-In the meantime, if you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
-You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
-
-Please bear with us as we build a project charter to define the scope of the project.
+If you encounter any issues or have any ideas, please file them in our [Issue Tracker](https://github.com/ianfhunter/GNOLL/issues).
 
 ## ✋ Contributing
 
@@ -114,4 +108,4 @@ Individiual licensing arrangements can be made if this is an issue for your proj
 
 ## 💰 Donate
 
-[Keep this project alive](https://paypal.me/ianfhunter)
+[Keep this project alive](https://ko-fi.com/ianfhunter)
