@@ -31,10 +31,6 @@
     return NUMBER;
 }
 
-z {
-    return(SIDED_DIE_ZERO);
-}
-
 d {
     return(SIDED_DIE);
 }

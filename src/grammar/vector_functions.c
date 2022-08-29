@@ -107,7 +107,7 @@ void collapse_vector(vec * vector, vec * new_vector){
     // Converts the like of "2d3"
     // from {1,2,3} to {6}
     // cannot operate on symbols.
-
+    
     if (vector->dtype == SYMBOLIC ){
         new_vector = vector;
     }else{
@@ -191,7 +191,6 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
         index = indexes[i];
         strcpy(result_symbols[i], symbols_list[index]);
     }
-
 }
 
 void filter(vec * dice, vec * cond, int comp_op, vec * output){
@@ -213,7 +212,7 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
 void filter_unique(vec * dice, vec * new_vec){
     int tracker_idx = 0;
     for(int i = 0; i != dice->length; i++){
-
+        
         int v = dice->content[i];
 
         if(! contains(new_vec->content, new_vec->length, v)){

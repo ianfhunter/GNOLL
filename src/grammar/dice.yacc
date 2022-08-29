@@ -66,7 +66,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 
 %start gnoll_statement
 
-%token NUMBER SIDED_DIE FATE_DIE REPEAT SIDED_DIE_ZERO
+%token NUMBER SIDED_DIE FATE_DIE REPEAT 
 %token EXPLOSION IMPLOSION PENETRATE ONCE
 %token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
 %token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
@@ -100,7 +100,7 @@ gnoll_statement:
     |
     sub_statement
 ;
-sub_statement:
+sub_statement: 
     macro_statement
     |
     dice_statement
@@ -117,7 +117,6 @@ macro_statement:
 ;
 
 dice_statement: math{
-
     vec vector;
     vec new_vec;
     vector = $<values>1;
@@ -375,9 +374,9 @@ math:
 collapsing_dice_operations:
     dice_operations DO_COUNT{
 
-        vec new_vec;
+        vec new_vec;    
         vec dice = $<values>1;
-        initialize_vector(&new_vec, NUMERIC, 1);
+        initialize_vector(&new_vec, NUMERIC, 1);                
 
         new_vec.content[0] = dice.length;
         $<values>$ = new_vec;
@@ -486,7 +485,7 @@ dice_operations:
         int check = $<values>3.content[0];
 
         if(dice.dtype == NUMERIC){
-            initialize_vector(&new_vec, NUMERIC, dice.length);
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
             filter(&dice, &condition, check, &new_vec);
 
             $<values>$ = new_vec;
@@ -494,7 +493,7 @@ dice_operations:
             printf("No support for Symbolic die rerolling yet!");
         }
 
-    }
+    } 
     |
     dice_operations MAKE_UNIQUE{
         // TODO
@@ -503,14 +502,14 @@ dice_operations:
         vec dice = $<values>1;
 
         if(dice.dtype == NUMERIC){
-            initialize_vector(&new_vec, NUMERIC, dice.length);
+            initialize_vector(&new_vec, NUMERIC, dice.length);                
             filter_unique(&dice, &new_vec);
 
             $<values>$ = new_vec;
         }else{
             printf("No support for Symbolic die rerolling yet!");
         }
-    }
+    } 
     |
     dice_operations KEEP_HIGHEST NUMBER
     {
@@ -645,14 +644,13 @@ dice_operations:
     |
     die_roll
     {
-    }
+    } 
 ;
 
 die_roll:
-   NUMBER die_symbol NUMBER EXPLOSION ONCE
+   NUMBER SIDED_DIE NUMBER EXPLOSION ONCE
     {
-        int start_from = $<values>2.content[0];
-
+        
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
@@ -662,7 +660,7 @@ die_roll:
             &$<values>3,
             &$<values>$,
             ONLY_ONCE_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -671,10 +669,8 @@ die_roll:
         }
     }
     |
-    die_symbol NUMBER EXPLOSION ONCE
+    SIDED_DIE NUMBER EXPLOSION ONCE
     {
-
-        int start_from = $<values>1.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -685,7 +681,7 @@ die_roll:
             &$<values>2,
             &$<values>$,
             ONLY_ONCE_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -695,11 +691,9 @@ die_roll:
 
     }
     |
-   NUMBER die_symbol NUMBER EXPLOSION PENETRATE
+   NUMBER SIDED_DIE NUMBER EXPLOSION PENETRATE
     {
-
-        int start_from = $<values>2.content[0];
-
+        
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
@@ -709,7 +703,7 @@ die_roll:
             &$<values>3,
             &$<values>$,
             PENETRATING_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -718,9 +712,8 @@ die_roll:
         }
     }
     |
-    die_symbol NUMBER EXPLOSION PENETRATE
+    SIDED_DIE NUMBER EXPLOSION PENETRATE
     {
-        int start_from = $<values>1.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -731,7 +724,7 @@ die_roll:
             &$<values>2,
             &$<values>$,
             PENETRATING_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -741,11 +734,9 @@ die_roll:
 
     }
     |
-   NUMBER die_symbol NUMBER EXPLOSION
+   NUMBER SIDED_DIE NUMBER EXPLOSION
     {
-
-        int start_from = $<values>2.content[0];
-
+        
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
@@ -755,7 +746,7 @@ die_roll:
             &$<values>3,
             &$<values>$,
             PENETRATING_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -764,10 +755,8 @@ die_roll:
         }
     }
     |
-    die_symbol NUMBER EXPLOSION
+    SIDED_DIE NUMBER EXPLOSION
     {
-
-        int start_from = $<values>1.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -778,7 +767,7 @@ die_roll:
             &$<values>2,
             &$<values>$,
             STANDARD_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -788,10 +777,9 @@ die_roll:
 
     }
     |
-    NUMBER die_symbol NUMBER
+    NUMBER SIDED_DIE NUMBER
     {
-        int start_from = $<values>2.content[0];
-
+        
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
@@ -801,7 +789,7 @@ die_roll:
             &$<values>3,
             &$<values>$,
             NO_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -810,11 +798,8 @@ die_roll:
         }
     }
     |
-    die_symbol NUMBER
+    SIDED_DIE NUMBER
     {
-
-        int start_from = $<values>1.content[0];
-
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
@@ -824,7 +809,7 @@ die_roll:
             &$<values>2,
             &$<values>$,
             NO_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -833,7 +818,7 @@ die_roll:
         }
     }
     |
-    NUMBER die_symbol MODULO
+    NUMBER SIDED_DIE MODULO
     {
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
@@ -854,9 +839,9 @@ die_roll:
 
     }
     |
-    die_symbol MODULO
+    SIDED_DIE MODULO
     {
-
+       
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
         num_dice.content[0] = 1;
@@ -879,11 +864,9 @@ die_roll:
 
     }
     |
-    NUMBER die_symbol DO_COUNT
+    |
+    NUMBER SIDED_DIE DO_COUNT
     {
-
-        int start_from = $<values>2.content[0];
-
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 2;
@@ -893,7 +876,7 @@ die_roll:
             &dice_sides,
             &$<values>$,
             NO_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -903,10 +886,9 @@ die_roll:
 
     }
     |
-    die_symbol DO_COUNT
+    SIDED_DIE DO_COUNT
     {
-        int start_from = $<values>1.content[0];
-
+       
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
         num_dice.content[0] = 1;
@@ -919,7 +901,7 @@ die_roll:
             &dice_sides,
             &$<values>$,
             NO_EXPLOSION,
-            start_from
+            1
         );
         print_err_if_present(err);
         if(err){
@@ -966,7 +948,7 @@ die_roll:
         if(err){
             YYABORT;
             yyclearin;
-        }
+        }      
     }
     |
     custom_symbol_dice
@@ -975,7 +957,7 @@ die_roll:
     ;
 
 custom_symbol_dice:
-    NUMBER die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
+    NUMBER SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
 
         // TODO: Multiple ranges
@@ -996,9 +978,8 @@ custom_symbol_dice:
         }
     }
     |
-    die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
+    SIDED_DIE SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
-        printf("{S}!\n");
         vec csd = $<values>3;
         vec result_vec;
         vec number_of_dice;
@@ -1008,7 +989,6 @@ custom_symbol_dice:
         int err = 0;
 
         if (csd.dtype == NUMERIC){
-            printf("{S111}!\n");
             vec dice_sides;
             vec num_dice;
             initialize_vector(&dice_sides, NUMERIC, 1);
@@ -1016,16 +996,16 @@ custom_symbol_dice:
             initialize_vector(&result_vec, NUMERIC, 1);
             dice_sides.content[0] = csd.content[0] + csd.length;
             num_dice.content[0] = 1;
-
+            
             // Range
             err = roll_plain_sided_dice(
                 &num_dice,
-                &dice_sides,
+                &dice_sides,   
                 &result_vec,
                 NO_EXPLOSION,
                 csd.content[0]
             );
-
+            
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
             // Custom Symbol
@@ -1058,6 +1038,7 @@ custom_symbol_dice:
     ;
 csd:
     CAPITAL_STRING SYMBOL_SEPERATOR csd{
+
         vec l;
         vec r;
         l = $<values>1;
@@ -1104,21 +1085,6 @@ csd:
 
 condition: EQ | LT | GT | LE | GE | NE ;
 
-die_symbol:
-    SIDED_DIE{
-        vec new_vec;
-        initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = 1;
-        $<values>$ = new_vec;
-    }
-    |
-    SIDED_DIE_ZERO{
-        vec new_vec;
-        initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = 0;
-        $<values>$ = new_vec;
-    }
-;
 
 
 %%
@@ -1142,7 +1108,6 @@ int roll_verbose(char * s){
     initialize();
     verbose = 1;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
-
     yyparse();
 
     yy_delete_buffer(buffer);
