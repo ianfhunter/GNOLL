@@ -28,11 +28,11 @@ void mocking_tick(){
     switch(global_mock_style){
         case RETURN_INCREMENTING: {
             global_mock_value = global_mock_value+1;
-            break;    
+            break;
         }
         case RETURN_DECREMENTING: {
             global_mock_value = global_mock_value-1;
-            break;    
+            break;
         }
         case RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE: {
             if (random_fn_run_count == 1){
@@ -43,7 +43,7 @@ void mocking_tick(){
             }else{
                 global_mock_value = 1;
             }
-            break;    
+            break;
         }
         default:
             break;
@@ -59,8 +59,9 @@ int random_fn(int small, int big){
     }
     if(small > big ){
         // e.g. roll a minus sided die.
-        // d0 -> {1...0}
-        return big;
+        // Roll between 1 and 0 -> 0
+        // Roll a d-2 (1 and -2)
+        return small;
     };
 
     int value = 0;
@@ -98,12 +99,18 @@ unsigned int * perform_roll(
     do{
         for(int i = 0; i < number_of_dice; i++){
             // TODO: Don't hardcode 1
-            single_die_roll = random_fn(start_value, die_sides);
-            all_dice_roll[i] += single_die_roll;   
+            int end_value = start_value+die_sides-1;
+            if (die_sides == 0){
+                start_value = end_value = 0;
+            }
+
+            // printf("Roll between %d and %d\n", start_value, end_value);
+            single_die_roll = random_fn(start_value, end_value);
+            all_dice_roll[i] += single_die_roll;
 
             exploded_result += single_die_roll;
         }
-        
+
         explosion_condition_score += number_of_dice*die_sides;
         if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
             break;

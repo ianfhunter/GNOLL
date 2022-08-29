@@ -6,7 +6,7 @@ from util import roll, Mock
 
 @pytest.mark.parametrize("r,out,mock",[
     ("d{A}", "A", Mock.NO_MOCK),
-    ("d{A,B,C,D}", "D", Mock.RETURN_CONSTANT)
+    # ("d{A,B,C,D}", "D", Mock.RETURN_CONSTANT)
 ])
 def test_symbolic_dice(r, out, mock):
     result = roll(r, mock_mode=mock)

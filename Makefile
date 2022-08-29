@@ -16,8 +16,11 @@ clean:
 .PHONY: yacc
 yacc:
 	mkdir -p build
-	yacc -d src/grammar/dice.yacc
-	#yacc -d src/grammar/dice.yacc --debug --verbose
+	if [ -z $(DEBUG) ]; then \
+		yacc -d src/grammar/dice.yacc; \
+	else \
+		yacc -d src/grammar/dice.yacc --debug --verbose; \
+	fi
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
