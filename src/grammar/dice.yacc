@@ -66,7 +66,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 
 %start gnoll_statement
 
-%token NUMBER SIDED_DIE FATE_DIE REPEAT 
+%token NUMBER SIDED_DIE FATE_DIE REPEAT SIDED_DIE_ZERO
 %token EXPLOSION IMPLOSION PENETRATE ONCE
 %token MACRO_ACCESSOR MACRO_STORAGE SYMBOL_SEPERATOR ASSIGNMENT
 %token KEEP_LOWEST KEEP_HIGHEST DROP_LOWEST DROP_HIGHEST
@@ -1085,6 +1085,19 @@ csd:
 
 condition: EQ | LT | GT | LE | GE | NE ;
 
+die_symbol: 
+    SIDED_DIE{
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 0);
+        $<value>$ = new_vec;
+    }
+    |
+    SIDED_DIE{
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 0);
+        $<value>$ = new_vec;
+    }
+;
 
 
 %%
