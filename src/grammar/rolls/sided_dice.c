@@ -8,8 +8,8 @@
 
 
 int roll_plain_sided_dice(
-    vec * x, 
-    vec * y, 
+    vec * x,
+    vec * y,
     vec * result,
     EXPLOSION_TYPE explode,
     int start_offset
@@ -18,7 +18,7 @@ int roll_plain_sided_dice(
     // XdY
     int num_dice = x->content[0];
     int sides = y->content[0];
-    
+
     int err = validate_roll(num_dice, sides);
     if (err){
         printf("Validation Error\n");
@@ -40,9 +40,11 @@ int roll_plain_sided_dice(
 
 int roll_symbolic_dice(vec * x, vec * y, vec * result){
     // XdY
+    printf("{roll_symbolic_dice}!\n");
     int num_dice = x->content[0];
 
     int err = validate_roll(num_dice, 1);
+    printf("{roll_symbolic_dice: Validated}!\n");
     if (err){
         return 1;
     }else{
@@ -53,9 +55,14 @@ int roll_symbolic_dice(vec * x, vec * y, vec * result){
         rp.explode = 0;
         rp.symbol_pool = y->symbols;
         rp.start_value = 0; // First index of array
- 
+
+        printf("{roll_symbolic_dice: Do Roll}!\n");
         int * indexes = do_roll(rp);
+
+        printf("{roll_symbolic_dice: extract_symbols}!\n");
         extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
+
+        printf("{roll_symbolic_dice: end}!\n");
     }
     return 0;
 }
