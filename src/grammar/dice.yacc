@@ -998,7 +998,6 @@ custom_symbol_dice:
     |
     die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
-        printf("{S}!\n");
         vec csd = $<values>3;
         vec result_vec;
         vec number_of_dice;
@@ -1008,7 +1007,6 @@ custom_symbol_dice:
         int err = 0;
 
         if (csd.dtype == NUMERIC){
-            printf("{S111}!\n");
             vec dice_sides;
             vec num_dice;
             initialize_vector(&dice_sides, NUMERIC, 1);
