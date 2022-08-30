@@ -52,6 +52,7 @@ void mocking_tick(){
 
 
 int random_fn(int small, int big){
+    // printf("Between %i and %i\n", small, big);
     random_fn_run_count++;
 
     if(small == big){
