@@ -67,7 +67,7 @@ $ ./dice 1d20
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
 ```python
-from gnoll import roll
+from gnoll.parser import roll
 roll("1d20")
 >> 7
 ```
