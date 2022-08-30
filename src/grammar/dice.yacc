@@ -1012,8 +1012,11 @@ custom_symbol_dice:
             initialize_vector(&dice_sides, NUMERIC, 1);
             initialize_vector(&num_dice, NUMERIC, 1);
             initialize_vector(&result_vec, NUMERIC, 1);
-            dice_sides.content[0] = csd.content[0] + csd.length;
             num_dice.content[0] = 1;
+
+            int start_value = csd.content[0];
+            int end_value = csd.content[csd.length-1];
+            dice_sides.content[0] = end_value - start_value + 1;
 
             // Range
             err = roll_plain_sided_dice(
@@ -1021,7 +1024,7 @@ custom_symbol_dice:
                 &dice_sides,
                 &result_vec,
                 NO_EXPLOSION,
-                csd.content[0]
+                start_value
             );
 
         }else{
@@ -1079,6 +1082,7 @@ csd:
 
         int s = start.content[0];
         int e = end.content[0];
+
 
         if (s > e){
             printf("Range: %i -> %i\n", s, e);
