@@ -20,7 +20,7 @@ Here's an example of how you might use GNOLL:
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes)
+[You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/GNOLL/wiki/Numeric-Dice)
 
 ## Current Status
 ### 🧑‍💻 Language Support
