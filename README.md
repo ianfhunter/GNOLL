@@ -6,8 +6,10 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <!-- Dark and Light Mode switches -->
+ 
+<p align="center">
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
-
+</p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
