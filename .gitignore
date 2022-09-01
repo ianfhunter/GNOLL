@@ -143,3 +143,6 @@ src/python/code/gnoll/c_build
 # Perl Artifacts
 MYMETA.*
 result.die
+
+# GO Artifacts
+src/go/main

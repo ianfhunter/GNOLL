@@ -8,7 +8,7 @@
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Perl and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
@@ -30,6 +30,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - C / C++
 - Python
 - Perl
+- Go
 
 Tested on Linux (Ubuntu) and Windows (10, WSL).
 
@@ -48,9 +49,6 @@ And feel free to ask for anything we're missing!
 ## Getting Started
 ### 🛠️ Prerequisites
 
-- Linux 
-- Windows (via WSL)
-
 ```bash
 sudo apt-get install bison flex make python3-pip -y
 make all
@@ -68,6 +66,7 @@ $ ./dice 1d20
 ```
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
+Sample Python Call:
 ```python
 from gnoll.parser import roll
 roll("1d20")
