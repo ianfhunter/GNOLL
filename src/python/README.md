@@ -1,12 +1,15 @@
 # GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
+[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
+[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <!-- Dark and Light Mode switches -->
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Perl and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
@@ -28,6 +31,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - C / C++
 - Python
 - Perl
+- Go
 
 Tested on Linux (Ubuntu) and Windows (10, WSL).
 
@@ -46,9 +50,6 @@ And feel free to ask for anything we're missing!
 ## Getting Started
 ### 🛠️ Prerequisites
 
-- Linux 
-- Windows (via WSL)
-
 ```bash
 sudo apt-get install bison flex make python3-pip -y
 make all
@@ -66,6 +67,7 @@ $ ./dice 1d20
 ```
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
+Sample Python Call:
 ```python
 from gnoll.parser import roll
 roll("1d20")
@@ -82,13 +84,13 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## 🔢 Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/dice-tower/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/gnoll/tags).
 
 ## 🤹 Authors / Contributers / Attributions
 
 * **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
 
-See also the list of [contributors](https://github.com/ianfhunter/dice-tower/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
 ## 📃 License
 
