@@ -7,6 +7,7 @@ import "C"
 import "fmt"
 import "os"
 import "unsafe"
+import "io/ioutil"
 
 func check(e error){
   if e!=nil{
@@ -20,7 +21,7 @@ func main(){
     output_file := C.CString(dice_file)
     os.Remove(dice_file)
     C.roll_and_write(to_roll, output_file);
-    dat, err := os.ReadFile(dice_file)
+    dat, err := ioutil.ReadFile(dice_file)
     check(err)
     fmt.Print(string(dat))
     C.free(unsafe.Pointer(to_roll))
