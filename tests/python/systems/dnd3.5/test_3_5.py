@@ -24,3 +24,9 @@ def test_3_5_weight():
     result = roll("100x2d4")
     assert result >= 200
     assert result <= 800
+
+def test_3_5_fall_dmg():
+    # Weight for a female Gnome
+    result = roll("20d6")
+    assert result >= 20
+    assert result <= 120
