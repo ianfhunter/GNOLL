@@ -79,7 +79,7 @@ d {
 
     return(FATE_DIE);
 }
-(dF|df)(\.2)? {
+(dF|df)(\.2)?(?!\.[0,3-9]) {
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
     plus = "+";
