@@ -3,7 +3,7 @@
 import pytest
 from util import roll, Mock
 
-pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
+@pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
 def test_fate(FD):
     # Assure Symbols are correct
     # TODO: Maybe it would be better to return "PLUS", "BLANK" "MINUS"?
