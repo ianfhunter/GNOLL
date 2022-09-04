@@ -3,14 +3,15 @@
 import pytest
 from util import roll, Mock
 
-def test_fate():
+pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
+def test_fate(FD):
     # Assure Symbols are correct
-    # TODO: Maybe it would be better to return "PLUS", "ZERO" "MINUS"?
-    result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    # TODO: Maybe it would be better to return "PLUS", "BLANK" "MINUS"?
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == 0
-    result = roll("dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "-"
 
 
