@@ -17,11 +17,11 @@ def test_3_5_height():
 
 def test_3_5_weight():
     # Weight for a female Gnome
-    result = roll("40x1")
+    result = roll("40*1")
     assert result == 40
     
     # Weight for a male half-elf
-    result = roll("100x2d4")
+    result = roll("100*2d4")
     assert result >= 200
     assert result <= 800
 
