@@ -14,8 +14,8 @@ def test_traditional_fate(FD):
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "-"
 
-@pytest.mark.parametrize("FD",["df.2", "dF.2"])
-def test_large_alt_fate_2(FD):
+@pytest.mark.parametrize("FD",["df.1", "dF.1"])
+def test_large_alt_fate_low(FD):
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
@@ -30,7 +30,7 @@ def test_large_alt_fate_2(FD):
     assert result == "-"
 
 @pytest.mark.parametrize("FD",["df.3", "dF.9"])
-def test_large_alt_fate_N(FD):
+def test_large_alt_fate_high(FD):
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
