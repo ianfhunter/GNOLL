@@ -38,27 +38,8 @@ z {
 d {
     return(SIDED_DIE);
 }
-(dF|df)(\.2)? {
-    char * plus, *minus, *zero;
-    plus = (char *)malloc(sizeof(char *));
-    plus = "+";
-    zero = (char *)malloc(sizeof(char *));
-    zero = "0";
-    minus = (char *)malloc(sizeof(char *));
-    minus = "-";
 
-    vec vector;
-    vector.dtype = SYMBOLIC;
-    vector.symbols = malloc(sizeof(char **) * 3);
-    vector.symbols[0] = plus;
-    vector.symbols[1] = zero;
-    vector.symbols[2] = minus;
-    vector.length = 3;
-    yylval.values = vector;
-
-    return(FATE_DIE);
-}
-(dF|df)(\.1) {
+(dF|df)\.1 {
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
     plus = "+";
@@ -81,7 +62,7 @@ d {
 
     return(FATE_DIE);
 }
-(dF|df)(\.[3-9]) {
+(dF|df)\.[3-9] {
     char * plus, *minus;
     plus = (char *)malloc(sizeof(char *));
     plus = "+";
@@ -94,6 +75,26 @@ d {
     vector.symbols[0] = plus;
     vector.symbols[1] = minus;
     vector.length = 2;
+    yylval.values = vector;
+
+    return(FATE_DIE);
+}
+(dF|df)(\.2)? {
+    char * plus, *minus, *zero;
+    plus = (char *)malloc(sizeof(char *));
+    plus = "+";
+    zero = (char *)malloc(sizeof(char *));
+    zero = "0";
+    minus = (char *)malloc(sizeof(char *));
+    minus = "-";
+
+    vec vector;
+    vector.dtype = SYMBOLIC;
+    vector.symbols = malloc(sizeof(char **) * 3);
+    vector.symbols[0] = plus;
+    vector.symbols[1] = zero;
+    vector.symbols[2] = minus;
+    vector.length = 3;
     yylval.values = vector;
 
     return(FATE_DIE);
