@@ -7,7 +7,7 @@ def test_3_5_age():
     # Age for an old Gnome 
     result = roll("150+3d%")
     assert result >= 203
-    assert result <= 230
+    assert result <= 450
 
 def test_3_5_height():
     # Height for a female Gnome 
