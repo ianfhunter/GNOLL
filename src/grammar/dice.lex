@@ -38,7 +38,7 @@ z {
 d {
     return(SIDED_DIE);
 }
-df|dF {
+(dF|df)(\.[1-9])? {
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
     plus = "+";
