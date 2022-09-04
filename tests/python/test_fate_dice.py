@@ -4,7 +4,7 @@ import pytest
 from util import roll, Mock
 
 @pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
-def test_fate(FD):
+def test_traditional_fate(FD):
     # Assure Symbols are correct
     # TODO: Maybe it would be better to return "PLUS", "BLANK" "MINUS"?
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
@@ -14,6 +14,27 @@ def test_fate(FD):
     result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "-"
 
+@pytest.mark.parametrize("FD",["df.2", "dF.2"])
+def test_large_alt_fate(FD):
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    assert result == "+"
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    assert result == 0
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    assert result == 0
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
+    assert result == 0
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=4)
+    assert result == 0
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=5)
+    assert result == "-"
+
+@pytest.mark.parametrize("FD",["df.3", "dF.9"])
+def test_large_alt_fate(FD):
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    assert result == "+"
+    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    assert result == "-"
 
 def test_multidie():
     result = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
