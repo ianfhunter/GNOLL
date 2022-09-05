@@ -40,29 +40,24 @@ int roll_plain_sided_dice(
 
 int roll_symbolic_dice(vec * x, vec * y, vec * result){
     // XdY
-    printf("{roll_symbolic_dice}!\n");
     int num_dice = x->content[0];
 
     int err = validate_roll(num_dice, 1);
-    printf("{roll_symbolic_dice: Validated}!\n");
     if (err){
         return 1;
     }else{
         // e.g. d4, it is implied that it is a single dice
         roll_params rp;
         rp.number_of_dice = num_dice ;
-        rp.die_sides = y->length - 1 ;
+        rp.die_sides = y->length;
         rp.explode = 0;
         rp.symbol_pool = y->symbols;
         rp.start_value = 0; // First index of array
 
-        printf("{roll_symbolic_dice: Do Roll}!\n");
         int * indexes = do_roll(rp);
 
-        printf("{roll_symbolic_dice: extract_symbols}!\n");
         extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
 
-        printf("{roll_symbolic_dice: end}!\n");
     }
     return 0;
 }

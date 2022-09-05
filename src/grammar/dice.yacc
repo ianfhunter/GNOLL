@@ -962,6 +962,7 @@ die_roll:
             &result_vec
         );
         $<values>$ = result_vec;
+
         print_err_if_present(err);
         if(err){
             YYABORT;
