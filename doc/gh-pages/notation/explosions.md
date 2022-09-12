@@ -1,6 +1,7 @@
 ---
 title: Explosions & Implosions
 published: true
+nav_order: 6
 ---
 
 # Grindon's Adventure

@@ -1,6 +1,7 @@
 ---
 title: Dice Math
 published: true
+nav_order: 4
 ---
 
 # Grindon's Adventure

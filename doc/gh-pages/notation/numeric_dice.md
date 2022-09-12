@@ -1,6 +1,7 @@
 ---
 title: Numeric Dice
 published: true
+nav_order: 1
 ---
 
 # Grindon's Tale

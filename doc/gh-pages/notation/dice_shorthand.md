@@ -1,6 +1,7 @@
 ---
 title: Dice Shorthand
 published: true
+nav_order: 3
 ---
 
 # Grindon's Adventure 

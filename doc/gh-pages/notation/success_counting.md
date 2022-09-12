@@ -1,6 +1,7 @@
 ---
 title: Success Counting
 published: true
+nav_order: 8
 ---
 
 `WIP`

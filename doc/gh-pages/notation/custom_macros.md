@@ -1,6 +1,7 @@
 ---
 title: Custom Macros
 published: true
+nav_order: 10
 ---
 <!-- TODO: Grindon's Tale -->
 

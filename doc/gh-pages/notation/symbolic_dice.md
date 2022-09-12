@@ -1,6 +1,8 @@
 ---
 title: Symbolic Dice
 published: true
+nav_order: 2
+
 ---
 
 # Grindon's Tale 

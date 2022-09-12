@@ -1,6 +1,7 @@
 ---
 title: Custom Macros
 published: true
+nav_order: 0
 ---
 
 # Technical Setup
