@@ -2,7 +2,8 @@
 title: Numeric Dice
 published: true
 ---
-## Grindon's Tale
+
+# Grindon's Tale
 
 ```
    GM (Game Master): Okay, Welcome to the game. Let's get started. You've just received a contract to explore a nearby dungeon. Roll a d5 and it'll take that many days."

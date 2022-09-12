@@ -4,7 +4,7 @@ It is current under construction as we migrate from [our Wiki](https://github.co
 
 The aim of GNOLL is to provide the world with a library to make parsing dice notation as simple as possible, without compromising on functionality or performance. We too wish to provide direction on shaping dice notation standards.
 
-Want to set up GNOLL? Read our [Technical Setup](#)
-Want to understand dice notation? Start by understanding the basic types of dice and following [Grindon's Adventure](#).
+Want to set up GNOLL? Read our [Technical Setup](setup/installation.md)
+Want to understand dice notation? Start by understanding the basic types of dice and following [Grindon's Adventure](notation/numeric_dice.md).
 
-[Sponsor GNOLL](#)
+[Sponsor GNOLL](https://ko-fi.com/ianfhunter)
