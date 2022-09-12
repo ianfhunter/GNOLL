@@ -5,7 +5,9 @@ nav_order: 5
 
 ---
 
-# Grindon's Adventure
+# Drop/Keep Notation
+
+## Grindon's Adventure
 ```
    GM: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
    Grindon The Brave: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
@@ -15,7 +17,7 @@ nav_order: 5
    GM: You are the night itself. You take down the goblin before it can even react. 
 ```
 
-## Dropping Values
+## Implementation Comparison
 
 You might want to roll two dice and choose the higher or lower of the two in order to give you an *advantage* or *disadvantage*
 
@@ -23,13 +25,16 @@ There isn't a consistent way to express this:
 
 | Platform   | Keep Highest/Drop Lowest | Keep Lowest/Drop Highest |
 | ---------- | ------------------------ | ------------------------ |
-| Roll20     | 2d6kh                    | 2d6kl                    |
-| Rolz       | 2d6h                     | 2d6l                     |
-| OpenRoleplaying.org | 2d6-L           | 2d6-H                    |
-| RoleGate   | 2d6k                     | 2d6kl                    |
-| Dice.Run   | 2d6k                     | 2d6d                     |
-| FoundryVTT | 2d6max                   | 2d6min                   |
-| Avrae      | 2d6k1                    | 2d6p1                    |
+| [Roll20](https://roll20.net/)     | 2d6kh                    | 2d6kl                    |
+| [Rolz](https://rolz.org/)       | 2d6h                     | 2d6l                     |
+| [OpenRoleplaying](http://openroleplaying.org/) | 2d6-L           | 2d6-H                    |
+| [RoleGate](https://www.rolegate.com/)   | 2d6k                     | 2d6kl                    |
+| [Dice.Run](https://dice.run/#/d/2d6d)   | 2d6k                     | 2d6d                     |
+| [FoundryVTT](https://foundryvtt.com/) | 2d6max                   | 2d6min                   |
+| [Avrae](https://avrae.io/)      | 2d6k1                    | 2d6p1                    |
+| [DiceLogger](https://www.dicelogger.com/) | 2d6b1 | ? |
+
+## GNOLL Syntax 
 
 GNOLL's Syntax is:
 
@@ -46,7 +51,7 @@ e.g.
 > 'd' is sometimes avoided to avoid conflicting with the 'd' for defining a dice e.g. 'd6'
 > GNOLL does not have this issue as a following term (l or h) are mandatory to specify.
 
-### Drop 'Middle'
+## Drop 'Middle'
 GNOLL does not allow dropping a 'middle' dice as it will create unintuitive rules for handling odd/even dice like "upper-middle" or "lower-middle".
 Instead, you can reproduce this by dropping both sides of a roll.
 
