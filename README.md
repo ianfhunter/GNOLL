@@ -23,35 +23,53 @@ Here's an example of how you might use GNOLL:
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's adventure through the world of dice notation in our Wiki](https://github.com/ianfhunter/GNOLL/wiki/Numeric-Dice)
+[You can follow Grindon's full adventure through the world of dice notation in our Wiki](https://www.ianhunter.ie/GNOLL). 
+
+Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
 
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access GNOLL's functionality through different languages in the near future.
+We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too: 
 
 - C / C++
 - Python
 - Perl
 - Go
 
-Tested on Linux (Ubuntu) and Windows (10, WSL).
+ We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
+
+Tested on Linux (Ubuntu) and Windows (10, WSL). 
 
 ### 🎲 Dice Notation
 - XdY notation
 - Arithmetic
 - Fate Dice
 - Miscellaneous Symbolic Dice
-- Macros 
+- Shorthands & Macros 
+- Alternate Syntax
 - Explosions
 - Drop/Keep
+- Rerolling
 
-For the specific details of supported notation, [we've got a dedicated section in our wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes).
-And feel free to ask for anything we're missing!
+There's so many different things, we'd bore you to list them all here. For the specific details of supported notation, [check out our documentation](https://www.ianhunter.ie/GNOLL).
 
 ## Getting Started
-### 🛠️ Prerequisites
+### Usage from a package manager
+#### Python
+```
+pip3 install GNOLL
+```
 
+Then, in your code:
+```python
+from gnoll.parser import roll
+roll("1d20")
+>> 7
+```
+
+### 🛠️ Installing From Source
+#### Basic Requirements
 ```bash
 sudo apt-get install bison flex make python3-pip -y
 make all
@@ -69,12 +87,7 @@ $ ./dice 1d20
 ```
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
-Sample Python Call:
-```python
-from gnoll.parser import roll
-roll("1d20")
->> 7
-```
+For languages other than Python/C/C++ call the corresponding make target after the commands above.
 
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 

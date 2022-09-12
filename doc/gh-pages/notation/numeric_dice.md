@@ -1,4 +1,9 @@
-## Grindon's Tale
+---
+title: Numeric Dice
+published: true
+---
+
+# Grindon's Tale
 
 ```
    GM (Game Master): Okay, Welcome to the game. Let's get started. You've just received a contract to explore a nearby dungeon. Roll a d5 and it'll take that many days."
@@ -18,7 +23,7 @@
    GM: Two goblins! Dressed up in rusted armour and bent weaponry, as if protecting the entrance.
 ```
 
-What will happen next? [Continue to the next chapter!](https://github.com/ianfhunter/GNOLL/wiki/Symbolic-Dice)
+What will happen next? [Continue to the next chapter!](Symbolic-Dice)
 
 
 # Basic Dice
