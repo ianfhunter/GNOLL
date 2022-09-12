@@ -1,6 +1,7 @@
-# theme: 
+
 remote_theme: just-the-docs/just-the-docs
 exclude:
  - src/*
 plugins:
   - jekyll-seo-tag
+  - jekyll-remote-theme
