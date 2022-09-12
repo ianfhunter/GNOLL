@@ -1,3 +1,7 @@
+---
+title: Numeric Dice
+published: true
+---
 ## Grindon's Tale
 
 ```
@@ -18,7 +22,7 @@
    GM: Two goblins! Dressed up in rusted armour and bent weaponry, as if protecting the entrance.
 ```
 
-What will happen next? [Continue to the next chapter!](https://github.com/ianfhunter/GNOLL/wiki/Symbolic-Dice)
+What will happen next? [Continue to the next chapter!](Symbolic-Dice)
 
 
 # Basic Dice
