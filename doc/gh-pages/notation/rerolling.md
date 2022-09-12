@@ -1,5 +1,5 @@
 ---
-title: Explosions & Implosions
+title: Rerolling
 published: true
 nav_order: 7
 ---
