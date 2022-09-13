@@ -6,16 +6,13 @@ nav_order: 4
 
 # Math with Dice
 
-```
-   ⚔️ Grindon's Tale
-   
-   GM: As you climb out of the fireplace, roll a stealth check to avoid making noise in the charcoal and debris below.
-   Gridon: 1d20+4
-   GNOLL: [5]
-   GM: Oh no! A big hairy gnoll in the next room has noticed all the noise you're making!
-   Gridon: Crap! I make a run for it. Where's the door?
-   GM: There's another door, but... it's locked!
-```
+{: .story }   
+>   GM: As you climb out of the fireplace, roll a stealth check to avoid making noise in the charcoal and debris below.
+>   Gridon: 1d20+4
+>   GNOLL: [5]
+>   GM: Oh no! A big hairy gnoll in the next room has noticed all the noise you're making!
+>   Gridon: Crap! I make a run for it. Where's the door?
+>   GM: There's another door, but... it's locked!
 
 ## Numeric Dice
 For Numeric Dice, math follows normal conventions.
@@ -31,10 +28,8 @@ For Numeric Dice, math follows normal conventions.
    - 10%3 = 1
  - Brackets (())
 
-```
-⚠️ Warning! 
+{: .warning }
 Be careful with characters like \ and / and be sure to escape them if needed in your calling program.
-```
 
 ## Symbolic Dice
 For Symbolic Dice, even if the symbols are numbers, the logic is different as GNOLL treats the values as strings (words).
