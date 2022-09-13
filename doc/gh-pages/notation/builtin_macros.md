@@ -4,8 +4,16 @@ published: true
 
 nav_order: 9
 ---
-<!-- TODO: Grindon's Tale -->
 
+# Built-In Macros
+
+```
+⚔️ Grindon's Tale
+
+```
+> TODO
+
+## Supported Macros
 Here are a sample of the dice that can be used via Macro Accessors
 
 <!-- textlint-disable -->
@@ -19,11 +27,11 @@ Here are a sample of the dice that can be used via Macro Accessors
 | Card Suits| CLUBS, DIAMONDS, HEARTS, SPADES | #CARD_SUIT |
 | Zodiac | Aries through Pisces | #ZODIAC |
 | Planets | Sun, Moon, Mercury through Pluto, Ascending Node, and Descending Node | #PLANETS |
-
-
 <!-- textlint-enable -->
 
 More can be found in the `builtins/` folder [here](https://github.com/ianfhunter/GNOLL/tree/main/builtins)
+
+## Usage
 
 To use a Macro, access it with '#' as below
 > #POKER_DICE

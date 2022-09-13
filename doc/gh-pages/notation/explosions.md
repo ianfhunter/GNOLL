@@ -4,8 +4,10 @@ published: true
 nav_order: 6
 ---
 
-# Grindon's Adventure
+# Explosions & Implosions
 ```
+   ⚔️ Grindon's Tale
+   
    Grindon: Oh gosh, uh. What's in the room?! How close is the gnoll?
    GM: He's just coming through the door. There's a small table, a chest and some barrels of oil.
    Grindon: Oil! I light a torch and throw a match, diving back into the fireplace.
@@ -18,13 +20,16 @@ nav_order: 6
    GM: I'm pretty sure whatever else is in this cave heard that too :)
 ```
 
-# Traditional Explosions
+## Traditional Explosions
 
 When a dice is marked as Exploding ("!"), if it rolls its maximum value, we will reroll it one again and add the result. If it keeps hitting the max value, we keep rolling.
 
 > Note: If you want to only re-roll once, look at "Rerolling" below instead.
 
-## Multiple Explosions
+### Multiple Explosions
+
+*Under Construction*
+
 Note: if you explode multiple dice, they will be grouped together as a condition for explosion:
 
 ```2d3! -> Explodes on (3)(3)```
@@ -33,7 +38,10 @@ If you want to explode them individually try:
 
 ```d3! + d3! -> Explodes on (3) and Explodes on (3)```
 
-# Penetrating Explosions
+## Penetrating Explosions
+
+*Under Construction*
+
 When an explosion is set off, the range of the next dice is reduced by 1 step. As we don't want to encode any system specific mechanics here, the 'steps' of dice need to be specified.
 
 > {d4,d6,d8,d10,d12,d20}!p
@@ -41,7 +49,8 @@ When an explosion is set off, the range of the next dice is reduced by 1 step. A
 Not Implemented Yet. See [Issue #11](https://github.com/ianfhunter/GNOLL/issues/11) 
 
 
-# Diminishing Explosions
+## Diminishing Explosions
+
 *Under Construction*
 
 <!---
@@ -57,9 +66,9 @@ $DND_5E_EXPLOSION_SET=d12,d10,d8,d6,d4 ; d20![$DND_5E_EXPLOSION_SET]
 > What the dice here was roll several max values (3,3,3,3) and finally a 1. A max value triggers another roll to be added on.
 -->
 
-# Imploding dice
+## Imploding dice
 
-*UNDER CONSTRUCTION*
+*Under Construction*
 
 <--
 There is no consistent standard for imploding dice. Here are a few candidates:
@@ -68,10 +77,15 @@ There is no consistent standard for imploding dice. Here are a few candidates:
 -->
 
 ## Inverse Explosion
+
+*Under Construction*
+
 This seems an unlikely use case as it involves many rolls, and at a tabletop, that's not quite feasible. Until this is clarified, it is deemed out of the current scope of the project
 
 (TODO: Add Explanation)
 
 ## Negative Explosion
-*UNDER CONSTRUCTION*
+
+*Under Construction*
+
 This can be triggered with "~" instead of "!". It activates on the lowest number match rather than the highest. The rerolled values are subtracted from the total.

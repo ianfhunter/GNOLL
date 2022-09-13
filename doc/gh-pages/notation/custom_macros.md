@@ -3,9 +3,17 @@ title: Custom Macros
 published: true
 nav_order: 10
 ---
-<!-- TODO: Grindon's Tale -->
 
-> This is an advanced feature. Feel free to ask us for help!
+# Custom Macros
+
+```
+   ⚔️ Grindon's Tale
+   
+   TODO
+```
+
+## Usage
+*This is an advanced feature. Feel free to ask us for help!*
 
 There are certain system-specific [[Built-In Macros]] for you to take advantage of.
 

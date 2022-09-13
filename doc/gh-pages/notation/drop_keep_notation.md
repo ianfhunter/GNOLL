@@ -7,8 +7,9 @@ nav_order: 5
 
 # Drop/Keep Notation
 
-## Grindon's Adventure
 ```
+   ⚔️ Grindon's Tale
+
    GM: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
    Grindon The Brave: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
    GM: It's pretty dark in here, so I'll give you advantage on a stealth roll

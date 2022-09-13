@@ -1,11 +1,14 @@
 ---
-title: Dice Math
+title: Math with Dice
 published: true
 nav_order: 4
 ---
 
-# Grindon's Adventure
+# Math with Dice
+
 ```
+   ⚔️ Grindon's Tale
+   
    GM: As you climb out of the fireplace, roll a stealth check to avoid making noise in the charcoal and debris below.
    Gridon: 1d20+4
    GNOLL: [5]

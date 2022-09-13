@@ -4,7 +4,16 @@ published: true
 nav_order: 8
 ---
 
-`WIP`
+# Success Counting
+
+```
+   ⚔️ Grindon's Tale
+   
+   TODO
+```
+
+*Under Construction*
+
 ## Counting Successes
 
 In several games, the rolls may not be a matter of *if* your total of rolls is good, but *how many* good rolls you have.

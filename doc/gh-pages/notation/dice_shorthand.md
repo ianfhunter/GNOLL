@@ -4,8 +4,11 @@ published: true
 nav_order: 3
 ---
 
-# Grindon's Adventure 
+# Dice Shorthand
+
 ```
+   ⚔️ Grindon's Tale
+
    Grindon: Alright, before I crawl through the chimney, I'm going to look down it to check it's safe
    GM: There are the remains of a fire, but it looks safe to descend
    Grindon: Great! Onwards!
@@ -14,8 +17,6 @@ nav_order: 3
    GM: *Consults Table* "A half-burnt wooden doll that looks eerily familiar. It looks like... you!"
    Grindon: That's.. unsettling... I thought my ears were burning earlier.. 
 ```
-
-# Common Dice Shorthand
 
 ## Numeric Dice
 d% is often be used in place of a d100
@@ -41,6 +42,6 @@ Additionally you might find "dF.1", "dF.2" and "dF.3" elsewhere. These expand to
 
 As the number indicates how many plus and minus symbols to have on the dice, any number larger than 3 is treated as dF.3
 
-# Others
+## Others
 
 If there is a common shorthand you are aware of that is not implemented you can file an issue or you can define custom dice by [[Creating Custom Macros]] .

@@ -4,9 +4,11 @@ published: true
 nav_order: 7
 ---
 
-# Grindon's Adventure
+# Rerolling
 
 ```
+   ⚔️ Grindon's Tale
+   
    GM: Well, you took a load of damage, but you did level up.
    Grindon: Nice, I get my class feature - I can reroll 1s!
    GM: Do you remember how to do that?
@@ -16,8 +18,6 @@ nav_order: 7
    Grindon: Yeah, but then I deserved it.
 ```
 
-
-# Rerolling
 Rerolling is often based on conditions (e.g. reroll if result is a 1). There are two options when using these conditions
  - Reroll once 
  - Reroll until the condition is no longer true.
@@ -31,7 +31,7 @@ If you wish to run the same thing several times, you can use "xN" to re-do an op
 
 ## Conditional Rolling
 
-*UNDER CONSTRUCTION*
+*Under Construction*
 
 <!--
 ```
