@@ -22,3 +22,7 @@ callouts:
   story:
     title: ⚔️ Grindon's Tale
     color: yellow
+  
+  gnoll:
+    title: 🐺 GNOLL
+    color: brown
