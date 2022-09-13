@@ -25,7 +25,7 @@ For Numeric Dice, math follows normal conventions.
    - 4-3 = 1
  - Multiply (*): 
    - 5*2: 10
- - Divide (Two variants, rounding up(\|) and rounding down(/)): 
+ - Divide (rounding up(\\) and rounding down(/)): 
    - 10/2: 5
  - Modulo (%): 
    - 10%3 = 1
@@ -41,7 +41,7 @@ For Symbolic Dice, even if the symbols are numbers, the logic is different as GN
 - Multiply (*) - Duplicate if multiplying by a number. Cannot multiply by a symbol
    - "A" * 5 = "AAAAA"
    - "A" * "B" = ERR
-- Divide (| or /): Currently always produces an error.
+- Divide (\\ or /): Currently always produces an error.
 - Modulo (%): Currently always produces an error.
 - Brackets (())
 
