@@ -48,4 +48,6 @@ As the number indicates how many plus and minus symbols to have on the dice, any
 
 ## Others
 
-If there is a common shorthand you are aware of that is not implemented you can file an issue or you can define custom dice by [[Creating Custom Macros]] .
+Occasionally just 'c' is used for a HEADS, TAILS flip of a dice. GNOLL also supports this syntax.
+
+If there is a common shorthand you are aware of that is not implemented you can file an issue or you can define custom dice by [[Creating Custom Macros]] . Less common ones may be accepted as [[Built-In Macros]]
