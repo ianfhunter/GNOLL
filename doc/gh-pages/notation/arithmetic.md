@@ -31,6 +31,11 @@ For Numeric Dice, math follows normal conventions.
    - 10%3 = 1
  - Brackets (())
 
+```
+⚠️ Warning! 
+Be careful with characters like \ and / and be sure to escape them if needed in your calling program.
+```
+
 ## Symbolic Dice
 For Symbolic Dice, even if the symbols are numbers, the logic is different as GNOLL treats the values as strings (words).
 
