@@ -8,33 +8,47 @@ nav_order: 1
 
 
 {: .story }   
->  GM (Game Master): Okay, Welcome to the game. Let's get started. You've just received a contract to explore a nearby dungeon. Roll a d5 and it'll take that many days."
+> **GM** (Game Master): Okay, Welcome to the game. Let's get started. You've just received a contract to explore a nearby dungeon. Roll a d5 and it'll take that many days."
 >  
->     Grindon the Brave: "d5"
+> **Grindon the Brave**: "d5"
+> {: .opaque }
+> <div markdown="block">
+> {: .gnoll }
+> 3
+> </div>
+>
+> **GM**: Okay, you should have enough supplies for that trip. Saddle up and let's go!
 >  
->   GNOLL: [3]
+>   **Grindon the Brave**: Onward to adventure! I'll pick up a book in the store to read on the road!
 >  
->   GM: Okay, you should have enough supplies for that trip. Saddle up and let's go!
+>  **GM** There's a few book shops around here, That'll be 2d4 gold pieces when you eventually find an interesting one
 >  
->   Grindon the Brave: Onward to adventure! I'll pick up a book in the store to read on the road!
+>  **Grindon the Brave**: "2d4"
+> {: .opaque }
+> <div markdown="block">
+> {: .gnoll }
+> 7
+> </div>
 >  
->  GM: There's a few book shops around here, That'll be 2d4 gold pieces when you eventually find an interesting one
+>**Grindon the Brave**: "Ugh. Expensive, but it is a signed copy at least!"
 >  
->  Grindon the Brave: "2d4"
+> **GM**: You catch the next wagon out of town and buildings start changing into fields of wheat and barley as it moves out. The journey is long and... "z4"
 >  
->GNOLL: [7]
+> {: .opaque }
+> <div markdown="block">
+> {: .gnoll }
+> 0
+> </div>
 >  
->Grindon the Brave: "Ugh. Expensive, but it is a signed copy at least!"
+> **GM** Uneventful! You make it to the dungeon unabated. However, at the entrance stands.. d{2,4,5}
 >  
->  GM: You catch the next wagon out of town and buildings start changing into fields of wheat and barley as it moves out. The journey is long and... "z4"
+> {: .opaque }
+> <div markdown="block">
+> {: .gnoll }
+> 2
+> </div>
 >  
->GNOLL: [0]
->  
->GM: Uneventful! You make it to the dungeon unabated. However, at the entrance stands.. d{2,4,5}
->  
->GNOLL: [2]
->  
->GM: Two goblins! Dressed up in rusted armour and bent weaponry, as if protecting the entrance.
+> **GM** Two goblins! Dressed up in rusted armour and bent weaponry, as if protecting the entrance.
 ```
 
 What will happen next? [Continue to the next chapter!](Symbolic-Dice)
