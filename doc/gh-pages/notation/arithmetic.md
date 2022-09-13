@@ -8,10 +8,15 @@ nav_order: 4
 
 {: .story }   
 >   GM: As you climb out of the fireplace, roll a stealth check to avoid making noise in the charcoal and debris below.
+>
 >   Gridon: 1d20+4
+>
 >   GNOLL: [5]
+>
 >   GM: Oh no! A big hairy gnoll in the next room has noticed all the noise you're making!
+>
 >   Gridon: Crap! I make a run for it. Where's the door?
+>
 >   GM: There's another door, but... it's locked!
 
 ## Numeric Dice

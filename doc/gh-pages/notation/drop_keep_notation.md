@@ -7,15 +7,19 @@ nav_order: 5
 
 # Drop/Keep Notation
 
-```
-   ⚔️ Grindon's Tale
 
-   GM: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
-   Grindon The Brave: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
-   GM: It's pretty dark in here, so I'll give you advantage on a stealth roll
-   Grindon The Brave: Nice, "2d20kh"
-   GNOLL: [20]
-   GM: You are the night itself. You take down the goblin before it can even react. 
+{: .story }   
+>   GM: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
+>
+>Grindon The Brave: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
+>
+>   GM: It's pretty dark in here, so I'll give you advantage on a stealth roll
+>
+>   Grindon The Brave: Nice, "2d20kh"
+>
+>   GNOLL: [20]
+>
+>   GM: You are the night itself. You take down the goblin before it can even react. 
 ```
 
 ## Implementation Comparison
@@ -46,10 +50,11 @@ e.g.
 - 3d20dl2 - drop lowest 2 rolls from 3 d20 rolls
 - 3d20kl - keep lowest 1 (default if excluded) from 3 d20 rolls
 
-
-> 🤔 But Why?
+{: .explanation }   
 > 'Keep' and 'Drop' are commonly used in feature documentation
+>
 > 'd' is sometimes avoided to avoid conflicting with the 'd' for defining a dice e.g. 'd6'
+>
 > GNOLL does not have this issue as a following term (l or h) are mandatory to specify.
 
 ## Drop 'Middle'

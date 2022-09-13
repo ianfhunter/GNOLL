@@ -6,11 +6,10 @@ nav_order: 10
 
 # Custom Macros
 
-```
-   ⚔️ Grindon's Tale
-   
-   TODO
-```
+
+{: .story }   
+> TODO
+
 
 ## Usage
 *This is an advanced feature. Feel free to ask us for help!*

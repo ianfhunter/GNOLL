@@ -6,11 +6,8 @@ nav_order: 8
 
 # Success Counting
 
-```
-   ⚔️ Grindon's Tale
-   
-   TODO
-```
+{: .story}
+> TODO
 
 *Under Construction*
 

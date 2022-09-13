@@ -7,10 +7,8 @@ nav_order: 9
 
 # Built-In Macros
 
-```
-⚔️ Grindon's Tale
 
-```
+{: .story }   
 > TODO
 
 ## Supported Macros
