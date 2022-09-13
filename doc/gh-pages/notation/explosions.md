@@ -77,7 +77,7 @@ $DND_5E_EXPLOSION_SET=d12,d10,d8,d6,d4 ; d20![$DND_5E_EXPLOSION_SET]
 
 *Under Construction*
 
-<--
+<!--
 There is no consistent standard for imploding dice. Here are a few candidates:
  - [Inverse Explosion - Rerolling when not matching your number](https://www.welshpiper.com/imploding-dice/)
  - [Negative Explosion](http://www.firehawkgames.biz/?qa_faqs=what-is-an-imploding-dice-roll)
