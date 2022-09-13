@@ -2,6 +2,8 @@
 [![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
 [![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
+
+[![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
