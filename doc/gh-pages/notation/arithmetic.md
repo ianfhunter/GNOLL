@@ -25,7 +25,7 @@ For Numeric Dice, math follows normal conventions.
    - 4-3 = 1
  - Multiply (*): 
    - 5*2: 10
- - Divide (Two variants, rounding up(|) and rounding down(/)): 
+ - Divide (Two variants, rounding up(\|) and rounding down(/)): 
    - 10/2: 5
  - Modulo (%): 
    - 10%3 = 1
