@@ -121,7 +121,7 @@ f { return(FILTER); }
 [/] {
     return(DIVIDE_ROUND_DOWN);
 }
-[\] {
+[\\] {
     return(DIVIDE_ROUND_UP);
 }
 [x] {

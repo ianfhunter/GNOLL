@@ -208,7 +208,7 @@ math:
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
             new_vec.length = 1;
-            new_vec.content[0] = (v1+(v2-1))/ v2;
+            new_vec.content[0] = (v1+v2)/ v2;
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
