@@ -27,7 +27,7 @@ def test_5e_roll_hp():
     assert result >= 10
     assert result <= 17
 
-def test_5e_halfling_lucky();
+def test_5e_halfling_lucky():
     # Note: cannot test intermediate results
     v = roll("d20r==1")
     assert result >1
