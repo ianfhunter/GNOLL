@@ -53,6 +53,7 @@ Tested on Linux (Ubuntu) and Windows (10, WSL).
 - Explosions
 - Drop/Keep
 - Rerolling
+- Filtering
 
 There's so many different things, we'd bore you to list them all here. For the specific details of supported notation, [check out our documentation](https://www.ianhunter.ie/GNOLL).
 
