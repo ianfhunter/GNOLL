@@ -37,7 +37,7 @@ def test_dcc_weird_dice_via_other_dice():
     result = roll("d6+(6*z3)")
     assert result >= 1
     assert result <= 18
-    result = roll("d6+(6*Z4)")
+    result = roll("d6+(6*z4)")
     assert result >= 1
     assert result <= 24
     result = roll("d10+10*(z3)")
