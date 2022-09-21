@@ -28,6 +28,11 @@ nav_order: 11
 | Adventures in Middle Earth | d20 | Yes | |
 | After the bomb | Megaversal | Yes | |
 | Aftermath | Custom | Likely | https://forum.rpg.net/index.php?threads/aftermath-where-i-read-the-aftermath-rules.684493/ |
+| Age of the Tempest | Custom | Unknown | None Found |
+| Age of Ruin | Custom | Likely | None Found |
+| Agone | d10 | Likely | |
+| Albeldo | Custom | Unknown | None Found |
+
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
