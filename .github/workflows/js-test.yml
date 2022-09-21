@@ -1,0 +1,19 @@
+name: "Test: Javascript"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: javascript prerequisites
+      run: sudo apt install nodejs empscripten
+    - name: make js
+      run: make ks

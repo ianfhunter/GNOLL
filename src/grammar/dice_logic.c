@@ -79,7 +79,7 @@ int random_fn(int small, int big){
 
 // TODO: have min and max range rather than sides and start_offset
 
-unsigned int * perform_roll(
+int * perform_roll(
     int number_of_dice,
     int die_sides,
     EXPLOSION_TYPE explode,
@@ -127,7 +127,7 @@ unsigned int * perform_roll(
 }
 
 
-unsigned int * do_roll(roll_params rp){
+int * do_roll(roll_params rp){
     // printf("Number of Dice: %i\n", rp.number_of_dice);
     // printf("Die Sides: %i\n", rp.die_sides);
     // printf("Explode: %i\n", rp.explode);
