@@ -40,6 +40,23 @@ make python
 make perl
 ```
 
+## Javascript Setup
+
+### Pre-Requisites
+```bash
+sudo apt-get install emscripten nodejs
+```
+
+### Build
+```
+make javascript
+```
+
+### Run
+```
+node a.out.js
+```
+
 ## Something Else?
 ### SWIG
 The swig bindings are already generated for you in `src/swig/gnoll.i`. Follow the specific instructions in the SWIG documentation to build your own binding.

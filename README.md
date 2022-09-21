@@ -1,6 +1,9 @@
 # GNOLL
 [![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
-[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
+[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/
+perl-test.yml)
+[![Test: Javascript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/
+js-test.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
 
 [![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
@@ -13,7 +16,7 @@
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
@@ -38,6 +41,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - Python
 - Perl
 - Go
+- Javascript (Node)
 
  We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
