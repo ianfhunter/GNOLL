@@ -35,6 +35,13 @@ nav_order: 11
 | Alien | Custom | Likely | |
 | Aliens | Custom | Likely | |
 | All flesh must be eaten | Unisystem | Likely | |
+| All-Star Wrestling | Custom | Likely | |
+| Alma Mater | Custom | Unknown | |
+| Alshard | Custom | Yes ||
+| Alshard Gaia | Custom | Yes ||
+| Alternity | Custom | Likely ||
+
+
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
