@@ -27,6 +27,7 @@ nav_order: 11
 | The Adventures of Indiana Jones | ? | Likely | |
 | Adventures in Middle Earth | d20 | Yes | |
 | After the bomb | Megaversal | Yes | |
+| Aftermath | Custom | Likely | https://forum.rpg.net/index.php?threads/aftermath-where-i-read-the-aftermath-rules.684493/ |
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
