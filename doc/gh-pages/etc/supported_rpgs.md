@@ -41,15 +41,16 @@ nav_order: 11
 | Adventures in Middle Earth | d20 | ✔️ | 
 | After the bomb | Megaversal | ✔️ | 
 | Aftermath [[1]](https://forum.rpg.net/index.php?threads/aftermath-where-i-read-the-aftermath-rules.684493/) |  | 🔼 | 
-| Age of the Tempest | Custom | ❓  |
-| Age of Ruin | Custom | 🔼 |
+| Age of the Tempest | | ❓  |
+| Age of Ruin |  | 🔼 |
 | Agone | d10 | 🔼 |
-| Albeldo | Custom | ❓  |
-| Alien | Custom | 🔼 |
-| Aliens | Custom | 🔼|
+| Albeldo | | ❓  |
+| Alien | | 🔼 |
+| Aliens | | 🔼|
 | All flesh must be eaten | Unisystem | 🔼|
-| All-Star Wrestling | Custom | 🔼 |
-| Alma Mater | Custom | ❓  |
+| All-Star Wrestling | | 🔼 |
+| Alma Mater |  | ❓  |
 | Alshard |  | ✔️ |
 | Alshard Gaia |  | ✔️ |
 | Alternity |  | 🔼 |
+| Amazing Engine | | ✔️ |
