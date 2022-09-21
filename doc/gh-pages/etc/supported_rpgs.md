@@ -20,9 +20,13 @@ nav_order: 11
 | Dungeons & Dragons 4 | D&D | Yes | ? |
 | Dungeons & Dragons 5 | D&D | Yes | ? |
 | Advanced Fighting Fantasy | - | Yes | ? |
-| Adventure! | - | Unknown | ? |
-
-
+| Adventure! (1985) | ? | Unknown | None Found |
+| Adventure! (2001) | Modified Storyteller | Likely | ? |
+| Adventurer's Guild | ? | Unknown | None Found |
+| Adventures in Fantasy | ? | Likely | https://www.scribd.com/document/245240865/1979-Adventures-in-Fantasy-Book-of-Adventure |
+| The Adventures of Indiana Jones | ? | Likely | |
+| Adventures in Middle Earth | d20 | Yes | |
+| After the bomb | Megaversal | Yes | |
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
