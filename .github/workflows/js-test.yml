@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: javascript prerequisites
-      run: sudo apt install nodejs empscripten
+      run: sudo apt install nodejs emscripten
     - name: make js
       run: make ks
