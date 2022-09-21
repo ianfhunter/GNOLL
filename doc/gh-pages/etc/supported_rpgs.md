@@ -5,7 +5,7 @@ nav_order: 11
 ---
 # Supported TTRPGs
 
-(Under Construction)
+(Under Construction) List from https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games
 
 | TTRPG | Family of Games | Supported | Reference |
 | ----- | ---------- | --------- | ------- |
@@ -32,7 +32,9 @@ nav_order: 11
 | Age of Ruin | Custom | Likely | None Found |
 | Agone | d10 | Likely | |
 | Albeldo | Custom | Unknown | None Found |
-
+| Alien | Custom | Likely | |
+| Aliens | Custom | Likely | |
+| All flesh must be eaten | Unisystem | Likely | |
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
