@@ -15,6 +15,14 @@ nav_order: 11
 | 7th Sea | Custom | Unknown | https://www.reddit.com/r/rpg/comments/47j3u8/7th_sea_system/ |
 | Aberrant | d20/Storyteller | Likely | https://en.m.wikipedia.org/wiki/Aberrant |
 | Active Exploits | Diceless | N/A | ? |
+| Advanced Dungeons & Dragons | D&D | Yes | ? |
+| Dungeons & Dragons 3.5 | D&D | Yes | ? |
+| Dungeons & Dragons 4 | D&D | Yes | ? |
+| Dungeons & Dragons 5 | D&D | Yes | ? |
+| Advanced Fighting Fantasy | - | Yes | ? |
+| Adventure! | - | Unknown | ? |
+
+
 
 All items marked 'Likely' are unverified due to access constraints. However preliminary research has not raises any initial support gaps.
 
