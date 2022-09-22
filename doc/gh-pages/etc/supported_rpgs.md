@@ -7,6 +7,10 @@ nav_order: 11
 
 (Under Construction) List from https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games
 
+'Support' for a system is exclusive of secondary features that are out of the scope of GNOLL e.g. critical hit notification, degrees of success.
+
+There are a lot of systems here, we cannot guarantee this list is free of error.
+
 ## Legend
 
 | Symbol | Meaning |
@@ -17,6 +21,7 @@ nav_order: 11
 | 🔽     | Unlikely Supported (Unable to fully verify because of lack of access to rules, etc) |
 | ❌     | Unsupported |
 | 〰️     | Not Applicable |
+|        | Not Evaluted |
 
 ## List
 
@@ -32,7 +37,7 @@ nav_order: 11
 | Dungeons & Dragons 3.5 | D&D | ✔️ | 
 | Dungeons & Dragons 4 | D&D | ✔️ | 
 | Dungeons & Dragons 5 | D&D | ✔️ | 
-| Advanced Fighting Fantasy | - | ✔️ | 
+| Advanced Fighting Fantasy | | ✔️ | 
 | Adventure! (1985) |  | ❓ | 
 | Adventure! (2001) | Modified Storyteller | 🔼 |
 | Adventurer's Guild |  | ❓ | 
@@ -47,10 +52,36 @@ nav_order: 11
 | Albeldo | | ❓  |
 | Alien | | 🔼 |
 | Aliens | | 🔼|
-| All flesh must be eaten | Unisystem | 🔼|
+| All flesh must be eaten | Unisystem | 🔼 |
 | All-Star Wrestling | | 🔼 |
 | Alma Mater |  | ❓  |
 | Alshard |  | ✔️ |
 | Alshard Gaia |  | ✔️ |
 | Alternity |  | 🔼 |
 | Amazing Engine | | ✔️ |
+| Amber | Diceless | 〰️ | 
+| Anima: Beyond Fantasy |  |  |
+| Angel	 | Cinematic Unisystem | 🔼 |
+| Apocalypse World | PBtA | ✔️ |
+| Arcana Unearthed | D20 OGL | ✔️ |
+| Archaeron	 |  | ❓ |
+| Arduin [[1]](https://www.rpg.net/reviews/archive/14/14353.phtml)	 |  | ✔️ |		
+| Aria |  | ✔️ |
+| Arianrhod RPG  |  | ✔️ |
+| Armageddon: 2089[[1]](https://www.rpg.net/reviews/archive/15/15908.phtml) |  | ❓  |
+| Armageddon: The End Times | D20 OGL | ✔️ |
+| Armored Trooper VOTOMS [[1]](http://www.ironhands.com/VOTOMS_RPG_1_4.pdf) |  | ✔️ |
+| Army of Darkness |  | ✔️ |
+| Ars Magica 1e |  |  |
+| Ars Magica 2e |  |  |
+| Ars Magica 3e |  |  |
+| Ars Magica 4e |  |  |
+| Ars Magica 5e |  | ❓ ([#199](https://github.com/ianfhunter/GNOLL/issues/199)) |
+| Artesia: Adventures in the Known World |  | ✔️ |
+| Ashen Stars	| GUMSHOE| ✔️ |
+| Atlantis |  | ❓ |
+| Attack of the Humans |  | ❓ |
+| The Authority Role-Playing Game |  | 🔼 |	
+
+
+
