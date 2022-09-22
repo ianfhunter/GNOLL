@@ -5,11 +5,21 @@ nav_order: 11
 ---
 # Supported TTRPGs
 
-(Under Construction) List from https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games
+This is an analysis of all 'notable' TTRPG games on [Wikipedia](https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games) dated 22/Sept/2022. 
 
 'Support' for a system is exclusive of secondary features that are out of the scope of GNOLL e.g. critical hit notification, degrees of success.
 
 There are a lot of systems here, we cannot guarantee this list is free of error.
+
+## Status
+This list is currently **Under Construction**.
+
+### Done
+0AXZ
+### Working On
+QUY
+### Backlog
+BCDEFGHIJKLMNOPRSTVW
 
 ## Legend
 
@@ -82,6 +92,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |	
-
+| The Zorcerer of Zo | PDQ | ✔️ |
+| Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander) | | ✔️ |
 
 
