@@ -91,7 +91,10 @@ BCDEFGHIJKLMNOPRSTVW
 | Ashen Stars	| GUMSHOE| ✔️ |
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
-| The Authority Role-Playing Game |  | 🔼 |	
+| The Authority Role-Playing Game |  | 🔼 |
+| QAGS | | ✔️ |
+| Qin | | ✔️ |	
+| Quest of the Ancients | | 🔼 |
 | Year of the Phoenix | | 🔼 |
 | Ysgarth| | 🔼 |
 | The Zorcerer of Zo | PDQ | ✔️ |
