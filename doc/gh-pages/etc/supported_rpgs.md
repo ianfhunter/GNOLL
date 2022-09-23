@@ -92,6 +92,43 @@ CDEFGHIJKLMNOPRSTVW
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
+| Babylon 5 | d20 | ✔️|
+|BASH!		|||			
+|Barony			|||		
+|Basic Fantasy RPG			|||		
+|Basic Role-Playing	|||
+|Batman Role-Playing Game	|||				
+|BattleDragons	|||
+|Battlelords of the 23rd Century	|||			
+|Battlestar Galactica	|||
+|Behind Enemy Lines			|||		
+|Beyond the Supernatural	|||
+|Bifrost	Skytrex Ltd.		|||		
+|Big Bang Comics RPG		|||			
+|Big Eyes, Small Mouth	|||
+|Black Crusade		|||			
+|Blackwatch		|||			
+|Blade of Arcana			|||		
+|Blades in the Dark	|	PbtA	|✔️|	
+|Blood Dawn	|||				
+|Blood of Heroes		|||			
+|Blue Planet	|||
+|Blue Rose	|||				
+|Boot Hill	|||		
+|Brave New World		|||			
+|Breaking the Ice	|||				
+|Bubblegum Crisis		|||	
+Buccaneer			|||		
+Buck Rogers XXVC	|||		
+Buffy the Vampire Slayer	|	Unisystem	|	✔️|	
+|Bullwinkle and Rocky |||					
+|Bunnies and Burrows	|||				
+|Bureau 13: Stalking the Night Fantastic	|||			
+|Burn Bryte	| Roll20 ||
+|Burning Empires		|||			
+|The Burning Wheel	|||				
+|Bushido	Fantasy Games Unlimited		|||	
+|By the Gods	|||	
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
