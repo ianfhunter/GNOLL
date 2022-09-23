@@ -96,9 +96,9 @@ BCDEFGHIJKLMNOPRSTVW
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ Power|
-| Unknown Armies | | ✔️ Flipflopping |
+| Unknown Armies | | ❌ [#202](https://github.com/ianfhunter/GNOLL/issues/202) |
 | Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml) | Modified Ironclaw | ✔️ |
-| Uuhraah! | |  🔼 |
+| Uuhraah! | | 🔼 |
 | QAGS | | ✔️ |
 | Qin | | ✔️ |	
 | Quest of the Ancients | | 🔼 |
