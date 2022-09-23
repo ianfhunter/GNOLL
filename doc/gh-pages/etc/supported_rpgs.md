@@ -92,7 +92,7 @@ BCDEFGHIJKLMNOPRSTVW
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
-| Underground | modified MEGS | |
+| Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
