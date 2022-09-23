@@ -95,7 +95,7 @@ BCDEFGHIJKLMNOPRSTVW
 | Underground | modified MEGS | |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
-| Universe | | ✔️ Power|
+| Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
 | Unknown Armies | | ❌ [#202](https://github.com/ianfhunter/GNOLL/issues/202) |
 | Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml) | Modified Ironclaw | ✔️ |
 | Uuhraah! | | 🔼 |
