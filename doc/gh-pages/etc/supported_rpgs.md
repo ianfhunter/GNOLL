@@ -14,12 +14,11 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 ## Status
 This list is currently **Under Construction**.
 
-### Done
-0AXZ
-### Working On
-B
-### Backlog
-CDEFGHIJKLMNOPRSTVW
+**Letters Done:** `0AXZ`
+
+**Letters Actively Working on:** `B`
+
+**Remaining Letters:** `CDEFGHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -92,20 +91,20 @@ CDEFGHIJKLMNOPRSTVW
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
-| Babylon 5 | d20 | ✔️|
-| BASH!		|||			
-|Barony			|||		
-|Basic Fantasy 			|||		
-|Basic Role-Playing	|||
-|Batman Role-Playing Game	|||				
-|BattleDragons	|||
-|Battlelords of the 23rd Century	|||			
-|Battlestar Galactica	|||
-|Behind Enemy Lines			|||		
-|Beyond the Supernatural	|||
-|Bifrost	Skytrex Ltd.		|||		
-|Big Bang Comics RPG		|||			
-|Big Eyes, Small Mouth	|||
+| Babylon 5 | d20 | ✔️ |
+| BASH! [[1]](https://www.rpg.net/reviews/archive/15/15359.phtml)| | ✔️ |			
+|Barony	[[1]](https://www.rpg.net/reviews/archive/classic/rev_2131.phtml) || ✔️|		
+|Basic Fantasy 			| modified d20| ✔️ |
+|Basic Role-Playing [[1]](https://www.chaosium.com/content/FreePDFs/BRP/CHA2021%20-%20Basic%20RolePlaying%20Quick-Start.pdf)	|| ✔️ |
+|Batman Role-Playing Game	| DC Heroes 2 | ❌[#209](https://github.com/ianfhunter/GNOLL/issues/204) |
+|BattleDragons	||✔️|
+|Battlelords of the 23rd Century	| X150 / d100 | 🔼|			
+|Battlestar Galactica	|| ✔️ |
+|Behind Enemy Lines			| modified Traveller | ✔️ |		
+|Beyond the Supernatural	[[1]](https://writeups.letsyouandhimfight.com/forkbanger/beyond-the-supernatural/)| Beyond / BTS | ✔️ |
+|Bifrost	| modified d20 | 🔼 |		
+|Big Bang Comics RPG		|d20 | ✔️ |			
+|Big Eyes, Small Mouth	|Tri-Sta/d20| ✔️[#205](https://github.com/ianfhunter/GNOLL/issues/205) |
 |Black Crusade		|||			
 |Blackwatch		|||			
 |Blade of Arcana			|||		
@@ -145,3 +144,6 @@ CDEFGHIJKLMNOPRSTVW
 | Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander) | | ✔️ |
 
 
+**Compatibility Percentage:** 
+
+(Calculated 23/09/2022 via [tableconvert.com](https://tableconvert.com/markdown-to-excel)) + Excel math
