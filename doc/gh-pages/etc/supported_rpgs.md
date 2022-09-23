@@ -17,9 +17,9 @@ This list is currently **Under Construction**.
 ### Done
 0AXZ
 ### Working On
-QUY
+B
 ### Backlog
-BCDEFGHIJKLMNOPRSTVW
+CDEFGHIJKLMNOPRSTVW
 
 ## Legend
 
@@ -92,6 +92,13 @@ BCDEFGHIJKLMNOPRSTVW
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
+| Underground | modified MEGS | ❓ |
+| Unisystem | Unisystem | ✔️ |
+| Universalis | | ✔️|
+| Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
+| Unknown Armies | | ❌ [#202](https://github.com/ianfhunter/GNOLL/issues/202) |
+| Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml) | Modified Ironclaw | ✔️ |
+| Uuhraah! | | 🔼 |
 | QAGS | | ✔️ |
 | Qin | | ✔️ |	
 | Quest of the Ancients | | 🔼 |
