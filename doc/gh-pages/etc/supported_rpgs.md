@@ -93,9 +93,9 @@ CDEFGHIJKLMNOPRSTVW
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
 | Babylon 5 | d20 | ✔️|
-|BASH!		|||			
+| BASH!		|||			
 |Barony			|||		
-|Basic Fantasy RPG			|||		
+|Basic Fantasy 			|||		
 |Basic Role-Playing	|||
 |Batman Role-Playing Game	|||				
 |BattleDragons	|||
@@ -118,13 +118,13 @@ CDEFGHIJKLMNOPRSTVW
 |Brave New World		|||			
 |Breaking the Ice	|||				
 |Bubblegum Crisis		|||	
-Buccaneer			|||		
-Buck Rogers XXVC	|||		
-Buffy the Vampire Slayer	|	Unisystem	|	✔️|	
+|Buccaneer			|||		
+|Buck Rogers XXVC	|||		
+|Buffy the Vampire Slayer	|	Unisystem	|	✔️|	
 |Bullwinkle and Rocky |||					
 |Bunnies and Burrows	|||				
 |Bureau 13: Stalking the Night Fantastic	|||			
-|Burn Bryte	| Roll20 ||
+|Burn Bryte	| Roll20 |✔️|
 |Burning Empires		|||			
 |The Burning Wheel	|||				
 |Bushido	Fantasy Games Unlimited		|||	
