@@ -19,4 +19,8 @@ jobs:
         wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_1.22.1-1build1_amd64.deb
         sudo apt install ./emscripten_1.22.1-1build1_amd64.deb
     - name: make js
-      run: make js
+      run: |
+        empscripten -v
+        make js
+        ./src/js/a.out.js 1d20
+        
