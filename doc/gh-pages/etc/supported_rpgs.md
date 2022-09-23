@@ -144,6 +144,6 @@ This list is currently **Under Construction**.
 | Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander) | | ✔️ |
 
 
-**Compatibility Percentage:** 
+**Compatibility Percentage:** 96.875%
 
 (Calculated 23/09/2022 via [tableconvert.com](https://tableconvert.com/markdown-to-excel)) + Excel math
