@@ -92,6 +92,13 @@ BCDEFGHIJKLMNOPRSTVW
 | Atlantis |  | ❓ |
 | Attack of the Humans |  | ❓ |
 | The Authority Role-Playing Game |  | 🔼 |
+| Underground | modified MEGS | |
+| Unisystem | Unisystem | ✔️ |
+| Universalis | | ✔️|
+| Universe | | ✔️ Power|
+| Unknown Armies | | ✔️ Flipflopping |
+| Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml) | Modified Ironclaw | ✔️ |
+| Uuhraah! | |  🔼 |
 | QAGS | | ✔️ |
 | Qin | | ✔️ |	
 | Quest of the Ancients | | 🔼 |
