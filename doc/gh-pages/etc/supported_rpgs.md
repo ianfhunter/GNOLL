@@ -17,9 +17,9 @@ This list is currently **Under Construction**.
 ### Done
 0AXZ
 ### Working On
-QUY
+B
 ### Backlog
-BCDEFGHIJKLMNOPRSTVW
+CDEFGHIJKLMNOPRSTVW
 
 ## Legend
 
