@@ -14,11 +14,11 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 ## Status
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABQUXYZ`
+**Letters Done:** `0ABCQUXYZ`
 
-**Letters Actively Working on:** `C`
+**Letters Actively Working on:** `D`
 
-**Remaining Letters:** `DEFGHIJKLMNOPRSTVW`
+**Remaining Letters:** `EFGHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -128,7 +128,27 @@ This list is currently **Under Construction**.
 |Burning Empires		|Burning Wheel|✔️|			
 |The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)	||✔️|				
 |Bushido		|| 🔼	|
-|By the Gods	|Ysgarth-like| 🔼|	
+|By the Gods	| Ysgarth-like| 🔼|	
+|Conan: The Roleplaying Game | d20  | ✔️ |
+|The Confederate Rangers | | |			
+|Conspiracy X | | |	
+|C°ntinuum  | | |	
+|Core Command	Dream Pod 9	 | | |			
+|Corporation the Roleplaying Game | | |	
+|CORPS	Blacksburg Tactical Research Center			 | | |	
+|Corum	 | | |
+|Creeks and Crawdads	 | | |				
+|Crime Fighter	 | | |				
+|Crimefighters	 | | |		
+|Crystalicum (Polish)		 | | |			
+|CthulhuTech	 | | |	
+|Cutthroat: The Shadow Wars	 | | |				
+|Cybergeneration | | |	
+|Cyberpunk 2013	 | | |
+|Cyberpunk 2020		 | | |			
+|Cyberpunk RED		 | | |			
+|Cyberspace	 | | |			
+|Cyborg Commando | | |.	
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
