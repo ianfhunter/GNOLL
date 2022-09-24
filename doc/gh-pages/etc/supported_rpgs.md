@@ -106,13 +106,14 @@ This list is currently **Under Construction**.
 |Big Bang Comics RPG		|d20 | ✔️ |			
 |Big Eyes, Small Mouth	|Tri-Stat/d20| ✔️[#205](https://github.com/ianfhunter/GNOLL/issues/205) |
 |Black Crusade	[[1]](https://wiki.roll20.net/Black_Crusade)	|Warhammer 40K|✔️|			
-|Blackwatch		|||			
-|Blade of Arcana			|||		
+|Blackwatch		||❓|			
+|Blade of Arcana			||❓ [#103](https://github.com/ianfhunter/GNOLL/issues/103)|		
 |Blades in the Dark	|	PbtA	|✔️|	
-|Blood Dawn	|||				
-|Blood of Heroes		|||			
-|Blue Planet	|||
-|Blue Rose	|||				
+|Blood Dawn	||❓|				
+|Blood of Heroes		|MEGS|✔️|			
+|Blue Planet 1/2e	|Synergy|❓|
+| Blue Planet 3e [[1]](https://www.kickstarter.com/projects/1875712273/blue-planet-recontact) | Synergy | ✔️ |
+|Blue Rose	|True20/AGE|✔️|				
 |Boot Hill	|||		
 |Brave New World		|||			
 |Breaking the Ice	|||				
