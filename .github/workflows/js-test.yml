@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: python deps
+      run: python3 -m pip install -r reqs/requirements.txt
     - name: javascript prerequisites
       run: |
         sudo apt install nodejs 
@@ -20,6 +22,7 @@ jobs:
         sudo apt install ./emscripten_1.22.1-1build1_amd64.deb
     - name: make js
       run: |
+        make all
         emcc -v
         make js
         ./src/js/a.out.js 1d20
