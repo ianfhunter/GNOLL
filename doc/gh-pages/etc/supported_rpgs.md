@@ -104,8 +104,8 @@ This list is currently **Under Construction**.
 |Beyond the Supernatural	[[1]](https://writeups.letsyouandhimfight.com/forkbanger/beyond-the-supernatural/)| Beyond / BTS | ✔️ |
 |Bifrost	| modified d20 | 🔼 |		
 |Big Bang Comics RPG		|d20 | ✔️ |			
-|Big Eyes, Small Mouth	|Tri-Sta/d20| ✔️[#205](https://github.com/ianfhunter/GNOLL/issues/205) |
-|Black Crusade		|||			
+|Big Eyes, Small Mouth	|Tri-Stat/d20| ✔️[#205](https://github.com/ianfhunter/GNOLL/issues/205) |
+|Black Crusade	[[1]](https://wiki.roll20.net/Black_Crusade)	|Warhammer 40K|✔️|			
 |Blackwatch		|||			
 |Blade of Arcana			|||		
 |Blades in the Dark	|	PbtA	|✔️|	
