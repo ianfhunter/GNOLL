@@ -1,9 +1,9 @@
 ---
-doc_title: Supported TTRPGs
+title: Supported TTRPGs
 published: true
 nav_order: 11
 ---
-# {{page.doc_title}}
+# {{page.title}}
 
 This is an analysis of all 'notable' TTRPG games on [Wikipedia](https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games) dated 22/Sept/2022. 
 
@@ -14,11 +14,11 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 ## Status
 This list is currently **Under Construction**.
 
-**Letters Done:** `0AXZ`
+**Letters Done:** `0ABQUXYZ`
 
-**Letters Actively Working on:** `B`
+**Letters Actively Working on:** `C`
 
-**Remaining Letters:** `CDEFGHIJKLMNOPRSTVW`
+**Remaining Letters:** `DEFGHIJKLMNOPRSTVW`
 
 ## Legend
 
