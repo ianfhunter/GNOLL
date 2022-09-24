@@ -1,9 +1,9 @@
 ---
-title: Supported TTRPGs
+doc_title: Supported TTRPGs
 published: true
 nav_order: 11
 ---
-# Supported TTRPGs
+# {{page.doc_title}}
 
 This is an analysis of all 'notable' TTRPG games on [Wikipedia](https://en.m.wikipedia.org/wiki/List_of_tabletop_role-playing_games) dated 22/Sept/2022. 
 
