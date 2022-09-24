@@ -127,8 +127,8 @@ This list is currently **Under Construction**.
 |Burn Bryte	| Roll20 |✔️|
 |Burning Empires		|Burning Wheel|✔️|			
 |The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)	||✔️|				
-|Bushido	Fantasy Games Unlimited		|||	
-|By the Gods	|||	
+|Bushido		|| 🔼	|
+|By the Gods	|Ysgarth-like| 🔼|	
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
