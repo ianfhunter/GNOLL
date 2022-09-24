@@ -25,9 +25,9 @@ This list is currently **Under Construction**.
 | Symbol | Meaning |
 | ------ | ------- |
 | ✔️     | Supported |
-| 🔼     | Likely Supported (Unable to fully verify because of lack of access to rules, etc) |
-| ❓      | Unknown (Unable to find details on ruleset |
-| 🔽     | Unlikely Supported (Unable to fully verify because of lack of access to rules, etc) |
+| 🔼     | Likely Supported (limited details found on ruleset) |
+| ❓     | Unknown (No details found on ruleset) |
+| 🔽     | Unlikely Supported (limited details found on ruleset) |
 | ❌     | Unsupported |
 | 〰️     | Not Applicable |
 |        | Not Evaluted |
@@ -114,19 +114,19 @@ This list is currently **Under Construction**.
 |Blue Planet 1/2e	|Synergy|❓|
 | Blue Planet 3e [[1]](https://www.kickstarter.com/projects/1875712273/blue-planet-recontact) | Synergy | ✔️ |
 |Blue Rose	|True20/AGE|✔️|				
-|Boot Hill	|||		
-|Brave New World		|||			
-|Breaking the Ice	|||				
-|Bubblegum Crisis		|||	
-|Buccaneer			|||		
-|Buck Rogers XXVC	|||		
+|Boot Hill	|| 🔼|		
+|Brave New World		||❓|			
+|Breaking the Ice	|| 🔼|				
+|Bubblegum Crisis		|Fuzion|✔️|	
+|Buccaneer			||❓|		
+|Buck Rogers XXVC [[1]](https://forum.rpg.net/index.php?threads/buck-rogers-xxv-rpg.135214/)	|| 🔼|		
 |Buffy the Vampire Slayer	|	Unisystem	|	✔️|	
-|Bullwinkle and Rocky |||					
-|Bunnies and Burrows	|||				
-|Bureau 13: Stalking the Night Fantastic	|||			
+|Bullwinkle and Rocky [[1]](https://writeups.letsyouandhimfight.com/sieje/bullwinkleandrocky-role-playing-party-game/) ||✔️|					
+|Bunnies and Burrows [[1]](https://goblincrafted.com/systems/Bunnies%20and%20Burrows/e/Third%20Edition/)	||✔️|				
+|Bureau 13: Stalking the Night Fantastic	|TriTac|✔️|			
 |Burn Bryte	| Roll20 |✔️|
-|Burning Empires		|||			
-|The Burning Wheel	|||				
+|Burning Empires		|Burning Wheel|✔️|			
+|The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)	||✔️|				
 |Bushido	Fantasy Games Unlimited		|||	
 |By the Gods	|||	
 | Underground | modified MEGS | ❓ |
