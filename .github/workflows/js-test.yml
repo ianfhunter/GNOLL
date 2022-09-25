@@ -17,7 +17,7 @@ jobs:
       run: python3 -m pip install -r reqs/requirements.txt
     - name: javascript prerequisites
       run: |
-        sudo apt install nodejs llvm-3.4 llvm -y
+        sudo apt install nodejs llvm-15-dev llvm -y
         wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_1.22.1-1build1_amd64.deb
         sudo apt install ./emscripten_1.22.1-1build1_amd64.deb
     - name: make js
