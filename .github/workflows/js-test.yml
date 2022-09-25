@@ -13,11 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install LLVM and Clang
+      uses: KyleMayes/install-llvm-action@v1
+      with:
+        version: "10.0"
     - name: python deps
       run: python3 -m pip install -r reqs/requirements.txt
     - name: javascript prerequisites
       run: |
-        sudo apt install nodejs llvm-14-dev llvm -y
+        sudo apt install nodejs llvm -y
         wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_1.22.1-1build1_amd64.deb
         sudo apt install ./emscripten_1.22.1-1build1_amd64.deb
     - name: make js
