@@ -133,15 +133,15 @@ This list is currently **Under Construction**.
 |The Confederate Rangers | | ❓ |			
 |Conspiracy X | GURPS, Unisystem | ✔️ |	
 |C°ntinuum [[1]](https://www.rpg.net/reviews/archive/classic/rev_3106.phtml)| | ✔️|	
-|Core Command	Dream Pod 9	 | | |			
-|Corporation the Roleplaying Game | | |	
-|CORPS	Blacksburg Tactical Research Center			 | | |	
-|Corum	 | | |
-|Creeks and Crawdads	 | | |				
-|Crime Fighter	 | | |				
-|Crimefighters	 | | |		
-|Crystalicum (Polish)		 | | |			
-|CthulhuTech	 | | |	
+|Core Command | SilCORE| ✔️|			
+|Corporation | Brutal | ✔️|	
+|CORPS	[[1]](https://www.drivethrurpg.com/m/product/1098) | | ✔️|	
+|Corum	 | Elric! |  🔼 |
+|Creeks and Crawdads	 |✔️ | |				
+|Crime Fighter [[1]](https://dmmagazine.blogspot.com/2022/02/analysis-crime-fighter-role-playing.html?m=1)	 | | 🔼 |				
+|Crimefighters	 | | ❓|		
+|Crystalicum  | | ❓|			
+|CthulhuTech	 | Framewerk | ❌[#181](https://github.com/ianfhunter/GNOLL/issues/181) |	
 |Cutthroat: The Shadow Wars	 | | |				
 |Cybergeneration | | |	
 |Cyberpunk 2013	 | | |
