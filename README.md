@@ -78,6 +78,7 @@ roll("1d20")
 #### Basic Requirements
 ```bash
 sudo apt-get install bison flex make python3-pip -y
+pip install -r reqs/requirements.txt
 make all
 ```
 
