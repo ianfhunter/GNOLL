@@ -14,11 +14,11 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 ## Status
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABQUXYZ`
+**Letters Done:** `0ABCQUXYZ`
 
-**Letters Actively Working on:** `C`
+**Letters Actively Working on:** `D`
 
-**Remaining Letters:** `DEFGHIJKLMNOPRSTVW`
+**Remaining Letters:** `EFGHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -128,7 +128,27 @@ This list is currently **Under Construction**.
 |Burning Empires		|Burning Wheel|✔️|			
 |The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)	||✔️|				
 |Bushido		|| 🔼	|
-|By the Gods	|Ysgarth-like| 🔼|	
+|By the Gods	| Ysgarth-like| 🔼|	
+|Conan: The Roleplaying Game | d20  | ✔️ |
+|The Confederate Rangers | | ❓ |			
+|Conspiracy X | GURPS, Unisystem | ✔️ |	
+|C°ntinuum [[1]](https://www.rpg.net/reviews/archive/classic/rev_3106.phtml)| | ✔️|	
+|Core Command | SilCORE| ✔️|			
+|Corporation | Brutal | ✔️|	
+|CORPS	[[1]](https://www.drivethrurpg.com/m/product/1098) | | ✔️|	
+|Corum	 | Elric! |  🔼 |
+|Creeks and Crawdads	 |✔️ | |				
+|Crime Fighter [[1]](https://dmmagazine.blogspot.com/2022/02/analysis-crime-fighter-role-playing.html?m=1)	 | | 🔼 |				
+|Crimefighters	 | | ❓|		
+|Crystalicum  | | ❓|			
+|CthulhuTech	 | Framewerk | ❌[#181](https://github.com/ianfhunter/GNOLL/issues/181) |	
+|Cutthroat: The Shadow Wars	 | d12/d20 |✔️ |				
+|Cybergeneration |Interlock |✔️ |	
+|Cyberpunk 2013	 |Interlock | ✔️|
+|Cyberpunk 2020		 |Interlock |✔️ |			
+|Cyberpunk RED		 |Interlock |✔️ |			
+|Cyberspace	 | spacemaster/rolemaster | ✔️|			
+|Cyborg Commando | |  ✔️|
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
