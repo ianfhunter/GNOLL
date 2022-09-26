@@ -142,7 +142,7 @@ This list is currently **Under Construction**.
 |Crimefighters	 | | ❓|		
 |Crystalicum  | | ❓|			
 |CthulhuTech	 | Framewerk | ❌[#181](https://github.com/ianfhunter/GNOLL/issues/181) |	
-|Cutthroat: The Shadow Wars	 | | |				
+|Cutthroat: The Shadow Wars	 | d12/d20 |✔️ |				
 |Cybergeneration | | |	
 |Cyberpunk 2013	 | | |
 |Cyberpunk 2020		 | | |			
