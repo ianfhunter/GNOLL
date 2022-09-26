@@ -143,12 +143,12 @@ This list is currently **Under Construction**.
 |Crystalicum  | | ❓|			
 |CthulhuTech	 | Framewerk | ❌[#181](https://github.com/ianfhunter/GNOLL/issues/181) |	
 |Cutthroat: The Shadow Wars	 | d12/d20 |✔️ |				
-|Cybergeneration | | |	
-|Cyberpunk 2013	 | | |
-|Cyberpunk 2020		 | | |			
-|Cyberpunk RED		 | | |			
-|Cyberspace	 | | |			
-|Cyborg Commando | | |.	
+|Cybergeneration |Interlock |✔️ |	
+|Cyberpunk 2013	 |Interlock | ✔️|
+|Cyberpunk 2020		 |Interlock |✔️ |			
+|Cyberpunk RED		 |Interlock |✔️ |			
+|Cyberspace	 | spacemaster/rolemaster | ✔️|			
+|Cyborg Commando | |  ✔️|
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
