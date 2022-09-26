@@ -148,7 +148,7 @@ This list is currently **Under Construction**.
 |Cyberpunk 2020		 |Interlock |✔️ |			
 |Cyberpunk RED		 |Interlock |✔️ |			
 |Cyberspace	 | spacemaster/rolemaster | ✔️|			
-|Cyborg Commando | |  ✔️|
+|Cyborg Commando | |  ✔️ [#215](https://github.com/ianfhunter/GNOLL/issues/215)|
 | Underground | modified MEGS | ❓ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
