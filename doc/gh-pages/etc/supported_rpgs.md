@@ -130,9 +130,9 @@ This list is currently **Under Construction**.
 |Bushido		|| 🔼	|
 |By the Gods	| Ysgarth-like| 🔼|	
 |Conan: The Roleplaying Game | d20  | ✔️ |
-|The Confederate Rangers | | |			
-|Conspiracy X | | |	
-|C°ntinuum  | | |	
+|The Confederate Rangers | | ❓ |			
+|Conspiracy X | GURPS, Unisystem | ✔️ |	
+|C°ntinuum [[1]](https://www.rpg.net/reviews/archive/classic/rev_3106.phtml)| | ✔️|	
 |Core Command	Dream Pod 9	 | | |			
 |Corporation the Roleplaying Game | | |	
 |CORPS	Blacksburg Tactical Research Center			 | | |	
