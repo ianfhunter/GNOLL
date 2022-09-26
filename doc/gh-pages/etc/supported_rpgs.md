@@ -14,11 +14,11 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 ## Status
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCQUXYZ`
+**Letters Done:** `0ABCDQUXYZ`
 
-**Letters Actively Working on:** `D`
+**Letters Actively Working on:** `E`
 
-**Remaining Letters:** `EFGHIJKLMNOPRSTVW`
+**Remaining Letters:** `FGHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -150,6 +150,14 @@ This list is currently **Under Construction**.
 |Cyberspace	 | spacemaster/rolemaster | ✔️|			
 |Cyborg Commando | |  ✔️ [#215](https://github.com/ianfhunter/GNOLL/issues/215)|
 | Underground | modified MEGS | ❓ |
+| D6 Adventure	| D6 | ✔️ |			
+| D6 Fantasy	| D6 | ✔️ |					
+| D6 Space	| D6 | ✔️ |					
+| D6 System	| D6 | ✔️ |				
+|d20 Future	| D20 | ✔️ |		
+|d20 Modern	| D20 | ✔️ |		
+|d20 Past	| D20 | ✔️ |		
+|d20 System	| D20 | ✔️ |		
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
