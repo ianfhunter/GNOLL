@@ -7,9 +7,9 @@ nav_order: 0
 # Technical Setup
 ## OS Information
 
-Linux - Tested on Ubuntu '18.
-Windows - Tested on Windows Subsystem for Linux (WSL)
-Mac - Untested.
+- Linux - Tested on Ubuntu '18.
+- Windows - Tested on Windows Subsystem for Linux (WSL)
+- Mac - Untested.
 
 ## Common Pre-requisites
 ```bash
