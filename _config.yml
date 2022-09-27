@@ -1,5 +1,0 @@
-theme: jekyll-theme-tactile
-exclude:
- - src/*
-plugins:
-  - jekyll-seo-tag

@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include "shared_header.h"
+    #include "rolls/condition_checking.h"
     #include "y.tab.h"
 %}
 
@@ -30,10 +31,55 @@
     return NUMBER;
 }
 
+z {
+    return(SIDED_DIE_ZERO);
+}
+
 d {
     return(SIDED_DIE);
 }
-df|dF {
+
+(dF|df)\.1 {
+    char * plus, *minus, *zero;
+    plus = (char *)malloc(sizeof(char *));
+    plus = "+";
+    zero = (char *)malloc(sizeof(char *));
+    zero = "0";
+    minus = (char *)malloc(sizeof(char *));
+    minus = "-";
+
+    vec vector;
+    vector.dtype = SYMBOLIC;
+    vector.symbols = malloc(sizeof(char **) * 6);
+    vector.symbols[0] = plus;
+    vector.symbols[1] = zero;
+    vector.symbols[2] = zero;
+    vector.symbols[3] = zero;
+    vector.symbols[4] = zero;
+    vector.symbols[5] = minus;
+    vector.length = 6;
+    yylval.values = vector;
+
+    return(FATE_DIE);
+}
+(dF|df)\.[3-9] {
+    char * plus, *minus;
+    plus = (char *)malloc(sizeof(char *));
+    plus = "+";
+    minus = (char *)malloc(sizeof(char *));
+    minus = "-";
+
+    vec vector;
+    vector.dtype = SYMBOLIC;
+    vector.symbols = malloc(sizeof(char **) * 2);
+    vector.symbols[0] = plus;
+    vector.symbols[1] = minus;
+    vector.length = 2;
+    yylval.values = vector;
+
+    return(FATE_DIE);
+}
+(dF|df)(\.2)? {
     char * plus, *minus, *zero;
     plus = (char *)malloc(sizeof(char *));
     plus = "+";
@@ -53,12 +99,12 @@ df|dF {
 
     return(FATE_DIE);
 }
-kl|dh|l {
-    return(KEEP_LOWEST);
-}
-kh|dl|h {
-    return(KEEP_HIGHEST);
-}
+
+dl { return(DROP_LOWEST); }
+dh { return(DROP_HIGHEST); }
+kl { return(KEEP_LOWEST); }
+kh { return(KEEP_HIGHEST); }
+f { return(FILTER); }
 
 [+] {
     return(PLUS);
@@ -81,11 +127,8 @@ kh|dl|h {
 [x] {
     return(REPEAT);
 }
-[p] {
-    return(PENETRATE);
-}
 [r] {
-    return(REROLL_IF);
+    return(REROLL);
 }
 [#] {
     return(MACRO_STORAGE);
@@ -93,9 +136,8 @@ kh|dl|h {
 [@] {
     return(MACRO_ACCESSOR);
 }
-; {
-
-    return(MACRO_SEPERATOR);
+, {
+    return(SYMBOL_SEPERATOR);
 }
 [(] {
     return(LBRACE);
@@ -109,29 +151,87 @@ kh|dl|h {
 [\}] {
     return(SYMBOL_RBRACE);
 }
-[,] {
-    return(SYMBOL_SEPERATOR);
+\.\. {
+    return(RANGE);
 }
+; {
+    return(STATEMENT_SEPERATOR);
+}
+
+c {
+    return(DO_COUNT);
+}
+u {
+    return (MAKE_UNIQUE);
+}
+
+    /* Explosions */
 [!] {
     return(EXPLOSION);
 }
+e {
+    return(EXPLOSION);
+}
+o {
+    return(ONCE);
+}
+[p] {
+    return(PENETRATE);
+}
+
     /* Comparitors */
 \!\= {
-    return(NE);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = NOT_EQUAL;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return NE;
 }
 \=\= {
-    return(EQ);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return EQ;
 }
 \< {
-    return(LT);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = LESS_THAN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return LT;
 }
 \> {
-    return(GT);
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = GREATER_THAN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return GT;
 }
 \<\= {
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = LESS_OR_EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
     return(LE);
 }
 \>\= {
+    vec vector;
+    vector.content = malloc(sizeof(int));
+    vector.content[0] = GREATER_OR_EQUALS;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
     return(GE);
 }
     /* Macros*/

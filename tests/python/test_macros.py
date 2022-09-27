@@ -17,3 +17,8 @@ def test_macro_storage(r, out, mock):
 def test_macro_usage(r, out, mock):
     result = roll(r, mock_mode=mock)
     assert result == out
+
+def test_D66():
+    r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
+    result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
+    assert result == 33

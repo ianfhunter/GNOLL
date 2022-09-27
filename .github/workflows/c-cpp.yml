@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: "Test: C/C++/Python"
 
 on:
   push:
@@ -7,18 +7,30 @@ on:
     branches: [ main ]
 
 jobs:
-  ubuntuTest:
+
+  build:
 
     runs-on: ubuntu-latest
 
     steps:
+    
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+        
     - uses: actions/checkout@v2
-    - name: python deps
-      run: python3 -m pip install -r reqs/requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r reqs/requirements.txt
+        pip install build
+        make all
     - name: make test
       run: make test
   
-  wslTest:
+  build_win:
 
     runs-on: windows-latest
 

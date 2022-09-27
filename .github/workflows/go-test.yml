@@ -1,0 +1,19 @@
+name: "Test: Go"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: go install
+      run: sudo apt install golang-go
+    - name: make go
+      run: make go

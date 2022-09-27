@@ -1,8 +1,17 @@
-grammar:
-- src/grammar
+core:
+- src/grammar/*
 
 python:
-- src/python
+- src/python/*
+
+go:
+- src/go/*
+
+perl:
+- src/perl/*
+
+javascript:
+- src/js/*
 
 macros:
-- builtins/
+- builtins/*

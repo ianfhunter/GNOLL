@@ -1,13 +1,8 @@
 #ifndef SHARED_YACC_HEADER
 #define SHARED_YACC_HEADER
 
-#include <stdbool.h>
-
-typedef enum {
-    // 0 is invalid
-    SYMBOLIC=1,
-    NUMERIC=2
-} DIE_TYPE;
+#include "vector_functions.h"
+#include "rolls/sided_dice.h"
 
 typedef enum {
     NO_MOCK=0,
@@ -17,18 +12,9 @@ typedef enum {
     RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
 } MOCK_METHOD;
 
-typedef struct vec{
-    DIE_TYPE dtype;
-    int * content;
-    unsigned int length;
-    //TODO: Split length into content_length and symbol length
-    // maybe use union? If it exists in c
-    char ** symbols;
-} vec;
 
 int roll(char * s);
 int roll_and_write(char * s, char * f);
-int mock_roll(char * s, char * f, int mock_value, bool quiet, int mock_const);
-void reset();
+int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const);
 
 #endif

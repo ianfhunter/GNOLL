@@ -1,8 +1,9 @@
 import pytest
 from util import roll
 
+@pytest.mark.skip()
 def test_pip_package():
-    from dicetower.parser import roll
+    from gnoll.parser import roll
 
     err_code, result = roll("1d4")
     assert err_code == 0

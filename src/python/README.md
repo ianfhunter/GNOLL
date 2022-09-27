@@ -1,52 +1,113 @@
-# Dice Tower
+# GNOLL
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
+[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
+[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
-<img src="https://raw.githubusercontent.com/ianfhunter/DiceTower/main/media/logo.png" height="200" />
+<!-- Dark and Light Mode switches -->
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 
-# About
 
-DiceTower is a comprehensive grammar-based library for rolling dice. DiceTower parses [Dice Notation](https://en.wikipedia.org/wiki/Dice_notation) for your project, so that you don't have to. Ideal for software or researchers of tabletop gaming.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
+Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
-It's written in C, so it's very fast and portable!
-
-Here's an example of how you might use DiceTower:
+Here's an example of how you might use GNOLL:
 ```markdown
-   Gridon The Brave: I want to steal from the goblin sitting at the bar.
+   Grindon The Brave: I want to steal from the goblin sitting at the bar.
    Dungeon Master: Okay, give me a stealth check!
-   Gridon The Brave: Okay, that's a <1d20+5>
-   [DiceTower]: 21
+   Grindon The Brave: Okay, that's a <1d20+5>
+   [GNOLL]: 21
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
-# Usage
 
-## Install
+[You can follow Grindon's Tale through the world of dice notation in our Documentation](https://ianhunter.ie/GNOLL)
+
+## Current Status
+### 🧑‍💻 Language Support
+
+We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access GNOLL's functionality through different languages in the near future.
+
+- C / C++
+- Python
+- Perl
+- Go
+
+Tested on Linux (Ubuntu) and Windows (10, WSL).
+
+### 🎲 Dice Notation
+- XdY notation
+- Arithmetic
+- Fate Dice
+- Miscellaneous Symbolic Dice
+- Macros 
+- Explosions
+- Drop/Keep
+
+For the specific details of supported notation, [check out the docs](https://ianhunter.ie/GNOLL).
+And feel free to ask for anything we're missing!
+
+## Getting Started
+### 🛠️ Prerequisites
+
+```bash
+sudo apt-get install bison flex make python3-pip -y
+make all
 ```
-pip install dice_tower
+
+To verify your setup, try our tests:
+```bash
+   make test
+```
+Or, just try some commands yourself!
+
+```bash
+$ ./dice 1d20
+20
+```
+(Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
+
+Sample Python Call:
+```python
+from gnoll.parser import roll
+roll("1d20")
+>> 7
 ```
 
-## Roll Dice
+## 🐛 Issues / Bugs / FAQs / Feature Requests
 
-```
-from dicetower import parser as dt;
+If you encounter any issues or have any ideas, please file them in our [Issue Tracker](https://github.com/ianfhunter/GNOLL/issues).
 
-dt.roll('2')
-> 2
-```
+## ✋ Contributing
 
-# Features
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-DiceTower supports a lot of different notations. Too many to explain here so [we've got a seperate section in our wiki](https://github.com/ianfhunter/dice-tower/wiki/Dice-Roll-Syntaxes).
+## 🔢 Versioning
 
-# Support
-If you encounter any issues, please file them in our [Issue Tracker](https://github.com/ianfhunter/dice-tower/issues).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/gnoll/tags).
 
-You can vote on prospective new features on [FeatHub](https://feathub.com/ianfhunter/dice)
+## 🤹 Authors / Contributers / Attributions
 
-# License
+* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+
+See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
+
+## 📃 License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
 
 Individiual licensing arrangements can be made if this is an issue for your project - Contact Me at [LinkedIn](https://www.linkedin.com/in/ianfhunter) to discuss.
 
-# Donate
+## 👏 Acknowledgments
+
+* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+
+## 🏗️ Built With
+
+* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+* Love! 💖
+
+## 💰 Donate
 
 [Keep this project alive](https://ko-fi.com/ianfhunter)
