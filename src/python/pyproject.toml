@@ -1,3 +1,6 @@
 [build-system]
-requires = ["setuptools", "cppyy"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project]
+dependencies = ["cppyy"]
