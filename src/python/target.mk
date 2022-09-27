@@ -12,7 +12,7 @@ pip : all
 
 	cd src/python/ ; python3 -m build
 	echo "------------------INSTALL------------------------"
-	python3 -m pip install -vvv --user --no-index --find-links=src/python/dist/ --force-reinstall --ignore-installed gnoll
+	python3 -m pip install -vvv --user --find-links=src/python/dist/ --force-reinstall --ignore-installed gnoll
 	echo "-------------------- TEST ----------------------"
 	python3 -c "from gnoll import parser as dt; dt.roll('2')"
 
