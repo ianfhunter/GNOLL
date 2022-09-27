@@ -115,8 +115,42 @@ macro_statement:
         register_macro(key.symbols[0], &value);
     }
 ;
+dice_statement: 
+    die_statement REPEAT dice_statement{
+        vec vector1;
+        vec vector2;
 
-dice_statement: math{
+        vector1 = $<values>1;
+        vector2 = $<values>2;
+
+        vec new_vec;
+        new_vec.length = vector1.length+vector2.length ;
+        new_vec.dtype = vector1.dtype;
+  
+        // TODO: assert types are the same?
+        if (new_vec.dtype == SYMBOLIC){
+            new_vec.symbols = calloc(sizeof(char **), new_vec.length);
+            concat_symbols(
+                 vector1.symbols, vector1.length,
+                 vector2.symbols, vector2.length,
+                 new_vec.symbols
+            );
+        }else{
+            new_vec.content = calloc(sizeof(int), new_vec.length);
+            concat_numbers(
+                 vector1.content, vector1.length,
+                 vector2.content, vector2.length,
+                 new_vec.content
+            );
+        }
+
+        $<values>$ = new_vec;
+    }
+    |
+    die_statement
+;
+
+die_statement: math{
 
     vec vector;
     vec new_vec;
