@@ -7,3 +7,4 @@ pytest
 # distribution
 build
 twine
+setuptools
