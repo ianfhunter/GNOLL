@@ -1,6 +1,32 @@
+[project]
+name = "gnoll"
+dependencies = ["cppyy"]
+authors = [
+    {name = "Ian Hunter", email = "ianfhunter@gmail.com"},
+]
+readme = "README.md"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Unix Shell",
+    "Programming Language :: C",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Unix",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Topic :: Games/Entertainment :: Board Games",
+    "Topic :: Games/Entertainment :: Role-Playing",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing"
+]
+requires-python = ">=3.6"
+version="2.8.2"
+description="An efficient dice notation parser with extended notation"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
-
-[project]
-dependencies = ["cppyy"]
