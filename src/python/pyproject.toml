@@ -1,6 +1,6 @@
 [project]
 name = "gnoll"
-dependencies = ["cppyy"]
+dependencies = ["cppyy>=2.2.0"]
 authors = [
     {name = "Ian Hunter", email = "ianfhunter@gmail.com"},
 ]
