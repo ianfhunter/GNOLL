@@ -157,7 +157,9 @@ This list is currently **Under Construction**.
 |d20 Future	| D20 | ✔️ |		
 |d20 Modern	| D20 | ✔️ |		
 |d20 Past	| D20 | ✔️ |		
-|d20 System	| D20 | ✔️ |		
+|d20 System	| D20 | ✔️ |	
+| Dallas [[1]](https://writeups.letsyouandhimfight.com/bieeardo/dallas-rpg/) | 	| ✔️ |
+| Danger International | Hero | ✔️ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
