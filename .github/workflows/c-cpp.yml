@@ -50,13 +50,12 @@ jobs:
       shell: wsl-bash {0}
       run: |
         unset DISPLAY 
-        # pip install pip==21.0.1
-        pip install --upgrade pip 
+        python -m venv env
+        source env/bin/activate
         pip -v install -r reqs/requirements.txt
         
-    - name: build
-      shell: wsl-bash {0}
-      run: make all
     - name: test
       shell: wsl-bash {0}
-      run: make test
+      run: |
+        source env/bin/activate
+        make test
