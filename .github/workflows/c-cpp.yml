@@ -50,7 +50,7 @@ jobs:
       shell: wsl-bash {0}
       run: |
         unset DISPLAY 
-        DISPLAY=  python3 -m pip install -r reqs/requirements.txt -v
+        DISPLAY=  pip -v install -r reqs/requirements.txt
         
     - name: build
       shell: wsl-bash {0}
