@@ -48,6 +48,7 @@ jobs:
     - name: python deps
       shell: wsl-bash {0}
       run: |
+        export DISPLAY=
         python3 -m pip install --upgrade pip
         python3 -m pip install -r reqs/requirements.txt
         python3 -m pip install build
