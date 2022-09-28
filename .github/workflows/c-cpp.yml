@@ -50,7 +50,9 @@ jobs:
       shell: wsl-bash {0}
       run: |
         unset DISPLAY 
-        DISPLAY=  pip -v install -r reqs/requirements.txt
+        # pip install pip==21.0.1
+        pip install --upgrade pip 
+        pip -v install -r reqs/requirements.txt
         
     - name: build
       shell: wsl-bash {0}
