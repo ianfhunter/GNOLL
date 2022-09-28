@@ -50,9 +50,9 @@ jobs:
       shell: wsl-bash {0}
       run: |
         unset DISPLAY 
-        python -m venv env
+        python3 -m venv env
         source env/bin/activate
-        pip -v install -r reqs/requirements.txt
+        python3 -m pip -v install -r reqs/requirements.txt
         
     - name: test
       shell: wsl-bash {0}
