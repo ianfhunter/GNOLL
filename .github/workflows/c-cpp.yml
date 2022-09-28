@@ -49,6 +49,7 @@ jobs:
       shell: wsl-bash {0}
       run: |
         export DISPLAY=
+        unset DISPLAY 
         python3 -m pip install --upgrade pip
         python3 -m pip install -r reqs/requirements.txt
         python3 -m pip install build
