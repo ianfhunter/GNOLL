@@ -44,6 +44,7 @@ jobs:
           build-essential 
           libssl-dev 
           libffi-dev
+          python3.10-venv
     
     - uses: actions/checkout@v2
     - name: python deps
