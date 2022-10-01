@@ -55,7 +55,7 @@ e.g.
 >
 > 'd' is sometimes avoided to avoid conflicting with the 'd' for defining a dice e.g. 'd6'
 >
-> GNOLL does not have this issue as a following term (l or h) are mandatory to specify.
+> GNOLL does not have this issue as a following term (l or h) are mandatory to avoid ambiguity.
 
 ## Drop 'Middle'
 GNOLL does not allow dropping a 'middle' dice as it will create unintuitive rules for handling odd/even dice like "upper-middle" or "lower-middle".

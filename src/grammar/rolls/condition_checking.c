@@ -42,6 +42,13 @@ int check_condition(
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
         }
+        case INVALID:{
+            return 0;
+        }
+        case UNIQUE:{
+            // TODO: Not Implemented
+            return 0;
+        }
     }
 }
 
@@ -70,6 +77,13 @@ int check_condition_scalar(
         }
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
+        }
+        case INVALID:{
+            return 0;
+        }
+        case UNIQUE:{
+            // Unique by the fact that it is scalar
+            return 1;
         }
     }
 }

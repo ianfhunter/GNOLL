@@ -10,5 +10,8 @@ go:
 perl:
 - src/perl/*
 
+javascript:
+- src/js/*
+
 macros:
 - builtins/*

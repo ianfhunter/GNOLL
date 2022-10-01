@@ -6,7 +6,7 @@ from util import roll, Mock
 def test_3_5_age():
     # Age for an old Gnome 
     result = roll("150+3d%")
-    assert result >= 203
+    assert result >= 153
     assert result <= 450
 
 def test_3_5_height():

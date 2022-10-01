@@ -1,9 +1,11 @@
 # GNOLL
 [![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
 [![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
+[![Test: Javascript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
 
 [![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
+[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
@@ -13,7 +15,7 @@
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
@@ -25,7 +27,7 @@ Here's an example of how you might use GNOLL:
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's full adventure through the world of dice notation in our Wiki](https://www.ianhunter.ie/GNOLL). 
+[You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL). 
 
 Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
 
@@ -38,6 +40,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - Python
 - Perl
 - Go
+- Javascript (Node)
 
  We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
@@ -53,6 +56,7 @@ Tested on Linux (Ubuntu) and Windows (10, WSL).
 - Explosions
 - Drop/Keep
 - Rerolling
+- Filtering
 
 There's so many different things, we'd bore you to list them all here. For the specific details of supported notation, [check out our documentation](https://www.ianhunter.ie/GNOLL).
 
@@ -74,6 +78,7 @@ roll("1d20")
 #### Basic Requirements
 ```bash
 sudo apt-get install bison flex make python3-pip -y
+pip install -r reqs/requirements.txt
 make all
 ```
 

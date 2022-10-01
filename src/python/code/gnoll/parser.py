@@ -56,7 +56,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         out = out[0]
 
     if isinstance(out, list):
-        if out[0].lstrip("-").isdigit():
+        if all([x.lstrip("-").isdigit() for x in out]):
             out = [int(o) for o in out]
     elif out.lstrip("-").isdigit():
         out = int(out)

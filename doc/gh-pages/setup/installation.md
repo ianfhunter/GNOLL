@@ -7,9 +7,9 @@ nav_order: 0
 # Technical Setup
 ## OS Information
 
-Linux - Tested on Ubuntu '18.
-Windows - Tested on Windows Subsystem for Linux (WSL)
-Mac - Untested.
+- Linux - Tested on Ubuntu '18.
+- Windows - Tested on Windows Subsystem for Linux (WSL)
+- Mac - Untested.
 
 ## Common Pre-requisites
 ```bash
@@ -38,6 +38,23 @@ make python
 ## Perl
 ```
 make perl
+```
+
+## Javascript Setup
+
+### Pre-Requisites
+```bash
+sudo apt-get install emscripten nodejs
+```
+
+### Build
+```
+make javascript
+```
+
+### Run
+```
+node a.out.js
 ```
 
 ## Something Else?

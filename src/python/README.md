@@ -21,7 +21,7 @@ Here's an example of how you might use GNOLL:
    Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's Tale through the world of dice notation in our Wiki](https://github.com/ianfhunter/GNOLL/wiki/Numeric-Dice)
+[You can follow Grindon's Tale through the world of dice notation in our Documentation](https://ianhunter.ie/GNOLL)
 
 ## Current Status
 ### 🧑‍💻 Language Support
@@ -44,7 +44,7 @@ Tested on Linux (Ubuntu) and Windows (10, WSL).
 - Explosions
 - Drop/Keep
 
-For the specific details of supported notation, [we've got a dedicated section in our wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes).
+For the specific details of supported notation, [check out the docs](https://ianhunter.ie/GNOLL).
 And feel free to ask for anything we're missing!
 
 ## Getting Started
