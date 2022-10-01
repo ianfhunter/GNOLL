@@ -161,6 +161,10 @@ This list is currently **Under Construction**.
 | Dallas [[1]](https://writeups.letsyouandhimfight.com/bieeardo/dallas-rpg/) | 	| ✔️ |
 | Danger International | Hero | ✔️ |
 | Dangerous Journeys | | ✔️ |
+| Daredevils |BCS| ✔️|
+| Dark ages| Storyteller|  🔼|
+| Dark Champions | Hero |  🔼 |
+| Dark Conspiracy| |  🔼|
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
