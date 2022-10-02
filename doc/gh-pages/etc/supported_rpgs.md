@@ -165,6 +165,16 @@ This list is currently **Under Construction**.
 | Dark ages| Storyteller|  🔼|
 | Dark Champions | Hero |  🔼 |
 | Dark Conspiracy| |  🔼|
+| Dark Dungeons | D&D clone | ✔️ |
+| The Dark Eye | | ✔️ |
+| Dark Heresy | Warhammer 40K| ✔️ |
+| Dark Streets | Renaissance Deluxe d100 | ✔️ |
+| Darwin's World | d20 | ✔️ |
+| Dawning Star | d20 | ✔️ |
+| DC adventures | d20 | ✔️ |
+| DC Heroes| MEGS|✔️ |
+| DC Universe | d6 | ✔️ |
+| De Profundis | | 〰️ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
 | Universe | | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)
