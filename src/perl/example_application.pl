@@ -1,6 +1,6 @@
 use File::Basename;
-use gnoll;
 use lib dirname (__FILE__);
+use gnoll;
 
 print "GNOLL in PERL\n";
 
