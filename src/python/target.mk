@@ -1,6 +1,5 @@
-
-.PHONY: pip publish python_clean
-pip : all
+.PHONY: pip publish python_clean python 
+python: all
 	echo "----------------- BUILD -------------------------"
 	# Copy Build
 	rm -rf src/python/code/gnoll/c_build/
@@ -11,9 +10,9 @@ pip : all
 	cp -r src/grammar/  src/python/code/gnoll/c_includes/
 
 	cd src/python/ ; python3 -m build
-	echo "------------------INSTALL------------------------"
+
+pip : python
 	python3 -m pip install -vvv --user --find-links=src/python/dist/ --force-reinstall --ignore-installed gnoll
-	echo "-------------------- TEST ----------------------"
 	python3 -c "from gnoll import parser as dt; dt.roll('2')"
 
 publish: test

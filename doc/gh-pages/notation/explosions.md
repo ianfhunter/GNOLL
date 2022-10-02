@@ -6,25 +6,25 @@ nav_order: 6
 
 # Explosions & Implosions
 {: .story }   
->  Grindon: Oh gosh, uh. What's in the room?! How close is the gnoll?
+>  **Grindon**: Oh gosh, uh. What's in the room?! How close is the gnoll?
 >
->   GM: He's just coming through the door. There's a small table, a chest and some barrels of oil.
+>   **GM**: He's just coming through the door. There's a small table, a chest and some barrels of oil.
 >
->   Grindon: Oil! I light a torch and throw a match, diving back into the fireplace.
+>   **Grindon**: Oil! I light a torch and throw a match, diving back into the fireplace.
 >
->   GM: This is gonna be a close one! Roll an athletics check to get into the fireplace and an exploding d6 for the barrel of oil.
+>   **GM**: This is gonna be a close one! Roll an athletics check to get into the fireplace and an exploding d6 for the barrel of oil.
 >
->   Grindon: Okay that's... 1d20+4 then... d6!
+>   **Grindon**: Okay that's... 1d20+4 then... d6!
 >
->   GNOLL: [18]
+>   *GNOLL*: [18]
 >
->   GNOLL: [25]
+>   *GNOLL*: [25]
 >
->   GM: The explosion blasts behind you as you dive inside. You still take 4 damage as you smash into the stone and your ears ring as the barrel bursts, evaporating the gnoll.
+>   **GM**: The explosion blasts behind you as you dive inside. You still take 4 damage as you smash into the stone and your ears ring as the barrel bursts, evaporating the gnoll.
 >
->   Grindon The Brave: Ouch! 
+>   **Grindon The Brave**: Ouch! 
 >
->   GM: I'm pretty sure whatever else is in this cave heard that too :)
+>   **GM**: I'm pretty sure whatever else is in this cave heard that too :)
 
 
 ## Traditional Explosions
