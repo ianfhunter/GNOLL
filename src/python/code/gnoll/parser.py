@@ -7,7 +7,6 @@ BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
-
 cppyy.c_include(os.path.join(C_HEADER, "shared_header.h"))
 cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
 cppyy.load_library(C_SHARED_LIB)
