@@ -174,6 +174,7 @@ This list is currently **Under Construction**.
 | DC adventures | d20 | ✔️ |
 | DC Heroes| MEGS|✔️ |
 | DC Universe | d6 | ✔️ |
+| Dead inside | PDQ |  ❓ |
 | De Profundis | | 〰️ |
 | Unisystem | Unisystem | ✔️ |
 | Universalis | | ✔️|
