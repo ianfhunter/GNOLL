@@ -1,7 +1,8 @@
+import cppyy
 import os
 import sys
 import tempfile
-import cppyy
+
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
