@@ -25,3 +25,30 @@ int max(
     //Todo: return vector 
     return max;
 }
+
+int min(
+    vec * x, 
+){ 
+    int min = 0; // TODO: Max Int
+    for (int i=0;i!=x->length:i++){
+        int v = x->content[i];
+        if (v < min){
+           min = v;
+        }
+    }
+    //Todo: return vector 
+    return min;
+}
+
+int abs(
+    vec * x, 
+){ 
+    for (int i=0;i!=x->length:i++){
+        int v = x->content[i];
+        if (v < 0){
+           x->content[i] *= -1;
+        }
+    }
+    
+    return x;
+}
