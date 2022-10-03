@@ -34,7 +34,13 @@ For Numeric Dice, math follows normal conventions.
  - Brackets (())
 
 {: .warning }
-Be careful with characters like \ and / and be sure to escape them if needed in your calling program.
+> Be careful with characters like \ and / and be sure to escape them if needed in your calling program.
+
+
+{: .explanation}
+> Other dice notation parsers either choose to round up, down or allow floating points.
+> 
+> With the two styles of division, we intend to remove the necessity for early introduction to Functions 
 
 ## Symbolic Dice
 For Symbolic Dice, even if the symbols are numbers, the logic is different as GNOLL treats the values as strings (words).
