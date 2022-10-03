@@ -17,8 +17,8 @@ Here are a sample of the dice that can be used via Macro Accessors
 <!-- textlint-disable -->
 <!-- Ignore Suggestion for Node to be named Node.js -->
 
-| Dice Type | Possible Values | Macro Accessor | 
-| --------- | --------------- | -------------- |
+| Dice Type | Possible Values | Macro Accessor |
+| ------------- | ---------------- | ----------------- |
 | Poker Dice | 9, 10, J, K, Q, A | #POKER_DICE |
 | Chess Dice | Pawn, Knight, Bishop, Rook, Queen, and King | #CHESS_DICE |
 | Directions | NORTH, SOUTH, WEST, EAST | #DIRECTION_D4 |
