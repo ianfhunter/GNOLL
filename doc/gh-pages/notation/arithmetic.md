@@ -6,7 +6,7 @@ nav_order: 4
 
 # Math with Dice
 
-{: .story }   
+{: .story }
 >**GM**: As you climb out of the fireplace, roll a stealth check to avoid making noise in the charcoal and debris below.
 >
 >**Gridon**: 1d20+4
@@ -21,16 +21,16 @@ nav_order: 4
 
 ## Numeric Dice
 For Numeric Dice, math follows normal conventions.
-- Add (+): 
- - 1+2 = 3
+- Add (+):
+  - 1+2 = 3
 - Subtract (-): 
- - 4-3 = 1
+  - 4-3 = 1
 - Multiply (*): 
- - 5*2: 10
+  - 5*2: 10
 - Divide (rounding up(\\) and rounding down(/)): 
- - 10/2: 5
+  - 10/2: 5
 -Modulo (%): 
- - 10%3 = 1
+  - 10%3 = 1
 - Brackets (())
 
 {: .warning }
@@ -47,11 +47,11 @@ For Symbolic Dice, even if the symbols are numbers, the logic is different as GN
 
 - Add (+) Concatenate two symbols: "A"+"B" = "AB"
 - Subtract (-) Remove if there is overlap between symbols: 
- - "AAA"-"C"= "AAA".  
- - "ABA"-"A"= "BA"
+  - "AAA"-"C"= "AAA".  
+  - "ABA"-"A"= "BA"
 - Multiply (*) - Duplicate if multiplying by a number. Cannot multiply by a symbol
- - "A" * 5 = "AAAAA"
- - "A" * "B" = ERR
+  - "A" * 5 = "AAAAA"
+  - "A" * "B" = ERR
 - Divide (\\ or /): Currently always produces an error.
 - Modulo (%): Currently always produces an error.
 - Brackets (())
