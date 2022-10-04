@@ -7,7 +7,7 @@ nav_order: 9
 
 # Built-In Macros
 
-{: .story }   
+{: .story }
 > TODO
 
 ## Supported Macros
