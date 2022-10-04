@@ -34,7 +34,7 @@ Count how many D10s are larger than 7:
 >10d10f>7c
 
 Count how many Fate dice are '+':
->100dFc 
+>100dFc
 
 {: .explanation }
 > Counting dice is a rarer feature of dice rollers and there is at least one instance of using the '#' symbol to denote this operation [[1]](https://www.sophiehoulden.com/dice/documentation/notation.html#count)
