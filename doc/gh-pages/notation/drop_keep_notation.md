@@ -8,7 +8,7 @@ nav_order: 5
 # Drop/Keep Notation
 
 
-{: .story }   
+{: .story }
 >**GM**: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
 >
 >**Grindon The Brave**: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
@@ -19,7 +19,7 @@ nav_order: 5
 >
 >*GNOLL*: [20]
 >
->**GM**: You are the night itself. You take down the goblin before it can even react. 
+>**GM**: You are the night itself. You take down the goblin before it can even react.
 
 
 ## Implementation Comparison
@@ -39,18 +39,18 @@ There isn't a consistent way to express this and some of them can be ambigious.
 | [Avrae](https://avrae.io/)      | 2d6k1                    | 2d6p1                    |
 | [DiceLogger](https://www.dicelogger.com/) | 2d6b1 | ? |
 
-## GNOLL Syntax 
+## GNOLL Syntax
 
 GNOLL's Syntax is:
 
 > [𝑘𝑑] [ℎ𝑙] 𝑧 𝑤ℎ𝑒𝑟𝑒 𝑧 ∈ Z<super>+</super>
 
-e.g. 
+e.g.
 - 3d20kh2 - keep highest 2 rolls from 3 d20 rolls
 - 3d20dl2 - drop lowest 2 rolls from 3 d20 rolls
 - 3d20kl - keep lowest 1 (default if excluded) from 3 d20 rolls
 
-{: .explanation }   
+{: .explanation }
 > 'Keep' and 'Drop' are commonly used in feature documentation
 >
 > 'd' is sometimes avoided to avoid conflicting with the 'd' for defining a dice e.g. 'd6'
