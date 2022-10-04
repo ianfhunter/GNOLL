@@ -6,7 +6,7 @@ nav_order: 11
 
 # Conditions & Filters
 
-{: .story }   
+{: .story }
 >TODO
 
 # Filtering
@@ -29,9 +29,9 @@ Conditionals in GNOLL operations take the same form as one might find in typical
 Filters use conditionals to remove dice rolls that do not match the conditional check. Equation 16 shows four dice
 being rolled and then two of them discarded for not matching the filter criteria.
 
-**Example: **
+**Example:**
 
-4𝑑6𝑓 < 3 = 𝑓𝑖𝑙𝑡𝑒𝑟({4,1,2,5}, ” < 3”) = {2,1} 
+4𝑑6𝑓 < 3 = 𝑓𝑖𝑙𝑡𝑒𝑟({4,1,2,5}, ” < 3”) = {2,1}
 
 ## Combination with other operations
 
