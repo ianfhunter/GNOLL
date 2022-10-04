@@ -7,23 +7,23 @@ nav_order: 1
 # Numeric Dice
 
 
-{: .story }   
+{: .story }
 >**GM** (Game Master): Okay, Welcome to the game. Let's get started. You've just received a contract to explore a nearby dungeon. Roll a d5 and it'll take that many days."
->  
+>
 >**Grindon the Brave**: "d5"
 >
 >*GNOLL*: 3
 >
 >**GM**: Okay, you should have enough supplies for that trip. Saddle up and let's go!
->  
+>
 >**Grindon the Brave**: Onward to adventure! I'll pick up a book in the store to read on the road!
->  
+>
 >**GM** There's a few book shops around here, That'll be 2d4 gold pieces when you eventually find an interesting one
 >
 >*GNOLL*: 7
 >
 >**Grindon the Brave**: "Ugh. Expensive, but it is a signed copy at least!"
->  
+>
 >**GM**: You catch the next wagon out of town and buildings start changing into fields of wheat and barley as it moves out. The journey is long and... "z4"
 >
 >*GNOLL*: 0
@@ -39,9 +39,9 @@ What will happen next? [Continue to the next chapter!](Symbolic-Dice)
 
 ## Basic Numeric Dice
 
-The basic form of a dice roll is _x**d**y_ where _x_, _y_ ∈ ℤ<sup>+</sup>. 
+The basic form of a dice roll is _x**d**y_ where _x_, _y_ ∈ ℤ<sup>+</sup>.
 
-In plain english, this means that _x_ and _y_ are positive whole numbers (e.g. 1, 7, 138). 
+In plain english, this means that _x_ and _y_ are positive whole numbers (e.g. 1, 7, 138).
 
 The value _x_ is the number of dice that you wish to roll. You can exclude this, and it'll be assumed you mean a single die.
 
@@ -52,7 +52,7 @@ The value _y_ tells us how many sides the dice has. A regular six-sided die can 
  - `1` - A Constant Value. It will just return the value "1"
  - `1d4` - A Single Die Roll with 4 Sides. It will return a value between 1 and 4.
  - `d4` - This is the same as above, as _x_ is assumed to be 1.
- - `2d4` - Roll 2 Dice with 4 Sides. It will return a value between 2 and 8. 
+ - `2d4` - Roll 2 Dice with 4 Sides. It will return a value between 2 and 8.
  - `d` - This will return an error because there is no y term.
 
 {: .explanation}
