@@ -38,7 +38,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - Python
 - Perl
 - Go
-- JavaScript (Node.JS)
+- JavaScript (Node.js)
 
  We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
@@ -61,7 +61,7 @@ There's so many different things, we'd bore you to list them all here. For the s
 ## Getting Started
 ### Usage from a package manager
 #### Python
-```
+```bash
 pip3 install GNOLL
 ```
 
