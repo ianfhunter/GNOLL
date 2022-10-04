@@ -47,7 +47,7 @@ The value *x* is the number of dice that you wish to roll. You can exclude this,
 
 The value *y* tells us how many sides the dice has. A regular six-sided die can be called a "d6". You can't exclude this value, because we won't be able to tell how many sides the dice has!
 
-### Examples
+### Numeric Dice Examples
 
 - `1` - A Constant Value. It will just return the value "1"
 - `1d4` - A Single Die Roll with 4 Sides. It will return a value between 1 and 4.
@@ -80,7 +80,7 @@ A simple prime number dice might look like d{2,3,5,7,11,13}.
 
 Where numbers are all consecutive, one can use a hyphen to indicate a range e.g. a die with sides 10,11,12,13,14,15 could be written as d{10..15}. This notation includes both the given start and end values in the pool of rollable values.
 
-### Examples
+### Customized Dice Examples
 - d{} - produces an error for a die with no sides is not a die at all
 - d{1,3..6} - produces a value between 1 and 6, but excluding 2
 
