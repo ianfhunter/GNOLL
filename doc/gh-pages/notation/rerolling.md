@@ -23,8 +23,8 @@ nav_order: 7
 >**Grindon**: Yeah, but then I deserved it.
 
 Rerolling is often based on conditions (e.g. reroll if result is a 1). There are two options when using these conditions
- - Reroll once 
- - Reroll until the condition is no longer true.
+- Reroll once
+- Reroll until the condition is no longer true.
 
 We represent these as "ro" and "r" respectively.
 
