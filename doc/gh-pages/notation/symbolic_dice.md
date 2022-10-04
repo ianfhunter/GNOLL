@@ -17,7 +17,7 @@ nav_order: 2
 >
 >*GNOLL*: ["+"]
 >
->**Grindon the Brave**: Yes! 
+>**Grindon the Brave**: Yes!
 >
 >**GM**: Sure enough, it seems like there's some sort of chimney hole about 20ft up from the main entrance. It looks big enough to squeeze through.
 
