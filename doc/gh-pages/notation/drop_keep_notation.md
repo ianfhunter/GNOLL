@@ -9,24 +9,24 @@ nav_order: 5
 
 
 {: .story }   
->   **GM**: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
+>**GM**: Alright, you step over the goblin's corpse and go inside. There's another one there. He hasn't seen you yet.
 >
 >**Grindon The Brave**: I guess I should have talked to the other one, you were right. This one i will just stealth and put him to sleep.
 >
->   **GM**: It's pretty dark in here, so I'll give you advantage on a stealth roll
+>**GM**: It's pretty dark in here, so I'll give you advantage on a stealth roll
 >
->   **Grindon The Brave**: Nice, "2d20kh"
+>**Grindon The Brave**: Nice, "2d20kh"
 >
->   *GNOLL*: [20]
+>*GNOLL*: [20]
 >
->   **GM**: You are the night itself. You take down the goblin before it can even react. 
-```
+>**GM**: You are the night itself. You take down the goblin before it can even react. 
+
 
 ## Implementation Comparison
 
 You might want to roll two dice and choose the higher or lower of the two in order to give you an *advantage* or *disadvantage*
 
-There isn't a consistent way to express this:
+There isn't a consistent way to express this and some of them can be ambigious.
 
 | Platform   | Keep Highest/Drop Lowest | Keep Lowest/Drop Highest |
 | ---------- | ------------------------ | ------------------------ |
@@ -57,8 +57,13 @@ e.g.
 >
 > GNOLL does not have this issue as a following term (l or h) are mandatory to avoid ambiguity.
 
-## Drop 'Middle'
+## Other Types of Dropping
+
+### Drop 'Middle'
 GNOLL does not allow dropping a 'middle' dice as it will create unintuitive rules for handling odd/even dice like "upper-middle" or "lower-middle".
 Instead, you can reproduce this by dropping both sides of a roll.
 
 e.g. 3d20dl1dh1
+
+### Drop Even/Odd
+We suggest using [Filters](https://www.ianhunter.ie/GNOLL/notation/filters.html) for this type of logic and other types of conditional removal.
