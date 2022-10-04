@@ -1,3 +1,5 @@
+# GNOLL
+
 Welcome to GNOLL's documentation!
 
 The aim of GNOLL is to provide the world with a dice parsing library that:
