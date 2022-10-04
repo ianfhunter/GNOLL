@@ -42,7 +42,7 @@ compile:
 
 # Shared Lib
 shared: $(OBJECTS)
-	$(CC) -shared -o build/$@ $^
+	$(CC) -shared -o build/dice.so $^
 
 # Linux
 	mv ./a.out build/dice | true
