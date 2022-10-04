@@ -49,11 +49,11 @@ The value _y_ tells us how many sides the dice has. A regular six-sided die can 
 
 ### Examples
 
- - `1` - A Constant Value. It will just return the value "1"
- - `1d4` - A Single Die Roll with 4 Sides. It will return a value between 1 and 4.
- - `d4` - This is the same as above, as _x_ is assumed to be 1.
- - `2d4` - Roll 2 Dice with 4 Sides. It will return a value between 2 and 8.
- - `d` - This will return an error because there is no y term.
+- `1` - A Constant Value. It will just return the value "1"
+- `1d4` - A Single Die Roll with 4 Sides. It will return a value between 1 and 4.
+- `d4` - This is the same as above, as _x_ is assumed to be 1.
+- `2d4` - Roll 2 Dice with 4 Sides. It will return a value between 2 and 8.
+- `d` - This will return an error because there is no y term.
 
 {: .explanation}
 > The _x_d_y_ notation is one aspect of dice notation that is common for almost every application, so we don't have to make any choices here!
@@ -81,8 +81,8 @@ A simple prime number dice might look like d{2,3,5,7,11,13}.
 Where numbers are all consecutive, one can use a hyphen to indicate a range e.g. a die with sides 10,11,12,13,14,15 could be written as d{10..15}. This notation includes both the given start and end values in the pool of rollable values.
 
 ### Examples
- - d{} - produces an error for a die with no sides is not a die at all
- - d{1,3..6} - produces a value between 1 and 6, but excluding 2
+- d{} - produces an error for a die with no sides is not a die at all
+- d{1,3..6} - produces a value between 1 and 6, but excluding 2
 
 {: .explanation}
 > 
