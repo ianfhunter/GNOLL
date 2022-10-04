@@ -23,13 +23,13 @@ nav_order: 4
 For Numeric Dice, math follows normal conventions.
 - Add (+):
   - 1+2 = 3
-- Subtract (-): 
+- Subtract (-):
   - 4-3 = 1
-- Multiply (*): 
+- Multiply (*):
   - 5*2: 10
-- Divide (rounding up(\\) and rounding down(/)): 
+- Divide (rounding up(\\) and rounding down(/)):
   - 10/2: 5
--Modulo (%): 
+-Modulo (%):
   - 10%3 = 1
 - Brackets (())
 
@@ -39,14 +39,14 @@ For Numeric Dice, math follows normal conventions.
 
 {: .explanation}
 > Other dice notation parsers either choose to round up, down or allow floating points.
-> 
-> With the two styles of division, we intend to remove the necessity for early introduction to Functions 
+>
+> With the two styles of division, we intend to remove the necessity for early introduction to Functions
 
 ## Symbolic Dice
 For Symbolic Dice, even if the symbols are numbers, the logic is different as GNOLL treats the values as strings (words).
 
 - Add (+) Concatenate two symbols: "A"+"B" = "AB"
-- Subtract (-) Remove if there is overlap between symbols: 
+- Subtract (-) Remove if there is overlap between symbols:
   - "AAA"-"C"= "AAA".  
   - "ABA"-"A"= "BA"
 - Multiply (*) - Duplicate if multiplying by a number. Cannot multiply by a symbol
