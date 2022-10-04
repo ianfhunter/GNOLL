@@ -6,7 +6,7 @@ nav_order: 6
 
 # Explosions & Implosions
 
-{: .story } 
+{: .story }
 >**Grindon**: Oh gosh, uh. What's in the room?! How close is the gnoll?
 >
 >**GM**: He's just coming through the door. There's a small table, a chest and some barrels of oil.
@@ -23,7 +23,7 @@ nav_order: 6
 >
 >**GM**: The explosion blasts behind you as you dive inside. You still take 4 damage as you smash into the stone and your ears ring as the barrel bursts, evaporating the gnoll.
 >
->**Grindon The Brave**: Ouch! 
+>**Grindon The Brave**: Ouch!
 >
 >**GM**: I'm pretty sure whatever else is in this cave heard that too :)
 
@@ -54,7 +54,7 @@ When an explosion is set off, the range of the next dice is reduced by 1 step. A
 
 > {d4,d6,d8,d10,d12,d20}!p
 
-Not Implemented Yet. See [Issue #11](https://github.com/ianfhunter/GNOLL/issues/11) 
+Not Implemented Yet. See [Issue #11](https://github.com/ianfhunter/GNOLL/issues/11)
 
 Due to the more complicated notation, and the likelyhood that a penetrating explosion is standard across an rpg system, we recommend saving these rolls as macros.
 
