@@ -8,22 +8,22 @@ nav_order: 3
 
 
 {: .story }   
-> **Grindon**: Alright, before I crawl through the chimney, I'm going to look down it to check it's safe
+>**Grindon**: Alright, before I crawl through the chimney, I'm going to look down it to check it's safe
 >
-> **GM**: There are the remains of a fire, but it looks safe to descend
+>**GM**: There are the remains of a fire, but it looks safe to descend
 >
-> **Grindon**: Great! Onwards!
+>**Grindon**: Great! Onwards!
 >
-> **GM**: You crawl down the sooty chimney, getting well and truly covered in black dust. Stepping into the fireplace below, you find... d%
+>**GM**: You crawl down the sooty chimney, getting well and truly covered in black dust. Stepping into the fireplace below, you find... d%
 >
-> *GNOLL*: [74]
+>*GNOLL*: [74]
 >
-> **GM**: *Consults Table* "A half-burnt wooden doll that looks eerily familiar. It looks like... you!"
+>**GM**: *Consults Table* "A half-burnt wooden doll that looks eerily familiar. It looks like... you!"
 >
-> **Grindon**: That's.. unsettling... I thought my ears were burning earlier.. 
+>**Grindon**: That's.. unsettling... I thought my ears were burning earlier.. 
 
 ## Numeric Dice
-d% is often be used in place of a d100
+d% is often used in place of a d100. It is described in some rules as a 'percentile die'
 
 ## Fate Dice
 
