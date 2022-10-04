@@ -20,11 +20,11 @@ Use for instant support of common syntax and a library that can scale with your 
 
 Here's an example of how you might use GNOLL:
 ```markdown
-   Grindon The Brave: I want to steal from the goblin sitting at the bar.
-   Dungeon Master: Okay, give me a stealth check!
-   Grindon The Brave: Okay, that's a <1d20+5>
-   [GNOLL]: 21
-   Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
+**Grindon The Brave**: I want to steal from the goblin sitting at the bar.
+**Dungeon Master**: Okay, give me a stealth check!
+**Grindon The Brave**: Okay, that's a <1d20+5>
+[GNOLL]: 21
+**Dungeon Master**: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
 [You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL). 
@@ -84,7 +84,7 @@ make all
 
 To verify your setup, try our tests:
 ```bash
-   make test
+make test
 ```
 Or, just try some commands yourself!
 
