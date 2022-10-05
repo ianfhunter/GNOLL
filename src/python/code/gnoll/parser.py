@@ -1,18 +1,12 @@
 import os
 import sys
 import tempfile
+
 import cppyy
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
-if not os.path.exists(BUILD_DIR) or not os.path.isdir(BUILD_DIR):
-    BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../build"))
-
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
-if not os.path.exists(C_HEADER) or not os.path.isdir(C_HEADER):
-    C_HEADER = os.path.join(os.path.dirname(__file__), "../../../grammar")
-
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
-
 
 cppyy.c_include(os.path.join(C_HEADER, "shared_header.h"))
 cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
@@ -56,7 +50,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         out = out[0]
 
     if isinstance(out, list):
-        if out[0].lstrip("-").isdigit():
+        if all([x.lstrip("-").isdigit() for x in out]):
             out = [int(o) for o in out]
     elif out.lstrip("-").isdigit():
         out = int(out)
