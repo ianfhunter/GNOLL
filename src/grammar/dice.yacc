@@ -77,6 +77,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %token DO_COUNT MAKE_UNIQUE
 %token NE EQ GT LT LE GE
 %token RANGE
+%token FN_MAX FN_MIN FN_ABS FN_POOL
 
 /* Defines Precedence from Lowest to Highest */
 %left STATEMENT_SEPERATOR
@@ -1122,6 +1123,23 @@ die_symbol:
         $<values>$ = new_vec;
     }
 ;
+
+function: 
+    FN_MAX LBRACE term SYMBOL_SEPERATOR term RBRACE{
+        max($<values>2, $<values>4);
+    }
+    |
+    FN_MIN LBRACE term SYMBOL_SEPERATOR term RBRACE{
+        min($<values>2, $<values>4);
+    }
+    |FN_ABS LBRACE term RBRACE{
+        abs($<values>2);
+    }
+    |
+    FN_POOL LBRACE term SYMBOL_SEPERATOR term RBRACE{
+        make_pool($<values>2, $<values>4);
+    }
+}
 
 
 %%

@@ -241,3 +241,19 @@ o {
 [~] {
     return(IMPLOSION);
 }
+
+    /*         Builtin Functions        */
+    /* These should be limited in scope */
+
+max {
+    return (FN_MAX);
+}
+min {
+    return (FN_MIN);
+}
+abs {
+    return (FN_ABS);
+}
+pool {
+    return (FN_POOL)
+}

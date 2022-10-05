@@ -69,6 +69,15 @@ int max(int * arr, int len){
     }
     return highest;
 }
+void abs_vec(vec * x){ 
+    for (int i=0;i!=x->length;i++){
+        int v = x->content[i];
+        if (v < 0){
+           x->content[i] *= -1;
+        }
+    }
+}
+
 void print_vec(vec vector){
     printf("Vector Size: %d\n", vector.length);
     printf("Vector Type: %d\n", vector.dtype);
