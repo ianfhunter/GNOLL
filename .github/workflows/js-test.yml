@@ -34,4 +34,4 @@ jobs:
         ls -las
         echo '----'
         ls -las ./src/js
-        ./src/js/a.out.js 1d20
+        ./a.out.js 1d20
