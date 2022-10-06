@@ -30,4 +30,3 @@ jobs:
         emcc -v
         make js
         ./src/js/a.out.js 1d20
-        
