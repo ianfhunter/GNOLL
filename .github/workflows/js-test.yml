@@ -30,4 +30,8 @@ jobs:
         make all
         emcc -v
         make js
+        pwd
+        ls -las
+        echo '----'
+        ls -las ./src/js
         ./src/js/a.out.js 1d20
