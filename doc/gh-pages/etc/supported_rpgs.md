@@ -191,18 +191,18 @@ This list is currently **Under Construction**.
 | Deryni                                                                                                                      | Fudge                   | ✔️                                                          |
 | Diana: Warrior Princess                                                                                                     | Fate                    | ✔️                                                          |
 | Diaspora VSCA                                                                                                               | Fate                    | ✔️                                                         |
-| Dinky Dungeons                                                                                                              |                         |                                                             |
-| Dinosaur Planet: Broncosaurus Rex                                                                                           |                         |                                                             |
-| Diomin                                                                                                                      |                         |                                                             |
-| Do: Pilgrims of the Flying Temple                                                                                           |                         |                                                             |
-| The Doctor Who Role Playing Game                                                                                            |                         |                                                             |
-| Doctor Who - Adventures In Time And Space                                                                                   |                         |                                                             |
-| Doctor Who - Time Lord                                                                                                      |                         |                                                             |
-| Dogs in the Vineyard                                                                                                        |                         |                                                             |
-| Domination                                                                                                                  |                         |                                                             |
-| Dominion Rules                                                                                                              |                         |                                                             |
+| Dinky Dungeons                                                                                                              |                         |  ✔️                                                       |
+| Dinosaur Planet: Broncosaurus Rex                                                                                           |  d20                    |  ✔️                                                           |
+| Diomin                                                                                                                      |  d20                    |  ✔️                                                      |
+| Do: Pilgrims of the Flying Temple                                                                                           |  Fate                   |  ✔️                                                      |
+| The Doctor Who Role Playing Game                                                                                            | Vortex                  |  ✔️                                                        |
+| Doctor Who - Adventures In Time And Space                                                                                   |                         | 🔼                                                         |
+| Doctor Who - Time Lord                                                                                                      |                         | 🔼                                                         |
+| Dogs in the Vineyard                                                                                                        |                         | 🔼 *                                                           |
+| Domination                                                                                                                  |                         | ❓                                                            |
+| Dominion Rules                                                                                                              |                         | ✔️                                                           |
 | The Dominion Tank Police                                                                                                    | Tri-Stat                | ✔️                                                          |
-| Donjon Clinton                                                                                                              | Donjon                  |                                                             |
+| Donjon                                                                                                                      | Donjon                  | 🔼                                                          |
 | Don't Look Back                                                                                                             |                         |                                                             |
 | Don't Rest Your Head                                                                                                        |                         |                                                             |
 | Drací doupe                                                                                                                 | D&D-esqe                | ✔️                                                          |
@@ -222,15 +222,15 @@ This list is currently **Under Construction**.
 | Dread                                                                                                                       |                         |                                                             |
 | Dream Park                                                                                                                  |                         |                                                             |
 | The Dresden Files                                                                                                           | FATE                    | ✔️                                                          |
-| Droids                                                                                                                      |                         |                                                             |
-| Dune: Chronicles of the Imperium                                                                                            |                         |                                                             |
+| Droids                                                                                                                      |                         |  ❓                                                           |
+| Dune: Chronicles of the Imperium                                                                                            |                         |  🔼                                                        |
 | Dungeons & Dragons 3.5                                                                                                      | D&D                     | ✔️                                                          |
 | Dungeons & Dragons 4                                                                                                        | D&D                     | ✔️                                                          |
 | Dungeons & Dragons 5                                                                                                        | D&D                     | ✔️                                                          |
 | Dungeon Crawl Classics                                                                                                      |                         | ✔️                                                          |
 | Dungeon World                                                                                                               | PbtA                    | ✔️                                                          |
-| Durance                                                                                                                     |                         |                                                             |
-| Dust Devils                                                                                                                 |                         |                                                             |
+| Durance                                                                                                                     |                         | ✔️                                                            |
+| Dust Devils                                                                                                                 |                         |  〰️                                                           |
 | Dying Earth                                                                                                                 |                         | ✔️                                                            |
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
@@ -246,6 +246,8 @@ This list is currently **Under Construction**.
 | Ysgarth                                                                                                                     |                         | 🔼                                                          |
 | The Zorcerer of Zo                                                                                                          | PDQ                     | ✔️                                                          |
 | Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander)                                                                       |                         | ✔️                                                          |
+
+* Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, etc)
 
 **Compatibility Percentage:** 96.875%
 
