@@ -27,6 +27,7 @@ nav_order: 9
 >**GM**: Entirely understandable. But that is not a 1, so no reroll. But don't worry, something better is coming.
 
 ## Supported Macros
+
 Here are a sample of the dice that can be used via Macro Accessors
 
 | Dice Type | Possible Values | Macro Accessor |
