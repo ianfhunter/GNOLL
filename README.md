@@ -1,7 +1,7 @@
 # GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml)
 [![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
-[![Test: Javascript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml)
+[![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
 
 [![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
@@ -9,8 +9,6 @@
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
-<!-- Dark and Light Mode switches -->
- 
 <p align="center">
  <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
@@ -20,38 +18,38 @@ Use for instant support of common syntax and a library that can scale with your 
 
 Here's an example of how you might use GNOLL:
 ```markdown
-   Grindon The Brave: I want to steal from the goblin sitting at the bar.
-   Dungeon Master: Okay, give me a stealth check!
-   Grindon The Brave: Okay, that's a <1d20+5>
-   [GNOLL]: 21
-   Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
+**Grindon The Brave**: I want to steal from the goblin sitting at the bar.
+**Dungeon Master**: Okay, give me a stealth check!
+**Grindon The Brave**: Okay, that's a <1d20+5>
+[GNOLL]: 21
+**Dungeon Master**: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL). 
+[You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL).
 
 Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
 
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too: 
+We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too:
 
 - C / C++
 - Python
 - Perl
 - Go
-- Javascript (Node)
+- JavaScript (Node.js)
 
  We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
-Tested on Linux (Ubuntu) and Windows (10, WSL). 
+Tested on Linux (Ubuntu) and Windows (10, WSL).
 
 ### 🎲 Dice Notation
 - XdY notation
 - Arithmetic
 - Fate Dice
 - Miscellaneous Symbolic Dice
-- Shorthands & Macros 
+- Shorthands & Macros
 - Alternate Syntax
 - Explosions
 - Drop/Keep
@@ -63,7 +61,7 @@ There's so many different things, we'd bore you to list them all here. For the s
 ## Getting Started
 ### Usage from a package manager
 #### Python
-```
+```bash
 pip3 install GNOLL
 ```
 
@@ -84,7 +82,7 @@ make all
 
 To verify your setup, try our tests:
 ```bash
-   make test
+make test
 ```
 Or, just try some commands yourself!
 
