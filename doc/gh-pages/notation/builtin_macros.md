@@ -18,7 +18,7 @@ nav_order: 9
 >
 >**GM**: Yes... (sighs) As they fligh around your head, you decide to eat one of them.
 >
->**Grindon**: Okay that's #PLANETS.
+>**Grindon**: Okay that's a #PLANETS die.
 >
 >*GNOLL*: [Mercury through Pluto]
 >
