@@ -6,10 +6,35 @@ nav_order: 11
 
 # Conditions & Filters
 
+The "unknown" potion sends Grindon to a room filled with bags of golden coins. Grindons decides to take some and get away of this dunjeon. But the bags are slippery. And small bags fall from the Grindon's arms embracing them. Here come the filtering: there is a 6d20>4, to lose the small bags.
+
 {: .story }
->TODO
+>**GM**: You are lucky. The potion saved your life, cured all your wounds and gaved you an extra boost of energy. As you get up, you realize that you are in a room filled with bags of golden coins.
+>
+>**Grindon**: The heart of the dunjeon!..
+>
+>**GM**: Yes. Before anyone appear and catch you, you grab as many bags you can in your arms.
+>
+>**Grindon**: Finally, all this time training in the woods will serve me well. I surely can hold 8 of those nice bags. Let's roll 8d20.
+>
+>**GM**: True but hold on. The bags are slippery. And small bags containing 4 coins or less may fall from your arms.
+>
+>**Grindon**: Okay, let's roll. Please dice, be kind.
+>
+>*GNOLL*: [{16, 1, 5, 8, 1, 9, 1, 13}]
+>
+>**GM**: You escape the dunjeon with...
+>
+>**Grindon The Brave**: Not so fast, dear GM. I see lots of 1s here. It is time for my special class feature. I knew it would come handy.
+>
+> *GNOLL*: [{2, 4, 3}]
+>
+>**GM**: Lucky you, you did not get 1s in your rerolls.
+>
+>**Grindon The Brave**: I suppose we can say so...
 
 # Filtering
+
 In many games, certain logic is only required if a particular value is rolled. For example, the board game One Deck Dungeon [5] contains a scenario
 that requires the player to discard any 2s rolled in their roll. Conditional statements allow a high range of flexibility for
 cases such as these.
