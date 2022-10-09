@@ -1,4 +1,5 @@
 %option never-interactive
+%option nounput
 
 %{
     #include <stdio.h>
