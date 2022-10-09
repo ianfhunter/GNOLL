@@ -12,6 +12,11 @@ typedef enum {
     RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
 } MOCK_METHOD;
 
+typedef enum {
+    SUCCESS=0,
+    BAD_MALLOC,
+    BAD_FOPEN
+} ERROR_CODES;
 
 int roll(char * s);
 int roll_and_write(char * s, char * f);
