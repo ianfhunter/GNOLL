@@ -7,14 +7,14 @@
 
 #define MAX_SYMBOL_LENGTH 256
 
-int initialize_vector(vec * vector, DIE_TYPE dt, int items){
+void initialize_vector(vec * vector, DIE_TYPE dt, int items){
     vector->dtype = dt;
     vector->length = items;
 
     if (dt == NUMERIC){
         vector->content = calloc(items, sizeof (int));
         if(! vector->content){
-            return BAD_ALLOC;
+            exit(BAD_ALLOC);
         }
     }
     else if (dt == SYMBOLIC){
