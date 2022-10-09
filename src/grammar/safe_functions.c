@@ -72,5 +72,4 @@ void safe_fprintf(FILE *stream, const char *fmt, ...) {
     int count = vfprintf(stream, fmt, args);
     va_end(args);
     if(count < 0) exit(IO_ERROR);
-    return count
 }
