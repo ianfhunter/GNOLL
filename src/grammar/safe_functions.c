@@ -31,6 +31,11 @@ FILE * safe_fopen(const char *filename, const char *mode){
     return fopen_result;
 }
 
+int safe_fclose(FILE *stream){
+    if(fclose(stream) != 0) exit(BAD_FILE);
+    return 0;
+}
+
 char * safe_strdup( const char *str1 ){
     char * result;
     result = strdup(str1);
