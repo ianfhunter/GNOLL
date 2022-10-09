@@ -69,10 +69,10 @@ build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
 test_no_pip :
-	python3 -m pytest tests/python/ -x
+	python3 -m pytest tests/python/ -xs
 
 test : pip
-	python3 -m pytest tests/python/ -x
+	python3 -m pytest tests/python/ -xs
 
 include src/python/target.mk
 include src/js/target.mk
