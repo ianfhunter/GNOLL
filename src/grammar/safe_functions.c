@@ -66,10 +66,10 @@ void safe_printf(const char *fmt, ...) {
     if(count < 0) exit(IO_ERROR);
 }
 
-void safe_fprintf(FILE *stream, const char *format, ...) {
+void safe_fprintf(FILE *stream, const char *fmt, ...) {
     va_list args;
     va_start(args, fmt);
-    int count = vfprintf(stream, format, args);
+    int count = vfprintf(stream, fmt, args);
     va_end(args);
     if(count < 0) exit(IO_ERROR);
     return count
