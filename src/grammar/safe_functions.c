@@ -27,7 +27,8 @@ void * safe_calloc(size_t nitems, size_t size){
 FILE * safe_fopen(const char *filename, const char *mode){
     FILE * fopen_result;
     fopen_result = fopen(filename, mode);
-    if(!fopen_result){
+    if(fopen_result == NULL){
+        perror(filename);
         exit(BAD_FILE);
     }
     return fopen_result;
