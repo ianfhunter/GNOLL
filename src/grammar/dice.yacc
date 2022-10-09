@@ -282,15 +282,9 @@ math:
         } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
-            new_vec.symbols = calloc(sizeof(char *), concat_length);
-            if(!new_vec.symbols){
-               exit(BAD_ALLOC);
-            }
+            new_vec.symbols = safe_calloc(sizeof(char *), concat_length);
             for (int i = 0; i != concat_length; i++){
-                new_vec.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
-                if(!new_vec.symbols){
-                   exit(BAD_ALLOC);
-                }
+                new_vec.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
             }
             new_vec.length = concat_length;
             new_vec.dtype = vector1.dtype;
@@ -310,10 +304,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.dtype = vector1.dtype;
             new_vec.content[0] = v1 + v2;
@@ -343,10 +334,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.content[0] = v1 - v2;
             new_vec.dtype = vector1.dtype;
@@ -368,10 +356,7 @@ math:
         } else {
             vec new_vec;
 
-            new_vec.content = calloc(sizeof(int), vector.length);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), vector.length);
             new_vec.length = vector.length;
             new_vec.dtype = vector.dtype;
 
@@ -1098,10 +1083,7 @@ char * concat_strings(char ** s, int num_s){
         size_total -= 1;  // no need for trailing space
     }
     char * result;
-    result = (char *)calloc(sizeof(char), (size_total+1));
-    if(!result){
-       exit(BAD_ALLOC);
-    }
+    result = (char *)safe_calloc(sizeof(char), (size_total+1));
     for(int i = 1; i != num_s + 1; i++){
         strcat(result, s[i]);
         if (spaces && i < num_s){
@@ -1125,10 +1107,7 @@ const char *s;
 
     if(write_to_file){
         FILE *fp;
-        fp = fopen(output_file, "a+");
-        if(!fp){
-            exit(BAD_FILE);
-        }
+        fp = safe_fopen(output_file, "a+");
         fprintf(fp, "%s;", s);
         fclose(fp);
     }
