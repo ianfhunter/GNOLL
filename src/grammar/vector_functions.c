@@ -5,20 +5,32 @@
 #include "shared_header.h"
 #include "rolls/condition_checking.h"
 
+#define MAX_SYMBOL_LENGTH 256
 
-void initialize_vector(vec * vector, DIE_TYPE dt, int items){
+int initialize_vector(vec * vector, DIE_TYPE dt, int items){
     vector->dtype = dt;
     vector->length = items;
 
     if (dt == NUMERIC){
         vector->content = calloc(items, sizeof (int));
+        if(! vector->content){
+            return BAD_ALLOC;
+        }
     }
     else if (dt == SYMBOLIC){
         vector->symbols = calloc(items, sizeof(char *));
+        if(! vector->content){
+            return BAD_ALLOC;
+        }
+
         for (int i=0; i<items; i++){
-            vector->symbols[i] = calloc(100, sizeof (char));
+            vector->symbols[i] = calloc(MAX_SYMBOL_LENGTH, sizeof (char));
+            if(! vector->content){
+                return BAD_ALLOC;
+            }
         }
     }
+    return SUCCESS;
 }
 
 void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
@@ -62,6 +74,7 @@ int min(int * arr, int len){
     }
     return lowest;
 }
+
 int max(int * arr, int len){
     int highest = INT_MIN;
     for(int i = 0; i != len; i++){
@@ -69,6 +82,7 @@ int max(int * arr, int len){
     }
     return highest;
 }
+
 void print_vec(vec vector){
     printf("Vector Size: %d\n", vector.length);
     printf("Vector Type: %d\n", vector.dtype);
@@ -85,25 +99,15 @@ void print_vec(vec vector){
     }
 }
 
-
 unsigned int remove_if_present(char ** arr1, int len1,
                     char ** arr2, int len2,
                     char ** new_arr)
 {
-    for(int i = 0; i != len1; i++){
-        for(int j = 0; j != len2; j++){
-            // if arr1[i] in arr2
-            //      pop(arr2)
-            // else
-            //      new_arr = i
-
-        }
-    }
-    return -1;  // Not implemented
+    return NOT_IMPLEMENTED; 
 }
 
 
-void collapse_vector(vec * vector, vec * new_vector){
+int collapse_vector(vec * vector, vec * new_vector){
     // Converts the like of "2d3"
     // from {1,2,3} to {6}
     // cannot operate on symbols.
@@ -117,10 +121,14 @@ void collapse_vector(vec * vector, vec * new_vector){
         }
 
         new_vector->content = calloc(sizeof(int), 1);
+        if(! new_vector->content){
+            return BAD_ALLOC;
+        }
         new_vector->content[0] = c;
         new_vector->length = 1;
         new_vector->dtype = vector->dtype;
     }
+    return SUCCESS;
 }
 
 unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
@@ -131,6 +139,9 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
     int available_amount = vector->length;
     if(available_amount > number_to_keep){
         new_vector->content = calloc(sizeof(int), number_to_keep);
+        if(! new_vector->content){
+            return BAD_ALLOC;
+        }
         new_vector->length = number_to_keep;
 
         int * arr = vector->content;
@@ -146,6 +157,9 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
             }
             new_vector->content[i] = m;
             new_arr = calloc(sizeof(int), length-1 );
+            if(! vector->content){
+                return BAD_ALLOC
+            }
             pop(arr, length, m, new_arr);
             free(arr);
             arr = new_arr;
