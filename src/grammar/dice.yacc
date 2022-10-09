@@ -1006,22 +1006,14 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
-    printf("EXIT CODE -2: %i\n", errno);
     initialize();
     verbose = 0;
-    printf("EXIT CODE -1: %i\n", errno);
     YY_BUFFER_STATE buffer = yy_scan_string(s);
-    printf("EXIT CODE 0: %i\n", errno);
     yyparse();
-    printf("EXIT CODE 1: %i\n", errno);
-
     yy_delete_buffer(buffer);
-    printf("EXIT CODE 2: %i\n", errno);
     return errno;
 }
 int roll_verbose(char * s){
-    printf("AAAR: %i\n", errno);
-
     initialize();
     verbose = 1;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
@@ -1033,11 +1025,9 @@ int roll_verbose(char * s){
 }
 int roll_and_write(char * s, char * f){
     /* Write the result to file. */
-    printf("HI\n");
     write_to_file = 1;
     output_file = f;
     if(verbose) safe_printf("Rolling: %s\n", s);
-    printf("ERR: %i\n", errno);
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
