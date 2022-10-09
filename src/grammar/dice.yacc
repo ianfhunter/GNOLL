@@ -28,7 +28,6 @@ int verbose = 1;
 int seeded = 0;
 int write_to_file = 0;
 char * output_file;
-errno = 0;
 
 // Registers
 
