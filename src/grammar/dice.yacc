@@ -29,6 +29,8 @@ int seeded = 0;
 int write_to_file = 0;
 char * output_file;
 
+extern unsigned int gnoll_errno;
+
 // Registers
 
 // TODO: It would be better to fit arbitrary length strings.
@@ -120,7 +122,7 @@ macro_statement:
 
 dice_statement: math{
 
-    printf ("err %i\n", errno);
+    printf ("err %i\n", gnoll_errno);
 
     vec vector;
     vec new_vec;
@@ -1008,15 +1010,15 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
-    printf ("roll %i\n", errno);
+    printf ("roll %i\n", gnoll_errno);
     initialize();
     verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
-    printf ("roll2 %i\n", errno);
+    printf ("roll2 %i\n", gnoll_errno);
     yyparse();
     yy_delete_buffer(buffer);
-    printf ("roll3 %i\n", errno);
-    return errno;
+    printf ("roll3 %i\n", gnoll_errno);
+    return gnoll_errno;
 }
 int roll_verbose(char * s){
     initialize();
@@ -1026,10 +1028,10 @@ int roll_verbose(char * s){
     yyparse();
 
     yy_delete_buffer(buffer);
-    return errno;
+    return gnoll_errno;
 }
 int roll_and_write(char * s, char * f){
-    errno = 0;
+    
     /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
@@ -1037,11 +1039,10 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
-    errno = 0;
-    printf ("mock %i\n", errno);
+    printf ("mock %i\n", gnoll_errno);
     init_mocking(mock_value, mock_const);
     verbose = !quiet;
-    printf ("mock2 %i\n", errno);
+    printf ("mock2 %i\n", gnoll_errno);
     return roll_and_write(s, f);
 }
 
@@ -1084,12 +1085,12 @@ const char *s;
         safe_fprintf(fp, "%s;", s);
         safe_fclose(fp);
     }
-    return(errno);
+    return(gnoll_errno);
 
 }
 
 int yywrap(){
-    return (errno);
+    return (gnoll_errno);
 }
 
 
