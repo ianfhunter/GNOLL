@@ -43,15 +43,13 @@ int check_condition(
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
         }
-        case INVALID:{
-            return 0;
-        }
         case UNIQUE:{
             // TODO: Not Implemented
             exit(NOT_IMPLEMENTED);
             return 0;
         }
     }
+    safe_printf("Unknown Conditional");
     exit(UNDEFINED_BEHAVIOUR);
     return 0;
 }
@@ -82,14 +80,12 @@ int check_condition_scalar(
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
         }
-        case INVALID:{
-            return 0;
-        }
         case UNIQUE:{
             // Unique by the fact that it is scalar
             return 1;
         }
     }
+    safe_printf("Unknown Conditional");
     exit(UNDEFINED_BEHAVIOUR);
     return 0;
 }
