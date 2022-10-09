@@ -485,7 +485,7 @@ dice_operations:
             $<values>$ = new_vec;
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED)
+            exit(NOT_IMPLEMENTED);
         }
 
     }
@@ -503,7 +503,7 @@ dice_operations:
             $<values>$ = new_vec;
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED)
+            exit(NOT_IMPLEMENTED);
         }
     }
     |
