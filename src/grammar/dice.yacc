@@ -120,6 +120,8 @@ macro_statement:
 
 dice_statement: math{
 
+    printf ("err %i\n", errno);
+
     vec vector;
     vec new_vec;
     vector = $<values>1;
@@ -1006,11 +1008,14 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
+    printf ("roll %i\n", errno);
     initialize();
     verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
+    printf ("roll2 %i\n", errno);
     yyparse();
     yy_delete_buffer(buffer);
+    printf ("roll3 %i\n", errno);
     return errno;
 }
 int roll_verbose(char * s){
