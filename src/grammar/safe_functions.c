@@ -39,8 +39,10 @@ int safe_fclose(FILE *stream){
 
 char * safe_strdup( const char *str1 ){
     char * result;
-    result = strdup(str1);
-    if(!result){
+    unsigned int l = strlen(str1);
+    result = safe_calloc(sizeof(char), l);
+    result = strcpy(result, str1);
+    if(result != 0){
         exit(BAD_STRING);
     }
     return result;
