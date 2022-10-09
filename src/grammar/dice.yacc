@@ -691,11 +691,6 @@ die_roll:
             ONLY_ONCE_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     die_symbol NUMBER EXPLOSION ONCE
@@ -714,12 +709,6 @@ die_roll:
             ONLY_ONCE_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
    NUMBER die_symbol NUMBER EXPLOSION PENETRATE
@@ -738,11 +727,6 @@ die_roll:
             PENETRATING_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     die_symbol NUMBER EXPLOSION PENETRATE
@@ -760,12 +744,6 @@ die_roll:
             PENETRATING_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
    NUMBER die_symbol NUMBER EXPLOSION
@@ -784,11 +762,6 @@ die_roll:
             PENETRATING_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     die_symbol NUMBER EXPLOSION
@@ -807,12 +780,6 @@ die_roll:
             STANDARD_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     NUMBER die_symbol NUMBER
@@ -830,11 +797,6 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     die_symbol NUMBER
@@ -853,11 +815,6 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     NUMBER die_symbol MODULO
@@ -873,12 +830,6 @@ die_roll:
             NO_EXPLOSION,
             1
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     die_symbol MODULO
@@ -898,12 +849,6 @@ die_roll:
             NO_EXPLOSION,
             1
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     NUMBER die_symbol DO_COUNT
@@ -922,12 +867,6 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     die_symbol DO_COUNT
@@ -948,12 +887,6 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     NUMBER FATE_DIE
@@ -967,12 +900,6 @@ die_roll:
             &result_vec
         );
         $<values>$ = result_vec;
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
-
     }
     |
     FATE_DIE
@@ -989,12 +916,6 @@ die_roll:
             &result_vec
         );
         $<values>$ = result_vec;
-
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     custom_symbol_dice
@@ -1017,11 +938,6 @@ custom_symbol_dice:
             &result_vec
         );
         $<values>$ = result_vec;
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
@@ -1065,11 +981,6 @@ custom_symbol_dice:
             );
         }
         $<values>$ = result_vec;
-        print_err_if_present(err);
-        if(err){
-            YYABORT;
-            yyclearin;
-        }
     }
     |
     MACRO_ACCESSOR CAPITAL_STRING{
