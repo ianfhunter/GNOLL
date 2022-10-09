@@ -3,6 +3,7 @@ import sys
 import tempfile
 
 import cppyy
+import signal
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
@@ -14,8 +15,15 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
+    def roll_exception(signalNumber, frame):
+        print('Received:', signalNumber)
+        raise ValueError 
+        return
+     
     if verbose:
         print("Rolling: ", s)
+
+    signal.signal(signal.SIGCHLD, roll_exception)
 
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
     # temp.name = "dice.roll"
