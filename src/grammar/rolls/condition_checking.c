@@ -47,9 +47,12 @@ int check_condition(
         }
         case UNIQUE:{
             // TODO: Not Implemented
+            exit(NOT_IMPLEMENTED);
             return 0;
         }
     }
+    exit(UNDEFINED_BEHAVIOUR);
+    return 0;
 }
 
 int check_condition_scalar(
@@ -86,4 +89,6 @@ int check_condition_scalar(
             return 1;
         }
     }
+    exit(UNDEFINED_BEHAVIOUR);
+    return 0;
 }
