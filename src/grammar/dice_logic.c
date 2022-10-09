@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "shared_header.h"
+#include "safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
-
 
 #define EXPLOSION_LIMIT 50
 
@@ -89,7 +89,7 @@ int * perform_roll(
     int explosion_condition_score = 0;
     int explosion_count = 0;
 
-    int * all_dice_roll = calloc(number_of_dice, sizeof(int));
+    int * all_dice_roll = safe_calloc(number_of_dice, sizeof(int));
     int single_die_roll = 0;
     int exploded_result = 0;
 
