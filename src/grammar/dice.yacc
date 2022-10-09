@@ -12,6 +12,7 @@
 #include "vector_functions.h"
 #include "shared_header.h"
 #include "dice_logic.h"
+#include "safe_functions.h"
 #include "macro_logic.h"
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
