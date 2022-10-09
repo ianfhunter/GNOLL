@@ -16,7 +16,7 @@ cppyy.load_library(C_SHARED_LIB)
 
 class GNOLLException(Exception):
     def __init__(self, v):
-        Exception.__init__(self, 'Tax ID expired')
+        Exception.__init__(self, v)
 
 def RaiseGNOLLError(v):
     d = [
