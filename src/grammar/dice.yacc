@@ -393,7 +393,7 @@ collapsing_dice_operations:
             $<values>$ = vector;
         }
         else{
-            // Collapse if Nessicary
+            // Collapse if Necessary
             if(vector.length > 1){
                 int result = sum(vector.content, vector.length);
 
