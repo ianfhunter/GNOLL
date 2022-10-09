@@ -15,7 +15,7 @@ typedef enum {
 typedef enum {
     SUCCESS=0,
     BAD_ALLOC=1,
-    BAD_FOPEN=2,
+    BAD_FILE=2,
     NOT_IMPLEMENTED=3
 } ERROR_CODES;
 
