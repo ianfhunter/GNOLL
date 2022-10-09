@@ -612,7 +612,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &$<values>3,
             &$<values>$,
@@ -630,7 +630,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
             &$<values>$,
@@ -648,7 +648,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &$<values>3,
             &$<values>$,
@@ -665,7 +665,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
             &$<values>$,
@@ -683,7 +683,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &$<values>3,
             &$<values>$,
@@ -701,7 +701,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
             &$<values>$,
@@ -718,7 +718,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &$<values>3,
             &$<values>$,
@@ -736,7 +736,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
             &$<values>$,
@@ -751,7 +751,7 @@ die_roll:
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 100;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &dice_sides,
             &$<values>$,
@@ -770,7 +770,7 @@ die_roll:
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 100;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &num_dice,
             &dice_sides,
             &$<values>$,
@@ -788,7 +788,7 @@ die_roll:
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 2;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &$<values>1,
             &dice_sides,
             &$<values>$,
@@ -808,7 +808,7 @@ die_roll:
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 2;
 
-        int err = roll_plain_sided_dice(
+        roll_plain_sided_dice(
             &num_dice,
             &dice_sides,
             &$<values>$,
@@ -822,7 +822,7 @@ die_roll:
         vec result_vec;
         initialize_vector(&result_vec, SYMBOLIC, $<values>1.content[0]);
 
-        int err = roll_symbolic_dice(
+        roll_symbolic_dice(
             &$<values>1,
             &$<values>2,
             &result_vec
@@ -838,7 +838,7 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = roll_symbolic_dice(
+        roll_symbolic_dice(
             &number_of_dice,
             &$<values>1,
             &result_vec
@@ -860,7 +860,7 @@ custom_symbol_dice:
         vec result_vec;
         initialize_vector(&result_vec, SYMBOLIC, $<values>1.content[0]);
 
-        int err = roll_symbolic_dice(
+        roll_symbolic_dice(
             &$<values>1,
             &$<values>4,
             &result_vec
@@ -876,8 +876,7 @@ custom_symbol_dice:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
-        int err = 0;
-
+        
         if (csd.dtype == NUMERIC){
             vec dice_sides;
             vec num_dice;
@@ -891,7 +890,7 @@ custom_symbol_dice:
             dice_sides.content[0] = end_value - start_value + 1;
 
             // Range
-            err = roll_plain_sided_dice(
+            roll_plain_sided_dice(
                 &num_dice,
                 &dice_sides,
                 &result_vec,
@@ -902,7 +901,7 @@ custom_symbol_dice:
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
             // Custom Symbol
-            err = roll_symbolic_dice(
+            roll_symbolic_dice(
                 &number_of_dice,
                 &$<values>3,
                 &result_vec
