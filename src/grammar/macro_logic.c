@@ -14,7 +14,7 @@ void register_macro(char * skey, vec *to_store) {
     HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
     if (s == NULL){
         s = (struct macro_struct*)malloc(sizeof *s);
-        if(! vector->content){
+        if(!s){
             exit(BAD_ALLOC);
         }
         s->id = key;
