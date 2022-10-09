@@ -13,7 +13,7 @@ void * safe_malloc(size_t size){
 
 void * safe_calloc(size_t nitems, size_t size){
     void * calloc_result;
-    malloc_result = calloc(nitems, size);
+    calloc_result = calloc(nitems, size);
     if(!calloc_result){
         exit(BAD_ALLOC);
     }
