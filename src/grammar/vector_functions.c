@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <string.h>
 #include "shared_header.h"
+#include "safe_functions.h"
 #include "rolls/condition_checking.h"
 
 #define MAX_SYMBOL_LENGTH 256
@@ -12,22 +13,12 @@ void initialize_vector(vec * vector, DIE_TYPE dt, int items){
     vector->length = items;
 
     if (dt == NUMERIC){
-        vector->content = calloc(items, sizeof (int));
-        if(! vector->content){
-            exit(BAD_ALLOC);
-        }
+        vector->content = safe_calloc(items, sizeof (int));
     }
     else if (dt == SYMBOLIC){
-        vector->symbols = calloc(items, sizeof(char *));
-        if(! vector->content){
-            exit(BAD_ALLOC);
-        }
-
+        vector->symbols = safe_calloc(items, sizeof(char *));
         for (int i=0; i<items; i++){
-            vector->symbols[i] = calloc(MAX_SYMBOL_LENGTH, sizeof (char));
-            if(! vector->content){
-                exit(BAD_ALLOC);
-            }
+            vector->symbols[i] = safe_calloc(MAX_SYMBOL_LENGTH, sizeof (char));
         }
     }
 }
@@ -136,10 +127,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
     }
     int available_amount = vector->length;
     if(available_amount > number_to_keep){
-        new_vector->content = calloc(sizeof(int), number_to_keep);
-        if(! new_vector->content){
-            exit(BAD_ALLOC);
-        }
+        new_vector->content = safe_calloc(sizeof(int), number_to_keep);
         new_vector->length = number_to_keep;
 
         int * arr = vector->content;
@@ -154,10 +142,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
                 m =  min(arr, length);
             }
             new_vector->content[i] = m;
-            new_arr = calloc(sizeof(int), length-1 );
-            if(! vector->content){
-                exit(BAD_ALLOC);
-            }
+            new_arr = safe_calloc(sizeof(int), length-1 );
             pop(arr, length, m, new_arr);
             free(arr);
             arr = new_arr;
