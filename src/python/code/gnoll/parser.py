@@ -3,7 +3,6 @@ import sys
 import tempfile
 
 import cppyy
-import signal
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
@@ -14,31 +13,30 @@ cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
 cppyy.load_library(C_SHARED_LIB)
 
 
-def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
-    def roll_exception(signalNumber, frame):
-        print('Received:', signalNumber)
-        raise ValueError 
-        return
-     
+def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):     
     if verbose:
         print("Rolling: ", s)
 
-    signal.signal(signal.SIGCHLD, roll_exception)
-
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
-    # temp.name = "dice.roll"
-    os.remove(temp.name)
+    temp.name = "dice.roll"
+    try:
+        os.remove(temp.name)
+    except FileNotFoundError:
+        pass
     f = str(temp.name)
     if verbose:
         print("File: ", f)
 
     cppyy.gbl.reset_mocking()
-
     if mock is None:
+        print("A")
         return_code = cppyy.gbl.roll_and_write(s, f)
     else:
         # Testing Only
+        print("B")
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
+
+    print("Return Code:", return_code)
 
     if verbose:
         print("Temp File:", temp.name)

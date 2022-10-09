@@ -26,4 +26,7 @@ long int safe_strtol (const char* str, char** endptr, int base);
 
 void safe_fprintf(FILE *stream, const char *format, ...);
 void safe_printf(const char *fmt, ...);
+
+void end_gnoll(int err_code);
+
 #endif

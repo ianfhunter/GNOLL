@@ -16,6 +16,7 @@
 #include "macro_logic.h"
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
+#include <errno.h>
 
 #define UNUSED(x) (void)(x)
 
@@ -95,6 +96,7 @@ int roll_symbolic_die(int length_of_symbolic_array){
 %%
 /* Rules Section */
 
+
 gnoll_statement:
     gnoll_statement STATEMENT_SEPERATOR gnoll_statement
     |
@@ -173,8 +175,10 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Multiplication not implemented for symbolic dice.");
-            exit(NOT_IMPLEMENTED);
+            safe_printf("Multiplication not implemented for symbolic dice.\n");
+            errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -197,8 +201,11 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Division unsupported for symbolic dice.");
-            exit(UNDEFINED_BEHAVIOUR);
+            safe_printf("Division unsupported for symbolic dice.\n");
+            errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;
+
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -221,8 +228,10 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Modulo unsupported for symbolic dice.");
-            exit(UNDEFINED_BEHAVIOUR);
+            safe_printf("Division unsupported for symbolic dice.");
+            errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -247,7 +256,10 @@ math:
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             safe_printf("Modulo unsupported for symbolic dice.");
-            exit(UNDEFINED_BEHAVIOUR);
+            errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;
+
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -994,15 +1006,23 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
+    errno = 0;
+    printf("EXIT CODE -2: %i\n", errno);
     initialize();
     verbose = 0;
+    printf("EXIT CODE -1: %i\n", errno);
     YY_BUFFER_STATE buffer = yy_scan_string(s);
+    printf("EXIT CODE 0: %i\n", errno);
     yyparse();
+    printf("EXIT CODE 1: %i\n", errno);
 
     yy_delete_buffer(buffer);
-    return 0;
+    printf("EXIT CODE 2: %i\n", errno);
+    return errno;
 }
 int roll_verbose(char * s){
+    printf("AAAR: %i\n", errno);
+
     initialize();
     verbose = 1;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
@@ -1010,13 +1030,15 @@ int roll_verbose(char * s){
     yyparse();
 
     yy_delete_buffer(buffer);
-    return 0;
+    return errno;
 }
 int roll_and_write(char * s, char * f){
     /* Write the result to file. */
+    printf("HI\n");
     write_to_file = 1;
     output_file = f;
     if(verbose) safe_printf("Rolling: %s\n", s);
+    printf("ERR: %i\n", errno);
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
@@ -1064,10 +1086,13 @@ const char *s;
         safe_fprintf(fp, "%s;", s);
         safe_fclose(fp);
     }
-    return(1);
+    return(errno);
 
 }
 
 int yywrap(){
-    return (1);
+    return (errno);
 }
+
+
+
