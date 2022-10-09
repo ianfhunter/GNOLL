@@ -3,6 +3,7 @@
 #include "yacc_header.h"
 #include "dice_logic.h"
 #include "vector_functions.h"
+#include "safe_functions.h"
 #include "condition_checking.h"
 #include <stdlib.h>
 #include <stdio.h>
