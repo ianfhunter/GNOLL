@@ -20,7 +20,6 @@
 
 int yylex(void);
 int yyerror(const char* s);
-void print_err_if_present(int err_code);
 
 int yydebug=1;
 int verbose = 1;
@@ -131,6 +130,9 @@ dice_statement: math{
 
     if(write_to_file){
         fp = fopen(output_file, "a+");
+        if(!fp){
+            exit(BAD_FILE);
+        }
     }
 
     for(int i = 0; i!= new_vec.length;i++){
@@ -182,6 +184,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 * v2;
             new_vec.dtype = vector1.dtype;
@@ -207,6 +212,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.content[0] = (v1+(v2-1))/ v2;
             new_vec.dtype = vector1.dtype;
@@ -232,6 +240,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 / v2;
             new_vec.dtype = vector1.dtype;
@@ -258,6 +269,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 % v2;
             new_vec.dtype = vector1.dtype;
@@ -284,8 +298,14 @@ math:
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
             new_vec.symbols = calloc(sizeof(char *), concat_length);
+            if(!new_vec.symbols){
+               exit(BAD_ALLOC);
+            }
             for (int i = 0; i != concat_length; i++){
                 new_vec.symbols[i] = calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
+                if(!new_vec.symbols){
+                   exit(BAD_ALLOC);
+                }
             }
             new_vec.length = concat_length;
             new_vec.dtype = vector1.dtype;
@@ -306,6 +326,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.dtype = vector1.dtype;
             new_vec.content[0] = v1 + v2;
@@ -336,6 +359,9 @@ math:
 
             vec new_vec;
             new_vec.content = calloc(sizeof(int), 1);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 - v2;
             new_vec.dtype = vector1.dtype;
@@ -358,6 +384,9 @@ math:
             vec new_vec;
 
             new_vec.content = calloc(sizeof(int), vector.length);
+            if(!new_vec.content){
+               exit(BAD_ALLOC);
+            }
             new_vec.length = vector.length;
             new_vec.dtype = vector.dtype;
 
@@ -1174,7 +1203,9 @@ char * concat_strings(char ** s, int num_s){
     }
     char * result;
     result = (char *)calloc(sizeof(char), (size_total+1));
-
+    if(!result){
+       exit(BAD_ALLOC);
+    }
     for(int i = 1; i != num_s + 1; i++){
         strcat(result, s[i]);
         if (spaces && i < num_s){
@@ -1199,6 +1230,9 @@ const char *s;
     if(write_to_file){
         FILE *fp;
         fp = fopen(output_file, "a+");
+        if(!fp){
+            exit(BAD_FILE);
+        }
         fprintf(fp, "%s;", s);
         fclose(fp);
     }
@@ -1208,12 +1242,4 @@ const char *s;
 
 int yywrap(){
     return (1);
-}
-void print_err_if_present(int err_code){
-    switch(err_code){
-        case 1:{
-            printf("Negative Dice Sides not Allowed\n");
-            break;
-        }
-    }
 }
