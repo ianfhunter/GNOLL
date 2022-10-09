@@ -136,32 +136,32 @@ dice_statement: math{
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                printf("%s;", new_vec.symbols[i]);
+                safe_printf("%s;", new_vec.symbols[i]);
            }
             if(write_to_file){
-                fprintf(fp, "%s;", new_vec.symbols[i]);
+                safe_fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
             if(verbose){
-                printf("%d;", new_vec.content[i]);
+                safe_printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%d;", new_vec.content[i]);
+                safe_fprintf(fp, "%d;", new_vec.content[i]);
             }
         }
     }
     if(verbose){
-        printf("\n");
+       safe_printf("\n");
     }
 
     if(write_to_file){
-        fclose(fp);
+        safe_fclose(fp);
     }
 }
 
 math:
     LBRACE math RBRACE{
-        $<values>$ =  $<values>2;
+        $<values>$ = $<values>2;
     }
     |
     math MULT math{
@@ -172,9 +172,8 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            printf("Division unsupported for symbolic dice.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Division unsupported for symbolic dice.");
+            exit(UNDEFINED_BEHAVIOUR);
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -197,9 +196,8 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            printf("Division unsupported for symbolic dice.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Division unsupported for symbolic dice.");
+            exit(UNDEFINED_BEHAVIOUR);
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -222,9 +220,8 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            printf("Modulo unsupported for symbolic dice.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Modulo unsupported for symbolic dice.");
+            exit(UNDEFINED_BEHAVIOUR);
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -248,9 +245,8 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            printf("Modulo unsupported for symbolic dice.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Modulo unsupported for symbolic dice.");
+            exit(UNDEFINED_BEHAVIOUR);
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -276,9 +272,8 @@ math:
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
-            printf("Addition not supported with mixed dice types.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Addition not supported with mixed dice types.");
+            exit(UNDEFINED_BEHAVIOUR);
         } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
@@ -324,9 +319,8 @@ math:
         ){
             // It's not clear whether {+,-} - {-, 0} should be {+} or {+, 0}!
             // Therfore, we'll exclude it.
-            printf("Subtract not supported with symbolic dice.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Subtract not supported with symbolic dice.");
+            exit(UNDEFINED_BEHAVIOUR);
         }else{
             // Collapse both sides and subtract
 
@@ -350,9 +344,8 @@ math:
         vector = $<values>2;
 
         if (vector.dtype == SYMBOLIC){
-            printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.");
-            YYABORT;
-            yyclearin;
+            safe_printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.");
+            exit(UNDEFINED_BEHAVIOUR);
         } else {
             vec new_vec;
 
@@ -419,7 +412,7 @@ dice_operations:
             int count = 0;
             while (! check_condition(&dice, &$<values>5, check)){
                 if (count > MAX_ITERATION){
-                    printf("MAX ITERATION LIMIT EXCEEDED: REROLL");
+                    safe_printf("MAX ITERATION LIMIT EXCEEDED: REROLL");
                     break;
                 }
                 vec number_of_dice;
@@ -441,7 +434,8 @@ dice_operations:
             }
             $<values>$ = dice;
         }else{
-            printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!");
+            exit(NOT_IMPLEMENTED);
         }
     }
     |die_roll REROLL condition NUMBER{
@@ -472,7 +466,8 @@ dice_operations:
                 $<values>$ = $<values>1;
             }
         }else{
-            printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!");
+            exit(NOT_IMPLEMENTED);
         }
     }
     |
@@ -488,7 +483,8 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!");
+            exit(NOT_IMPLEMENTED)
         }
 
     }
@@ -505,7 +501,8 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!");
+            exit(NOT_IMPLEMENTED)
         }
     }
     |
@@ -515,13 +512,8 @@ dice_operations:
         vec new_vec;
         unsigned int num_to_hold = keep_vector.content[0];
 
-        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
+        keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighestN.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -531,13 +523,8 @@ dice_operations:
         vec new_vec;
         unsigned int num_to_hold = keep_vector.content[0];
 
-        unsigned int err = drop_highest_values(&$<values>1, &new_vec, num_to_hold);
+        drop_highest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighestN.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -550,13 +537,8 @@ dice_operations:
         num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
+        keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepLowestN.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -569,13 +551,8 @@ dice_operations:
         num_to_hold = keep_vector.content[0];
 
         vec new_vec;
-        unsigned int err = drop_lowest_values(&$<values>1, &new_vec, num_to_hold);
+        drop_lowest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepLowestN.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -583,13 +560,8 @@ dice_operations:
     {
         unsigned int num_to_hold = 1;
         vec new_vec;
-        unsigned int err = keep_highest_values(&$<values>1, &new_vec, num_to_hold);
+        keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighest1.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -599,13 +571,8 @@ dice_operations:
         unsigned int num_to_hold = 1;
 
         vec new_vec;
-        unsigned int err = drop_highest_values(&roll_vec, &new_vec, num_to_hold);
+        drop_highest_values(&roll_vec, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighest1.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -614,13 +581,8 @@ dice_operations:
         unsigned int num_to_hold = 1;
 
         vec new_vec;
-        unsigned int err = keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
+        keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighest1.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -630,13 +592,8 @@ dice_operations:
         unsigned int num_to_hold = 1;
 
         vec new_vec;
-        unsigned int err = drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
+        drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
-        if(err){
-            printf("Error in: KeepHighest1.");
-            YYABORT;
-            yyclearin;
-        }
         $<values>$ = new_vec;
     }
     |
@@ -996,8 +953,7 @@ csd:
         if (s > e){
             printf("Range: %i -> %i\n", s, e);
             printf("Reversed Ranged not supported yet.");
-            YYABORT;
-            yyclearin;
+            exit(NOT_IMPLEMENTED);
         }
 
         int spread = e - s + 1; // 2-2= 1 2-3=2, etc
@@ -1063,7 +1019,7 @@ int roll_and_write(char * s, char * f){
     /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
-    if(verbose) printf("Rolling: %s\n", s);
+    if(verbose) safe_printf("Rolling: %s\n", s);
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
@@ -1103,13 +1059,13 @@ int main(int argc, char **str){
 int yyerror(s)
 const char *s;
 {
-    fprintf(stderr, "%s\n", s);
+    safe_fprintf(stderr, "%s\n", s);
 
     if(write_to_file){
         FILE *fp;
         fp = safe_fopen(output_file, "a+");
-        fprintf(fp, "%s;", s);
-        fclose(fp);
+        safe_fprintf(fp, "%s;", s);
+        safe_fclose(fp);
     }
     return(1);
 
