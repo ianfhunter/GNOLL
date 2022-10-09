@@ -28,6 +28,7 @@ int verbose = 1;
 int seeded = 0;
 int write_to_file = 0;
 char * output_file;
+errno = 0;
 
 // Registers
 
@@ -1006,7 +1007,6 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
-    errno = 0;
     printf("EXIT CODE -2: %i\n", errno);
     initialize();
     verbose = 0;
