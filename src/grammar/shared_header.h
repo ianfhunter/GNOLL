@@ -16,7 +16,8 @@ typedef enum {
     SUCCESS=0,
     BAD_ALLOC=1,
     BAD_FILE=2,
-    NOT_IMPLEMENTED=3
+    NOT_IMPLEMENTED=3,
+    INTERNAL_ASSERT=4
 } ERROR_CODES;
 
 int roll(char * s);
