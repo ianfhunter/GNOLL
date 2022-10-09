@@ -2,7 +2,7 @@ CODEDIRS=./src/grammar ./src/grammar/rolls
 INCDIRS=./src/grammar
 
 CC=cc
-OPT=-O3
+OPT=-O3 -std=c99 -Wall
 
 # add flags and the include paths
 CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT)
