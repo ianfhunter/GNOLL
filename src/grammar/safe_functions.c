@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "shared_header.h"
 
 void * safe_malloc(size_t size){
@@ -26,4 +27,13 @@ FILE * safe_fopen(const char *filename, const char *mode){
         exit(BAD_FILE);
     }
     return fopen_result;
+}
+
+char * safe_strdup( const char *str1 ){
+    char * result;
+    result = strdup(str1);
+    if(!result){
+        exit(BAD_STRING);
+    }
+    return result;
 }
