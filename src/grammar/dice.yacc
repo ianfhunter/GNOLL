@@ -1036,8 +1036,10 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
+    printf ("mock %i\n", errno);
     init_mocking(mock_value, mock_const);
     verbose = !quiet;
+    printf ("mock2 %i\n", errno);
     return roll_and_write(s, f);
 }
 
