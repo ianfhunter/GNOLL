@@ -106,7 +106,7 @@ unsigned int remove_if_present(char ** arr1, int len1,
 }
 
 
-int collapse_vector(vec * vector, vec * new_vector){
+void collapse_vector(vec * vector, vec * new_vector){
     // Converts the like of "2d3"
     // from {1,2,3} to {6}
     // cannot operate on symbols.
