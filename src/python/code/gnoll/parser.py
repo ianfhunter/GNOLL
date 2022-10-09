@@ -37,11 +37,9 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         print("Rolling: ", s)
 
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
-    temp.name = "dice.roll"
-    try:
-        os.remove(temp.name)
-    except FileNotFoundError:
-        pass
+    
+    os.remove(temp.name)
+    
     f = str(temp.name)
     if verbose:
         print("File: ", f)
