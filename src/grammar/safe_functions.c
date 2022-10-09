@@ -37,3 +37,13 @@ char * safe_strdup( const char *str1 ){
     }
     return result;
 }
+
+
+long int safe_strtol (const char* str, char** endptr, int base){
+    long int result;
+    result = strtol(str,endptr,base);
+    if(errno == ERANGE){
+        exit(OUT_OF_RANGE);
+    }
+    return result;
+}
