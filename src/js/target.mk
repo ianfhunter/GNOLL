@@ -7,6 +7,7 @@ javascript:
         src/grammar/vector_functions.c \
         src/grammar/dice_logic.c \
         src/grammar/macro_logic.c \
+        src/grammar/safe_functions.c \
         build/lex.yy.c \
         -Isrc/grammar/	
 
