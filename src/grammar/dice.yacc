@@ -18,6 +18,7 @@
 #include "rolls/condition_checking.h"
 
 #define UNUSED(x) (void)(x)
+#define _POSIX_C_SOURCE 1
 
 int yylex(void);
 int yyerror(const char* s);
