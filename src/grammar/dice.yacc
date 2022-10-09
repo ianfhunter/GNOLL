@@ -137,7 +137,7 @@ dice_statement: math{
             // TODO: Strings >1 character
             if (verbose){
                 printf("%s;", new_vec.symbols[i]);
-            }
+           }
             if(write_to_file){
                 fprintf(fp, "%s;", new_vec.symbols[i]);
             }
@@ -205,10 +205,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.content[0] = (v1+(v2-1))/ v2;
             new_vec.dtype = vector1.dtype;
@@ -233,10 +230,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.content[0] = v1 / v2;
             new_vec.dtype = vector1.dtype;
@@ -262,10 +256,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.content[0] = v1 % v2;
             new_vec.dtype = vector1.dtype;
