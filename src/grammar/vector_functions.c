@@ -26,11 +26,10 @@ void initialize_vector(vec * vector, DIE_TYPE dt, int items){
         for (int i=0; i<items; i++){
             vector->symbols[i] = calloc(MAX_SYMBOL_LENGTH, sizeof (char));
             if(! vector->content){
-                return BAD_ALLOC;
+                exit(BAD_ALLOC);
             }
         }
     }
-    return SUCCESS;
 }
 
 void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
@@ -45,8 +44,7 @@ void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_
 void pop(int * arr, int len, int value, int * new_arr){
     // This could be done in-place.
     int seen = 0;
-    // new_arr = calloc(sizeof(int), (len-1));
-
+    
     for(int i = 0; i != len; i++){
         if (arr[i] == value && !seen){
             seen = 1;
@@ -103,7 +101,8 @@ unsigned int remove_if_present(char ** arr1, int len1,
                     char ** arr2, int len2,
                     char ** new_arr)
 {
-    return NOT_IMPLEMENTED; 
+    exit(NOT_IMPLEMENTED); 
+    return 1;
 }
 
 
@@ -122,13 +121,12 @@ int collapse_vector(vec * vector, vec * new_vector){
 
         new_vector->content = calloc(sizeof(int), 1);
         if(! new_vector->content){
-            return BAD_ALLOC;
+            exit(BAD_ALLOC);
         }
         new_vector->content[0] = c;
         new_vector->length = 1;
         new_vector->dtype = vector->dtype;
     }
-    return SUCCESS;
 }
 
 unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
@@ -140,7 +138,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
     if(available_amount > number_to_keep){
         new_vector->content = calloc(sizeof(int), number_to_keep);
         if(! new_vector->content){
-            return BAD_ALLOC;
+            exit(BAD_ALLOC);
         }
         new_vector->length = number_to_keep;
 
@@ -158,7 +156,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
             new_vector->content[i] = m;
             new_arr = calloc(sizeof(int), length-1 );
             if(! vector->content){
-                return BAD_ALLOC
+                exit(BAD_ALLOC);
             }
             pop(arr, length, m, new_arr);
             free(arr);
