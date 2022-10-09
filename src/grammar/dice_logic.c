@@ -143,10 +143,10 @@ int validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){
         printf("Cannot roll a dice with a negative amount of sides\n");
-        return 1;
+        exit(INTERNAL_ASSERT);
     }if (number_of_dice < 0){
         printf("Cannot roll a negative number of dice\n");
-        return 1;
+        exit(INTERNAL_ASSERT);
     }
     return 0;
 }
