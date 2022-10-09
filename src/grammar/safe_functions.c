@@ -35,7 +35,10 @@ FILE * safe_fopen(const char *filename, const char *mode){
 }
 
 int safe_fclose(FILE *stream){
-    if(fclose(stream) != 0) exit(BAD_FILE);
+    if(fclose(stream) != 0){
+        printed("err closing\n");
+        exit(BAD_FILE);
+    }
     return 0;
 }
 
