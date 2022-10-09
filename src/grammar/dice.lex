@@ -25,7 +25,7 @@
 [0-9]+ {
     vec vector;
     vector.content = safe_malloc(sizeof(int));
-    vector.content[0] = safe_strtol(yytext);
+    vector.content[0] = safe_strtol(yytext, nullptr, 10);
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
