@@ -173,8 +173,8 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Division unsupported for symbolic dice.");
-            exit(UNDEFINED_BEHAVIOUR);
+            safe_printf("Multiplication not implemented for symbolic dice.");
+            exit(NOT_IMPLEMENTED);
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
