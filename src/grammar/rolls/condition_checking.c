@@ -48,6 +48,9 @@ int check_condition(
             exit(NOT_IMPLEMENTED);
             return 0;
         }
+        case INVALID:{
+            exit(UNDEFINED_BEHAVIOUR);
+        }
     }
     safe_printf("Unknown Conditional");
     exit(UNDEFINED_BEHAVIOUR);
@@ -83,6 +86,9 @@ int check_condition_scalar(
         case UNIQUE:{
             // Unique by the fact that it is scalar
             return 1;
+        }
+        case INVALID:{
+            exit(UNDEFINED_BEHAVIOUR);
         }
     }
     safe_printf("Unknown Conditional");
