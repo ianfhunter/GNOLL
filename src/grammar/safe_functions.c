@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "shared_header.h"
+#include "safe_functions.h"
 #include <stdarg.h>
 
 void * safe_malloc(size_t size){
