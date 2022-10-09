@@ -20,7 +20,7 @@ void initialize_vector(vec * vector, DIE_TYPE dt, int items){
     else if (dt == SYMBOLIC){
         vector->symbols = calloc(items, sizeof(char *));
         if(! vector->content){
-            return BAD_ALLOC;
+            exit(BAD_ALLOC);
         }
 
         for (int i=0; i<items; i++){
