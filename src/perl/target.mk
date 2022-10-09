@@ -12,6 +12,7 @@ compile_perl: swig_perl
 		src/grammar/vector_functions.c \
 		src/grammar/dice_logic.c \
 		src/grammar/macro_logic.c \
+                src/grammar/safe_functions.c \
 		build/lex.yy.c \
 		-Isrc/grammar/
 
@@ -22,12 +23,13 @@ compile_perl: swig_perl
 	cc -fPIC -c src/grammar/macro_logic.c -o build/macro.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
 	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
+	cc -fPIC -c src/grammar/safe_functions.c -o build/sf.o -Isrc/grammar/
 	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
 
 # Perl
 	cc -fPIC -c build/perl/gnoll_wrap.c -I/usr/lib/x86_64-linux-gnu/perl/5.30/CORE/ -Dbool=char -Doff64_t=__off64_t -o build/gnoll_perl_wrap.o
 
-	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
+	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o build/sf.o
 
 perl: compile_perl
 	echo "Done"
