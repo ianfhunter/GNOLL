@@ -64,7 +64,6 @@ void safe_printf(const char *fmt, ...) {
     int count = vprintf(fmt, args);
     va_end(args);
     if(count < 0) exit(IO_ERROR);
-    return count
 }
 
 void safe_fprintf(FILE *stream, const char *format, ...) {
