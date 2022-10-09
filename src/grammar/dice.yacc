@@ -129,10 +129,7 @@ dice_statement: math{
     FILE *fp;
 
     if(write_to_file){
-        fp = fopen(output_file, "a+");
-        if(!fp){
-            exit(BAD_FILE);
-        }
+        fp = safe_fopen(output_file, "a+");
     }
 
     for(int i = 0; i!= new_vec.length;i++){
@@ -183,10 +180,7 @@ math:
             int v2 = collapse(vector2.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = calloc(sizeof(int), 1);
-            if(!new_vec.content){
-               exit(BAD_ALLOC);
-            }
+            new_vec.content = safe_calloc(sizeof(int), 1);
             new_vec.length = 1;
             new_vec.content[0] = v1 * v2;
             new_vec.dtype = vector1.dtype;
