@@ -1056,7 +1056,7 @@ int main(int argc, char **str){
 int yyerror(s)
 const char *s;
 {
-    safe_printf(stderr, "%s\n", s);
+    safe_fprintf(stderr, "%s\n", s);
 
     if(write_to_file){
         FILE *fp;
