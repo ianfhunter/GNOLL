@@ -1,3 +1,5 @@
+%option never-interactive
+
 %{
     #include <stdio.h>
     #include "shared_header.h"
