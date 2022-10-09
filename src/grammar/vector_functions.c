@@ -73,17 +73,17 @@ int max(int * arr, int len){
 }
 
 void print_vec(vec vector){
-    printf("Vector Size: %d\n", vector.length);
-    printf("Vector Type: %d\n", vector.dtype);
+    safe_printf("Vector Size: %d\n", vector.length);
+    safe_printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
-        printf("Content:\n");
+        safe_printf("Content:\n");
         for(int i = 0; i != vector.length; i++){
-            printf(" %d\n", vector.content[i]);
+            safe_printf(" %d\n", vector.content[i]);
         }
     }else{
-        printf("Symbols:\n");
+        safe_printf("Symbols:\n");
         for(int i = 0; i != vector.length; i++){
-            printf(" %c\n", vector.symbols[i][0]);
+            safe_printf(" %c\n", vector.symbols[i][0]);
         }
     }
 }
@@ -110,10 +110,7 @@ void collapse_vector(vec * vector, vec * new_vector){
             c += vector->content[i];
         }
 
-        new_vector->content = calloc(sizeof(int), 1);
-        if(! new_vector->content){
-            exit(BAD_ALLOC);
-        }
+        new_vector->content = safe_calloc(sizeof(int), 1);
         new_vector->content[0] = c;
         new_vector->length = 1;
         new_vector->dtype = vector->dtype;
@@ -122,8 +119,8 @@ void collapse_vector(vec * vector, vec * new_vector){
 
 unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
     if (vector->dtype == SYMBOLIC){
-        printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
-        return 1;
+        safe_printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        exit(UNDEFINED_BEHAVIOUR);
     }
     int available_amount = vector->length;
     if(available_amount > number_to_keep){
@@ -151,7 +148,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
         new_vector->dtype = vector->dtype;
     }else{
         // e.g. 2d20k4 / 2d20kh2
-        printf("Warning: KeepHighest: Keeping <= produced amount");
+        safe_printf("Warning: KeepHighest: Keeping <= produced amount");
         new_vector = vector;
     }
     return 0;
