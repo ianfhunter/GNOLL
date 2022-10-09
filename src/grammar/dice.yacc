@@ -127,7 +127,7 @@ dice_statement: math{
     collapse_vector(&vector, &new_vec);
 
     // Step 2: Output
-    FILE *fp;
+    FILE *fp = 0;
 
     if(write_to_file){
         fp = safe_fopen(output_file, "a+");
@@ -138,7 +138,7 @@ dice_statement: math{
             // TODO: Strings >1 character
             if (verbose){
                 safe_printf("%s;", new_vec.symbols[i]);
-           }
+            }
             if(write_to_file){
                 safe_fprintf(fp, "%s;", new_vec.symbols[i]);
             }
@@ -493,7 +493,6 @@ dice_operations:
     dice_operations MAKE_UNIQUE{
         // TODO
         vec new_vec;
-        vec cond_vec;
         vec dice = $<values>1;
 
         if(dice.dtype == NUMERIC){
@@ -531,7 +530,6 @@ dice_operations:
     |
     dice_operations KEEP_LOWEST NUMBER
     {
-        vec roll_vector;
         vec keep_vector;
         unsigned int num_to_hold;
         keep_vector = $<values>3;
@@ -545,7 +543,6 @@ dice_operations:
     |
     dice_operations DROP_LOWEST NUMBER
     {
-        vec roll_vector;
         vec keep_vector;
         unsigned int num_to_hold;
         keep_vector = $<values>3;
@@ -1059,7 +1056,7 @@ int main(int argc, char **str){
 int yyerror(s)
 const char *s;
 {
-    safe_fprintf(stderr, "%s\n", s);
+    safe_printf(stderr, "%s\n", s);
 
     if(write_to_file){
         FILE *fp;
