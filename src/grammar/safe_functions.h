@@ -5,8 +5,21 @@
 #include <stdlib.h>
 #include "shared_header.h"
 
+typedef enum {
+    SUCCESS=0,
+    BAD_ALLOC=1,
+    BAD_FILE=2,
+    NOT_IMPLEMENTED=3,
+    INTERNAL_ASSERT=4,
+    UNDEFINED_BEHAVIOUR=5,
+    BAD_STRING=6,
+    OUT_OF_RANGE=7
+} ERROR_CODES;
+
 void * safe_malloc(size_t size);
 void * safe_calloc(size_t nitems, size_t size);
 FILE * safe_fopen(const char *filename, const char *mode);
+char * safe_strdup( const char *str1 );
+long int safe_strtol (const char* str, char** endptr, int base);
 
 #endif
