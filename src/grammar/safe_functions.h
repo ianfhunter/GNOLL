@@ -13,7 +13,8 @@ typedef enum {
     INTERNAL_ASSERT=4,
     UNDEFINED_BEHAVIOUR=5,
     BAD_STRING=6,
-    OUT_OF_RANGE=7
+    OUT_OF_RANGE=7,
+    IO_ERROR=8
 } ERROR_CODES;
 
 void * safe_malloc(size_t size);
