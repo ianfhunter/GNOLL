@@ -32,7 +32,7 @@ char * output_file;
 // Registers
 
 // TODO: It would be better to fit arbitrary length strings.
-unsigned int MAX_SYMBOL_TEXT_LENGTH = 100;
+unsigned int MAX_SYMBOL_TEXT_LENGTH = 256;
 unsigned int MAX_ITERATION = 20;
 
 int initialize(){
@@ -129,7 +129,7 @@ dice_statement: math{
     collapse_vector(&vector, &new_vec);
 
     // Step 2: Output
-    FILE *fp = 0;
+    FILE *fp;
 
     if(write_to_file){
         fp = safe_fopen(output_file, "a+");
