@@ -3,6 +3,7 @@
 #include "vector_functions.h"
 #include "macro_logic.h"
 #include "shared_header.h"
+#include "safe_functions.h"
 
 struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
 
@@ -13,10 +14,7 @@ void register_macro(char * skey, vec *to_store) {
 
     HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
     if (s == NULL){
-        s = (struct macro_struct*)malloc(sizeof *s);
-        if(!s){
-            exit(BAD_ALLOC);
-        }
+        s = (struct macro_struct*)safe_malloc(sizeof *s);
         s->id = key;
         HASH_ADD_INT(macros, id, s);  /* id: name of key field */
     }
