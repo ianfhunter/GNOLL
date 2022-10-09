@@ -28,6 +28,7 @@ FILE * safe_fopen(const char *filename, const char *mode){
     FILE * fopen_result;
     fopen_result = fopen(filename, mode);
     if(fopen_result == NULL){
+        printf("err opening\n");
         perror(filename);
         exit(BAD_FILE);
     }
