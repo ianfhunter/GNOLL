@@ -12,7 +12,7 @@ int random_fn_run_count = 0;
 int global_mock_value = 0;
 int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
-extern unsigned int gnoll_errno:
+extern unsigned int gnoll_errno;
 
 void reset_mocking(){
     random_fn_run_count = 0;
