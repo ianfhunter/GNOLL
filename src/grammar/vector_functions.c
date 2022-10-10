@@ -92,7 +92,7 @@ unsigned int remove_if_present(char ** arr1, int len1,
                     char ** arr2, int len2,
                     char ** new_arr)
 {
-    exit(NOT_IMPLEMENTED); 
+    gnoll_errno = NOT_IMPLEMENTED; 
     return 1;
 }
 
@@ -120,7 +120,7 @@ void collapse_vector(vec * vector, vec * new_vector){
 unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
     if (vector->dtype == SYMBOLIC){
         safe_printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
-        exit(UNDEFINED_BEHAVIOUR);
+        gnoll_errno = UNDEFINED_BEHAVIOUR;
     }
     int available_amount = vector->length;
     if(available_amount > number_to_keep){
@@ -185,7 +185,6 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
         index = indexes[i];
         strcpy(result_symbols[i], symbols_list[index]);
     }
-
 }
 
 void filter(vec * dice, vec * cond, int comp_op, vec * output){
