@@ -1032,6 +1032,7 @@ int roll(char * s){
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     printf ("roll2 %i\n", gnoll_errno);
     yyparse();
+    printf ("roll2.5 %i\n", gnoll_errno);
     yy_delete_buffer(buffer);
     printf ("roll3 %i\n", gnoll_errno);
     return gnoll_errno;
@@ -1106,7 +1107,7 @@ const char *s;
 }
 
 int yywrap(){
-    return (gnoll_errno);
+    return (1);
 }
 
 
