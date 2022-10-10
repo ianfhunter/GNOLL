@@ -15,11 +15,15 @@ void initialize_vector(vec * vector, DIE_TYPE dt, int items){
 
     if (dt == NUMERIC){
         vector->content = safe_calloc(items, sizeof (int));
+        if(gnoll_errno) return;
     }
     else if (dt == SYMBOLIC){
         vector->symbols = safe_calloc(items, sizeof(char *));
+        if(gnoll_errno) return;
+
         for (int i=0; i<items; i++){
             vector->symbols[i] = safe_calloc(MAX_SYMBOL_LENGTH, sizeof (char));
+            if(gnoll_errno) return;
         }
     }
 }
@@ -112,6 +116,7 @@ void collapse_vector(vec * vector, vec * new_vector){
         }
 
         new_vector->content = safe_calloc(sizeof(int), 1);
+        if(gnoll_errno) return;
         new_vector->content[0] = c;
         new_vector->length = 1;
         new_vector->dtype = vector->dtype;
@@ -122,10 +127,12 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
     if (vector->dtype == SYMBOLIC){
         safe_printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
         gnoll_errno = UNDEFINED_BEHAVIOUR;
+        return 0;
     }
     int available_amount = vector->length;
     if(available_amount > number_to_keep){
         new_vector->content = safe_calloc(sizeof(int), number_to_keep);
+        if(gnoll_errno) return 0;
         new_vector->length = number_to_keep;
 
         int * arr = vector->content;
@@ -136,11 +143,13 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
             int m;
             if (keep_high){
                 m =  max(arr, length);
-            }else{
+            }else{strcpy
                 m =  min(arr, length);
             }
             new_vector->content[i] = m;
             new_arr = safe_calloc(sizeof(int), length-1 );
+            if(gnoll_errno) return 0;
+
             pop(arr, length, m, new_arr);
             free(arr);
             arr = new_arr;
