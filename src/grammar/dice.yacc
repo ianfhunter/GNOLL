@@ -180,7 +180,7 @@ math:
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             safe_printf("Multiplication not implemented for symbolic dice.\n");
-            errno = NOT_IMPLEMENTED;
+            gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;
         }else{
@@ -206,7 +206,7 @@ math:
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             safe_printf("Division unsupported for symbolic dice.\n");
-            errno = UNDEFINED_BEHAVIOUR;
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
 
@@ -233,7 +233,7 @@ math:
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             safe_printf("Division unsupported for symbolic dice.");
-            errno = UNDEFINED_BEHAVIOUR;
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
         }else{
@@ -260,7 +260,7 @@ math:
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             safe_printf("Modulo unsupported for symbolic dice.");
-            errno = UNDEFINED_BEHAVIOUR;
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
 
@@ -290,7 +290,9 @@ math:
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
             safe_printf("Addition not supported with mixed dice types.");
-            exit(UNDEFINED_BEHAVIOUR);
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;
         } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
@@ -337,7 +339,9 @@ math:
             // It's not clear whether {+,-} - {-, 0} should be {+} or {+, 0}!
             // Therfore, we'll exclude it.
             safe_printf("Subtract not supported with symbolic dice.");
-            exit(UNDEFINED_BEHAVIOUR);
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;;
         }else{
             // Collapse both sides and subtract
 
@@ -362,7 +366,9 @@ math:
 
         if (vector.dtype == SYMBOLIC){
             safe_printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.");
-            exit(UNDEFINED_BEHAVIOUR);
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            YYABORT;
+            yyclearin;;
         } else {
             vec new_vec;
 
@@ -452,7 +458,9 @@ dice_operations:
             $<values>$ = dice;
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED);
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
         }
     }
     |die_roll REROLL condition NUMBER{
@@ -484,7 +492,9 @@ dice_operations:
             }
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED);
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
         }
     }
     |
@@ -501,7 +511,9 @@ dice_operations:
             $<values>$ = new_vec;
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED);
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
         }
 
     }
@@ -518,7 +530,9 @@ dice_operations:
             $<values>$ = new_vec;
         }else{
             safe_printf("No support for Symbolic die rerolling yet!");
-            exit(NOT_IMPLEMENTED);
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
         }
     }
     |
@@ -966,7 +980,9 @@ csd:
         if (s > e){
             printf("Range: %i -> %i\n", s, e);
             printf("Reversed Ranged not supported yet.");
-            exit(NOT_IMPLEMENTED);
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;
         }
 
         int spread = e - s + 1; // 2-2= 1 2-3=2, etc
