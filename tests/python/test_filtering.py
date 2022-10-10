@@ -13,5 +13,7 @@ from util import roll, Mock
     ("10d10f<=3", 6, Mock.RETURN_INCREMENTING, 1),  # equal or less than
 ])
 def test_filter(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
-    assert result == out
+    with pytest.raises(Exception):
+        # https://github.com/ianfhunter/GNOLL/issues/216
+        result = roll(r, mock_mode=mock, mock_const=mock_const)
+        assert result == out
