@@ -64,12 +64,13 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         for i in results:
             if "error" in i:
                 return_code = 1
+                break
 
     if isinstance(out, list) and len(out) == 1:
         out = out[0]
 
     if isinstance(out, list):
-        if all([x.lstrip("-").isdigit() for x in out]):
+        if all(x.lstrip("-").isdigit() for x in out):
             out = [int(o) for o in out]
     elif out.lstrip("-").isdigit():
         out = int(out)
