@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern unsigned int gnoll_errno:
+extern unsigned int gnoll_errno;
 
 /**
  * @brief Comparision of a collapsed vector to a value
