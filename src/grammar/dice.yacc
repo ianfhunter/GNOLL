@@ -122,8 +122,6 @@ macro_statement:
 
 dice_statement: math{
 
-    printf ("err %i\n", gnoll_errno);
-
     vec vector;
     vec new_vec;
     vector = $<values>1;
@@ -1026,15 +1024,11 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
-    printf ("roll %i\n", gnoll_errno);
     initialize();
     verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
-    printf ("roll2 %i\n", gnoll_errno);
     yyparse();
-    printf ("roll2.5 %i\n", gnoll_errno);
     yy_delete_buffer(buffer);
-    printf ("roll3 %i\n", gnoll_errno);
     return gnoll_errno;
 }
 int roll_verbose(char * s){
@@ -1056,10 +1050,8 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
-    printf ("mock %i\n", gnoll_errno);
     init_mocking(mock_value, mock_const);
     verbose = !quiet;
-    printf ("mock2 %i\n", gnoll_errno);
     return roll_and_write(s, f);
 }
 
