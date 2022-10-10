@@ -131,7 +131,7 @@ dice_statement: math{
     collapse_vector(&vector, &new_vec);
 
     // Step 2: Output
-    FILE *fp;
+    FILE *fp = NULL;
 
     if(write_to_file){
         fp = safe_fopen(output_file, "a+");
@@ -230,7 +230,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Division unsupported for symbolic dice.");
+            safe_printf("Division unsupported for symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -257,7 +257,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Modulo unsupported for symbolic dice.");
+            safe_printf("Modulo unsupported for symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -287,7 +287,7 @@ math:
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
-            safe_printf("Addition not supported with mixed dice types.");
+            safe_printf("Addition not supported with mixed dice types.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -336,7 +336,7 @@ math:
         ){
             // It's not clear whether {+,-} - {-, 0} should be {+} or {+, 0}!
             // Therfore, we'll exclude it.
-            safe_printf("Subtract not supported with symbolic dice.");
+            safe_printf("Subtract not supported with symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;;
@@ -363,7 +363,7 @@ math:
         vector = $<values>2;
 
         if (vector.dtype == SYMBOLIC){
-            safe_printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.");
+            safe_printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;;
@@ -433,7 +433,7 @@ dice_operations:
             int count = 0;
             while (! check_condition(&dice, &$<values>5, check)){
                 if (count > MAX_ITERATION){
-                    safe_printf("MAX ITERATION LIMIT EXCEEDED: REROLL");
+                    safe_printf("MAX ITERATION LIMIT EXCEEDED: REROLL\n");
                     break;
                 }
                 vec number_of_dice;
@@ -455,7 +455,7 @@ dice_operations:
             }
             $<values>$ = dice;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -508,7 +508,7 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -527,7 +527,7 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!");
+            safe_printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -977,7 +977,7 @@ csd:
 
         if (s > e){
             printf("Range: %i -> %i\n", s, e);
-            printf("Reversed Ranged not supported yet.");
+            printf("Reversed Ranged not supported yet.\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;
