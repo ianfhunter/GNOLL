@@ -10,6 +10,8 @@
 extern unsigned int gnoll_errno;
 
 void initialize_vector(vec * vector, DIE_TYPE dt, int items){
+    if (gnoll_errno){ return ; }
+    
     vector->dtype = dt;
     vector->length = items;
 
@@ -29,6 +31,8 @@ void initialize_vector(vec * vector, DIE_TYPE dt, int items){
 }
 
 void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
+    if (gnoll_errno){ return ; }
+
     for(int i = 0; i != len1; i++){
         strcpy(new_arr[i], arr1[i]);
     }
@@ -38,6 +42,8 @@ void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_
 }
 
 void pop(int * arr, int len, int value, int * new_arr){
+    if (gnoll_errno){ return ; }
+
     // This could be done in-place.
     int seen = 0;
     
@@ -55,6 +61,8 @@ void pop(int * arr, int len, int value, int * new_arr){
 }
 
 int contains(int * arr, int len, int value){
+    if (gnoll_errno){ return 0; }
+
     for(int i = 0; i != len; i++){
         if (arr[i] == value) return 1;
     }
@@ -62,6 +70,8 @@ int contains(int * arr, int len, int value){
 }
 
 int min(int * arr, int len){
+    if (gnoll_errno){ return 0; }
+
     int lowest = INT_MAX;
     for(int i = 0; i != len; i++){
         if (arr[i] < lowest) lowest = arr[i];
@@ -70,6 +80,8 @@ int min(int * arr, int len){
 }
 
 int max(int * arr, int len){
+    if (gnoll_errno){ return 0; }
+
     int highest = INT_MIN;
     for(int i = 0; i != len; i++){
         if (arr[i] > highest) highest = arr[i];
@@ -78,6 +90,8 @@ int max(int * arr, int len){
 }
 
 void print_vec(vec vector){
+    if (gnoll_errno){ return ; }
+
     safe_printf("Vector Size: %d\n", vector.length);
     safe_printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
@@ -97,6 +111,8 @@ unsigned int remove_if_present(char ** arr1, int len1,
                     char ** arr2, int len2,
                     char ** new_arr)
 {
+    if (gnoll_errno){ return 0; }
+
     gnoll_errno = NOT_IMPLEMENTED; 
     return 1;
 }
@@ -106,6 +122,7 @@ void collapse_vector(vec * vector, vec * new_vector){
     // Converts the like of "2d3"
     // from {1,2,3} to {6}
     // cannot operate on symbols.
+    if (gnoll_errno){ return ; }
 
     if (vector->dtype == SYMBOLIC ){
         new_vector = vector;
@@ -124,6 +141,8 @@ void collapse_vector(vec * vector, vec * new_vector){
 }
 
 unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
+    if (gnoll_errno){ return 0; }
+
     if (vector->dtype == SYMBOLIC){
         safe_printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
         gnoll_errno = UNDEFINED_BEHAVIOUR;
@@ -165,12 +184,18 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
 }
 
 unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    if (gnoll_errno){ return 0; }
+
     return keep_logic(vector, new_vector, number_to_keep, 0);
 }
 unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    if (gnoll_errno){ return 0; }
+
     return keep_logic(vector, new_vector, number_to_keep, 1);
 }
 unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    if (gnoll_errno){ return 0; }
+
     int calc_keep = vector->length - number_to_keep;
     if (calc_keep > 0){
         number_to_keep = calc_keep;
@@ -180,6 +205,8 @@ unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int num
     return keep_logic(vector, new_vector, number_to_keep, 1);
 }
 unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    if (gnoll_errno){ return 0; }
+
     int calc_keep = vector->length - number_to_keep;
     if (calc_keep > 0){
         number_to_keep = calc_keep;
@@ -190,6 +217,8 @@ unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int nu
 }
 
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length){
+    if (gnoll_errno){ return ; }
+
     int index = 0;
     for (int i = 0; i != idx_length;i++){
         index = indexes[i];
@@ -198,6 +227,8 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
 }
 
 void filter(vec * dice, vec * cond, int comp_op, vec * output){
+    if (gnoll_errno){ return ; }
+
     int success_idx = 0;
     for(int i = 0; i != dice->length; i++){
         int v = dice->content[i];
@@ -214,6 +245,8 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
 }
 
 void filter_unique(vec * dice, vec * new_vec){
+    if (gnoll_errno){ return ; }
+
     int tracker_idx = 0;
     for(int i = 0; i != dice->length; i++){
 

@@ -68,7 +68,7 @@ build/sided_dice.o:
 build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
-test_no_pip :
+test_no_pip : python
 	python3 -m pytest tests/python/ -xs
 
 test : pip

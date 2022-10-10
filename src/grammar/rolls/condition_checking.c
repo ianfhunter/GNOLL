@@ -24,6 +24,8 @@ int check_condition(
     vec * y, 
     COMPARATOR c
 ){
+    if(gnoll_errno) return 1;
+
     int xvalue = collapse(x->content, x->length);
     int yvalue = y->content[0];
     switch(c){
@@ -65,6 +67,8 @@ int check_condition_scalar(
     int y, 
     COMPARATOR c
 ){
+    if(gnoll_errno) return 1;
+
     int xvalue = x;
     int yvalue = y;
     switch(c){

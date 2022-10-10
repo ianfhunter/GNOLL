@@ -52,6 +52,8 @@ void mocking_tick(){
 
 
 int random_fn(int small, int big){
+    if (gnoll_errno){ return 0; }
+
     // printf("Between %i and %i\n", small, big);
     random_fn_run_count++;
 
@@ -86,10 +88,14 @@ int * perform_roll(
     int start_value
 )
 {
+    if (gnoll_errno){ return NULL; }
+
     int explosion_condition_score = 0;
     int explosion_count = 0;
 
     int * all_dice_roll = safe_calloc(number_of_dice, sizeof(int));
+    if (gnoll_errno){ return 0; }
+
     int single_die_roll = 0;
     int exploded_result = 0;
 

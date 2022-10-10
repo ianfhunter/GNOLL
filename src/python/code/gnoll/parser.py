@@ -33,9 +33,6 @@ def RaiseGNOLLError(v):
     raise d[v]
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):     
-    if verbose:
-        print("Rolling: ", s)
-
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
     
     os.remove(temp.name)

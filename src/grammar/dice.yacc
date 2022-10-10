@@ -58,11 +58,11 @@ int sum(int * arr, int len){
 int roll_numeric_die(int small, int big){
     return random_fn(small, big);
 }
+
 int roll_symbolic_die(int length_of_symbolic_array){
     // Returns random index into symbolic array
     return roll_numeric_die(0, length_of_symbolic_array -1);
 }
-
 
 %}
 
@@ -113,10 +113,12 @@ sub_statement:
 
 macro_statement:
     MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
-        // TODO: Is not recalculating if used twice.
+                
         vec key = $<values>2;
         vec value = $<values>4;
-        register_macro(key.symbols[0], &value);
+
+        register_macro(&key, &value);
+        
         if(gnoll_errno){
             YYABORT;
             yyclearin;
@@ -126,15 +128,18 @@ macro_statement:
 
 dice_statement: math{
 
-    vec vector;
-    vec new_vec;
-    vector = $<values>1;
+    vec vector = $<values>1;
+    vec new_vec = vector;       // Code Smell.
+                                // Target Vector should be empty
 
-    new_vec = vector;
     //  Step 1: Collapse pool to a single value if nessicary
     collapse_vector(&vector, &new_vec);
+    if(gnoll_errno){
+        YYABORT;
+        yyclearin;
+    }
 
-    // Step 2: Output
+    // Step 2: Output to file
     FILE *fp = NULL;
 
     if(write_to_file){
@@ -145,6 +150,7 @@ dice_statement: math{
         }
     }
 
+    // TODO: To Function
     for(int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
@@ -403,6 +409,10 @@ math:
             vec new_vec;
 
             new_vec.content = safe_calloc(sizeof(int), vector.length);
+            if(gnoll_errno){
+                YYABORT;
+                yyclearin;
+            }
             new_vec.length = vector.length;
             new_vec.dtype = vector.dtype;
 
@@ -1134,6 +1144,4 @@ const char *s;
 int yywrap(){
     return (1);
 }
-
-
 
