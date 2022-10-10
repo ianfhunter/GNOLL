@@ -6,15 +6,18 @@
 #include "safe_functions.h"
 
 struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
-
+extern unsigned int gnoll_errno;
 
 void register_macro(char * skey, vec *to_store) {
-    int key = safe_strtol(skey, NULL, 10);;
+    int key = safe_strtol(skey, NULL, 10);
+    if(gnoll_errno) return;
+
     struct macro_struct *s;
 
     HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
     if (s == NULL){
         s = (struct macro_struct*)safe_malloc(sizeof *s);
+        if(gnoll_errno) return;
         s->id = key;
         HASH_ADD_INT(macros, id, s);  /* id: name of key field */
     }
@@ -22,7 +25,9 @@ void register_macro(char * skey, vec *to_store) {
 }
 
 struct macro_struct *search_macros(char * skey, vec *to_store) {
-    int key = safe_strtol(skey, NULL, 10);;
+    int key = safe_strtol(skey, NULL, 10);
+    if(gnoll_errno) return NULL;
+
     struct macro_struct *s;
 
     HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
