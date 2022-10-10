@@ -9,7 +9,7 @@ struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
 
 
 void register_macro(char * skey, vec *to_store) {
-    int key = atoi(skey);
+    int key = safe_strtol(skey, NULL, 10);;
     struct macro_struct *s;
 
     HASH_FIND_INT(macros, &key, s);  /* id already in the hash? */
@@ -22,7 +22,7 @@ void register_macro(char * skey, vec *to_store) {
 }
 
 struct macro_struct *search_macros(char * skey, vec *to_store) {
-    int key = atoi(skey);
+    int key = safe_strtol(skey, NULL, 10);;
     struct macro_struct *s;
 
     HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
