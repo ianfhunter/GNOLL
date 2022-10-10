@@ -1042,7 +1042,7 @@ int roll_verbose(char * s){
     return gnoll_errno;
 }
 int roll_and_write(char * s, char * f){
-    
+    gnoll_errno = 0;
     /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
@@ -1050,6 +1050,7 @@ int roll_and_write(char * s, char * f){
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
+    gnoll_errno = 0;
     init_mocking(mock_value, mock_const);
     verbose = !quiet;
     return roll_and_write(s, f);
