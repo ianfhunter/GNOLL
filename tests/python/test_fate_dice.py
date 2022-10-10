@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import roll, Mock
+from util import Mock, roll
 
 @pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
 def test_traditional_fate(FD):

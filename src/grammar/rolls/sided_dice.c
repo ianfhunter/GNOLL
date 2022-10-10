@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+extern unsigned int gnoll_errno;
 
 int roll_plain_sided_dice(
     vec * x,
@@ -14,6 +15,8 @@ int roll_plain_sided_dice(
     EXPLOSION_TYPE explode,
     int start_offset
 ){
+    if(gnoll_errno) return 0;
+
 
     // XdY
     int num_dice = x->content[0];
@@ -39,6 +42,8 @@ int roll_plain_sided_dice(
 }
 
 int roll_symbolic_dice(vec * x, vec * y, vec * result){
+    if(gnoll_errno) return 0;
+
     // XdY
     int num_dice = x->content[0];
 

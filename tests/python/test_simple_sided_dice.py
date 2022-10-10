@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import roll, Mock
+from util import Mock, roll
 
 def test_random_roll():
     # Prove Random roll Is Working

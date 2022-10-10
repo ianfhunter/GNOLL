@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "shared_header.h"
+#include "safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
-
 
 #define EXPLOSION_LIMIT 50
 
@@ -12,7 +12,7 @@ int random_fn_run_count = 0;
 int global_mock_value = 0;
 int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
-
+extern unsigned int gnoll_errno;
 
 void reset_mocking(){
     random_fn_run_count = 0;
@@ -52,6 +52,8 @@ void mocking_tick(){
 
 
 int random_fn(int small, int big){
+    if (gnoll_errno){ return 0; }
+
     // printf("Between %i and %i\n", small, big);
     random_fn_run_count++;
 
@@ -86,10 +88,14 @@ int * perform_roll(
     int start_value
 )
 {
+    if (gnoll_errno){ return NULL; }
+
     int explosion_condition_score = 0;
     int explosion_count = 0;
 
-    int * all_dice_roll = calloc(number_of_dice, sizeof(int));
+    int * all_dice_roll = safe_calloc(number_of_dice, sizeof(int));
+    if (gnoll_errno){ return 0; }
+
     int single_die_roll = 0;
     int exploded_result = 0;
 
@@ -143,10 +149,10 @@ int validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){
         printf("Cannot roll a dice with a negative amount of sides\n");
-        return 1;
+        gnoll_errno = INTERNAL_ASSERT;
     }if (number_of_dice < 0){
         printf("Cannot roll a negative number of dice\n");
-        return 1;
+        gnoll_errno = INTERNAL_ASSERT;
     }
     return 0;
 }
