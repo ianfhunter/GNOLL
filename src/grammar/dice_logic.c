@@ -12,7 +12,7 @@ int random_fn_run_count = 0;
 int global_mock_value = 0;
 int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
-
+extern unsigned int gnoll_errno:
 
 void reset_mocking(){
     random_fn_run_count = 0;
@@ -143,10 +143,10 @@ int validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){
         printf("Cannot roll a dice with a negative amount of sides\n");
-        exit(INTERNAL_ASSERT);
+        gnoll_errno = INTERNAL_ASSERT;
     }if (number_of_dice < 0){
         printf("Cannot roll a negative number of dice\n");
-        exit(INTERNAL_ASSERT);
+        gnoll_errno = INTERNAL_ASSERT;
     }
     return 0;
 }
