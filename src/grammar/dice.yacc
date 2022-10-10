@@ -117,6 +117,10 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
         register_macro(key.symbols[0], &value);
+        if(gnoll_errno){
+            YYABORT;
+            yyclearin;
+        }
     }
 ;
 
@@ -135,6 +139,10 @@ dice_statement: math{
 
     if(write_to_file){
         fp = safe_fopen(output_file, "a+");
+        if(gnoll_errno){
+            YYABORT;
+            yyclearin;
+        }
     }
 
     for(int i = 0; i!= new_vec.length;i++){
@@ -240,6 +248,10 @@ math:
 
             vec new_vec;
             new_vec.content = safe_calloc(sizeof(int), 1);
+            if(gnoll_errno){
+               YYABORT;
+               yyclearin;
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 / v2;
             new_vec.dtype = vector1.dtype;
@@ -268,6 +280,10 @@ math:
 
             vec new_vec;
             new_vec.content = safe_calloc(sizeof(int), 1);
+            if(gnoll_errno){
+                YYABORT;
+                yyclearin;
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 % v2;
             new_vec.dtype = vector1.dtype;
@@ -295,8 +311,16 @@ math:
             vec new_vec;
             unsigned int concat_length = vector1.length + vector2.length;
             new_vec.symbols = safe_calloc(sizeof(char *), concat_length);
+            if(gnoll_errno){
+                YYABORT;
+                yyclearin;
+            }
             for (int i = 0; i != concat_length; i++){
                 new_vec.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
+                if(gnoll_errno){
+                    YYABORT;
+                    yyclearin;
+                }
             }
             new_vec.length = concat_length;
             new_vec.dtype = vector1.dtype;
@@ -317,6 +341,10 @@ math:
 
             vec new_vec;
             new_vec.content = safe_calloc(sizeof(int), 1);
+            if(gnoll_errno){
+                YYABORT;
+                yyclearin;
+            }
             new_vec.length = 1;
             new_vec.dtype = vector1.dtype;
             new_vec.content[0] = v1 + v2;
@@ -348,6 +376,10 @@ math:
 
             vec new_vec;
             new_vec.content = safe_calloc(sizeof(int), 1);
+            if(gnoll_errno){
+                YYABORT;
+                yyclearin;
+            }
             new_vec.length = 1;
             new_vec.content[0] = v1 - v2;
             new_vec.dtype = vector1.dtype;
