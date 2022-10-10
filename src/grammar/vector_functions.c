@@ -143,7 +143,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
             int m;
             if (keep_high){
                 m =  max(arr, length);
-            }else{strcpy
+            }else{
                 m =  min(arr, length);
             }
             new_vector->content[i] = m;
