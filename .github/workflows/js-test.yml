@@ -27,11 +27,6 @@ jobs:
         sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb
     - name: make js
       run: |
-        make all
         emcc -v
         make js
-        pwd
-        ls -las
-        echo '----'
-        ls -las ./src/js
-        node ./a.out.js 1d20
+        node ./build/js/a.out.js 1d20
