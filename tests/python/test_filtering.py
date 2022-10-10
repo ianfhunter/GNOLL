@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import roll, Mock
+from util import Mock, roll
 
 
-@pytest.mark.parametrize("r,out,mock,mock_const",[
+@pytest.mark.parametrize("r,out,mock,mock_const",
+[
     ("10d10f<4", 6, Mock.RETURN_INCREMENTING, 1),  # less than
     ("10d10f>8", 19, Mock.RETURN_INCREMENTING, 1),  # greater than
     ("10d10f!=1", 54, Mock.RETURN_INCREMENTING, 1),  # is not

@@ -1,9 +1,7 @@
+import cppyy
 import os
 import sys
 import tempfile
-
-import cppyy
-from enum import Enum
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
@@ -17,6 +15,7 @@ cppyy.load_library(C_SHARED_LIB)
 class GNOLLException(Exception):
     def __init__(self, v):
         Exception.__init__(self, v)
+
 
 def RaiseGNOLLError(v):
     d = [
@@ -32,11 +31,12 @@ def RaiseGNOLLError(v):
     ]
     raise d[v]
 
-def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):     
+
+def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
-    
+
     os.remove(temp.name)
-    
+
     f = str(temp.name)
     if verbose:
         print("File: ", f)
@@ -47,7 +47,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     else:
         # Testing Only
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
-    
+
     if(return_code != 0):
         RaiseGNOLLError(return_code)
 
