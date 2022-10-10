@@ -51,11 +51,11 @@ int check_condition(
             return 0;
         }
         case INVALID:{
-            safe_printf("Invalid Conditional");
+            safe_printf("Invalid Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
         }
     }
-    safe_printf("Unknown Conditional");
+    safe_printf("Unknown Conditional\n");
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return 1;
 }
@@ -91,11 +91,11 @@ int check_condition_scalar(
             return 1;
         }
         case INVALID:{
-            safe_printf("Unknown Conditional");
+            safe_printf("Unknown Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
         }
     }
-    safe_printf("Unknown Conditional");
+    safe_printf("Unknown Conditional\n");
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return 1;
 }
