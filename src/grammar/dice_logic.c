@@ -83,8 +83,8 @@ int random_fn(int small, int big){
 // TODO: have min and max range rather than sides and start_offset
 
 int * perform_roll(
-    int number_of_dice,
-    int die_sides,
+    unsigned int number_of_dice,
+    unsigned int die_sides,
     EXPLOSION_TYPE explode,
     int start_value
 )
