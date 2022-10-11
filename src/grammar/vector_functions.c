@@ -14,17 +14,17 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
     if (gnoll_errno){ return ; }
     
     vector->dtype = dt;
-    vector->length = items;
+    vector->length = number_of_items;
 
     if (dt == NUMERIC){
-        vector->content = safe_calloc(items, sizeof (int));
+        vector->content = safe_calloc(number_of_items, sizeof (int));
         if(gnoll_errno) return;
     }
     else if (dt == SYMBOLIC){
-        vector->symbols = safe_calloc(items, sizeof(char *));
+        vector->symbols = safe_calloc(number_of_items, sizeof(char *));
         if(gnoll_errno) return;
 
-        for (int i=0; i<items; i++){
+        for (unsigned int i=0; i<number_of_items; i++){
             vector->symbols[i] = safe_calloc(MAX_SYMBOL_LENGTH, sizeof (char));
             if(gnoll_errno) return;
         }

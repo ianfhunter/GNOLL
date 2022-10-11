@@ -19,8 +19,8 @@ int roll_plain_sided_dice(
 
 
     // XdY
-    int num_dice = x->content[0];
-    int sides = y->content[0];
+    unsigned int num_dice = x->content[0];
+    unsigned int sides = y->content[0];
 
     int err = validate_roll(num_dice, sides);
     if (err){
@@ -45,7 +45,7 @@ int roll_symbolic_dice(vec * x, vec * y, vec * result){
     if(gnoll_errno) return 0;
 
     // XdY
-    int num_dice = x->content[0];
+    unsigned int num_dice = x->content[0];
 
     int err = validate_roll(num_dice, 1);
     if (err){
