@@ -6,7 +6,7 @@
 #include "shared_header.h"
 #include "safe_functions.h"
 
-unsigned int gnoll_errno = 0;
+int gnoll_errno = 0;
 
 void * safe_malloc(size_t size){
     if (gnoll_errno){

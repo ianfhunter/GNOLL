@@ -6,7 +6,7 @@
 #include "safe_functions.h"
 
 struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 
 void register_macro(vec * macro_name, vec *to_store) {

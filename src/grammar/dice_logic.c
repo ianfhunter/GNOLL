@@ -13,7 +13,7 @@ int random_fn_run_count = 0;
 int global_mock_value = 0;
 int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 void reset_mocking(){
     random_fn_run_count = 0;
@@ -100,12 +100,12 @@ int * perform_roll(
     int single_die_roll = 0;
     int exploded_result = 0;
 
-    for(int i = 0; i < number_of_dice; i++){
+    for(unsigned int i = 0; i < number_of_dice; i++){
         all_dice_roll[i] = 0;
     }
 
     do{
-        for(int i = 0; i < number_of_dice; i++){
+        for(unsigned int i = 0; i < number_of_dice; i++){
             // TODO: Don't hardcode 1
             int end_value = start_value+die_sides-1;
             if (die_sides == 0){

@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <limits.h>
 #include <string.h>
+#include "vector_functions.h"
 #include "shared_header.h"
 #include "safe_functions.h"
 #include "rolls/condition_checking.h"
 
 #define MAX_SYMBOL_LENGTH 256
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
     if (gnoll_errno){ return ; }

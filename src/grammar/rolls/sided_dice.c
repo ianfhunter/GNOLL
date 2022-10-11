@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 int roll_plain_sided_dice(
     vec * x,

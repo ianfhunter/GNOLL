@@ -29,7 +29,7 @@ int seeded = 0;
 int write_to_file = 0;
 char * output_file;
 
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 // Registers
 
