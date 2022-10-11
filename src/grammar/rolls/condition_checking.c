@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 /**
  * @brief Comparision of a collapsed vector to a value
@@ -55,6 +55,12 @@ int check_condition(
         case INVALID:{
             safe_printf("Invalid Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
+        default:{
+            safe_printf("Unknown Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
         }
     }
     safe_printf("Unknown Conditional\n");
@@ -95,8 +101,14 @@ int check_condition_scalar(
             return 1;
         }
         case INVALID:{
+            safe_printf("Invalid Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
+        default:{
             safe_printf("Unknown Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
         }
     }
     safe_printf("Unknown Conditional\n");

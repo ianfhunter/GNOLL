@@ -14,5 +14,4 @@ typedef struct vec{
     roll_params source;
 } vec;
 
-
 #endif

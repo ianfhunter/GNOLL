@@ -6,7 +6,7 @@
 #include "shared_header.h"
 #include "safe_functions.h"
 
-unsigned int gnoll_errno = 0;
+int gnoll_errno = 0;
 
 void * safe_malloc(size_t size){
     if (gnoll_errno){
@@ -16,7 +16,7 @@ void * safe_malloc(size_t size){
     }
     void * malloc_result;
     malloc_result = malloc(size);
-    if(!malloc_result){
+    if(!malloc_result && size){
         gnoll_errno = BAD_ALLOC;
     }
     return malloc_result;
@@ -30,7 +30,8 @@ void * safe_calloc(size_t nitems, size_t size){
     }
     void * calloc_result;
     calloc_result = calloc(nitems, size);
-    if(!calloc_result){
+    unsigned int total_sz = nitems*size;
+    if(!calloc_result && total_sz){
         gnoll_errno = BAD_ALLOC;
     }
     return calloc_result;
