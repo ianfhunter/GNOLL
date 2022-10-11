@@ -26,7 +26,8 @@ def test_D66():
 
 def test_builtins():
     # Check that builtins are valid calls
-    d = os.path.join(,"../../builtins/*.dice)
+    here = os.path.dirname(os.path.abspath(__file__))
+    d = os.path.join(here,"../../builtins/*.dice)
     for name in glob.glob(d):
        with open(name) as f:
            for macro in f.readlines():
