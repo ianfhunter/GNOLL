@@ -9,16 +9,16 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items);
 
 void pop(int * arr, unsigned int len, int value, int * new_arr);
 
-int contains(int * arr, int len, int value);
-int min(int * arr, int len);
-int max(int * arr, int len);
+int contains(int * arr, unsigned int len, int value);
+int min(int * arr, unsigned int len);
+int max(int * arr, unsigned int len);
 
-void concat_symbols(char ** arr1, int len1,
-                    char ** arr2, int len2,
+void concat_symbols(char ** arr1, unsigned int len1,
+                    char ** arr2, unsigned int len2,
                     char ** new_arr);
 
-unsigned int remove_if_present(char ** arr1, int len1,
-                    char ** arr2, int len2,
+unsigned int remove_if_present(char ** arr1, unsigned int len1,
+                    char ** arr2, unsigned int len2,
                     char ** new_arr);
 
 void collapse_vector(vec * vector, vec * new_vector);

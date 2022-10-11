@@ -31,7 +31,7 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
     }
 }
 
-void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_arr){
+void concat_symbols(char ** arr1, unsigned int len1, char ** arr2,unsigned int len2, char ** new_arr){
     if (gnoll_errno){ return ; }
 
     for(int i = 0; i != len1; i++){
@@ -61,30 +61,30 @@ void pop(int * arr, unsigned int len, int value, int * new_arr){
     }
 }
 
-int contains(int * arr, int len, int value){
+int contains(int * arr, unsigned int len, int value){
     if (gnoll_errno){ return 0; }
 
-    for(int i = 0; i != len; i++){
+    for(unsigned int i = 0; i != len; i++){
         if (arr[i] == value) return 1;
     }
     return 0;
 }
 
-int min(int * arr, int len){
+int min(int * arr, unsigned int len){
     if (gnoll_errno){ return 0; }
 
     int lowest = INT_MAX;
-    for(int i = 0; i != len; i++){
+    for(unsigned int i = 0; i != len; i++){
         if (arr[i] < lowest) lowest = arr[i];
     }
     return lowest;
 }
 
-int max(int * arr, int len){
+int max(int * arr, unsigned int len){
     if (gnoll_errno){ return 0; }
 
     int highest = INT_MIN;
-    for(int i = 0; i != len; i++){
+    for(unsigned int i = 0; i != len; i++){
         if (arr[i] > highest) highest = arr[i];
     }
     return highest;

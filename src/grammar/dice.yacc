@@ -56,7 +56,7 @@ int collapse(int * arr, unsigned int len){
 
 int sum(int * arr, unsigned int len){
     int result = 0;
-    for(int i = 0; i != len; i++) result += arr[i];
+    for(unsigned int i = 0; i != len; i++) result += arr[i];
     return result;
 }
 
@@ -326,7 +326,7 @@ math:
                 YYABORT;
                 yyclearin;
             }
-            for (int i = 0; i != concat_length; i++){
+            for (unsigned int i = 0; i != concat_length; i++){
                 new_vec.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
                 if(gnoll_errno){
                     YYABORT;
