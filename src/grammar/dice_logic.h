@@ -14,8 +14,8 @@ int random_fn(int small, int big );
 
 // Rolling Functions
 int * perform_roll(
-    int number_of_dice,
-    int die_sides,
+    unsigned int number_of_dice,
+    unsigned int die_sides,
     EXPLOSION_TYPE explode,
     int start_value
 );
