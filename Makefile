@@ -4,10 +4,15 @@ INCDIRS=./src/grammar
 CC=cc
 OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self \
-	-Wlogical-op -Wmissing-declarations -Wmissing-include-dirs \
+	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
 	-Wundef -Wno-unused
+
+# YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
+
+# EMCC fails for the following, so disabled:
+# -Wlogical-op
 
 # add flags and the include paths
 CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT)
