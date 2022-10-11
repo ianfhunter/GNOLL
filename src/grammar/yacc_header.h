@@ -2,6 +2,9 @@
 #ifndef __YACC_HEADER__
 #define __YACC_HEADER__
 
+#define MAX_SYMBOL_LENGTH 256
+#define MAX_ITERATION 20
+
 int initialize();
 // int resolve_dice(dice die);
 

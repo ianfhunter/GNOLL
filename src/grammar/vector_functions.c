@@ -7,7 +7,6 @@
 #include "safe_functions.h"
 #include "rolls/condition_checking.h"
 
-#define MAX_SYMBOL_LENGTH 256
 extern int gnoll_errno;
 
 void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){

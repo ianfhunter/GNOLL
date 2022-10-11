@@ -39,8 +39,6 @@ extern int gnoll_errno;
 // Registers
 
 // TODO: It would be better to fit arbitrary length strings.
-unsigned int MAX_SYMBOL_TEXT_LENGTH = 256;
-unsigned int MAX_ITERATION = 20;
 
 int initialize(){
     if (!seeded){
@@ -66,7 +64,7 @@ int roll_numeric_die(int small, int big){
 
 int roll_symbolic_die(unsigned int length_of_symbolic_array){
     // Returns random index into symbolic array
-    return roll_numeric_die(0, length_of_symbolic_array -1);
+    return roll_numeric_die(0, (int)length_of_symbolic_array -1);
 }
 
 %}
@@ -327,7 +325,7 @@ math:
                 yyclearin;
             }
             for (unsigned int i = 0; i != concat_length; i++){
-                new_vec.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_TEXT_LENGTH);
+                new_vec.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_LENGTH);
                 if(gnoll_errno){
                     YYABORT;
                     yyclearin;
@@ -485,11 +483,11 @@ dice_operations:
                 }
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.content[0] = dice.source.number_of_dice;
+                number_of_dice.content[0] = (int)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
-                die_sides.content[0] = dice.source.die_sides;
+                die_sides.content[0] = (int)dice.source.die_sides;
 
                 roll_plain_sided_dice(
                     &number_of_dice,
@@ -518,11 +516,11 @@ dice_operations:
 
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.content[0] = dice.source.number_of_dice;
+                number_of_dice.content[0] = (int)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
-                die_sides.content[0] = dice.source.die_sides;
+                die_sides.content[0] = (int)dice.source.die_sides;
 
                 roll_plain_sided_dice(
                     &number_of_dice,
@@ -585,7 +583,7 @@ dice_operations:
     {
         vec keep_vector = $<values>3;
         vec new_vec;
-        unsigned int num_to_hold = keep_vector.content[0];
+        unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         keep_highest_values(&$<values>1, &new_vec, num_to_hold);
 
@@ -596,7 +594,7 @@ dice_operations:
     {
         vec keep_vector = $<values>3;
         vec new_vec;
-        unsigned int num_to_hold = keep_vector.content[0];
+        unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         drop_highest_values(&$<values>1, &new_vec, num_to_hold);
 
@@ -606,9 +604,8 @@ dice_operations:
     dice_operations KEEP_LOWEST NUMBER
     {
         vec keep_vector;
-        unsigned int num_to_hold;
         keep_vector = $<values>3;
-        num_to_hold = keep_vector.content[0];
+        unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         vec new_vec;
         keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
@@ -619,9 +616,8 @@ dice_operations:
     dice_operations DROP_LOWEST NUMBER
     {
         vec keep_vector;
-        unsigned int num_to_hold;
         keep_vector = $<values>3;
-        num_to_hold = keep_vector.content[0];
+        unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         vec new_vec;
         drop_lowest_values(&$<values>1, &new_vec, num_to_hold);
@@ -892,7 +888,7 @@ die_roll:
     NUMBER FATE_DIE
     {
         vec result_vec;
-        initialize_vector(&result_vec, SYMBOLIC, $<values>1.content[0]);
+        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
 
         roll_symbolic_dice(
             &$<values>1,
@@ -930,7 +926,7 @@ custom_symbol_dice:
         // TODO: Multiple ranges
 
         vec result_vec;
-        initialize_vector(&result_vec, SYMBOLIC, $<values>1.content[0]);
+        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
 
         roll_symbolic_dice(
             &$<values>1,
@@ -1030,7 +1026,7 @@ csd:
             yyclearin;
         }
 
-        int spread = e - s + 1; // 2-2= 1 2-3=2, etc
+        unsigned int spread = e - s + 1; // 2-2= 1 2-3=2, etc
 
         vec new_vector;
         initialize_vector(&new_vector, NUMERIC, spread);
