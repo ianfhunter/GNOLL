@@ -22,6 +22,7 @@
 
 int yylex(void);
 int yyerror(const char* s);
+int yywrap();
 
 int yydebug=1;
 int verbose = 1;
