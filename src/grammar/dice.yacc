@@ -42,7 +42,7 @@ extern int gnoll_errno;
 
 int initialize(){
     if (!seeded){
-        srand(time(0));
+        srand((unsigned int)time(0));
         seeded = 1;
     }
     return 0;
@@ -476,7 +476,7 @@ dice_operations:
 
         if(dice.dtype == NUMERIC){
             int count = 0;
-            while (! check_condition(&dice, &$<values>5, check)){
+            while (! check_condition(&dice, &$<values>5, (COMPARATOR)check)){
                 if (count > MAX_ITERATION){
                     safe_printf("MAX ITERATION LIMIT EXCEEDED: REROLL\n");
                     break;
@@ -512,7 +512,7 @@ dice_operations:
         int check = $<values>3.content[0];
 
         if(dice.dtype == NUMERIC){
-            if (check_condition(&dice, &$<values>4, check)){
+            if (check_condition(&dice, &$<values>4, (COMPARATOR)check)){
 
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1097,7 +1097,7 @@ int roll_and_write(char * s, char * f){
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
     gnoll_errno = 0;
-    init_mocking(mock_value, mock_const);
+    init_mocking((MOCK_METHOD)mock_value, mock_const);
     verbose = !quiet;
     return roll_and_write(s, f);
 }
