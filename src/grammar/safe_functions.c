@@ -16,7 +16,7 @@ void * safe_malloc(size_t size){
     }
     void * malloc_result;
     malloc_result = malloc(size);
-    if(!malloc_result){
+    if(!malloc_result && size){
         gnoll_errno = BAD_ALLOC;
     }
     return malloc_result;
@@ -30,7 +30,7 @@ void * safe_calloc(size_t nitems, size_t size){
     }
     void * calloc_result;
     calloc_result = calloc(nitems, size);
-    if(!calloc_result){
+    if(!calloc_result && (nitems*size)){
         gnoll_errno = BAD_ALLOC;
     }
     return calloc_result;
