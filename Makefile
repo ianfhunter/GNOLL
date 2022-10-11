@@ -2,7 +2,12 @@ CODEDIRS=./src/grammar ./src/grammar/rolls
 INCDIRS=./src/grammar
 
 CC=cc
-OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wredundant-decls -Wshadow -Wsign-conversion -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused
+OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
+	-Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self \
+	-Wlogical-op -Wmissing-declarations -Wmissing-include-dirs \
+	-Wredundant-decls -Wshadow -Wsign-conversion \
+	-Wundef -Wno-unused
+# -Wswitch-default  -Wstrict-overflow=5
 
 # add flags and the include paths
 CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT)
@@ -54,7 +59,7 @@ build/y.tab.o:
 	$(CC) $(SHAREDCFLAGS) -c build/y.tab.c -o $@
 
 build/lex.yy.o:
-	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  -Wno-error -Wno-error=switch-default -Wno-error=strict-overflow -fno-strict-overflow -fno-switch-default
+	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  
 
 # for /grammar/rolls hardcode
 build/condition_checking.o:
