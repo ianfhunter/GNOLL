@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import pytest
 from util import Mock, roll
 
@@ -22,3 +23,12 @@ def test_D66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
+
+def test_builtins():
+    # Check that builtins are valid calls
+    d = os.path.join(,"../../builtins/*.dice)
+    for name in glob.glob(d):
+       with open(name) as f:
+           for macro in f.readlines():
+              print("Macro:", name)
+              roll(macro)
