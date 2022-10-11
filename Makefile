@@ -6,7 +6,7 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused
+	-Wundef -Wno-unused -Wno-newline-eof
 
 # YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
