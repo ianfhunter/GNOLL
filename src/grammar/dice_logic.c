@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "dice_logic.h"
 #include "shared_header.h"
 #include "safe_functions.h"
 #include "yacc_header.h"
