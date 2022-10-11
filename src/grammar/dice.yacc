@@ -24,6 +24,10 @@ int yylex(void);
 int yyerror(const char* s);
 int yywrap();
 
+//TODO: move to external file 
+char * concat_strings(char ** s, int num_s);
+int roll_verbose(char * s);
+
 int yydebug=1;
 int verbose = 1;
 int seeded = 0;
@@ -1099,7 +1103,7 @@ int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
 }
 
 char * concat_strings(char ** s, int num_s){
-    int size_total = 0;
+    unsigned int size_total = 0;
     int spaces = 0;
     for(int i = 1; i != num_s + 1; i++){
         size_total += strlen(s[i]) + 1;
@@ -1108,6 +1112,7 @@ char * concat_strings(char ** s, int num_s){
         spaces = 1;
         size_total -= 1;  // no need for trailing space
     }
+    
     char * result;
     result = (char *)safe_calloc(sizeof(char), (size_total+1));
     for(int i = 1; i != num_s + 1; i++){
