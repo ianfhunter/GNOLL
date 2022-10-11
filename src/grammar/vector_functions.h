@@ -5,7 +5,7 @@
 #include "rolls/dice_enums.h"
 #include "rolls/vec.h"
 
-void initialize_vector(vec * vector, DIE_TYPE dt, int num);
+void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items);
 
 void pop(int * arr, int len, int value, int * new_arr);
 
