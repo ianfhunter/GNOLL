@@ -29,7 +29,7 @@ def test_builtins():
     # Check that builtins are valid calls
     here = os.path.dirname(os.path.abspath(__file__))
     d = os.path.join(here,"../../builtins/*.dice")
-    for name in glob.glob(d):
+    for name in glob(d):
        with open(name) as f:
            print("Macro File:", name)
            for macro in f.readlines():
