@@ -9,7 +9,7 @@
 #define MAX_SYMBOL_LENGTH 256
 extern unsigned int gnoll_errno;
 
-void initialize_vector(vec * vector, DIE_TYPE dt, int items){
+void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int items){
     if (gnoll_errno){ return ; }
     
     vector->dtype = dt;
