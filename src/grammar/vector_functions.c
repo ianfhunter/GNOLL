@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <string.h>
 #include "vector_functions.h"
+#include "yacc_header.h"
 #include "shared_header.h"
 #include "safe_functions.h"
 #include "rolls/condition_checking.h"

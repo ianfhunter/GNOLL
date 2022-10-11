@@ -1026,7 +1026,11 @@ csd:
             yyclearin;
         }
 
-        unsigned int spread = e - s + 1; // 2-2= 1 2-3=2, etc
+        // How many values in this range:
+        // 2..2 = 1 
+        // 2..3 = 2
+        // etc.
+        unsigned int spread = (unsigned int)e - (unsigned int)s + 1; 
 
         vec new_vector;
         initialize_vector(&new_vector, NUMERIC, spread);
