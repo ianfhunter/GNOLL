@@ -29,7 +29,7 @@ unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int num
 unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
 unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep);
 
-void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length);
+void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, unsigned int idx_length);
 
 void print_vec(vec vector);
 

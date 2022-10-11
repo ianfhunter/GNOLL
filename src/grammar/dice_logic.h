@@ -24,6 +24,6 @@ int * do_roll(
 );
 
 // Verification
-int validate_roll(int number_of_dice, int die_side);
+void validate_roll(int number_of_dice, int die_side);
 
 #endif

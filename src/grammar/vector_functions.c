@@ -159,7 +159,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
         int * new_arr;
         unsigned int length = vector->length;
 
-        for(int i = 0; i != number_to_keep; i++){
+        for(unsigned int i = 0; i != number_to_keep; i++){
             int m;
             if (keep_high){
                 m =  max(arr, length);
@@ -217,11 +217,11 @@ unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int nu
     return keep_logic(vector, new_vector, number_to_keep, 0);
 }
 
-void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, int idx_length){
+void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, unsigned int idx_length){
     if (gnoll_errno){ return ; }
 
     int index = 0;
-    for (int i = 0; i != idx_length;i++){
+    for (unsigned int i = 0; i != idx_length;i++){
         index = indexes[i];
         strcpy(result_symbols[i], symbols_list[index]);
     }

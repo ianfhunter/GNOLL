@@ -55,6 +55,7 @@ int check_condition(
         case INVALID:{
             safe_printf("Invalid Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
         }
         default:{
             safe_printf("Unknown Conditional\n");
@@ -102,6 +103,7 @@ int check_condition_scalar(
         case INVALID:{
             safe_printf("Invalid Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
         }
         default:{
             safe_printf("Unknown Conditional\n");

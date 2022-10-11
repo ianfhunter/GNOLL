@@ -146,7 +146,7 @@ int * do_roll(roll_params rp){
     );
 }
 
-int validate_roll(int number_of_dice, int die_side)
+void validate_roll(int number_of_dice, int die_side)
 {
     if (die_side < 0){
         printf("Cannot roll a dice with a negative amount of sides\n");
@@ -155,5 +155,4 @@ int validate_roll(int number_of_dice, int die_side)
         printf("Cannot roll a negative number of dice\n");
         gnoll_errno = INTERNAL_ASSERT;
     }
-    return 0;
 }
