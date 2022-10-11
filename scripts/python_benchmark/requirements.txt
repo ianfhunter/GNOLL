@@ -1,0 +1,6 @@
+gnoll
+python-dice
+dice
+rpg-dice
+matplotlib
+numpy
