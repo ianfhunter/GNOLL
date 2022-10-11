@@ -1,12 +1,12 @@
 .PHONY: swig_perl compile_perl perl clean_perl
 
-swig_perl: clean yacc lex compile shared
+swig_perl: clean yacc lex compile $(OBJECTS)
 	mkdir -p build/perl/
 	swig -perl -outdir build/perl -o build/perl/gnoll_wrap.c src/swig/GNOLL.i
 
-compile_perl: swig_perl
-	cc -fPIC -c build/perl/gnoll_wrap.c -I/usr/lib/x86_64-linux-gnu/perl/5.30/CORE/ -Dbool=char -Doff64_t=__off64_t -o build/gnoll_perl_wrap.o
-	cc -shared -o build/gnoll.so build/gnoll_perl_wrap.o build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o build/sf.o
+compile_perl: swig_perl 
+	$(CC) -fPIC -c build/perl/gnoll_wrap.c -I/usr/lib/x86_64-linux-gnu/perl/5.30/CORE/ -Dbool=char -Doff64_t=__off64_t -o build/gnoll_perl_wrap.o
+	$(CC) -shared -o build/gnoll.so $^
 
 perl: compile_perl
 	echo "Done"
