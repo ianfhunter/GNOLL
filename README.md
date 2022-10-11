@@ -1,133 +1,89 @@
-# GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml)
-[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
-[![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml)
-[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
+# PetMe
 
-[![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
-[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
-[![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
-![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
+<h3>Join official <a href="https://discord.gg/X3HZAPzykU">Discord Channel</a> for discussion</h3>
 
-<p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
-</p>
+## Inspiration💡
 
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
-Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
+Each year, it's estimated that more than one million adoptable dogs and cats are euthanized in the United States, simply because too many pets come into shelters and too few people consider adoption when looking for a pet.
 
-Here's an example of how you might use GNOLL:
-```markdown
-**Grindon The Brave**: I want to steal from the goblin sitting at the bar.
-**Dungeon Master**: Okay, give me a stealth check!
-**Grindon The Brave**: Okay, that's a <1d20+5>
-[GNOLL]: 21
-**Dungeon Master**: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
-```
+**The number of euthanized animals could be reduced dramatically if more people adopt pets instead of buying them. When you adopt dogs and cats, you save a loving animal by making them part of your family and open up shelter space for another animal who might desperately need it.**
 
-[You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL).
+We are following the policy of saving lives, saving animals and we built **PetMe** in this hackathon.
 
-Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
+## What it does⚙️
 
-## Current Status
-### 🧑‍💻 Language Support
+### Test here [PetMe](https://akshitagupta15june.github.io/PetMe/)
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too:
+**Our project is PetMe, a platform that allows animals to be adopted, donated to pet lovers, and provides emergency medical care to stray animals in need.**
 
-- C / C++
-- Python
-- Perl
-- Go
-- JavaScript (Node.js)
+🤖 The first feature is **Animal Adoption**, which allows users to choose an animal they want to adopt and submit their details so that the owner can reach out to them regarding adoption details. 
 
- We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
+🤖 The next feature is **Pet Donation**. In these hectic times, pet owners may not be able to provide proper care to their pets because of their business. In such instances, they donate the pet to another person who can adopt the animal.
 
-Tested on Linux (Ubuntu) and Windows (10, WSL).
+🤖 All the data will be stored in a database and as soon as a person add the details of a pet animal they want to donate so their details will be shown in the adoption menu.
 
-### 🎲 Dice Notation
-- XdY notation
-- Arithmetic
-- Fate Dice
-- Miscellaneous Symbolic Dice
-- Shorthands & Macros
-- Alternate Syntax
-- Explosions
-- Drop/Keep
-- Rerolling
-- Filtering
+🤖  Our platform also provides **SOS reports**, as the population of stray animals is increasing, and stray animals cannot stand harsh weather conditions, and sometimes they are injured by accidents. Therefore, if a person notices any stray animal in harsh conditions, they can fill out the details and a representative will reach the location to assist the animal with medical aid. 
 
-There's so many different things, we'd bore you to list them all here. For the specific details of supported notation, [check out our documentation](https://www.ianhunter.ie/GNOLL).
+🤖  Users can also **contact us** through the contact us form and one of our team members will contact them shortly.
 
-## Getting Started
-### Usage from a package manager
-#### Python
-```bash
-pip3 install GNOLL
-```
 
-Then, in your code:
-```python
-from gnoll.parser import roll
-roll("1d20")
->> 7
-```
+## How we built it ⚙️
 
-### 🛠️ Installing From Source
-#### Basic Requirements
-```bash
-sudo apt-get install bison flex make python3-pip -y
-pip install -r reqs/requirements.txt
-make all
-```
+We have built this website using HTML, CSS, JavaScript and connected backend database with postman API's.
 
-To verify your setup, try our tests:
-```bash
-make test
-```
-Or, just try some commands yourself!
+## Accomplishments that we're proud of 😇
 
-```bash
-$ ./dice 1d20
-20
-```
-(Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
+We are proud that we built a website in which pet lovers can easily adopt stray animals through our website, which not only provides medical assistance to stray animals, but allows them to be adopted by their comrades in the community.
 
-For languages other than Python/C/C++ call the corresponding make target after the commands above.
+## What's next for PetMe 📲
 
-## 🐛 Issues / Bugs / FAQs / Feature Requests
+In the future, we plan to scale this application more to reach as many people as possible and facilitate adoption and donation of animals.
 
-If you encounter any issues or have any ideas, please file them in our [Issue Tracker](https://github.com/ianfhunter/GNOLL/issues).
+Furthermore, we plan to connect with the nearest government organization that provides medical assistance to stray animals.
 
-## ✋ Contributing
+---
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+## ⭐ How to get started with open source?
+<img src="https://github.com/Vi1234sh12/Face-X/blob/master/.github/Assests/isometric.png" height="290px" align="right"/>
 
-## 🔢 Versioning
+You can refer to the following articles on the basics of Git and Github.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/gnoll/tags).
+- [Watch this video to get started, if you have no clue about open source](https://youtu.be/SYtPC9tHYyQ)
+- [Forking a Repo](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+- [Cloning a Repo](https://help.github.com/en/desktop/contributing-to-projects/creating-a-pull-request)
+- [How to create a Pull Request](https://opensource.com/article/19/7/create-pull-request-github)
+- [Getting started with Git and GitHub](https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6)
 
-## 🤹 Authors / Contributers / Attributions
+## Contributing 👨‍💻 
 
-* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+- Contributions make the open source community such an amazing place to learn, inspire, and create.
+- Any contributions you make are **greatly appreciated**.
+- Check out our [contribution guidelines](/CONTRIBUTING.md) for more information.
 
-See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
-## 📃 License
+## License 🛡️ 
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
+PetMe is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Individual licensing arrangements can be made if this is an issue for your project - Contact Me at [LinkedIn](https://www.linkedin.com/in/ianfhunter) to discuss.
+## Open Source Programs
+ <a href="https://hacktoberfest.com/">
+ <img width="1200" alt="Email Banners-Dark" src="https://user-images.githubusercontent.com/79099734/189589410-ca17afb8-5855-4316-918a-054f27594809.png">
+ </a>
 
-## 👏 Acknowledgments
+## 😎 Project Maintainer
 
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+<table>
+  <tr>
+<td align="center"><a href="https://github.com/Susmita-Dey"><img src="https://avatars.githubusercontent.com/u/79099734?v=4" width="100px;" alt=""/><br /><sub><b>Susmita Dey</b></sub></a></td>
 
-## 🏗️ Built With
+<td align="center"><a href="https://github.com/akshitagupta15june"><img src="https://avatars0.githubusercontent.com/u/57909583?v=4" width="100px;" alt=""/><br /><sub><b>Akshita Gupta</b></sub></a></td>
+ 
+<td align="center"><a href="https://github.com/muditchoudhary"><img src="https://avatars.githubusercontent.com/u/74391865?s=400&u=2944cf6cb540e3ba3a08653225406d0826e1c272&v=4" width="100px;" alt=""/><br /><sub><b>Mudit Choudhary</b></sub></a></td>
+ </tr>
+</table>
 
-* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
-* Love! 💖
+## Thanks to all Contributors 💪 
 
-## 💰 Donate
+Thanks a lot for spending your time helping all-round-calculator grow. Thanks a lot! Keep rocking 🍻
 
-[Keep this project alive](https://ko-fi.com/ianfhunter)
+[![Contributors](https://contrib.rocks/image?repo=akshitagupta15june/PetMe)](https://github.com/akshitagupta15june/PetMe/graphs/contributors)
