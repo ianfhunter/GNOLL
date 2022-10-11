@@ -31,6 +31,7 @@ def test_builtins():
     d = os.path.join(here,"../../builtins/*.dice")
     for name in glob.glob(d):
        with open(name) as f:
+           print("Macro File:", name)
            for macro in f.readlines():
-              print("Macro:", name)
+              print(f"\t{macro}")
               roll(macro)
