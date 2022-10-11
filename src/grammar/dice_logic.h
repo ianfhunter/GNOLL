@@ -23,7 +23,5 @@ int * do_roll(
     roll_params rp
 );
 
-// Verification
-void validate_roll(int number_of_dice, int die_side);
 
 #endif

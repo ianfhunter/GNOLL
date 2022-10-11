@@ -22,7 +22,6 @@ void roll_plain_sided_dice(
     unsigned int num_dice = (unsigned int)x->content[0];
     unsigned int sides = (unsigned int)y->content[0];
 
-    validate_roll(num_dice, sides);
     if(gnoll_errno) return;
 
     // e.g. d4, it is implied that it is a single dice
@@ -42,8 +41,6 @@ void roll_symbolic_dice(vec * x, vec * y, vec * result){
 
     // XdY
     unsigned int num_dice = (unsigned int)x->content[0];
-
-    validate_roll(num_dice, 1);
     if(gnoll_errno) return;
 
     // e.g. d4, it is implied that it is a single dice
