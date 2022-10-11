@@ -50,11 +50,11 @@ int initialize(){
     return 0;
 }
 
-int collapse(int * arr, int len){
+int collapse(int * arr, unsigned int len){
     return sum(arr, len);
 }
 
-int sum(int * arr, int len){
+int sum(int * arr, unsigned int len){
     int result = 0;
     for(int i = 0; i != len; i++) result += arr[i];
     return result;
@@ -64,7 +64,7 @@ int roll_numeric_die(int small, int big){
     return random_fn(small, big);
 }
 
-int roll_symbolic_die(int length_of_symbolic_array){
+int roll_symbolic_die(unsigned int length_of_symbolic_array){
     // Returns random index into symbolic array
     return roll_numeric_die(0, length_of_symbolic_array -1);
 }
@@ -156,7 +156,7 @@ dice_statement: math{
     }
 
     // TODO: To Function
-    for(int i = 0; i!= new_vec.length;i++){
+    for(unsigned int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
@@ -421,7 +421,7 @@ math:
             new_vec.length = vector.length;
             new_vec.dtype = vector.dtype;
 
-            for(int i = 0; i != vector.length; i++){
+            for(unsigned int i = 0; i != vector.length; i++){
                 new_vec.content[i] = - vector.content[i];
             }
             $<values>$ = new_vec;
@@ -439,7 +439,7 @@ collapsing_dice_operations:
         vec dice = $<values>1;
         initialize_vector(&new_vec, NUMERIC, 1);
 
-        new_vec.content[0] = dice.length;
+        new_vec.content[0] = (int)dice.length;
         $<values>$ = new_vec;
     }
     |

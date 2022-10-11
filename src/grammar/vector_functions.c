@@ -42,13 +42,13 @@ void concat_symbols(char ** arr1, int len1, char ** arr2, int len2, char ** new_
     }
 }
 
-void pop(int * arr, int len, int value, int * new_arr){
+void pop(int * arr, unsigned int len, int value, int * new_arr){
     if (gnoll_errno){ return ; }
 
     // This could be done in-place.
     int seen = 0;
     
-    for(int i = 0; i != len; i++){
+    for(unsigned int i = 0; i != len; i++){
         if (arr[i] == value && !seen){
             seen = 1;
             // Don't insert into new area.
@@ -97,12 +97,12 @@ void print_vec(vec vector){
     safe_printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
         safe_printf("Content:\n");
-        for(int i = 0; i != vector.length; i++){
+        for(unsigned int i = 0; i != vector.length; i++){
             safe_printf(" %d\n", vector.content[i]);
         }
     }else{
         safe_printf("Symbols:\n");
-        for(int i = 0; i != vector.length; i++){
+        for(unsigned int i = 0; i != vector.length; i++){
             safe_printf(" %c\n", vector.symbols[i][0]);
         }
     }
@@ -129,7 +129,7 @@ void collapse_vector(vec * vector, vec * new_vector){
         new_vector = vector;
     }else{
         int c = 0;
-        for(int i = 0; i != vector->length; i++){
+        for(unsigned int i = 0; i != vector->length; i++){
             c += vector->content[i];
         }
 
@@ -149,7 +149,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
         gnoll_errno = UNDEFINED_BEHAVIOUR;
         return 0;
     }
-    int available_amount = vector->length;
+    unsigned int available_amount = vector->length;
     if(available_amount > number_to_keep){
         new_vector->content = safe_calloc(sizeof(int), number_to_keep);
         if(gnoll_errno) return 0;
@@ -157,7 +157,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
 
         int * arr = vector->content;
         int * new_arr;
-        int length = vector->length;
+        unsigned int length = vector->length;
 
         for(int i = 0; i != number_to_keep; i++){
             int m;
@@ -197,7 +197,7 @@ unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int nu
 unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     if (gnoll_errno){ return 0; }
 
-    int calc_keep = vector->length - number_to_keep;
+    int calc_keep = (int)vector->length - number_to_keep;
     if (calc_keep > 0){
         number_to_keep = calc_keep;
     }else{
@@ -208,7 +208,7 @@ unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int num
 unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     if (gnoll_errno){ return 0; }
 
-    int calc_keep = vector->length - number_to_keep;
+    int calc_keep = (int)vector->length - number_to_keep;
     if (calc_keep > 0){
         number_to_keep = calc_keep;
     }else{
