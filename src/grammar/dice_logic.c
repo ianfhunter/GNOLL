@@ -107,7 +107,7 @@ int * perform_roll(
     do{
         for(unsigned int i = 0; i < number_of_dice; i++){
             // TODO: Don't hardcode 1
-            int end_value = start_value+die_sides-1;
+            int end_value = (int)start_value+(int)die_sides-1;
             if (die_sides == 0){
                 start_value = end_value = 0;
             }
