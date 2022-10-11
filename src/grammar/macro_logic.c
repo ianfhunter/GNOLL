@@ -6,7 +6,7 @@
 #include "safe_functions.h"
 
 struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 
 void register_macro(vec * macro_name, vec *to_store) {
@@ -25,11 +25,12 @@ void register_macro(vec * macro_name, vec *to_store) {
         s->id = key;
         HASH_ADD_INT(macros, id, s);  /* id: name of key field */
     }
-    memcpy(&s->stored_dice_roll, &to_store, sizeof(*to_store));
+    memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
 }
 
 struct macro_struct *search_macros(char * skey, vec *to_store) {
     if(gnoll_errno) return NULL;
+    (void)(to_store); // will be refactored later
 
     int key = safe_strtol(skey, NULL, 10);
     if(gnoll_errno) return NULL;
