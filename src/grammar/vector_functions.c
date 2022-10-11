@@ -243,7 +243,7 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
         // TODO: Non-First value
         // printf("%i == %i\n", v, compare_to);
 
-        if(check_condition_scalar(v, compare_to, comp_op)){
+        if(check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)){
             output->content[success_idx] = v;
             success_idx++;
         }
