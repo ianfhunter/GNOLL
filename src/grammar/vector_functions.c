@@ -34,11 +34,12 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
 void concat_symbols(char ** arr1, unsigned int len1, char ** arr2,unsigned int len2, char ** new_arr){
     if (gnoll_errno){ return ; }
 
-    for(int i = 0; i != len1; i++){
+    for(unsigned int i = 0; i != len1; i++){
         strcpy(new_arr[i], arr1[i]);
     }
-    for(int i = 0; i != len2; i++){
-        strcpy(new_arr[len1+i], arr2[i]);
+    for(unsigned int i = 0; i != len2; i++){
+        unsigned int idx = len1+i;
+        strcpy(new_arr[idx], arr2[i]);
     }
 }
 
@@ -108,8 +109,8 @@ void print_vec(vec vector){
     }
 }
 
-unsigned int remove_if_present(char ** arr1, int len1,
-                    char ** arr2, int len2,
+unsigned int remove_if_present(char ** arr1, unsigned int len1,
+                    char ** arr2, unsigned int len2,
                     char ** new_arr)
 {
     if (gnoll_errno){ return 0; }
@@ -197,22 +198,22 @@ unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int nu
 unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     if (gnoll_errno){ return 0; }
 
-    int calc_keep = (int)vector->length - number_to_keep;
+    int calc_keep = (int)vector->length - (int)number_to_keep;
     if (calc_keep > 0){
-        number_to_keep = calc_keep;
+        number_to_keep = (unsigned int)calc_keep;
     }else{
-        number_to_keep = vector->length;
+        number_to_keep = (unsigned int)vector->length;
     }
     return keep_logic(vector, new_vector, number_to_keep, 1);
 }
 unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
     if (gnoll_errno){ return 0; }
 
-    int calc_keep = (int)vector->length - number_to_keep;
+    int calc_keep = (int)vector->length -(int) number_to_keep;
     if (calc_keep > 0){
-        number_to_keep = calc_keep;
+        number_to_keep = (unsigned int)calc_keep;
     }else{
-        number_to_keep = vector->length;
+        number_to_keep = (unsigned int)vector->length;
     }
     return keep_logic(vector, new_vector, number_to_keep, 0);
 }
@@ -230,8 +231,8 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
 void filter(vec * dice, vec * cond, int comp_op, vec * output){
     if (gnoll_errno){ return ; }
 
-    int success_idx = 0;
-    for(int i = 0; i != dice->length; i++){
+    unsigned int success_idx = 0;
+    for(unsigned int i = 0; i != dice->length; i++){
         int v = dice->content[i];
         int compare_to = cond->content[0];
         // TODO: Non-First value
@@ -248,8 +249,8 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
 void filter_unique(vec * dice, vec * new_vec){
     if (gnoll_errno){ return ; }
 
-    int tracker_idx = 0;
-    for(int i = 0; i != dice->length; i++){
+    unsigned int tracker_idx = 0;
+    for(unsigned int i = 0; i != dice->length; i++){
 
         int v = dice->content[i];
 
