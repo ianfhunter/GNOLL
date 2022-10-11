@@ -54,7 +54,7 @@ build/y.tab.o:
 	$(CC) $(SHAREDCFLAGS) -c build/y.tab.c -o $@
 
 build/lex.yy.o:
-	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  -Wno-error -Wno-error=error 
+	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  -Wno-error -Wno-error=switch-default -Wno-error=strict-overflow
 
 # for /grammar/rolls hardcode
 build/condition_checking.o:
