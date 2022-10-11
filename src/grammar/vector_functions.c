@@ -115,6 +115,11 @@ unsigned int remove_if_present(char ** arr1, unsigned int len1,
 {
     if (gnoll_errno){ return 0; }
 
+    (void)(arr1);
+    (void)(arr2);
+    (void)(len1);
+    (void)(len2);
+    (void)(new_arr);
     gnoll_errno = NOT_IMPLEMENTED; 
     return 1;
 }
