@@ -30,6 +30,7 @@ void register_macro(vec * macro_name, vec *to_store) {
 
 struct macro_struct *search_macros(char * skey, vec *to_store) {
     if(gnoll_errno) return NULL;
+    (void)(to_store); // will be refactored later
 
     int key = safe_strtol(skey, NULL, 10);
     if(gnoll_errno) return NULL;
