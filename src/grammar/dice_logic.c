@@ -119,7 +119,7 @@ int * perform_roll(
             exploded_result += single_die_roll;
         }
 
-        explosion_condition_score += number_of_dice*die_sides;
+        explosion_condition_score += (int)number_of_dice*(int)die_sides;
         if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
             break;
         }
