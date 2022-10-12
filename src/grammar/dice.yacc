@@ -106,7 +106,15 @@ gnoll_statement:
     gnoll_statement STATEMENT_SEPERATOR gnoll_statement
     |
     sub_statement
+    |
+    error {
+        printf("Errorrrr!!???\n");
+        gnoll_errno = 2;
+        YYABORT;
+        yyclearin;
+    }
 ;
+
 sub_statement:
     macro_statement
     |

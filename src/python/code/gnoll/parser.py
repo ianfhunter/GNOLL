@@ -17,7 +17,7 @@ class GNOLLException(Exception):
         Exception.__init__(self, v)
 
 
-def RaiseGNOLLError(value, f):
+def RaiseGNOLLError(value):
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
@@ -31,55 +31,44 @@ def RaiseGNOLLError(value, f):
     ]
     err = d[value]
     if err is not None:
-        # os.close(f)
         raise err
 
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
-    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die",delete=False)
+    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die", delete=False)
+    die_file = temp.name
+    os.remove(die_file)
 
-    os.remove(temp.name)
-
-    f = str(temp.name)
-    if verbose:
-        print("File: ", f)
+    f = str(die_file)
 
     cppyy.gbl.reset_mocking()
     if mock is None:
         return_code = cppyy.gbl.roll_and_write(s, f)
     else:
-        # Testing Only
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
     if(return_code != 0):
-        RaiseGNOLLError(return_code, temp)
-
-    if verbose:
-        print("Temp File:", temp.name)
+        RaiseGNOLLError(return_code)
 
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
-        if verbose:
+        if True:
             print("--Parsed Output--")
             print(results)
             print("--Parsed Output END--")
-        out = results
 
-        for i in results:
-            if "error" in i:
-                return_code = 1
-                break
+        if isinstance(results, list):
+            if len(results) == 1:
+                results = results[0]
 
-    if isinstance(out, list) and len(out) == 1:
-        out = out[0]
+        if isinstance(results, list):
+            if all(x.lstrip("-").isdigit() for x in results):
+                results = [int(o) for o in results]
+       
+        elif results.lstrip("-").isdigit():
+            results = int(results)
 
-    if isinstance(out, list):
-        if all(x.lstrip("-").isdigit() for x in out):
-            out = [int(o) for o in out]
-    elif out.lstrip("-").isdigit():
-        out = int(out)
-
-    return int(return_code), out
+    return int(return_code), results
 
 
 if __name__ == "__main__":
