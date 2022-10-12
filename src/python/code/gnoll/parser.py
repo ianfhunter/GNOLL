@@ -52,10 +52,6 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
 
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
-        if True:
-            print("--Parsed Output--")
-            print(results)
-            print("--Parsed Output END--")
 
         if isinstance(results, list):
             if len(results) == 1:
@@ -64,7 +60,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         if isinstance(results, list):
             if all(x.lstrip("-").isdigit() for x in results):
                 results = [int(o) for o in results]
-       
+
         elif results.lstrip("-").isdigit():
             results = int(results)
 
