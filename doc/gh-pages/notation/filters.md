@@ -6,8 +6,6 @@ nav_order: 11
 
 # Conditions & Filters
 
-The "unknown" potion sends Grindon to a room filled with bags of golden coins. Grindons decides to take some and get away of this dunjeon. But the bags are slippery. And small bags fall from the Grindon's arms embracing them. Here come the filtering: there is a 6d20>4, to lose the small bags.
-
 {: .story }
 >**GM**: You are lucky. The potion saved your life, cured all your wounds and gaved you an extra boost of energy. As you get up, you realize that you are in a room filled with bags of golden coins.
 >
