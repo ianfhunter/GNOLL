@@ -34,4 +34,4 @@ def test_builtins():
            print("Macro File:", name)
            for macro in f.readlines():
               print(f"\t{macro}")
-              roll(macro)
+              roll(macro.strip('\n'))
