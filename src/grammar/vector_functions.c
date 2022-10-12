@@ -151,7 +151,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
     if (gnoll_errno){ return 0; }
 
     if (vector->dtype == SYMBOLIC){
-        safe_printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
+        printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
         gnoll_errno = UNDEFINED_BEHAVIOUR;
         return 0;
     }
@@ -184,7 +184,7 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
         new_vector->dtype = vector->dtype;
     }else{
         // e.g. 2d20k4 / 2d20kh2
-        safe_printf("Warning: KeepHighest: Keeping <= produced amount");
+        printf("Warning: KeepHighest: Keeping <= produced amount");
         new_vector = vector;
     }
     return 0;
