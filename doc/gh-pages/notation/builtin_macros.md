@@ -16,13 +16,15 @@ nav_order: 9
 >
 >**Grindon**: Oh look, fairies wearing armors painted with Zodiac signs!
 >
->**GM**: Yes... (sighs) As they fligh around your head, you decide to eat one of them.
+>**GM**: Yes... (sighs) As they fly around your head, you decide to eat one of them.
+
 >
 >**Grindon**: Okay that's a #PLANETS die.
 >
->*GNOLL*: [Mercury through Pluto]
+>*GNOLL*: [Neptune]
 >
->**Grindon The Brave**: Well... not my favorite taste.
+>**Grindon The Brave**: Well... not my favorite flavour...
+
 >
 >**GM**: Entirely understandable. But that is not a 1, so no reroll. But don't worry, something better is coming.
 
