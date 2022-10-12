@@ -55,4 +55,5 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
 
     if exit_code:
         raise ValueError
+        
     return result

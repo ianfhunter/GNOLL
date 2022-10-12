@@ -992,7 +992,7 @@ custom_symbol_dice:
     }
     ;
 csd:
-    CAPITAL_STRING SYMBOL_SEPERATOR csd{
+    csd SYMBOL_SEPERATOR csd{
         vec l;
         vec r;
         l = $<values>1;
@@ -1007,7 +1007,6 @@ csd:
             new_vector.symbols
         );
         $<values>$ = new_vector;
-
     }
     |
     NUMBER RANGE NUMBER{
@@ -1033,14 +1032,24 @@ csd:
         unsigned int spread = (unsigned int)e - (unsigned int)s + 1; 
 
         vec new_vector;
-        initialize_vector(&new_vector, NUMERIC, spread);
+        initialize_vector(&new_vector, SYMBOLIC, spread);
         for (int i = 0; i <= (e-s); i++){
-            new_vector.content[i] = s+i;
+            // new_vector.symbols[i] = s+i;
+            sprintf(new_vector.symbols[i], "%d", s+i);
         }
         $<values>$ = new_vector;
     }
     |
     CAPITAL_STRING
+    | 
+    NUMBER{
+        vec in = $<values>1;
+        // Max/Min int has 10 characters
+        in.symbols = safe_calloc(1, sizeof(char *));  
+        in.symbols[0] = safe_calloc(10, sizeof(char));  
+        sprintf(in.symbols[0], "%d", in.content[0]);
+        $<values>$ = in;
+    }
     ;
 
 condition: EQ | LT | GT | LE | GE | NE ;
