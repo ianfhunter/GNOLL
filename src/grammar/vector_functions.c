@@ -94,17 +94,17 @@ int max(int * arr, unsigned int len){
 void print_vec(vec vector){
     if (gnoll_errno){ return ; }
 
-    safe_printf("Vector Size: %d\n", vector.length);
-    safe_printf("Vector Type: %d\n", vector.dtype);
+    printf("Vector Size: %d\n", vector.length);
+    printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
-        safe_printf("Content:\n");
+        printf("Content:\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            safe_printf(" %d\n", vector.content[i]);
+            printf(" %d\n", vector.content[i]);
         }
     }else{
-        safe_printf("Symbols:\n");
+        printf("Symbols:\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            safe_printf(" %c\n", vector.symbols[i][0]);
+            printf(" %c\n", vector.symbols[i][0]);
         }
     }
 }
