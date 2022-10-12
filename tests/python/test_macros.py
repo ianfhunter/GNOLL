@@ -37,4 +37,5 @@ def test_builtins():
               if macro == "":
                   continue
               print(f"\t{macro}")
-              roll(macro)
+              roll(f"{macro};d20") 
+              # if no dice are rolled, no file to parse
