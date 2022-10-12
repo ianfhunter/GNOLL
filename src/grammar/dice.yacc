@@ -108,8 +108,8 @@ gnoll_statement:
     sub_statement
     |
     error {
-        printf("Errorrrr!!???\n");
-        gnoll_errno = 2;
+        printf("Invalid Notation\n");
+        gnoll_errno = SYNTAX_ERROR;
         YYABORT;
         yyclearin;
     }
