@@ -182,7 +182,7 @@ f { return(FILTER); }
 \.\. {
     return(RANGE);
 }
-; {
+;+ {
     return(STATEMENT_SEPERATOR);
 }
 
