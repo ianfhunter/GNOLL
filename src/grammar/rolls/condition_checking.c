@@ -3,9 +3,12 @@
 #include "yacc_header.h"
 #include "dice_logic.h"
 #include "vector_functions.h"
+#include "safe_functions.h"
 #include "condition_checking.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+extern int gnoll_errno;
 
 /**
  * @brief Comparision of a collapsed vector to a value
@@ -21,6 +24,8 @@ int check_condition(
     vec * y, 
     COMPARATOR c
 ){
+    if(gnoll_errno) return 1;
+
     int xvalue = collapse(x->content, x->length);
     int yvalue = y->content[0];
     switch(c){
@@ -42,14 +47,25 @@ int check_condition(
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
         }
-        case INVALID:{
-            return 0;
-        }
         case UNIQUE:{
             // TODO: Not Implemented
+            gnoll_errno = NOT_IMPLEMENTED;
             return 0;
         }
+        case INVALID:{
+            safe_printf("Invalid Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
+        default:{
+            safe_printf("Unknown Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
     }
+    safe_printf("Unknown Conditional\n");
+    gnoll_errno = UNDEFINED_BEHAVIOUR;
+    return 1;
 }
 
 int check_condition_scalar(
@@ -57,6 +73,8 @@ int check_condition_scalar(
     int y, 
     COMPARATOR c
 ){
+    if(gnoll_errno) return 1;
+
     int xvalue = x;
     int yvalue = y;
     switch(c){
@@ -78,12 +96,22 @@ int check_condition_scalar(
         case GREATER_OR_EQUALS:{
             return xvalue >= yvalue;
         }
-        case INVALID:{
-            return 0;
-        }
         case UNIQUE:{
             // Unique by the fact that it is scalar
             return 1;
         }
+        case INVALID:{
+            safe_printf("Invalid Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
+        default:{
+            safe_printf("Unknown Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
     }
+    safe_printf("Unknown Conditional\n");
+    gnoll_errno = UNDEFINED_BEHAVIOUR;
+    return 1;
 }

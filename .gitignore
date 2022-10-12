@@ -150,5 +150,6 @@ result.die
 src/go/main
 
 # JS Artifacts
-a.out.js
-a.out.wasm
+*out.js
+*.wasm
+*.html

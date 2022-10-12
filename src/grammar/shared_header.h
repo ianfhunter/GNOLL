@@ -12,7 +12,6 @@ typedef enum {
     RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE=4
 } MOCK_METHOD;
 
-
 int roll(char * s);
 int roll_and_write(char * s, char * f);
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const);

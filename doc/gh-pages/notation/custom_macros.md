@@ -27,7 +27,7 @@ nav_order: 10
 
 *This is an advanced feature. Feel free to ask us for help!*
 
-There are certain system-specific [Built-In Macros](./builtin_macros.md) for you to take advantage of.
+There are certain system-specific [Built-In Macros](https://github.com/ianfhunter/GNOLL/tree/main/builtins) for you to take advantage of.
 
 Before rolling your dice, you can define some macros
 
