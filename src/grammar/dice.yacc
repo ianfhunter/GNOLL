@@ -992,24 +992,6 @@ custom_symbol_dice:
     }
     ;
 csd:
-    CAPITAL_STRING SYMBOL_SEPERATOR csd{
-        vec l;
-        vec r;
-        l = $<values>1;
-        r = $<values>3;
-
-        vec new_vector;
-        initialize_vector(&new_vector, SYMBOLIC, l.length + r.length);
-
-        concat_symbols(
-            l.symbols, l.length,
-            r.symbols, r.length,
-            new_vector.symbols
-        );
-        $<values>$ = new_vector;
-
-    }
-    |
     csd SYMBOL_SEPERATOR csd{
         vec l;
         vec r;
@@ -1024,6 +1006,37 @@ csd:
             r.symbols, r.length,
             new_vector.symbols
         );
+        $<values>$ = new_vector;
+    }
+    |
+    NUMBER RANGE NUMBER{
+        vec start = $<values>1;
+        vec end = $<values>3;
+
+        int s = start.content[0];
+        int e = end.content[0];
+
+
+        if (s > e){
+            printf("Range: %i -> %i\n", s, e);
+            printf("Reversed Ranged not supported yet.\n");
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;
+        }
+
+        // How many values in this range:
+        // 2..2 = 1 
+        // 2..3 = 2
+        // etc.
+        unsigned int spread = (unsigned int)e - (unsigned int)s + 1; 
+
+        vec new_vector;
+        initialize_vector(&new_vector, SYMBOLIC, spread);
+        for (int i = 0; i <= (e-s); i++){
+            // new_vector.symbols[i] = s+i;
+            sprintf(new_vector.symbols[i], "%d", s+i);
+        }
         $<values>$ = new_vector;
     }
     |

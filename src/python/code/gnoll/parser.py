@@ -17,7 +17,7 @@ class GNOLLException(Exception):
         Exception.__init__(self, v)
 
 
-def RaiseGNOLLError(v):
+def RaiseGNOLLError(value, f):
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
@@ -29,11 +29,14 @@ def RaiseGNOLLError(v):
         GNOLLException("OUT_OF_RANGE"),
         GNOLLException("IO_ERROR")
     ]
-    raise d[v]
+    err = d[value]
+    if err is not None:
+        # os.close(f)
+        raise err
 
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
-    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die")
+    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die",delete=False)
 
     os.remove(temp.name)
 
@@ -49,10 +52,11 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
     if(return_code != 0):
-        RaiseGNOLLError(return_code)
+        RaiseGNOLLError(return_code, temp)
 
     if verbose:
         print("Temp File:", temp.name)
+
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
         if verbose:

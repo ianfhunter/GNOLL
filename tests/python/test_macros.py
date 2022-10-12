@@ -31,11 +31,11 @@ def test_builtins():
     d = os.path.join(here,"../../builtins/*.dice")
     for name in glob(d):
        with open(name) as f:
-           print("Macro File:", name)
+           # print("Macro File:", name)
            for macro in f.readlines():
               macro = macro.strip("\n")
               if macro == "":
                   continue
-              print(f"\t{macro}")
+              # print(f"\t{macro}")
               roll(f"{macro};d20") 
               # if no dice are rolled, no file to parse
