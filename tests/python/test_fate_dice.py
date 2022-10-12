@@ -49,9 +49,9 @@ def test_fate_addition():
 def test_fate_numeral_interoperability():
     # Most of the time, using the two together doesn't make sense
     with pytest.raises(Exception):
-        result = roll("d10+dF", mock_mode=(0,1))
+        roll("d10+dF", mock_mode=(0,1))
     with pytest.raises(Exception):
-        result = roll("d10-dF", mock_mode=(0,1))
+        roll("d10-dF", mock_mode=(0,1))
 
     # Much arithmithic is ambigious with symbols
     # e.g.
@@ -61,19 +61,19 @@ def test_fate_numeral_interoperability():
     # - multiply the result of dF by 2 (+ -> ++)
     # Unless there is evidence of that priority defined somewhere
     with pytest.raises(Exception):
-        result = roll("d10-d10", mock_mode=(0,1))
+        roll("d10-d10", mock_mode=(0,1))
     with pytest.raises(Exception):
-        result = roll("dF*2")
+        roll("dF*2")
     with pytest.raises(Exception):
-        result = roll("dF*dF")
+        roll("dF*dF")
     with pytest.raises(Exception):
-        result = roll("dF/2")
+        roll("dF/2")
     with pytest.raises(Exception):
-        result = roll("dF/dF")
+        roll("dF/dF")
     with pytest.raises(Exception):
         # We could perhaps use modulo as a counter
         # or some other function.
         # But for now, its undefined behaviour
-        result = roll("dF%2")
+        roll("dF%2")
     with pytest.raises(Exception):
-        result = roll("dF%dF")
+        roll("dF%dF")
