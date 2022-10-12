@@ -22,4 +22,3 @@ jobs:
         python -m pip install gnoll
         ls /opt/hostedtoolcache/Python/3.10.7/x64/lib/python3.10/site-packages/gnoll/
         python -c "from gnoll.parser import roll; roll('d34')"
-    
