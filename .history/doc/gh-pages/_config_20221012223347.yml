@@ -14,9 +14,11 @@ callouts:
   warning:
     title: ⚠️ Warning
     color: red
+  
   explanation:
     title: 🤔 Design Decision
     color: blue
+
   story:
     title: ⚔️ Grindon's Tale
     color: yellow

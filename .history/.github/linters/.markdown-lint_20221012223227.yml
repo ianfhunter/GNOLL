@@ -36,6 +36,6 @@ blank_lines: false  # Error on blank lines
 
 
 ############################
-# GNOLL Rule Modifications #
+# GNOLL Rule Modifications # 
 ############################
 MD025: false                  # Incompatible rule with Jekyll Setup
