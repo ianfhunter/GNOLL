@@ -1010,7 +1010,7 @@ csd:
 
     }
     |
-    NUMBER SYMBOL_SEPERATOR csd{
+    csd SYMBOL_SEPERATOR csd{
         vec l;
         vec r;
         l = $<values>1;
@@ -1027,37 +1027,16 @@ csd:
         $<values>$ = new_vector;
     }
     |
-    NUMBER RANGE NUMBER{
-        vec start = $<values>1;
-        vec end = $<values>3;
-
-        int s = start.content[0];
-        int e = end.content[0];
-
-
-        if (s > e){
-            printf("Range: %i -> %i\n", s, e);
-            printf("Reversed Ranged not supported yet.\n");
-            gnoll_errno = NOT_IMPLEMENTED;
-            YYABORT;
-            yyclearin;
-        }
-
-        // How many values in this range:
-        // 2..2 = 1 
-        // 2..3 = 2
-        // etc.
-        unsigned int spread = (unsigned int)e - (unsigned int)s + 1; 
-
-        vec new_vector;
-        initialize_vector(&new_vector, NUMERIC, spread);
-        for (int i = 0; i <= (e-s); i++){
-            new_vector.content[i] = s+i;
-        }
-        $<values>$ = new_vector;
-    }
-    |
     CAPITAL_STRING
+    | 
+    NUMBER{
+        vec in = $<values>1;
+        // Max/Min int has 10 characters
+        in.symbols = safe_calloc(1, sizeof(char *));  
+        in.symbols[0] = safe_calloc(10, sizeof(char));  
+        sprintf(in.symbols[0], "%d", in.content[0]);
+        $<values>$ = in;
+    }
     ;
 
 condition: EQ | LT | GT | LE | GE | NE ;
