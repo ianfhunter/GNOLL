@@ -12,14 +12,16 @@ Similarly, GNOLL is not overly concerned about the graphical display of the resu
 
 ## New Language Support
 We would love it if you added a language not yet on our list. We have two things for you to observe first though.
-1. Please add a test so we will know if it breaks!
-2. Try to use the existing C code, if you think there is no way to do this, please mention it in our issues/discussion tab so we can discuss alternatives. We'd really like to avoid duplicating files!
-3. Provide both a passing case AND a failing case to show our exit codes being used.
+
+ 1. Please add a test so we will know if it breaks!
+ 2. Try to use the existing C code, if you think there is no way to do this, please mention it in our issues/discussion tab so we can discuss alternatives. We'd really like to avoid duplicating files!
+ 3. Provide both a passing case AND a failing case to show our exit codes being used.
 
 ## C Guidelines
 As much as possible, try to keep logic *out* of the .lex and .yacc files and in functions imported from other files.
 
 GNOLL should ideally never crash and we control this by:
-- Writing errors to the global `gnoll_errno`
-- Checking this value is == 0 before doing any work in your function.
-- All functions that can cause memory/io issues should use safe equivilents in safe_functions.h . Where a function can produce an error code, they should immediately return.
+
+  - Writing errors to the global `gnoll_errno`
+  - Checking this value is == 0 before doing any work in your function.
+  - All functions that can cause memory/io issues should use safe equivilents in safe_functions.h . Where a function can produce an error code, they should immediately return.
