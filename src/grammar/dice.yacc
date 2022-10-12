@@ -158,26 +158,26 @@ dice_statement: math{
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose){
-                safe_printf("%s;", new_vec.symbols[i]);
+                printf("%s;", new_vec.symbols[i]);
             }
             if(write_to_file){
-                safe_fprintf(fp, "%s;", new_vec.symbols[i]);
+                fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
             if(verbose){
-                safe_printf("%d;", new_vec.content[i]);
+                printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
-                safe_fprintf(fp, "%d;", new_vec.content[i]);
+                fprintf(fp, "%d;", new_vec.content[i]);
             }
         }
     }
     if(verbose){
-       safe_printf("\n");
+       printf("\n");
     }
 
     if(write_to_file){
-        safe_fclose(fp);
+        fclose(fp);
     }
 }
 
@@ -194,7 +194,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Multiplication not implemented for symbolic dice.\n");
+            printf("Multiplication not implemented for symbolic dice.\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;
@@ -220,7 +220,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Division unsupported for symbolic dice.\n");
+            printf("Division unsupported for symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -231,6 +231,7 @@ math:
 
             vec new_vec;
             new_vec.content = safe_calloc(sizeof(int), 1);
+            if(gnoll_errno){ YYABORT; yyclearin;}
             new_vec.length = 1;
             new_vec.content[0] = (v1+(v2-1))/ v2;
             new_vec.dtype = vector1.dtype;
@@ -247,7 +248,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Division unsupported for symbolic dice.\n");
+            printf("Division unsupported for symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -278,7 +279,7 @@ math:
         vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
-            safe_printf("Modulo unsupported for symbolic dice.\n");
+            printf("Modulo unsupported for symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -312,7 +313,7 @@ math:
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
             (vector2.dtype == SYMBOLIC && vector1.dtype == NUMERIC)
         ){
-            safe_printf("Addition not supported with mixed dice types.\n");
+            printf("Addition not supported with mixed dice types.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;
@@ -373,7 +374,7 @@ math:
         ){
             // It's not clear whether {+,-} - {-, 0} should be {+} or {+, 0}!
             // Therfore, we'll exclude it.
-            safe_printf("Subtract not supported with symbolic dice.\n");
+            printf("Subtract not supported with symbolic dice.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;;
@@ -404,7 +405,7 @@ math:
         vector = $<values>2;
 
         if (vector.dtype == SYMBOLIC){
-            safe_printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.\n");
+            printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
             YYABORT;
             yyclearin;;
@@ -478,7 +479,10 @@ dice_operations:
             int count = 0;
             while (! check_condition(&dice, &$<values>5, (COMPARATOR)check)){
                 if (count > MAX_ITERATION){
-                    safe_printf("MAX ITERATION LIMIT EXCEEDED: REROLL\n");
+                    printf("MAX ITERATION LIMIT EXCEEDED: REROLL\n");
+                    gnoll_errno = MAX_LOOP_LIMIT_HIT;
+                    YYABORT; 
+                    yyclearin;
                     break;
                 }
                 vec number_of_dice;
@@ -500,10 +504,10 @@ dice_operations:
             }
             $<values>$ = dice;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!\n");
+            printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
-            yyclearin;;
+            yyclearin;
         }
     }
     |die_roll REROLL condition NUMBER{
@@ -534,7 +538,7 @@ dice_operations:
                 $<values>$ = $<values>1;
             }
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!");
+            printf("No support for Symbolic die rerolling yet!");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -553,7 +557,7 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!\n");
+            printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -572,7 +576,7 @@ dice_operations:
 
             $<values>$ = new_vec;
         }else{
-            safe_printf("No support for Symbolic die rerolling yet!\n");
+            printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;;
@@ -1101,7 +1105,7 @@ int roll_and_write(char * s, char * f){
     /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
-    if(verbose) safe_printf("Rolling: %s\n", s);
+    if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
 }
 int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
@@ -1124,6 +1128,8 @@ char * concat_strings(char ** s, int num_s){
     
     char * result;
     result = (char *)safe_calloc(sizeof(char), (size_total+1));
+    if(gnoll_errno){return NULL;}
+
     for(int i = 1; i != num_s + 1; i++){
         strcat(result, s[i]);
         if (spaces && i < num_s){
@@ -1143,13 +1149,13 @@ int main(int argc, char **str){
 int yyerror(s)
 const char *s;
 {
-    safe_fprintf(stderr, "%s\n", s);
+    fprintf(stderr, "%s\n", s);
 
     if(write_to_file){
         FILE *fp;
         fp = safe_fopen(output_file, "a+");
-        safe_fprintf(fp, "%s;", s);
-        safe_fclose(fp);
+        fprintf(fp, "%s;", s);
+        fclose(fp);
     }
     return(gnoll_errno);
 

@@ -14,19 +14,14 @@ typedef enum {
     UNDEFINED_BEHAVIOUR=5,
     BAD_STRING=6,
     OUT_OF_RANGE=7,
-    IO_ERROR=8
+    IO_ERROR=8,
+    MAX_LOOP_LIMIT_HIT=9
 } ERROR_CODES;
 
 void * safe_malloc(size_t size);
 void * safe_calloc(size_t nitems, size_t size);
 FILE * safe_fopen(const char *filename, const char *mode);
-int safe_fclose(FILE *stream);
 char * safe_strdup( const char *str1 );
 long int safe_strtol (const char* str, char** endptr, int base);
-
-void safe_fprintf(FILE *stream, const char *format, ...);
-void safe_printf(const char *fmt, ...);
-
-void end_gnoll(int err_code);
 
 #endif
