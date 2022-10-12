@@ -57,6 +57,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
             if len(results) == 1:
                 results = results[0]
 
+        if isinstance(results, list):
             if all(x.lstrip("-").isdigit() for x in results):
                 results = [int(o) for o in results]
        
