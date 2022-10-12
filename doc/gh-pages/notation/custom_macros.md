@@ -8,7 +8,6 @@ nav_order: 10
 
 {: .story }
 >**GM**: You wake up from your dream, finding an old creature resembling a witch. Seeing your bleeding head, it offers you to choose a potion.
-
 >
 >**Grindon**: Can I pick the healing potion?
 >
@@ -23,7 +22,6 @@ nav_order: 10
 >*GNOLL*: [something else]
 >
 >**Grindon The Brave**: I am starting to feel weird...
-
 
 ## Usage
 
