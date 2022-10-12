@@ -1010,6 +1010,23 @@ csd:
 
     }
     |
+    NUMBER SYMBOL_SEPERATOR csd{
+        vec l;
+        vec r;
+        l = $<values>1;
+        r = $<values>3;
+
+        vec new_vector;
+        initialize_vector(&new_vector, SYMBOLIC, l.length + r.length);
+
+        concat_symbols(
+            l.symbols, l.length,
+            r.symbols, r.length,
+            new_vector.symbols
+        );
+        $<values>$ = new_vector;
+    }
+    |
     NUMBER RANGE NUMBER{
         vec start = $<values>1;
         vec end = $<values>3;
