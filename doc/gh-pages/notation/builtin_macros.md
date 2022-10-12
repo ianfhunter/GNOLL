@@ -21,7 +21,7 @@ nav_order: 9
 >
 >**Grindon**: Okay that's a #PLANETS die.
 >
->*GNOLL*: [Neptune]
+>*GNOLL*: [Mars]
 >
 >**Grindon The Brave**: Well... not my favorite flavour...
 
