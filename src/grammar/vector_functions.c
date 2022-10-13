@@ -229,7 +229,7 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
 
     for (unsigned int i = 0; i != idx_length;i++){
         int index = indexes[i];
-        strcpy(result_symbols[i], symbols_list[index);
+        strcpy(result_symbols[i], symbols_list[index]);
     }
 }
 
