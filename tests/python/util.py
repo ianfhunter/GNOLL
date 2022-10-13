@@ -17,6 +17,9 @@ class Mock(Enum):
     RETURN_DECREMENTING = 3
     RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE = 4
 
+def error_handled_by_gnoll(e):
+    assert(e.__class__.__name__ == "GNOLLException")
+
 
 def get_roll():
 

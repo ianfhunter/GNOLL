@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
+from util import Mock, roll, error_handled_by_gnoll
 
 def test_random_roll():
     # Prove Random roll Is Working
@@ -69,25 +69,20 @@ def test_non_rolling_roll():
     result = roll("0d4")
     assert result == 0
 
-def test_bad_simple_rolls():
-    with pytest.raises(Exception):
-        # Just "Dice" does not make sense
-        roll("d")
-    with pytest.raises(Exception):
-        # Just "Dice" does not make sense
-        roll("d2d")
-    with pytest.raises(Exception):
-        # See above
-        roll("1d")
-    with pytest.raises(Exception):
-        # Negative Sides does not make sense
-        roll("d-1")
-    with pytest.raises(Exception):
-        # Negative Sides does not make sense
-        roll("-1d-1")
-    with pytest.raises(Exception):
-        # you cannot roll a variable amount of dice
-        roll("2d2d2")
+@pytest.mark.parametrize("r",[
+    ("d"),
+    ("d2d"),
+    ("2d2d2"),
+    ("2d2d2d"),
+    ("1d"),
+    ("d-1"),
+    ("-1d-1")
+])
+def test_bad_simple_rolls(r):
+    try:
+        roll(r)
+    except Exception as e:
+        error_handled_by_gnoll(e)
 
 def test_dice_numbers():
     result = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)

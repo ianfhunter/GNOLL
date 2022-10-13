@@ -66,7 +66,3 @@ def test_division(r, out, mock):
 def test_modulo(r, out, mock):
     result = roll(r, mock_mode=mock)
     assert result == out
-
-def test_failing_modulo():
-    with pytest.raises(GNOLLException):
-        result = roll("dF%2")
