@@ -103,7 +103,7 @@ void abs_vec(vec * x){
 void print_vec(vec vector){
     if (gnoll_errno){ return ; }
 
-    printf("Vector Size: %d\n", vector.length);
+    printf("Vector Size: %u\n", vector.length);
     printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
         printf("Content:\n");
@@ -142,6 +142,7 @@ void collapse_vector(vec * vector, vec * new_vector){
 
     if (vector->dtype == SYMBOLIC ){
         new_vector = vector;
+        return;
     }else{
         int c = 0;
         for(unsigned int i = 0; i != vector->length; i++){
@@ -235,9 +236,8 @@ unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int nu
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, unsigned int idx_length){
     if (gnoll_errno){ return ; }
 
-    int index = 0;
     for (unsigned int i = 0; i != idx_length;i++){
-        index = indexes[i];
+        int index = indexes[i];
         strcpy(result_symbols[i], symbols_list[index]);
     }
 }
