@@ -42,7 +42,7 @@ extern int gnoll_errno;
 
 int initialize(){
     if (!seeded){
-        srand((unsigned int)time(0));
+        srand(time(0)+clock());
         seeded = 1;
     }
     return 0;
