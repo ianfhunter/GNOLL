@@ -20,15 +20,15 @@ configurations = {
     "GNOLL": {
         "roll_fn": gnoll_roll,
         "color": "b"
-    }
+    },
     "RPG Dice": {
         "roll_fn": rpgdice_roll
         "color": "g"
-    }
+    },
     "Dice": {
         "roll_fn": dice_roll
         "color": "r"
-    }
+    },
     "PythonDice":{
         "roll_fn": pythondice_roll
         "color": "c"
