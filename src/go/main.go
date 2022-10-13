@@ -20,7 +20,7 @@ func main(){
     toRoll := C.CString("1d20")
     outputFile := C.CString(diceFile)
     os.Remove(diceFile)
-    C.roll_and_write(to_roll, outputFile);
+    C.roll_and_write(toRoll, outputFile);
     dat, err := ioutil.ReadFile(diceFile)
     check(err)
     fmt.Print(string(dat))
