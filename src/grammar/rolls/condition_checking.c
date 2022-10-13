@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern unsigned int gnoll_errno;
+extern int gnoll_errno;
 
 /**
  * @brief Comparision of a collapsed vector to a value
@@ -28,38 +28,8 @@ int check_condition(
 
     int xvalue = collapse(x->content, x->length);
     int yvalue = y->content[0];
-    switch(c){
-        case EQUALS:{
-            return xvalue == yvalue;
-        }
-        case NOT_EQUAL:{
-            return xvalue != yvalue;
-        }
-        case LESS_THAN:{
-            return xvalue < yvalue;
-        }
-        case GREATER_THAN:{
-            return xvalue > yvalue;
-        }
-        case LESS_OR_EQUALS:{
-            return xvalue <= yvalue;
-        }
-        case GREATER_OR_EQUALS:{
-            return xvalue >= yvalue;
-        }
-        case UNIQUE:{
-            // TODO: Not Implemented
-            gnoll_errno = NOT_IMPLEMENTED;
-            return 0;
-        }
-        case INVALID:{
-            safe_printf("Invalid Conditional\n");
-            gnoll_errno = UNDEFINED_BEHAVIOUR;
-        }
-    }
-    safe_printf("Unknown Conditional\n");
-    gnoll_errno = UNDEFINED_BEHAVIOUR;
-    return 1;
+
+    return check_condition_scalar(xvalue, yvalue, c);
 }
 
 int check_condition_scalar(
@@ -95,11 +65,17 @@ int check_condition_scalar(
             return 1;
         }
         case INVALID:{
-            safe_printf("Unknown Conditional\n");
+            printf("Invalid Conditional\n");
             gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
+        }
+        default:{
+            printf("Unknown Conditional\n");
+            gnoll_errno = UNDEFINED_BEHAVIOUR;
+            return 1;
         }
     }
-    safe_printf("Unknown Conditional\n");
+    printf("Unknown Conditional\n");
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return 1;
 }

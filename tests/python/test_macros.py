@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from glob import glob
+import os
 import pytest
 from util import Mock, roll
 
@@ -22,3 +24,18 @@ def test_D66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
+
+def test_builtins():
+    # Check that builtins are valid calls
+    here = os.path.dirname(os.path.abspath(__file__))
+    d = os.path.join(here,"../../builtins/*.dice")
+    for name in glob(d):
+       with open(name) as f:
+           # print("Macro File:", name)
+           for macro in f.readlines():
+              macro = macro.strip("\n")
+              if macro == "":
+                  continue
+              # print(f"\t{macro}")
+              roll(f"{macro};d20") 
+              # if no dice are rolled, no file to parse
