@@ -8,7 +8,10 @@
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
 #include "pcg_basic.h"
+
+#if USE_SECURE_RANDOM==1
 #include <bsd/stdlib.h>
+#endif
 
 #define EXPLOSION_LIMIT 50
 
