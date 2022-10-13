@@ -1,10 +1,11 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "dice_logic.h"
 #include "shared_header.h"
+#include "safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
-
 
 #define EXPLOSION_LIMIT 50
 
@@ -12,7 +13,7 @@ int random_fn_run_count = 0;
 int global_mock_value = 0;
 int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
-
+extern int gnoll_errno;
 
 void reset_mocking(){
     random_fn_run_count = 0;
@@ -52,6 +53,8 @@ void mocking_tick(){
 
 
 int random_fn(int small, int big){
+    if (gnoll_errno){ return 0; }
+
     // printf("Between %i and %i\n", small, big);
     random_fn_run_count++;
 
@@ -80,27 +83,31 @@ int random_fn(int small, int big){
 // TODO: have min and max range rather than sides and start_offset
 
 int * perform_roll(
-    int number_of_dice,
-    int die_sides,
+    unsigned int number_of_dice,
+    unsigned int die_sides,
     EXPLOSION_TYPE explode,
     int start_value
 )
 {
+    if (gnoll_errno){ return NULL; }
+
     int explosion_condition_score = 0;
     int explosion_count = 0;
 
-    int * all_dice_roll = calloc(number_of_dice, sizeof(int));
+    int * all_dice_roll = safe_calloc(number_of_dice, sizeof(int));
+    if (gnoll_errno){ return 0; }
+
     int single_die_roll = 0;
     int exploded_result = 0;
 
-    for(int i = 0; i < number_of_dice; i++){
+    for(unsigned int i = 0; i < number_of_dice; i++){
         all_dice_roll[i] = 0;
     }
 
     do{
-        for(int i = 0; i < number_of_dice; i++){
+        for(unsigned int i = 0; i < number_of_dice; i++){
             // TODO: Don't hardcode 1
-            int end_value = start_value+die_sides-1;
+            int end_value = (int)start_value+(int)die_sides-1;
             if (die_sides == 0){
                 start_value = end_value = 0;
             }
@@ -112,13 +119,13 @@ int * perform_roll(
             exploded_result += single_die_roll;
         }
 
-        explosion_condition_score += number_of_dice*die_sides;
+        explosion_condition_score += (int)number_of_dice*(int)die_sides;
         if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
             break;
         }
         if (explode == PENETRATING_EXPLOSION){
             die_sides--;
-            if (die_sides <= 0){ break; }
+            if (die_sides == 0){ break; }
         }
         explosion_count++;
     }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
@@ -137,13 +144,4 @@ int * do_roll(roll_params rp){
         rp.explode,
         rp.start_value
     );
-}
-
-int validate_roll(int number_of_dice, int die_side)
-{
-    if (die_side < 0){
-        printf("Cannot roll a dice with a negative amount of sides\n");
-        return 1;
-    }
-    return 0;
 }
