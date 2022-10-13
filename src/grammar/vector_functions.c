@@ -132,7 +132,7 @@ void collapse_vector(vec * vector, vec * new_vector){
     if (gnoll_errno){ return ; }
 
     if (vector->dtype == SYMBOLIC ){
-        gnoll_errno = UNDEFINED_BEHAVIOUR;
+        new_vector = vector;
         return;
     }else{
         int c = 0;
