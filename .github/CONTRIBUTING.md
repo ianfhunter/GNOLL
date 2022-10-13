@@ -14,12 +14,14 @@ Please note we have a [Code of Conduct](CODE_OF_CONDUCT.md), please follow it in
 ## Pull Request Process
 
  1. Ensure any temporary dependencies are removed before submission.
+
  2. Update the README.md with details of changes to the interface, this includes new environment 
    variables, exposed ports, useful file locations and container parameters.
+
  3. Increase the version numbers in any examples files and the README.md to the new version that this
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
- 4. You may merge the Pull Request in once you have recieved a positive code review.
 
+ 4. You may merge the Pull Request in once you have recieved a positive code review.
 
 ## What kinds of contributions we want
 
@@ -31,12 +33,12 @@ Please don't push standards and suggestions that have already been marked as `wo
 
 Please don't ask for timeline estimates nor for support in another projects codebase. It is reasonably simple to minimize failing test cases for us to debug issues, and we encourage you do so.
 
-# Ground Rules
+## Ground Rules
 
-## Leadership
+### Leadership
  * The [main author](https://github.com/ianfhunter/) has final decision and override authority for this project. This includes acceptance/denial/postphonement of features and contributions, ownership of financial contributions, enforcement of policies and discussion with third-parties. 
 
-## Guidelines
+### Guidelines
  * Do work on branches and create Pull Requests to the master branch when ready.
  * Work cannot be merged unless passing all tests and build regressions.
  * Ensure that your code is sufficiently tested. Try not to reduce our code test coverage if possible
