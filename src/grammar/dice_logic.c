@@ -8,6 +8,7 @@
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
 #include "pcg_basic.h"
+#include <bsd/stdlib.h>
 
 #define EXPLOSION_LIMIT 50
 
@@ -74,7 +75,12 @@ int random_fn(int small, int big){
 
     int value = 0;
     if (global_mock_style == NO_MOCK){
-        value = (int)pcg32_boundedrand_r(&rng, INT_MAX)%(big+1-small)+small;
+        #if USE_SECURE_RANDOM==1
+            value = (int)arc4random_uniform(INT_MAX);
+        #else
+            value = (int)pcg32_boundedrand_r(&rng, INT_MAX);
+        #endif
+        value = value%(big+1-small)+small;
     }else{
         value = global_mock_value;
         mocking_tick();
