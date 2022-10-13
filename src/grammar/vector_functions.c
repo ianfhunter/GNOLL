@@ -228,8 +228,8 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
     if (gnoll_errno){ return ; }
 
     for (unsigned int i = 0; i != idx_length;i++){
-        index = indexes[i];
-        strcpy(result_symbols[i], symbols_list[0);
+        int index = indexes[i];
+        strcpy(result_symbols[i], symbols_list[index);
     }
 }
 
