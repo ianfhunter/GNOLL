@@ -4,6 +4,9 @@
 [![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/js-test.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
+
 [![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
 [![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
@@ -108,7 +111,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## 🤹 Authors / Contributers / Attributions
 
-* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+  - **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
 
 See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
@@ -120,13 +123,13 @@ Individual licensing arrangements can be made if this is an issue for your proje
 
 ## 👏 Acknowledgments
 
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+  - **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## 🏗️ Built With
 
-* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
-* Love! 💖
+  - [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+  - [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+  - Love! 💖
 
 ## 💰 Donate
 

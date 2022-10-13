@@ -38,7 +38,7 @@ def test_rerolling_explosion(r, out, mock, mock_const):
 @pytest.mark.parametrize("r,out,mock,mock_const",[
     ("2d20khr==2", 3, Mock.RETURN_INCREMENTING, 1),
 ])
-def test_reroll_until(r, out, mock, mock_const):
+def test_reroll_dropkeep_until(r, out, mock, mock_const):
     result = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 

@@ -17,3 +17,5 @@ nav_order: 13
 | 6           | BAD_STRING | Issue with string functions |
 | 7           | OUT_OF_RANGE | Value over max or under min of numeric range|
 | 8           | IO_ERROR | Issue with printing |
+| 9           | MAX_LOOP_LIMIT_HIT | Looping / Recursion Limit reached |
+| 10          | SYNTAX_ERROR | The dice notation cannot be parsed and is likely malformed |

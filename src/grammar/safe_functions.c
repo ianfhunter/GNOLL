@@ -53,19 +53,6 @@ FILE * safe_fopen(const char *filename, const char *mode){
     return fopen_result;
 }
 
-int safe_fclose(FILE *stream){
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return 0;
-    }
-    if(fclose(stream) != 0){
-        printf("err closing\n");
-        gnoll_errno = BAD_FILE;
-    }
-    return 0;
-}
-
 char * safe_strdup( const char *str1 ){
     if (gnoll_errno){
         // If there was already an error,
@@ -94,30 +81,4 @@ long int safe_strtol (const char* str, char** endptr, int base){
         gnoll_errno = OUT_OF_RANGE;
     }
     return result;
-}
-
-void safe_printf(const char *fmt, ...) {
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return;
-    }
-    va_list args;
-    va_start(args, fmt);
-    int count = vprintf(fmt, args);
-    va_end(args);
-    if(count < 0) gnoll_errno = IO_ERROR;
-}
-
-void safe_fprintf(FILE *stream, const char *fmt, ...) {
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return;
-    }
-    va_list args;
-    va_start(args, fmt);
-    int count = vfprintf(stream, fmt, args);
-    va_end(args);
-    if(count < 0) gnoll_errno = IO_ERROR;
 }
