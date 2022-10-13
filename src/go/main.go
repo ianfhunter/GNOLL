@@ -16,15 +16,15 @@ func check(e error){
 }
 
 func main(){
-    dice_file := "output.dice"
-    to_roll := C.CString("1d20")
-    output_file := C.CString(dice_file)
-    os.Remove(dice_file)
-    C.roll_and_write(to_roll, output_file);
-    dat, err := ioutil.ReadFile(dice_file)
+    diceFile := "output.dice"
+    toRoll := C.CString("1d20")
+    outputFile := C.CString(diceFile)
+    os.Remove(diceFile)
+    C.roll_and_write(to_roll, outputFile);
+    dat, err := ioutil.ReadFile(diceFile)
     check(err)
     fmt.Print(string(dat))
-    C.free(unsafe.Pointer(to_roll))
-    C.free(unsafe.Pointer(output_file))
-    os.Remove(dice_file)
-}   
+    C.free(unsafe.Pointer(toRoll))
+    C.free(unsafe.Pointer(outputFile))
+    os.Remove(diceFile)
+}
