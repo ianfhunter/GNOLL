@@ -111,7 +111,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## 🤹 Authors / Contributers / Attributions
 
-* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+  - **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
 
 See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
@@ -123,13 +123,13 @@ Individual licensing arrangements can be made if this is an issue for your proje
 
 ## 👏 Acknowledgments
 
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+  - **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## 🏗️ Built With
 
-* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
-* Love! 💖
+  - [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+  - [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+  - Love! 💖
 
 ## 💰 Donate
 
