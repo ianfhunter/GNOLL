@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import roll, Mock
+from util import Mock, roll
 
 def test_random_roll():
     # Prove Random roll Is Working
@@ -85,6 +85,9 @@ def test_bad_simple_rolls():
     with pytest.raises(Exception):
         # Negative Sides does not make sense
         roll("-1d-1")
+    with pytest.raises(Exception):
+        # you cannot roll a variable amount of dice
+        roll("2d2d2")
 
 def test_dice_numbers():
     result = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)

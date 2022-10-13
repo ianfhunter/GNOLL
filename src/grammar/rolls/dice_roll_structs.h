@@ -4,8 +4,8 @@
 #include "dice_enums.h"
 
 typedef struct roll_params{
-    int number_of_dice;
-    int die_sides;
+    unsigned int number_of_dice;
+    unsigned int die_sides;
     EXPLOSION_TYPE explode;
     char ** symbol_pool;
     int start_value;

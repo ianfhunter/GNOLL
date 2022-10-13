@@ -1,5 +1,36 @@
+CODEDIRS=./src/grammar ./src/grammar/rolls
+INCDIRS=./src/grammar
 
-.PHONY: clean yacc lex compile all test test_no_pip
+CC=cc
+OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
+	-Wcast-qual -Wdisabled-optimization -Winit-self \
+	-Wmissing-declarations -Wmissing-include-dirs \
+	-Wredundant-decls -Wshadow -Wsign-conversion \
+	-Wundef -Wno-unused -Wformat=2
+
+# YACC/LEX fails for the following, so disabled:
+# -Wswitch-default  -Wstrict-overflow=5
+
+# EMCC fails for the following, so disabled:
+# -Wlogical-op
+
+# add flags and the include paths
+CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT)
+
+# add flags to build for shared library and add include paths
+SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D))
+
+# generate list of c files and remove y.tab.c from src/grammar directory
+CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c)) build/lex.yy.c build/y.tab.c
+CFILES:=$(filter-out ./src/grammar/y.tab.c, $(CFILES))
+
+# list out object files from the above c files. Replace their path with build/
+OBJECTS=$(addprefix build/,$(notdir $(patsubst %.c,%.o,$(CFILES))))
+
+
+all: clean yacc lex compile shared
+	echo "== Build Complete =="
+
 yacc:
 	mkdir -p build
 	if [ -z $(DEBUG) ]; then \
@@ -15,40 +46,43 @@ lex:
 	lex src/grammar/dice.lex
 	mv lex.yy.c build/lex.yy.c
 
-compile:
 # Executable
-	cc -O3 build/y.tab.c \
-		src/grammar/rolls/sided_dice.c \
-		src/grammar/rolls/condition_checking.c \
-		src/grammar/vector_functions.c \
-		src/grammar/dice_logic.c \
-		src/grammar/macro_logic.c \
-		build/lex.yy.c \
-		-Isrc/grammar/
+compile:
+	$(CC) $(CFLAGS) $(CFILES)
 
 # Shared Lib
-	cc -fPIC -c build/y.tab.c -o build/tab.o -Isrc/grammar/
-	cc -fPIC -c src/grammar/vector_functions.c -o build/vec.o -Isrc/grammar/
-	cc -fPIC -c src/grammar/dice_logic.c -o build/die.o -Isrc/grammar/
-	cc -fPIC -c src/grammar/macro_logic.c -o build/macro.o -Isrc/grammar/
-	cc -fPIC -c src/grammar/rolls/sided_dice.c -o build/rso.o -Isrc/grammar/
-	cc -fPIC -c src/grammar/rolls/condition_checking.c -o build/cc.o -Isrc/grammar/
-	cc -fPIC -c build/lex.yy.c -o build/lex.o  -Isrc/grammar/
-	cc -shared -o build/dice.so build/die.o build/macro.o build/tab.o build/cc.o build/lex.o build/vec.o build/rso.o
+shared: $(OBJECTS)
+	$(CC) -shared -o build/dice.so $^
 
 # Linux
 	mv ./a.out build/dice | true
 # Windows
 	mv ./a.exe build/dice | true
 
-all: clean yacc lex compile
-	echo "== Build Complete =="
+# hardcode for y.tab.o
+build/y.tab.o: 
+	$(CC) $(SHAREDCFLAGS) -c build/y.tab.c -o $@
 
-test_no_pip :
-	python3 -m pytest tests/python/ -x
+build/lex.yy.o:
+	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  
+
+# for /grammar/rolls hardcode
+build/condition_checking.o:
+	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/condition_checking.c -o $@
+
+# for /grammar/rolls hardcode
+build/sided_dice.o:
+	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/sided_dice.c -o $@
+
+# for rest, wildcard
+build/%.o:src/grammar/%.c
+	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
+
+test_no_pip : python
+	python3 -m pytest tests/python/ -xs
 
 test : pip
-	python3 -m pytest tests/python/ -x
+	python3 -m pytest tests/python/ -xs
 
 include src/python/target.mk
 include src/js/target.mk
@@ -56,6 +90,6 @@ include src/go/target.mk
 include src/perl/target.mk
 include src/swig/target.mk
 
-clean: perl_clean python_clean
+clean: perl_clean python_clean clean_js
 	rm -rf build
 	rm src/grammar/test_dice.yacc | true

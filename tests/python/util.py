@@ -1,7 +1,7 @@
+from enum import Enum
 import importlib.util as iu
 import os
 import subprocess
-from enum import Enum
 
 GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/grammar"))
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
@@ -34,7 +34,8 @@ def get_roll():
 
 def make_all():
     cmd = "make all -s -C " + MK_DIR
-    parser = subprocess.Popen(cmd, shell=True)
+    cmd = cmd.split(' ')
+    parser = subprocess.Popen(cmd, shell=False)
     parser.communicate()
     if parser.returncode:
         raise ValueError
@@ -55,4 +56,5 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
 
     if exit_code:
         raise ValueError
+
     return result

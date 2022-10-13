@@ -17,30 +17,31 @@ sudo apt-get install bison flex make python3-pip -y
 ```
 
 ## C/C++
-```
+```bash
 make all
 ```
 
 ## Go
-```
+```bash
 make go
 ```
 
 ## Python
 Available from [PyPi](https://pypi.org/project/gnoll/)
-```
+```bash
 pip install gnoll
 ```
 If you are running from sourcecode:
-```
+```bash
 make python
 ```
+
 ## Perl
-```
+```bash
 make perl
 ```
 
-## Javascript Setup
+## JavaScript Setup
 
 ### Pre-Requisites
 ```bash
@@ -48,12 +49,12 @@ sudo apt-get install emscripten nodejs
 ```
 
 ### Build
-```
+```bash
 make javascript
 ```
 
 ### Run
-```
+```bash
 node a.out.js
 ```
 
