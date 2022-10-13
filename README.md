@@ -1,6 +1,9 @@
 ## Scripts
 
-Here is the list of scripts available:
+[![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
+[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
+[![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 - [Sitemap](#sitemap)
 - [Roadmaps Meta](#roadmaps-meta)
@@ -32,8 +35,42 @@ npm run roadmap-content [frontend|backend|devops|...]
 
 For the content skeleton to be generated, we should have proper grouping, and the group names in the project files. You can follow the steps listed below in order to add the meta information to the roadmap. 
 
-* Remove all the groups from the roadmaps through the project editor. Select all and press <kbd>cmd</kbd>+<kbd>shift</kbd>+<kbd>g</kbd>
-* Identify the boxes that should be clickable and group them together <kbd>cmd</kbd>+<kbd>shift</kbd>+<kbd>g</kbd>
-* Assign the name to the groups. 
-  * Group names have the format of `[sort]-[slug]` e.g. `100-internet`. Each group name should start with a number starting from `100` which helps with sorting of the directories and the files. Groups at the same level have the sequential sorting information.
-  * Each groups children have a separate group and have the name similar to `[sort]-[parent-slug]:[child-slug]` where `sort` refers to the sorting of the `child-slug` and not the parent. Also `parent-slug` does not need to have the sorting information as a part of slug e.g. if parent was `100-internet` the children would be `100-internet:how-does-the-internet-work`, `101-internet:what-is-http`, `102-internet:browsers`.
+For languages other than Python/C/C++ call the corresponding make target after the commands above.
+
+## 🐛 Issues / Bugs / FAQs / Feature Requests
+
+If you encounter any issues or have any ideas, please file them in our [Issue Tracker](https://github.com/ianfhunter/GNOLL/issues).
+
+## ✋ Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## 🔢 Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ianfhunter/gnoll/tags).
+
+## 🤹 Authors / Contributers / Attributions
+
+* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+
+See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
+
+## 📃 License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
+
+Individual licensing arrangements can be made if this is an issue for your project - Contact Me at [LinkedIn](https://www.linkedin.com/in/ianfhunter) to discuss.
+
+## 👏 Acknowledgments
+
+* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+
+## 🏗️ Built With
+
+* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+* Love! 💖
+
+## 💰 Donate
+
+[Keep this project alive](https://ko-fi.com/ianfhunter)

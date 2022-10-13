@@ -233,6 +233,7 @@ This list is currently **Under Construction**.
 | Dust Devils                                                                                                                 |                         |  〰️                                                           |
 | Dying Earth                                                                                                                 |                         | ✔️                                                            |
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
+| EABA | EABA | 🔼 |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
 | Universe                                                                                                                    |                         | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)   |

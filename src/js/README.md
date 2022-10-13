@@ -1,10 +1,10 @@
 ---
-title: Javascript Setup
+title: JavaScript Setup
 published: true
 nav_order: 0
 ---
 
-# Javascript Setup
+# JavaScript Setup
 
 ## Pre-Requisites
 ```bash
@@ -12,11 +12,11 @@ sudo apt-get install emscripten nodejs
 ```
 
 ## Build
-```
+```bash
 make javascript
 ```
 
 ## Run
-```
-node a.out.js
+```bash
+node build/js/a.out.js
 ```

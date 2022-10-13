@@ -10,7 +10,7 @@
     #include "y.tab.h"
     #include <assert.h>
 
-    extern unsigned int gnoll_errno;
+    extern int gnoll_errno;
     void yyerror(char *s); // From YACC Code
 %}
 
@@ -182,7 +182,7 @@ f { return(FILTER); }
 \.\. {
     return(RANGE);
 }
-; {
+;+ {
     return(STATEMENT_SEPERATOR);
 }
 

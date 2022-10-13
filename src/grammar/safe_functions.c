@@ -6,7 +6,7 @@
 #include "shared_header.h"
 #include "safe_functions.h"
 
-unsigned int gnoll_errno = 0;
+int gnoll_errno = 0;
 
 void * safe_malloc(size_t size){
     if (gnoll_errno){
@@ -16,7 +16,7 @@ void * safe_malloc(size_t size){
     }
     void * malloc_result;
     malloc_result = malloc(size);
-    if(!malloc_result){
+    if(!malloc_result && size){
         gnoll_errno = BAD_ALLOC;
     }
     return malloc_result;
@@ -30,7 +30,8 @@ void * safe_calloc(size_t nitems, size_t size){
     }
     void * calloc_result;
     calloc_result = calloc(nitems, size);
-    if(!calloc_result){
+    unsigned int total_sz = nitems*size;
+    if(!calloc_result && total_sz){
         gnoll_errno = BAD_ALLOC;
     }
     return calloc_result;
@@ -50,19 +51,6 @@ FILE * safe_fopen(const char *filename, const char *mode){
         gnoll_errno = BAD_FILE;
     }
     return fopen_result;
-}
-
-int safe_fclose(FILE *stream){
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return 0;
-    }
-    if(fclose(stream) != 0){
-        printf("err closing\n");
-        gnoll_errno = BAD_FILE;
-    }
-    return 0;
 }
 
 char * safe_strdup( const char *str1 ){
@@ -93,30 +81,4 @@ long int safe_strtol (const char* str, char** endptr, int base){
         gnoll_errno = OUT_OF_RANGE;
     }
     return result;
-}
-
-void safe_printf(const char *fmt, ...) {
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return;
-    }
-    va_list args;
-    va_start(args, fmt);
-    int count = vprintf(fmt, args);
-    va_end(args);
-    if(count < 0) gnoll_errno = IO_ERROR;
-}
-
-void safe_fprintf(FILE *stream, const char *fmt, ...) {
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return;
-    }
-    va_list args;
-    va_start(args, fmt);
-    int count = vfprintf(stream, fmt, args);
-    va_end(args);
-    if(count < 0) gnoll_errno = IO_ERROR;
 }
