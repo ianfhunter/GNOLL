@@ -9,7 +9,7 @@ nav_order: 11
 {: .story }
 >**GM**: You are lucky. The potion saved your life, cured all your wounds and gaved you an extra boost of energy. As you get up, you realize that you are in a room filled with bags of golden coins.
 >
->**Grindon**: The heart of the dunjeon!..
+>**Grindon**: The heart of the dungeon!
 >
 >**GM**: Yes. Before anyone appear and catch you, you grab as many bags you can in your arms.
 >
@@ -17,23 +17,23 @@ nav_order: 11
 >
 >**GM**: True but hold on. The bags are slippery. And small bags containing 4 coins or less may fall from your arms.
 >
->**Grindon**: Okay, let's roll. Please dice, be kind.
+>**Grindon**: Okay, let's roll. Please dice, be kind.  [8d20>4]
 >
 >*GNOLL*: [{16, 1, 5, 8, 1, 9, 1, 13}]
 >
->**GM**: You escape the dunjeon with...
+>**GM**: You escape the dungeon with 3 bags of gold!
 >
 >**Grindon The Brave**: Not so fast, dear GM. I see lots of 1s here. It is time for my special class feature. I knew it would come handy.
 >
 > *GNOLL*: [{2, 4, 3}]
 >
->**GM**: Lucky you, you did not get 1s in your rerolls.
+>**GM**: Lucky you! You were able to catch two more gold coins!
 >
->**Grindon The Brave**: I suppose we can say so...
+>**Grindon The Brave**: I'm rich! I'm rich!
 
 # Filtering
 
-In many games, certain logic is only required if a particular value is rolled. For example, the board game One Deck Dungeon [5] contains a scenario
+In many games, certain logic is only required if a particular value is rolled. For example, the board game One Deck Dungeon  contains a scenario
 that requires the player to discard any 2s rolled in their roll. Conditional statements allow a high range of flexibility for
 cases such as these.
 
