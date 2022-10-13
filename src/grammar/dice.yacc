@@ -36,6 +36,7 @@ int write_to_file = 0;
 char * output_file;
 
 extern int gnoll_errno;
+pcg32_random_t rng;
 
 // Registers
 
@@ -43,9 +44,11 @@ extern int gnoll_errno;
 
 int initialize(){
     if (!seeded){
-        pcg32_srandom_r(&rng,
-          ((unsigned long)time(0)+(unsigned long)clock()) ^ (intptr_t)&printf,
-          54u
+        unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
+        pcg32_srandom_r(
+            &rng,
+            tick ^ (unsigned long int)&printf,
+            54u
         );
         //srand((unsigned long)time(0)+(unsigned long)clock());
         seeded = 1;
