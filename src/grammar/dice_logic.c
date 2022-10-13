@@ -125,7 +125,7 @@ int * perform_roll(
         }
         if (explode == PENETRATING_EXPLOSION){
             die_sides--;
-            if (die_sides <= 0){ break; }
+            if (die_sides == 0){ break; }
         }
         explosion_count++;
     }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);

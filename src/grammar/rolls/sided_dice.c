@@ -17,12 +17,9 @@ void roll_plain_sided_dice(
 ){
     if(gnoll_errno) return;
 
-
     // XdY
     unsigned int num_dice = (unsigned int)x->content[0];
     unsigned int sides = (unsigned int)y->content[0];
-
-    if(gnoll_errno) return;
 
     // e.g. d4, it is implied that it is a single dice
     roll_params rp;
