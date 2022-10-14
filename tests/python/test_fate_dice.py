@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
+from util import Mock, roll, error_handled_by_gnoll
 
 @pytest.mark.parametrize("FD",["df", "dF", "df.2", "dF.2"])
 def test_traditional_fate(FD):
@@ -46,13 +46,10 @@ def test_fate_addition():
     result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == ['-', '-']
 
-def test_fate_numeral_interoperability():
+@pytest.mark.parametrize("r",[
     # Most of the time, using the two together doesn't make sense
-    with pytest.raises(Exception):
-        roll("d10+dF", mock_mode=(0,1))
-    with pytest.raises(Exception):
-        roll("d10-dF", mock_mode=(0,1))
-
+    ("d10+dF"),
+    ("d10-dF"),
     # Much arithmithic is ambigious with symbols
     # e.g.
     # dF * 2 could mean:
@@ -60,20 +57,19 @@ def test_fate_numeral_interoperability():
     # or
     # - multiply the result of dF by 2 (+ -> ++)
     # Unless there is evidence of that priority defined somewhere
-    with pytest.raises(Exception):
-        roll("d10-d10", mock_mode=(0,1))
-    with pytest.raises(Exception):
-        roll("dF*2")
-    with pytest.raises(Exception):
-        roll("dF*dF")
-    with pytest.raises(Exception):
-        roll("dF/2")
-    with pytest.raises(Exception):
-        roll("dF/dF")
-    with pytest.raises(Exception):
-        # We could perhaps use modulo as a counter
-        # or some other function.
-        # But for now, its undefined behaviour
-        roll("dF%2")
-    with pytest.raises(Exception):
-        roll("dF%dF")
+    ("dF-dF"),
+    ("dF*2"),
+    ("dF*dF"),
+    ("dF/2"),
+    ("dF/dF"),
+    # We could perhaps use modulo as a counter
+    # or some other function.
+    # But for now, its undefined behaviour
+    ("dF%2"),
+    ("dF%dF"),
+])
+def test_fate_numeral_interoperability(r):
+    try:
+        roll(r)
+    except Exception as e:
+        error_handled_by_gnoll(e)

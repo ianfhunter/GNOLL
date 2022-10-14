@@ -27,7 +27,9 @@ def RaiseGNOLLError(value):
         GNOLLException("UNDEFINED_BEHAVIOUR"),
         GNOLLException("BAD_STRING"),
         GNOLLException("OUT_OF_RANGE"),
-        GNOLLException("IO_ERROR")
+        GNOLLException("IO_ERROR"),
+        GNOLLException("MAX_LOOP_LIMIT_HIT"),
+        GNOLLException("SYNTAX_ERROR")
     ]
     err = d[value]
     if err is not None:
