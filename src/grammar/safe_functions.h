@@ -25,4 +25,7 @@ FILE * safe_fopen(const char *filename, const char *mode);
 char * safe_strdup( const char *str1 );
 long int safe_strtol (const char* str, char** endptr, int base);
 
+
+int fast_atoi( const char * str );
+
 #endif

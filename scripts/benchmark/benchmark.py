@@ -24,8 +24,8 @@ def pythondice_roll(s):
 # X axis = Roll
 # Y axis = Time
 
-shared_x = range(0, 10)
-TIMEOUT = 300
+shared_x = range(0, 8)
+TIMEOUT = 100
 
 configurations = {
     "GNOLL": {
@@ -56,6 +56,9 @@ configurations = {
     }
 }
 
+PROFILE_NUM = 50
+print(f"Averaging over {PROFILE_NUM} runs")
+
 # Data gather
 for key in configurations:
     print("Profiling: ", key)
@@ -73,12 +76,21 @@ for key in configurations:
         print(f"\t{r}")
         roll_fn = c["roll_fn"]
         try:
-            time1 = time.time()
-            func_timeout.func_timeout(
-                TIMEOUT, roll_fn, args=[r]
-            )
-            time2 = time.time()
-            total_time = time2 - time1
+            total_time = []
+            
+            # Averaged
+            count = 0
+            for _ in range(PROFILE_NUM):
+                count += 1
+                time1 = time.time()
+                func_timeout.func_timeout(
+                    TIMEOUT, roll_fn, args=[r]
+                )
+                time2 = time.time()
+                total_time.append(time2 - time1)
+                if sum(total_time) > TIMEOUT:
+                    break
+            total_time = sum(total_time)/count
             y.append(total_time*1000)
             dx.append(x)
         except (Exception, func_timeout.FunctionTimedOut) as e:
