@@ -1,0 +1,15 @@
+--- "/media/sf_Shared/10-19 Code Repositories/TrollOriginal/Main.sml"	2022-10-18 15:00:39.050189600 +0100
++++ "/media/sf_Shared/10-19 Code Repositories/Troll/Main.sml"	2022-10-18 14:58:26.079594700 +0100
+@@ -169,12 +169,6 @@
+ 	     (Interpreter.seed := sec mod 100001 + 5*(usec mod 77771);
+ 	      Interpreter.seed2 := sec mod 3557 + 7*(usec mod 3307))
+ 	   end;
+-	   if n<0 then (Distribution.maxiterations := ~n;
+-		        printDist (Distribution.distribDice dice))
+-	   else if n=0 then printDist (Distribution.distribDice dice)
+-	   else
+-	     hd (List.tabulate
+-	         (n,fn x => printVal (Interpreter.rollDice dice)))
+ 	  )
+         end
+ 
