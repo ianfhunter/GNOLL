@@ -8,8 +8,8 @@ BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
-cppyy.c_include(os.path.join(C_HEADER, "shared_header.h"))
-cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
+cppyy.include(os.path.join(C_HEADER, "dice_logic.h"))
+cppyy.include(os.path.join(C_HEADER, "shared_header.h"))
 cppyy.load_library(C_SHARED_LIB)
 
 
@@ -37,6 +37,8 @@ def raise_gnoll_error(value):
         GNOLLException("MAX_LOOP_LIMIT_HIT"),
         GNOLLException("SYNTAX_ERROR"),
         GNOLLException("DIVIDE_BY_ZERO"),
+        GNOLLException("UNDEFINED_MACRO"),
+        GNOLLException("REDEFINED_MACRO"),
     ]
     err = d[value]
     if err is not None:
@@ -47,6 +49,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
+
     die_file = temp.name
     os.remove(die_file)
 

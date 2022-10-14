@@ -17,7 +17,9 @@ typedef enum {
     IO_ERROR=8,
     MAX_LOOP_LIMIT_HIT=9,
     SYNTAX_ERROR=10,
-    DIVIDE_BY_ZERO=11
+    DIVIDE_BY_ZERO=11,
+    UNDEFINED_MACRO=12,
+    REDEFINED_MACRO=13,
 } ERROR_CODES;
 
 void * safe_malloc(size_t size);

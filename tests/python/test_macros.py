@@ -4,7 +4,7 @@ import os
 from glob import glob
 
 import pytest
-from util import Mock, roll
+from util import Mock, roll, error_handled_by_gnoll
 
 
 @pytest.mark.parametrize(
@@ -26,10 +26,32 @@ def test_macro_usage(r, out, mock):
     assert result == out
 
 
+@pytest.mark.skip("Currently no support for rerolling operations like Addition")
 def test_d66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
+
+def test_multiple_internal_calls_macros():
+    r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
+    result = roll(r)
+    print(result)
+    assert not all(result == result[0])
+
+
+def test_multiple_external_calls_macros():
+    result = []
+    r = "#TEST=d{A,B,C,D};@TEST;"
+    result.append(roll(r))
+    print(result)
+    assert not all(result == result[0])
+
+
+def test_undefined_macro():
+    try:
+        roll("@SOME_MACRO")
+    except Exception as e:
+        error_handled_by_gnoll(e)
 
 
 def test_builtins():
@@ -43,18 +65,3 @@ def test_builtins():
                 if macro == "":
                     continue
                 roll(f"{macro};d20")
-
-
-def test_multiple_internal_calls_macros():
-    r = "#TEST=d{A,B,C,D};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TESTzg g ;"
-    result = roll(r)
-    print(result)
-    assert not all(result == result[0])
-
-
-def test_multiple_external_calls_macros():
-    result = []
-    r = "#TEST=d{A,B,C,D};@TEST;"
-    result.append(roll(r))
-    print(result)
-    assert not all(result == result[0])

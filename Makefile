@@ -9,6 +9,15 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wundef -Wno-unused -Wformat=2 \
         -ffast-math
 
+# === DEBUG OPTIONS ====
+DEBUG=0
+ifeq ($(DEBUG), 1)
+OPT=-O0 -g  # Valgrind info
+PARSER_DEBUG:=--debug --verbose
+else
+PARSER_DEBUG:=
+endif
+
 # YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
 
@@ -22,14 +31,6 @@ ARC4RANDOM:=-lbsd `pkg-config --libs libbsd`
 else
 #$(shell echo abc) "Using Cryptographically Secure, but slow random fn")
 ARC4RANDOM:=
-endif
-
-DEBUG=0
-ifeq ($(DEBUG), 1)
-#$(shell echo DEBUG INFORMATION ENABLED)
-PARSER_DEBUG:=--debug --verbose
-else
-PARSER_DEBUG:=
 endif
 
 YACC_FALLBACK=0

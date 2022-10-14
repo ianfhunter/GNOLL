@@ -115,6 +115,9 @@ int roll_symbolic_die(unsigned int length_of_symbolic_array){
 gnoll_statement:
     gnoll_statement STATEMENT_SEPERATOR gnoll_statement
     |
+    /* Allow ending with ; */
+    gnoll_statement STATEMENT_SEPERATOR
+    |
     sub_statement
     |
     error {
@@ -1011,7 +1014,7 @@ custom_symbol_dice:
                 .die_sides=csd.length,
                 .dtype=SYMBOLIC,
                 .start_value=0,
-                .symbol_pool=(char **)malloc(csd.length * MAX_SYMBOL_LENGTH)
+                .symbol_pool=(char **)safe_malloc(csd.length * MAX_SYMBOL_LENGTH)
             };
             for(unsigned int i = 0; i != csd.length; i++){
                 rp.symbol_pool[i] = csd.symbols[i];
@@ -1035,6 +1038,7 @@ custom_symbol_dice:
 
         vec new_vector;
         search_macros(name, &new_vector.source);
+        if(gnoll_errno){YYABORT;yyclearin;}
         // Resolve Roll
 
         vec number_of_dice;
@@ -1046,25 +1050,23 @@ custom_symbol_dice:
         initialize_vector(&die_sides, NUMERIC, 1);
         die_sides.content[0] = (int)new_vector.source.die_sides;
         die_sides.length = new_vector.source.die_sides;
-        for(unsigned int i = 0; i != die_sides.length; i++){
-            die_sides.symbols[i] = new_vector.source.symbol_pool[i];
-        }
 
         if (new_vector.source.dtype == NUMERIC){
             // Careful, Newvector used already
-            gnoll_errno = NOT_IMPLEMENTED;
-            YYABORT;
-            yyclearin;
+
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
-            // roll_plain_sided_dice(
-            //     &number_of_dice,
-            //     &die_sides,
-            //     &new_vector,
-            //     new_vector.source.explode,
-            //     1
-            // );
-        }else{
+            roll_plain_sided_dice(
+                &number_of_dice,
+                &die_sides,
+                &new_vector,
+                new_vector.source.explode,
+                1
+            );
+        }else if (new_vector.source.dtype == SYMBOLIC){
             
+            for(unsigned int i = 0; i != die_sides.length; i++){
+                die_sides.symbols[i] = new_vector.source.symbol_pool[i];
+            }
             // Careful, Newvector used already
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
 
@@ -1073,6 +1075,9 @@ custom_symbol_dice:
                 &die_sides,
                 &new_vector
             );
+        }else{
+            printf("Complex Dice Equation. Only dice definitions supported. No operations\n");
+            gnoll_errno = NOT_IMPLEMENTED;
         }
         $<values>$ = new_vector;
     }
@@ -1120,7 +1125,6 @@ csd:
         vec new_vector;
         initialize_vector(&new_vector, SYMBOLIC, spread);
         for (int i = 0; i <= (e-s); i++){
-            // new_vector.symbols[i] = s+i;
             sprintf(new_vector.symbols[i], "%d", s+i);
         }
         $<values>$ = new_vector;

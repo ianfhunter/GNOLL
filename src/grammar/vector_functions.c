@@ -21,7 +21,8 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
         if(gnoll_errno) return;
     }
     else if (dt == SYMBOLIC){
-        vector->symbols = safe_calloc(number_of_items, sizeof(char *));
+        // vector->symbols = safe_calloc(number_of_items, sizeof(char *));
+        vector->symbols = safe_malloc(sizeof(char *));
         if(gnoll_errno) return;
 
         for (unsigned int i=0; i<number_of_items; i++){
