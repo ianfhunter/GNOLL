@@ -4,7 +4,7 @@ import time
 import subprocess
 import importlib.util as iu
 
-TIMEOUT_MINS = 1
+TIMEOUT_MINS = 5
 TIMEOUT_SECS = TIMEOUT_MINS*60
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
@@ -12,7 +12,6 @@ m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
 spec.loader.exec_module(dt)
-
 gnoll_roll = dt.roll
 
 troll_exec = os.path.join(
@@ -45,20 +44,23 @@ def dp_roll(s):
 # X axis = Roll
 # Y axis = Time
 
-shared_x = [0,1,2,3,4,5,6]
+shared_x = range(0, 8)
 
 configurations = {
     "GNOLL": {
         "roll_fn": gnoll_roll,
-        "color": "b"
+        "color": "b",
+        "marker": "s"
     },
     "TROLL": {
         "roll_fn": troll_roll,
-        "color": "g"
+        "color": "g",
+        "marker": "o"
     },
     "DiceParser":{
         "roll_fn": dp_roll,
-        "color": "r"
+        "color": "r",
+        "marker": "^"
     }
 }
 
@@ -82,11 +84,13 @@ for key in configurations:
         except Exception as e:
             print(f"Err: {key}:{r}")
             print("\t", e)
+            break
 
     if len(dx):
         plt.plot(
             dx, y,
-            color=c["color"]
+            color=c["color"],
+            marker=c["marker"]
         )
 
 # Configuration and Output
