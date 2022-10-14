@@ -11,6 +11,7 @@ def test_percentile_dice():
     assert result > 0
     assert result <= 100
 
+
 def test_coin_as_dice():
     result = roll("dc")
     assert result > 0
