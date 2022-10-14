@@ -2,9 +2,9 @@
 
 First off, thank you for considering contributing to GNOLL.
 
-Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
-
 We're so happy you're considering contributing! Thank you! We hope this document will make it easier to do that.
+
+Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
 
 ## Process
 Please assign yourself to a ticket, or request this, so anyone looking doesn't work on the same thing! Clone the code, make your changes, add a test & create a PR! We'll try to review it as soon as we can
