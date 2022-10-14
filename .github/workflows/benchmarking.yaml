@@ -74,6 +74,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: cmd_benchmark
-          path: doc/JOSS/c++.PNG
+          path: doc/JOSS/C++.PNG
 
 
