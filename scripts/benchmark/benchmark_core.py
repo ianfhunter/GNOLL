@@ -1,4 +1,3 @@
-from distutils.log import error
 import time
 import func_timeout
 import matplotlib
