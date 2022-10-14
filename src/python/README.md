@@ -13,7 +13,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_halloween.png" height="200">
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
@@ -127,8 +127,10 @@ Individual licensing arrangements can be made if this is an issue for your proje
 
 ## 🏗️ Built With
 
-  - [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+  - [Flex & Bison](https://aquamentus.com/flex_bison.html) - Grammar Lexing & Parsing
   - [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+  - [PCG](https://www.pcg-random.org/) - Random Number Generation
+  - [Arc4Random](https://www.freebsd.org/cgi/man.cgi?query=arc4random) - Random Number Generation (Cryptographically secure)
   - Love! 💖
 
 ## 💰 Donate

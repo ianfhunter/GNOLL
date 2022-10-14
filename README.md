@@ -127,7 +127,7 @@ Individual licensing arrangements can be made if this is an issue for your proje
 
 ## 🏗️ Built With
 
-  - [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
+  - [Flex & Bison](https://aquamentus.com/flex_bison.html) - Grammar Lexing & Parsing
   - [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
   - [PCG](https://www.pcg-random.org/) - Random Number Generation
   - [Arc4Random](https://www.freebsd.org/cgi/man.cgi?query=arc4random) - Random Number Generation (Cryptographically secure)
