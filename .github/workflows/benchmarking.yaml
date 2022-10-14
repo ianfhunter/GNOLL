@@ -20,7 +20,7 @@ jobs:
 
       - name: Benchmark
         run: |
-            python3 scripts/benchmark/benchmark.py
+            python3 scripts/benchmark/benchmark_python.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
@@ -73,7 +73,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
-          name: cpp_benchmark
-          path: doc/JOSS/cpp.PNG
+          name: cmd_benchmark
+          path: doc/JOSS/c++.PNG
 
 
