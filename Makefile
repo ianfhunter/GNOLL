@@ -47,8 +47,7 @@ ifeq ($(LEX_FALLBACK), 1)
 LEXER:=lex
 else
 #$(shell echo USING FLEX)
-LEXER:=flex -f
-#-f -Ca -Ce -Cr
+LEXER:=flex -f -Ca -Ce -Cr
 endif
 
 # add flags and the include paths
@@ -82,7 +81,8 @@ lex:
 
 # Executable
 compile:
-	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM)
+	# FLEX creates warning when run with -f
+	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) -Wno-error=implicit-function-declaration
 
 # Shared Lib
 shared: $(OBJECTS)
