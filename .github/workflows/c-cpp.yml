@@ -45,19 +45,24 @@ jobs:
           python3.10-venv
     
     - uses: actions/checkout@v2
-    - name: python deps
+    - name: prep for pip
       shell: wsl-bash {0}
       run: |
         unset DISPLAY 
         python3 -m venv env
-        source env/bin/activate
+        source env/bin/activate    
+    - name: pip installs
+      shell: wsl-bash {0}
+      run: |
+        echo "pip"
         python3 -m pip  -vvv --no-cache-dir install --upgrade pip
         # python3 -m pip install -r reqs/requirements.txt
+        echo "Cppyy"
         python3 -m pip  -vvv --no-cache-dir  install cppyy
+        echo "pytest"
         python3 -m pip  -vvv --no-cache-dir  install pytest
         
     - name: test
       shell: wsl-bash {0}
       run: |
-        source env/bin/activate
         make test
