@@ -51,6 +51,7 @@ jobs:
         unset DISPLAY 
         python3 -m venv env
         source env/bin/activate    
+        unset DISPLAY 
     - name: pip installs
       shell: wsl-bash {0}
       run: |
