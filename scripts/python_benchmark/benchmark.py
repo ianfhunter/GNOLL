@@ -42,6 +42,7 @@ for key in configurations:
     print("Rolling: ", key)
     c = configurations[key]
     y = []
+    dx = []
 
     for x in shared_x:
         n = 10**x
@@ -49,13 +50,14 @@ for key in configurations:
         time1 = time.time()
         try:
             result = c["roll_fn"](r)
+            time2 = time.time()
+            y.append((time2 - time1)*1000)
+            dx.append(X)
         except Exception:
             print(f"Err: {key}:{r}")
-        time2 = time.time()
-        y.append((time2 - time1)*1000)
   
     plt.plot(
-        shared_x, y, 
+        dx, y, 
         color=c["color"]
     )
     
