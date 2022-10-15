@@ -57,7 +57,7 @@ plt.ylabel("Time (s)")
 plt.title('Python Library comparison')
 
 plt.set_yscale('log')
-plt.legend()
+plt.legend(configurations.keys())
 
 this_folder = os.path.dirname(__file__)
 output_file = os.path.join(this_folder, "../../doc/JOSS/py.PNG")
