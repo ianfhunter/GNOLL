@@ -27,7 +27,7 @@ jobs:
         with:
           name: py_benchmark
           path: doc/JOSS/py.PNG
-python:
+  cpp:
     runs-on: ubuntu-latest
     name: C/C++/SML Benchmark
     steps:
