@@ -42,7 +42,7 @@ jobs:
             sudo apt install mosml
             wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
             unzip Troll.zip
-            ls Troll/
+            ./compile.sh
 
       - name: Benchmark
         run: |
