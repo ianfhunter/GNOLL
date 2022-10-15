@@ -61,9 +61,9 @@ jobs:
         python3 -m pip  -vvv --no-cache-dir install --upgrade pip
         # python3 -m pip install -r reqs/requirements.txt
         echo "Cppyy"
-        python3 -m pip  -vvv --no-cache-dir  install cppyy
+        python3 -m pip  -vvv --no-cache-dir  install cppyy --user
         echo "pytest"
-        python3 -m pip  -vvv --no-cache-dir  install pytest
+        python3 -m pip  -vvv --no-cache-dir  install pytest --user
         
     - name: test
       shell: wsl-bash {0}
