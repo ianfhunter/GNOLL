@@ -53,8 +53,9 @@ for key in configurations:
             time2 = time.time()
             y.append((time2 - time1)*1000)
             dx.append(x)
-        except Exception:
+        except Exception as e:
             print(f"Err: {key}:{r}")
+            print("\t", e)
   
 
     if len(dx):
