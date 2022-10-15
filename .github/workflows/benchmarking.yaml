@@ -1,0 +1,57 @@
+name: "Benchmarking Vs Similar libraries"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    name: Python Benchmark
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Lib Install
+        run: |
+            pip install -r scripts/python_benchmark/requirements.txt
+
+      - name: Benchmark
+        run: |
+            python3 scripts/python_benchmark/benchmark.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: py_benchmark
+          path: doc/JOSS/py.PNG
+python:
+    runs-on: ubuntu-latest
+    name: C/C++/SML Benchmark
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Lib Install
+        run: |
+            pip install GNOLL
+            sudo add-apt-repository ppa:kflarsen/mosml
+            sudo apt update
+            sudo apt install mosml
+            wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
+            unzip Troll.zip
+            ls Troll/
+
+      - name: Benchmark
+        run: |
+            python3 scripts/python_benchmark/benchmark.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: cpp_benchmark
+          path: doc/JOSS/cpp.PNG
+
+
