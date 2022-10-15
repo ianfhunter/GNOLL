@@ -154,3 +154,6 @@ src/go/main
 *.wasm
 *.html
 *.stackdump
+
+# TROLL
+test.t

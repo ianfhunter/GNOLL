@@ -11,7 +11,7 @@ from util import Mock, error_handled_by_gnoll, roll
     "r,out,mock",
     [
         ("#MY_DIE=d{A};d4", 3, Mock.RETURN_CONSTANT),
-        ("#MY_DIE=d{A};2d4", 6, Mock.RETURN_CONSTANT),
+        ("#MY_EYE=d{A};2d4", 6, Mock.RETURN_CONSTANT),
     ],
 )
 def test_macro_storage(r, out, mock):
@@ -37,16 +37,15 @@ def test_d66():
 def test_multiple_internal_calls_macros():
     r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
     result = roll(r)
-    print(result)
-    assert not all(result == result[0])
+    assert not all(r == result[0] for r in result)
 
 
 def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
-    result.append(roll(r))
-    print(result)
-    assert not all(result == result[0])
+    for x in range(20):
+        result.append(roll(r))
+    assert not all(r == result[0] for r in result)
 
 
 def test_undefined_macro():
@@ -66,4 +65,5 @@ def test_builtins():
                 macro = macro.strip("\n")
                 if macro == "":
                     continue
+                print("MACRO:", macro)
                 roll(f"{macro};d20")

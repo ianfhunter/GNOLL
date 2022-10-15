@@ -5,9 +5,9 @@
 #include "rolls/dice_enums.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 // Mocking Util
 void reset_mocking();
@@ -29,8 +29,8 @@ int * do_roll(
 );
 
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif

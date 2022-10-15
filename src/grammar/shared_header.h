@@ -5,9 +5,9 @@
 #include "rolls/sided_dice.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 
 typedef enum {
@@ -20,11 +20,11 @@ typedef enum {
 
 int roll(char * s);
 int roll_and_write(char * s, char * f);
-int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const);
+int mock_roll(char * s, char * f, int mock_value, int mock_const);
 
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif

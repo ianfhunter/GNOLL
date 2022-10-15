@@ -6,6 +6,8 @@
 #include "vector_functions.h"
 #include "rolls/dice_roll_structs.h"
 
+unsigned long hash_function(unsigned char *str);
+
 struct macro_struct {
     int id;                    /* key */
     roll_params stored_dice_roll;

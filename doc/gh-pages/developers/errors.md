@@ -22,4 +22,3 @@ nav_order: 13
 | 10          | SYNTAX_ERROR | The dice notation cannot be parsed and is likely malformed |
 | 11          | DIVIDE_BY_ZERO | Division by zero cannot be done |
 | 12          | UNDEFINED_MACRO | Attempt to access macro that was not defined | 
-| 13          | REDEFINED_MACRO | Attempt to redefine a macro that already exists |

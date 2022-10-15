@@ -22,6 +22,37 @@ void * safe_malloc(size_t size){
     return malloc_result;
 }
 
+void free_2d_array(char ***arr, unsigned int items){
+    // printf("Try to free: %p\n",*arr);
+    if (*arr){
+        for(unsigned int i = 0; i != items; i++){
+            // printf("[%u] Try to free: %p\n",i, (*arr)[i]);
+            if ((*arr)[i]){
+                free((*arr)[i]);
+            }
+        }
+        free(*arr);
+    }
+}
+
+void safe_copy_2d_chararray_with_allocation(
+    char *** dst, 
+    char ** src, 
+    unsigned int items, 
+    unsigned int max_size)
+{
+    *dst = safe_calloc(items, sizeof(char **));
+    if(gnoll_errno){return;}
+    // printf("memcpy %p <- %p (%u)\n", *dst, src, items);
+    for(unsigned int i = 0; i!=items; i++){
+        (*dst)[i] = safe_calloc(sizeof(char), max_size);
+        if(gnoll_errno){return;}
+        // printf("---memcpy %p <- %p (%u)[%s]\n", (*dst)[i], src[i], max_size, src[i]);
+        memcpy((*dst)[i], src[i], max_size);
+        // printf("1 Debug %p %s\n", (*dst)[i], (*dst)[i]);
+    }
+}
+
 void * safe_calloc(size_t nitems, size_t size){
     if (gnoll_errno){
         // If there was already an error,

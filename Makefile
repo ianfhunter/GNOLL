@@ -14,6 +14,7 @@ DEBUG=0
 ifeq ($(DEBUG), 1)
 OPT=-O0 -g  # Valgrind info
 PARSER_DEBUG:=--debug --verbose
+PARSER_DEBUG:=
 else
 PARSER_DEBUG:=
 endif

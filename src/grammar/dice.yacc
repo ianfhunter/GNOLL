@@ -27,7 +27,6 @@ int yywrap();
 
 //TODO: move to external file 
 char * concat_strings(char ** s, int num_s);
-int roll_verbose(char * s);
 
 #ifdef JUST_YACC
 int yydebug=1;
@@ -39,6 +38,7 @@ int write_to_file = 0;
 char * output_file;
 
 extern int gnoll_errno;
+extern struct macro_struct *macros;
 pcg32_random_t rng;
 
 // Registers
@@ -66,15 +66,6 @@ int sum(int * arr, unsigned int len){
     int result = 0;
     for(unsigned int i = 0; i != len; i++) result += arr[i];
     return result;
-}
-
-int roll_numeric_die(int small, int big){
-    return random_fn(small, big);
-}
-
-int roll_symbolic_die(unsigned int length_of_symbolic_array){
-    // Returns random index into symbolic array
-    return roll_numeric_die(0, (int)length_of_symbolic_array -1);
 }
 
 %}
@@ -1014,10 +1005,12 @@ custom_symbol_dice:
                 .die_sides=csd.length,
                 .dtype=SYMBOLIC,
                 .start_value=0,
-                .symbol_pool=(char **)safe_malloc(csd.length * MAX_SYMBOL_LENGTH)
+                .symbol_pool=(char **)safe_calloc(csd.length , sizeof(char *))
             };
             for(unsigned int i = 0; i != csd.length; i++){
-                rp.symbol_pool[i] = csd.symbols[i];
+                rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
+                memcpy(rp.symbol_pool[i], csd.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
+                // rp.symbol_pool[i] = csd.symbols[i];
             }
             result_vec.source = rp;
 
@@ -1047,9 +1040,10 @@ custom_symbol_dice:
 
         vec die_sides;
         // TODO: Extract to function.
-        initialize_vector(&die_sides, NUMERIC, 1);
+        light_initialize_vector(&die_sides, NUMERIC, 1);
         die_sides.content[0] = (int)new_vector.source.die_sides;
         die_sides.length = new_vector.source.die_sides;
+        die_sides.symbols = NULL;
 
         if (new_vector.source.dtype == NUMERIC){
             // Careful, Newvector used already
@@ -1063,10 +1057,14 @@ custom_symbol_dice:
                 1
             );
         }else if (new_vector.source.dtype == SYMBOLIC){
-            
-            for(unsigned int i = 0; i != die_sides.length; i++){
-                die_sides.symbols[i] = new_vector.source.symbol_pool[i];
-            }
+            free_2d_array(&die_sides.symbols, die_sides.length);
+            safe_copy_2d_chararray_with_allocation(
+                &die_sides.symbols,
+                new_vector.source.symbol_pool,
+                die_sides.length,
+                MAX_SYMBOL_LENGTH
+            );
+
             // Careful, Newvector used already
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
 
@@ -1169,35 +1167,28 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
+    if (verbose){
+        printf("Trying to roll '%s'\n", s);
+    }
     initialize();
-    verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
     yy_delete_buffer(buffer);
     return gnoll_errno;
 }
-int roll_verbose(char * s){
-    initialize();
-    verbose = 1;
-    YY_BUFFER_STATE buffer = yy_scan_string(s);
 
-    yyparse();
-
-    yy_delete_buffer(buffer);
-    return gnoll_errno;
-}
 int roll_and_write(char * s, char * f){
     gnoll_errno = 0;
     write_to_file = 1;
     output_file = f;
     verbose = 0;
-    if(verbose) printf("Rolling: %s\n", s);
-    return roll(s);
+    int return_code = roll(s);
+    /* free(macros); */
+    return return_code;
 }
-int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
+int mock_roll(char * s, char * f, int mock_value, int mock_const){
     gnoll_errno = 0;
     init_mocking((MOCK_METHOD)mock_value, mock_const);
-    verbose = !quiet;
     return roll_and_write(s, f);
 }
 
@@ -1229,7 +1220,8 @@ char * concat_strings(char ** s, int num_s){
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
-    return roll_verbose(s);
+    verbose = 1;
+    return roll(s);
 }
 
 int yyerror(s)
