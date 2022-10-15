@@ -1,6 +1,5 @@
 import os
 import matplotlib.pyplot as plt
-import numpy as np
 import time
 from gnoll.parser import roll as gnoll_roll
 from rpg_dice import roll as rpgdice_roll
@@ -13,11 +12,6 @@ def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
     program = [s]
     return interpreter.roll(s)
-
-def dice_notation_roll(s):
-    parser = DiceParser()
-    dice = parser.parse(s)
-    dice.roll()
 
 # X axis = Roll
 # Y axis = Time
@@ -40,10 +34,6 @@ configurations = {
     "PythonDice":{
         "roll_fn": pythondice_roll,
         "color": "c"
-    },
-    "dice-notation":{
-        "roll_fn":dice_notation_roll,
-        "color": "p"
     },
     "d20":{
         "roll_fn": d20_roll,
