@@ -14,7 +14,7 @@ def pythondice_roll(s):
 # X axis = Roll
 # Y axis = Time
 
-shared_x = [x]
+shared_x = [1,10,100,1000,10000,100000,1000000]
 
 configurations = {
     "GNOLL": {
@@ -41,8 +41,8 @@ for key in configurations:
     c = configurations[key]
     y = []
 
-    for v in range(1,10,100,1000,10000,100000,1000000):
-        result = c["roll_fn"](f"{v}d{v}")
+    for x in shared_x:
+        result = c["roll_fn"](f"{x}d{x}")
         y.append(result)
   
     plt.plot(
