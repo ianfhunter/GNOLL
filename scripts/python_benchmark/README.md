@@ -1,6 +1,6 @@
 # Python Benchmark
 
-
+Compares GNOLL to other popular PyPi dice rolling libraries
 
 ## Changelog
 
