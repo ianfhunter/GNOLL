@@ -10,7 +10,12 @@ from util import Mock, roll
     ("d5e", 3)
 ])
 def test_explosion(r, out):
-    result = roll(r, mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE, mock_const=3)
+    result = roll(
+        r, 
+        mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE, 
+        mock_const=3,
+        verbose=True
+    )
     assert result == out
 
 
@@ -36,3 +41,7 @@ def test_explosion_only_once(r, out):
 def test_explosion_penetrate(r, out):
     result = roll(r, mock_mode=Mock.RETURN_DECREMENTING, mock_const=4)
     assert result == out
+
+
+if __name__ == "__main__":
+    test_explosion("d3!", 7)

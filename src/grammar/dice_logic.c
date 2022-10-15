@@ -29,8 +29,9 @@ void reset_mocking(){
     global_mock_style=NO_MOCK;
 }
 void init_mocking(MOCK_METHOD mock_style, int starting_value){
+    random_fn_run_count = 0;
     global_mock_value = starting_value;
-    global_mock_style=mock_style;
+    global_mock_style = mock_style;
 }
 
 void mocking_tick(){
@@ -88,7 +89,7 @@ int random_fn(int small, int big){
         value = global_mock_value;
         mocking_tick();
     }
-    // printf("Dice Roll Value: %i\n", value);
+    printf("Dice Roll Value: %i\n", value);
     return value;
 }
 
@@ -128,6 +129,7 @@ int * perform_roll(
         }
 
         explosion_condition_score += (int)number_of_dice*(int)die_sides;
+        printf("Explosion Type: %i\n", explode);
         if(explode != NO_EXPLOSION){
             if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
                 break;

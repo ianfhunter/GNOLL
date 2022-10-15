@@ -50,7 +50,7 @@ def make_all():
         raise ValueError
 
 
-def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
+def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False):
     global first_run
 
     if first_run:
@@ -61,9 +61,12 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    exit_code, result = dice_tower_roll(s,
-                                        mock=mock_mode.value,
-                                        mock_const=mock_const)
+    exit_code, result = dice_tower_roll(
+        s,
+        mock=mock_mode.value,
+        mock_const=mock_const,
+        verbose=verbose
+    )
 
     if exit_code:
         raise ValueError
