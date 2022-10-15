@@ -60,7 +60,7 @@ plt.xlabel("Dice Roll (10^N)d(10^N)")
 plt.ylabel("Time (ms)")
 plt.title('Python Library comparison')
 
-plt.set_yscale('log')
+plt.yscale('log')
 plt.legend(configurations.keys())
 
 this_folder = os.path.dirname(__file__)
