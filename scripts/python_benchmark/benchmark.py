@@ -45,8 +45,12 @@ for key in configurations:
 
     for x in shared_x:
         n = 10**x
+        r = f"{n}d{n}"
         time1 = time.time()
-        result = c["roll_fn"](f"{n}d{n}")
+        try:
+            result = c["roll_fn"](r)
+        except Exception:
+            print(f"Err: {c}:{r}")
         time2 = time.time()
         y.append((time2 - time1)*1000)
   
