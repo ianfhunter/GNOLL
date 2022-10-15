@@ -50,7 +50,7 @@ for key in configurations:
         try:
             result = c["roll_fn"](r)
         except Exception:
-            print(f"Err: {c}:{r}")
+            print(f"Err: {key}:{r}")
         time2 = time.time()
         y.append((time2 - time1)*1000)
   
