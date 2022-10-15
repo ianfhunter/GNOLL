@@ -9,8 +9,7 @@ from d20 import roll as d20_roll
 
 def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
-    program = [s]
-    return interpreter.roll(s)
+    return interpreter.roll([s])
 
 # X axis = Roll
 # Y axis = Time
@@ -60,14 +59,13 @@ for key in configurations:
         except Exception as e:
             print(f"Err: {key}:{r}")
             print("\t", e)
-  
 
     if len(dx):
         plt.plot(
             dx, y, 
             color=c["color"]
         )
-    
+
 # Configuration and Output
 plt.xlabel("Dice Roll (10^N)d(10^N)")
 plt.ylabel("Time (ms)")
