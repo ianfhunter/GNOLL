@@ -47,8 +47,8 @@ for key in configurations:
   
     plt.plot(
         shared_x, y, 
-        color=c["color"],
-        legend=key
+        color=c["color"]
+       # legend=key
     )
     
 # Configuration and Output
