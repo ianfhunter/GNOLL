@@ -34,6 +34,7 @@ jobs:
     - uses: Vampire/setup-wsl@v1
       with:
         distribution: Ubuntu-22.04
+        update: 'true'
         additional-packages:
           python3-dev
           bison
@@ -55,7 +56,8 @@ jobs:
     - name: pip installs
       shell: wsl-bash {0}
       run: |
-        echo "pip"
+        echo "pip"source env/bin/activate    
+        unset DISPLAY
         python3 -m pip  -vvv --no-cache-dir install --upgrade pip
         # python3 -m pip install -r reqs/requirements.txt
         echo "Cppyy"
