@@ -15,7 +15,7 @@ def pythondice_roll(s):
 # X axis = Roll
 # Y axis = Time
 
-shared_x = [1,10,100,1000,10000,100000,1000000]
+shared_x = [0,1,2,3,4,5,6]
 
 configurations = {
     "GNOLL": {
@@ -44,15 +44,15 @@ for key in configurations:
     y = []
 
     for x in shared_x:
+        n = 10**x
         time1 = time.time()
-        result = c["roll_fn"](f"{x}d{x}")
+        result = c["roll_fn"](f"{n}d{n}")
         time2 = time.time()
         y.append((time2 - time1)*1000)
   
     plt.plot(
         shared_x, y, 
         color=c["color"]
-       # legend=key
     )
     
 # Configuration and Output
