@@ -5,7 +5,6 @@ from gnoll.parser import roll as gnoll_roll
 from rpg_dice import roll as rpgdice_roll
 from dice import roll as dice_roll
 from python_dice import PythonDiceInterpreter
-from dice_notation.parser import DiceParser
 from d20 import roll as d20_roll
 
 def pythondice_roll(s):
