@@ -4,3 +4,5 @@ dice
 rpg-dice
 matplotlib
 numpy
+dice-notation
+d20
