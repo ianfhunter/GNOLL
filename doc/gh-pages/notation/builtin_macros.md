@@ -24,7 +24,8 @@ nav_order: 9
 >
 >**Grindon The Brave**: Well... not my favorite flavour...
 >
->**GM**: Entirely understandable. But that is not a 1, so no reroll. But don't worry, something better is coming.
+>**GM**: Entirely understandable. At least you didn't have to roll a dice that had a 1! That would have been a disaster! Anyway, don't worry, something better is coming.
+
 
 ## Supported Macros
 
