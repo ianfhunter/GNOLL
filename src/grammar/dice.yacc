@@ -797,8 +797,6 @@ die_roll:
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
         
-        printf("Z Explosion Type: %i\n", STANDARD_EXPLOSION);
-
         roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
