@@ -30,10 +30,10 @@ configurations = {
         "roll_fn": dice_roll,
         "color": "r"
     },
-    "PythonDice":{
-        "roll_fn": pythondice_roll,
-        "color": "c"
-    }
+    #"PythonDice":{
+    #    "roll_fn": pythondice_roll,
+    #    "color": "c"
+    #}
 }
 
 
