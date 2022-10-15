@@ -1,6 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 from gnoll.parser import roll as gnoll_roll
 from rpg_dice import roll as rpgdice_roll
 from dice import roll as dice_roll
@@ -38,12 +39,15 @@ configurations = {
 
 # Data gather
 for key in configurations:
+    print("Rolling: ", key)
     c = configurations[key]
     y = []
 
     for x in shared_x:
+        time1 = time.time()
         result = c["roll_fn"](f"{x}d{x}")
-        y.append(result)
+        time2 = time.time()
+        y.append((time2 - time1)*1000)
   
     plt.plot(
         shared_x, y, 
@@ -53,7 +57,7 @@ for key in configurations:
     
 # Configuration and Output
 plt.xlabel("Dice Roll (10^N)d(10^N)")
-plt.ylabel("Time (s)")
+plt.ylabel("Time (ms)")
 plt.title('Python Library comparison')
 
 plt.set_yscale('log')
