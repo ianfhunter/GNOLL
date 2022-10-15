@@ -9,7 +9,7 @@ on:
 jobs:
   paper:
     runs-on: ubuntu-latest
-    name: Paper Draft
+    name: Python Benchmark 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
