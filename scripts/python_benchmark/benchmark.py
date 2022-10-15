@@ -52,14 +52,16 @@ for key in configurations:
             result = c["roll_fn"](r)
             time2 = time.time()
             y.append((time2 - time1)*1000)
-            dx.append(X)
+            dx.append(x)
         except Exception:
             print(f"Err: {key}:{r}")
   
-    plt.plot(
-        dx, y, 
-        color=c["color"]
-    )
+
+    if len(dx):
+        plt.plot(
+            dx, y, 
+            color=c["color"]
+        )
     
 # Configuration and Output
 plt.xlabel("Dice Roll (10^N)d(10^N)")
