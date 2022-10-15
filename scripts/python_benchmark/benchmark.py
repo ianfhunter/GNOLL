@@ -11,6 +11,7 @@ def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
     return interpreter.roll([s])
 
+
 # X axis = Roll
 # Y axis = Time
 
@@ -62,7 +63,7 @@ for key in configurations:
 
     if len(dx):
         plt.plot(
-            dx, y, 
+            dx, y,
             color=c["color"]
         )
 
