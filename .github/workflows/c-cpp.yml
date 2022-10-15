@@ -28,7 +28,7 @@ jobs:
   
   build_win:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: Vampire/setup-wsl@v1
