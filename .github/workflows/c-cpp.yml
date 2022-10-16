@@ -25,7 +25,7 @@ jobs:
         make all
     - name: make test
       run: make test
-  
+
   build_win:
 
     runs-on: windows-2022
@@ -40,30 +40,12 @@ jobs:
           bison
           flex
           python3-pip
-          build-essential 
+          build-essential
           libssl-dev 
           libffi-dev
           python3.10-venv
-    
+
     - uses: actions/checkout@v2
-    - name: prep for pip
-      shell: wsl-bash {0}
-      run: |
-        #python3 -m venv env
-        #source env/bin/activate    
-        unset DISPLAY 
-    - name: pip installs
-      shell: wsl-bash {0}
-      run: |
-        echo "pip"source env/bin/activate    
-        #unset DISPLAY
-        #python3 -m pip  -vvv --no-cache-dir install --upgrade pip
-        # python3 -m pip install -r reqs/requirements.txt
-        #echo "Cppyy"
-        #python3 -m pip  -vvv --no-cache-dir  install cppyy --user
-        # echo "pytest"
-        #python3 -m pip  -vvv --no-cache-dir  install pytest --user
-        
     - name: test
       shell: wsl-bash {0}
       run: |
