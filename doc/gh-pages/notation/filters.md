@@ -19,15 +19,9 @@ nav_order: 11
 >
 >**Grindon**: Okay, let's roll. Please dice, be kind.  [8d20>4]
 >
->*GNOLL*: [{16, 1, 5, 8, 1, 9, 1, 13}]
+>*GNOLL*: [51]
 >
->**GM**: You escape the dungeon with 3 bags of gold!
->
->**Grindon The Brave**: Not so fast, dear GM. I see lots of 1s here. It is time for my special class feature. I knew it would come handy.
->
-> *GNOLL*: [{2, 4, 3}]
->
->**GM**: Lucky you! You were able to catch two more gold coins!
+>**GM**: You escape the dungeon with 51 golden coins!
 >
 >**Grindon The Brave**: I'm rich! I'm rich!
 
