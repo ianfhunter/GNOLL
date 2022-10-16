@@ -36,7 +36,7 @@ jobs:
 
       - name: Lib Install
         run: |
-            pip install GNOLL
+            pip install GNOLL matplotlib
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
@@ -48,7 +48,7 @@ jobs:
 
       - name: Benchmark
         run: |
-            python3 scripts/python_benchmark/benchmark.py
+            python3 scripts/python_benchmark/benchmark_cmd.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
