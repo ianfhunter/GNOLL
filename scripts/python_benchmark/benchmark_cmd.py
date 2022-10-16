@@ -11,7 +11,7 @@ troll_exec = os.path.join(
 
 def troll_roll(s):
     global troll_exec
-    subprocess.run([troll_exec, s])
+    subprocess.run([troll_exec, f"sum {s}"])
 
 # X axis = Roll
 # Y axis = Time
