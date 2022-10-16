@@ -14,10 +14,10 @@ time1 = 0  # Allow start time to be overridden when prep needed
 def troll_roll(s):
     global troll_exec
     global time1
-    with fopen("test.t") as f:
+    with open("test.t", "w") as f:
         f.write(f"sum {s}")
     time1 = time.time()
-    subprocess.run([troll_exec, "test.t"])
+    subprocess.run([troll_exec, "0", "test.t"])
 
 # X axis = Roll
 # Y axis = Time
