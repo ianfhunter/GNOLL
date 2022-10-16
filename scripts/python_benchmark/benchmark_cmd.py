@@ -17,8 +17,8 @@ def troll_roll(s):
     with open("test.t", "w") as f:
         f.write(f"sum {s}")
     time1 = time.time()
-    # Timeout after 10 mins
-    subprocess.run([troll_exec, "0", "test.t"], timeout=600)
+    # Timeout after 5 mins
+    subprocess.run([troll_exec, "0", "test.t"], timeout=300)
 
 # X axis = Roll
 # Y axis = Time
