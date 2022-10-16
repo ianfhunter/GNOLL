@@ -6,6 +6,7 @@ import sys
 from gnoll.parser import roll as gnoll_roll
 
 def troll_roll(s):
+    #TODO: pwd
     subprocess.run(["troll", s])
 
 # X axis = Roll
@@ -19,7 +20,7 @@ configurations = {
         "color": "b"
     },
     "TROLL": {
-        "roll_fn": rpgdice_roll,
+        "roll_fn": troll_roll,
         "color": "g"
     }
 }
