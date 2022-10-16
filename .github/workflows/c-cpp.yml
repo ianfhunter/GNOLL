@@ -41,7 +41,7 @@ jobs:
           flex
           python3-pip
           build-essential
-          libssl-dev 
+          libssl-dev
           libffi-dev
           python3.10-venv
 
