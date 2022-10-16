@@ -15,19 +15,17 @@ nav_order: 11
 >
 >**Grindon**: Finally, all this time training in the woods will serve me well. I surely can hold 8 of those nice bags. Let's roll 8d20.
 >
->**GM**: True but hold on. The bags are slippery. And small bags containing 4 coins or less may fall from your arms.
+>**GM**: True but hold on. The bags are slippery. And small bags containing 4 coins or less may fall from your arms. Do [8d20f>4]
 >
->**Grindon**: Okay, let's roll. Please dice, be kind.  [8d20>4]
+>*GNOLL*: [51]
 >
->*GNOLL*: [{16, 1, 5, 8, 1, 9, 1, 13}]
+>**GM**: You escape the dungeon with 51 gold coins!
 >
->**GM**: You escape the dungeon with 3 bags of gold!
+>**Grindon The Brave**: Not so fast, dear GM. It is time for my special class feature. Who knows how many 1s there was in that throw? I knew it would come handy. [8d20r==1f>4]
 >
->**Grindon The Brave**: Not so fast, dear GM. I see lots of 1s here. It is time for my special class feature. I knew it would come handy.
+>*GNOLL*: [52]
 >
-> *GNOLL*: [{2, 4, 3}]
->
->**GM**: Lucky you! You were able to catch two more gold coins!
+>**GM**: Lucky you! You were able to catch one more gold coin!
 >
 >**Grindon The Brave**: I'm rich! I'm rich!
 
