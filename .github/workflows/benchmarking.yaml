@@ -51,7 +51,6 @@ jobs:
 
       - name: Benchmark
         run: |
-            cd -
             python3 scripts/python_benchmark/benchmark_cmd.py
 
       - name: Upload
