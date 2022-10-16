@@ -2,12 +2,16 @@ import os
 import matplotlib.pyplot as plt
 import time
 import subprocess
-import sys
 from gnoll.parser import roll as gnoll_roll
 
+troll_exec = os.path.join(
+    os.path.expanduser('~'),
+    "troll"
+)
+
 def troll_roll(s):
-    #TODO: pwd
-    subprocess.run(["troll", s])
+    global troll_exec
+    subprocess.run([troll_exec, s])
 
 # X axis = Roll
 # Y axis = Time
@@ -61,5 +65,5 @@ plt.yscale('log')
 plt.legend(configurations.keys())
 
 this_folder = os.path.dirname(__file__)
-output_file = os.path.join(this_folder, "../../doc/JOSS/py.PNG")
+output_file = os.path.join(this_folder, "../../doc/JOSS/cpp.PNG")
 plt.savefig(output_file)
