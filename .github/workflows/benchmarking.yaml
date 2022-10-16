@@ -44,7 +44,9 @@ jobs:
             unzip Troll.zip
             sudo chmod +x compile.sh
             ./compile.sh
-            cat READ.ME
+            #cat READ.ME
+            ls -las
+            pwd
 
       - name: Benchmark
         run: |
