@@ -50,7 +50,8 @@ jobs:
             pwd
             git clone https://github.com/EBailey67/DiceParser
             cd DiceParser
-            make all
+            make
+            ls -las
 
       - name: Benchmark
         run: |
