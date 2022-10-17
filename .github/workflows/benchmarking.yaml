@@ -48,6 +48,9 @@ jobs:
             #cat READ.ME
             ls -las
             pwd
+            git clone https://github.com/EBailey67/DiceParser
+            cd DiceParser
+            make all
 
       - name: Benchmark
         run: |
