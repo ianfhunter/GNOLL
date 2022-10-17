@@ -47,16 +47,16 @@ all: clean yacc lex compile shared
 yacc:
 	mkdir -p build
 	if [ -z $(DEBUG) ]; then \
-		yacc -d src/grammar/dice.yacc; \
+		bison -d src/grammar/dice.yacc; \
 	else \
-		yacc -d src/grammar/dice.yacc --debug --verbose; \
+		bison -d src/grammar/dice.yacc --debug --verbose; \
 	fi
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
 
 lex:
-	lex src/grammar/dice.lex
+	flex src/grammar/dice.lex
 	mv lex.yy.c build/lex.yy.c
 
 # Executable
