@@ -1,0 +1,71 @@
+name: "Benchmarking Vs Similar libraries"
+
+on:
+  workflow_dispatch
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    name: Python Benchmark
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Lib Install
+        run: |
+            pip install -r scripts/python_benchmark/requirements.txt
+
+      - name: Benchmark
+        run: |
+            python3 scripts/python_benchmark/benchmark.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: py_benchmark
+          path: doc/JOSS/py.PNG
+  cpp:
+    runs-on: ubuntu-latest
+    name: C/C++/SML Benchmark
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Package Install
+        run: |
+            pip install GNOLL matplotlib
+            sudo add-apt-repository ppa:kflarsen/mosml
+            sudo apt update
+            sudo apt install mosml
+
+      - name: TROLL Install
+        run: |
+            cd ~
+            wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
+            unzip Troll.zip
+            sudo chmod +x compile.sh
+            ./compile.sh
+            ls -las
+            pwd
+
+      - name: DiceParser Install
+        run: |
+            cd ~
+            git clone https://github.com/EBailey67/DiceParser
+            cd DiceParser
+            make
+            cp diceparser ~/diceparser
+            ls -las
+            pwd
+
+      - name: Benchmark
+        run: |
+            python3 scripts/python_benchmark/benchmark_cmd.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: cpp_benchmark
+          path: doc/JOSS/cpp.PNG
+
+
