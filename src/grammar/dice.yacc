@@ -93,7 +93,7 @@ int roll_symbolic_die(unsigned int length_of_symbolic_array){
 %token RANGE
 
 /* Defines Precedence from Lowest to Highest */
-%left STATEMENT_SEPERATOR
+%left SYMBOL_SEPERATOR STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
 %left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
