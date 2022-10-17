@@ -4,7 +4,7 @@ import time
 import subprocess
 from gnoll.parser import roll as gnoll_roll
 
-TIMEOUT_MINS = 5
+TIMEOUT_MINS = 1
 TIMEOUT_SECS = TIMEOUT_MINS*60
 
 troll_exec = os.path.join(
