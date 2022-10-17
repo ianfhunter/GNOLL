@@ -46,11 +46,7 @@ all: clean yacc lex compile shared
 
 yacc:
 	mkdir -p build
-	if [ 1 ]; then \
-		bison -d src/grammar/dice.yacc; \
-	else \
-		bison -d src/grammar/dice.yacc --debug --verbose | true \
-	fi
+	bison -d src/grammar/dice.yacc --debug --verbose | true 
         cat y.output
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
