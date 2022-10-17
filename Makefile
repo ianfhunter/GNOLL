@@ -47,7 +47,7 @@ all: clean yacc lex compile shared
 yacc:
 	mkdir -p build
 	bison -d src/grammar/dice.yacc --debug --verbose | true 
-        cat y.output
+	cat y.output
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
