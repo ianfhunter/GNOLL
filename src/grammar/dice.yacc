@@ -17,6 +17,7 @@
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
 #include <errno.h>
+#include "pcg_basic.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -42,7 +43,11 @@ extern int gnoll_errno;
 
 int initialize(){
     if (!seeded){
-        srand((unsigned long)time(0)+(unsigned long)clock());
+        pcg32_srandom_r(&rng,
+          ((unsigned long)time(0)+(unsigned long)clock()) ^ (intptr_t)&printf,
+          54u
+        );
+        //srand((unsigned long)time(0)+(unsigned long)clock());
         seeded = 1;
     }
     return 0;
