@@ -11,6 +11,10 @@ troll_exec = os.path.join(
     os.path.expanduser('~'),
     "troll"
 )
+diceparser_exec = os.path.join(
+    os.path.expanduser('~'),
+    "diceparser"
+)
 
 time1 = 0  # Allow start time to be overridden when prep needed
 
@@ -25,7 +29,7 @@ def troll_roll(s):
     
 def dp_roll(s):
     global time1
-    subprocess.run(["./DiceParser/diceparser", s], timeout=TIMEOUT_SECS)
+    subprocess.run([diceparser_exec, s], timeout=TIMEOUT_SECS)
 
 # X axis = Roll
 # Y axis = Time
