@@ -2,10 +2,17 @@ import os
 import matplotlib.pyplot as plt
 import time
 import subprocess
-from gnoll.parser import roll as gnoll_roll
 
 TIMEOUT_MINS = 1
 TIMEOUT_SECS = TIMEOUT_MINS*60
+
+SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+m = os.path.join(SRC_DIR, "parser.py")
+spec = iu.spec_from_file_location("dt", m)
+dt = iu.module_from_spec(spec)
+spec.loader.exec_module(dt)
+
+gnoll_roll = dt.roll
 
 troll_exec = os.path.join(
     os.path.expanduser('~'),
