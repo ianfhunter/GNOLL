@@ -25,7 +25,7 @@ def troll_roll(s):
     
 def dp_roll(s):
     global time1
-    subprocess.run(["./a.out", s], timeout=TIMEOUT_SECS)
+    subprocess.run(["./DiceParser/diceparser", s], timeout=TIMEOUT_SECS)
 
 # X axis = Roll
 # Y axis = Time
