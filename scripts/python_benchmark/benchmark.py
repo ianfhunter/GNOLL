@@ -5,6 +5,7 @@ from rpg_dice import roll as rpgdice_roll
 from dice import roll as dice_roll
 from python_dice import PythonDiceInterpreter
 from d20 import roll as d20_roll
+import importlib.util as iu
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 m = os.path.join(SRC_DIR, "parser.py")
