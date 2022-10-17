@@ -33,6 +33,9 @@
 
 #include <inttypes.h>
 
+// Added: Ian Hunter, GNOLL 
+#def __cplusplus 0
+
 #if __cplusplus
 extern "C" {
 #endif
