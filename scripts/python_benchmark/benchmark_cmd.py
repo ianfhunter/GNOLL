@@ -26,9 +26,8 @@ def troll_roll(s):
     time1 = time.time()
     # Timeout after 5 mins
     v = subprocess.run([troll_exec, "0", "test.t"], timeout=TIMEOUT_SECS, capture_output=True)
-    print(v.returncode)
-    print("error" in v.stderr.decode())
-    print("error" in v.stdout.decode())
+    if (v.returncode):
+        raise ValueError
 
 def dp_roll(s):
     global time1
