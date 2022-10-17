@@ -4,6 +4,9 @@ import time
 import subprocess
 from gnoll.parser import roll as gnoll_roll
 
+TIMEOUT_MINS = 5
+TIMEOUT_SECS = TIMEOUT_MINS*60
+
 troll_exec = os.path.join(
     os.path.expanduser('~'),
     "troll"
@@ -18,7 +21,11 @@ def troll_roll(s):
         f.write(f"sum {s}")
     time1 = time.time()
     # Timeout after 5 mins
-    subprocess.run([troll_exec, "0", "test.t"], timeout=300)
+    subprocess.run([troll_exec, "0", "test.t"], timeout=TIMEOUT_SECS)
+    
+def dp_roll(s):
+    global time1
+    subprocess.run(["./a.out", s], timeout=TIMEOUT_SECS)
 
 # X axis = Roll
 # Y axis = Time
@@ -33,6 +40,10 @@ configurations = {
     "TROLL": {
         "roll_fn": troll_roll,
         "color": "g"
+    },
+    "DiceParser":{
+        "roll_fn": dp_roll,
+        "color": "r"
     }
 }
 
