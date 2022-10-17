@@ -34,24 +34,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Lib Install
+      - name: Package Install
         run: |
-            cd ~
             pip install GNOLL matplotlib
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
+            
+      - name: TROLL Install
+        run: |
+            cd ~
             wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
             unzip Troll.zip
             sudo chmod +x compile.sh
             ./compile.sh
-            #cat READ.ME
             ls -las
             pwd
+            
+      - name: DiceParser Install
+        run: |
+            cd ~
             git clone https://github.com/EBailey67/DiceParser
             cd DiceParser
             make
+            cp diceparser ~/diceparser
             ls -las
+            pwd
 
       - name: Benchmark
         run: |
