@@ -1,7 +1,7 @@
 name: "Benchmarking Vs Similar libraries"
 
 on:
-  workflow_dispatch 
+  workflow_dispatch
 
 jobs:
   python:
@@ -37,7 +37,7 @@ jobs:
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
-            
+
       - name: TROLL Install
         run: |
             cd ~
@@ -47,7 +47,7 @@ jobs:
             ./compile.sh
             ls -las
             pwd
-            
+
       - name: DiceParser Install
         run: |
             cd ~
