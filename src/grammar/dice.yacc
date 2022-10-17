@@ -29,7 +29,10 @@ int yywrap();
 char * concat_strings(char ** s, int num_s);
 int roll_verbose(char * s);
 
+#ifdef JUST_YACC
 int yydebug=1;
+#endif
+
 int verbose = 1;
 int seeded = 0;
 int write_to_file = 0;
