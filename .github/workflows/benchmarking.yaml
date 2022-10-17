@@ -13,6 +13,8 @@ jobs:
 
       - name: Lib Install
         run: |
+            python -m pip install -r reqs/requirements.txt
+            make all
             pip install -r scripts/python_benchmark/requirements.txt
 
       - name: Benchmark
@@ -33,7 +35,9 @@ jobs:
 
       - name: Package Install
         run: |
-            pip install GNOLL matplotlib
+            python -m pip install -r reqs/requirements.txt
+            make all
+            pip install matplotlib
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
