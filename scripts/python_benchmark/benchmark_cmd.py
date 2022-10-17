@@ -33,6 +33,7 @@ def dp_roll(s):
     global time1
     subprocess.run([diceparser_exec, s], timeout=TIMEOUT_SECS)
 
+
 # X axis = Roll
 # Y axis = Time
 
