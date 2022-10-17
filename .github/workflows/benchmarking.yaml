@@ -14,7 +14,7 @@ jobs:
       - name: Lib Install
         run: |
             python -m pip install -r reqs/requirements.txt
-            make all
+            make python 
             pip install -r scripts/python_benchmark/requirements.txt
 
       - name: Benchmark
@@ -36,7 +36,7 @@ jobs:
       - name: Package Install
         run: |
             python -m pip install -r reqs/requirements.txt
-            make all
+            make python 
             pip install matplotlib
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
