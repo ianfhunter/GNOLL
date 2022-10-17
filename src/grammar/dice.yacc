@@ -20,6 +20,7 @@
 #include "pcg_basic.h"
 
 #define UNUSED(x) (void)(x)
+#define __cplusplus 0
 
 int yylex(void);
 int yyerror(const char* s);
