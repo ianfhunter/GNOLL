@@ -1,13 +1,17 @@
 #include <stddef.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <stdio.h>
 #include "dice_logic.h"
 #include "shared_header.h"
 #include "safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
+#include "pcg_basic.h"
 
 #define EXPLOSION_LIMIT 50
+
+extern pcg32_random_t rng;
 
 int random_fn_run_count = 0;
 int global_mock_value = 0;
@@ -70,7 +74,7 @@ int random_fn(int small, int big){
 
     int value = 0;
     if (global_mock_style == NO_MOCK){
-        value = rand()%(big+1-small)+small;
+        value = (int)pcg32_boundedrand_r(&rng, INT_MAX)%(big+1-small)+small;
     }else{
         value = global_mock_value;
         mocking_tick();
