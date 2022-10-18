@@ -5,7 +5,7 @@ import time
 
 class BenchMarker():
 
-    TIMEOUT_MINUTES=5
+    TIMEOUT_MINUTES=1
     TIMEOUT_SECONDS = TIMEOUT_MINUTES*60
     AVERAGING_RUNS=50
 
