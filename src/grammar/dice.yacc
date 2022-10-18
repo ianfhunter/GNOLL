@@ -53,7 +53,6 @@ int initialize(){
             tick ^ (unsigned long int)&printf,
             54u
         );
-        //srand((unsigned long)time(0)+(unsigned long)clock());
         seeded = 1;
     }
     return 0;
@@ -1121,9 +1120,9 @@ int roll_verbose(char * s){
 }
 int roll_and_write(char * s, char * f){
     gnoll_errno = 0;
-    /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
+    verbose = 0;
     if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
 }
