@@ -5,19 +5,15 @@
 #include "uthash.h"
 #include "vector_functions.h"
 
-
-// TODO: It would be better to fit arbitrary length strings.
-
 struct macro_struct {
     int id;                    /* key */
     // char name[MAX_SYMBOL_LENGTH];
-    vec stored_dice_roll;
+    roll_params stored_dice_roll;
     UT_hash_handle hh;         /* makes this structure hashable */
 };
 
-// void register_macro(char * skey, vec *to_store);
-void register_macro(vec *macro_name, vec *to_store);
+void register_macro(vec *macro_name, roll_params *to_store);
 
-struct macro_struct *search_macros(char * skey, vec *to_store);
+struct macro_struct *search_macros(char * skey, roll_params *to_store);
 
 #endif
