@@ -9,7 +9,7 @@ struct macro_struct *macros = NULL; //Initialized to NULL (Importnat)
 extern int gnoll_errno;
 
 
-void register_macro(vec * macro_name, vec *to_store) {
+void register_macro(vec * macro_name, roll_params *to_store) {
     if(gnoll_errno){return;}
 
     char * skey = macro_name->symbols[0];
@@ -28,7 +28,7 @@ void register_macro(vec * macro_name, vec *to_store) {
     memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
 }
 
-struct macro_struct *search_macros(char * skey, vec *to_store) {
+void *search_macros(char * skey, roll_params *to_store) {
     if(gnoll_errno){return NULL;}
     (void)(to_store); // will be refactored later
 
@@ -38,5 +38,5 @@ struct macro_struct *search_macros(char * skey, vec *to_store) {
     struct macro_struct *s;
 
     HASH_FIND_INT(macros, &key, s);  /* s: output pointer */
-    return s;
+    to_store = &s->stored_dice_roll;
 }
