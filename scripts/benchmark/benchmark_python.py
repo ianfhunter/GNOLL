@@ -21,8 +21,6 @@ def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
     return interpreter.roll([s])
 
-"""
-
 print("======= Benchmark Begins ==========")
 bm = BenchMarker()
 
@@ -33,7 +31,7 @@ bm.addFunction("PythonDice", pythondice_roll, color="c", marker="s", hard_limit=
 bm.addFunction("d20", d20_roll, color="y", marker="1")
 
 bm.benchmark("Python Library comparison")
-
+"""
 this_folder = os.path.dirname(__file__)
 output_file = os.path.join(this_folder, "../../doc/JOSS/py.PNG")
 bm.save(output_file)
