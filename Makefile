@@ -39,7 +39,7 @@ PARSER:=bison --yacc
 endif
 
 # add flags and the include paths
-DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM}
+DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK}
 
 CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
 
