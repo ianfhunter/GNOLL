@@ -1,5 +1,3 @@
-print("======= Python Benchmark Begin ==========")
-
 import os
 from benchmark_core import BenchMarker
 
@@ -9,8 +7,6 @@ from dice import roll as dice_roll
 from python_dice import PythonDiceInterpreter
 from d20 import roll as d20_roll
 import importlib.util as iu
-
-"""
 
 print("======= Roll Wrappers ==========")
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
@@ -25,6 +21,7 @@ def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
     return interpreter.roll([s])
 
+"""
 
 print("======= Benchmark Begins ==========")
 bm = BenchMarker()
