@@ -16,16 +16,17 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 # -Wlogical-op
 
 USE_SECURE_RANDOM=0
-ifeq ($(USE_SECURE_RANDOM), 1) 
-@echo "Using Fast, but Cryptographically insecure random fn"
+ifeq ($(USE_SECURE_RANDOM), 1)
+$(shell echo "Using Fast, but Cryptographically insecure random fn")
 ARC4RANDOM:=-lbsd `pkg-config --libs libbsd`
-else 
-@echo "Using Cryptographically Secure, but slow random fn"
+else
+$(shell echo abc) "Using Cryptographically Secure, but slow random fn")
 ARC4RANDOM:=
 endif
 
 DEBUG=0
 ifeq ($(DEBUG), 1)
+$(shell echo DEBUG INFORMATION ENABLED)
 PARSER_DEBUG:=--debug --verbose
 else
 PARSER_DEBUG:=
@@ -33,9 +34,20 @@ endif
 
 YACC_FALLBACK=0
 ifeq ($(YACC_FALLBACK), 1)
+$(shell echo USING YACC)
 PARSER:=yacc
 else
+$(shell echo USING BISON)
 PARSER:=bison --yacc
+endif
+
+LEX_FALLBACK=0
+ifeq ($(LEX_FALLBACK), 1)
+$(shell echo USING LEX)
+LEXER:=lex
+else
+$(shell echo USING FLEX)
+LEXER:=flex
 endif
 
 # add flags and the include paths
@@ -64,7 +76,7 @@ yacc:
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
 lex:
-	flex src/grammar/dice.lex
+	$LEXER src/grammar/dice.lex
 	mv lex.yy.c build/lex.yy.c
 
 # Executable
