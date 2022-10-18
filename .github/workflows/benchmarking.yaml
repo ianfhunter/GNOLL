@@ -20,7 +20,7 @@ jobs:
 
       - name: Benchmark
         run: |
-            python3 scripts/benchmark/benchmark_python.py
+            python scripts/benchmark/benchmark_python.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
