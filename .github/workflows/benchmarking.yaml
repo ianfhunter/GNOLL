@@ -15,12 +15,11 @@ jobs:
         run: |
             python -m pip install --upgrade requests
             python -m pip install -r reqs/requirements.txt
+            python -m pip install -r scripts/benchmark/requirements.txt
             make python
-            pip install -r scripts/benchmark/requirements.txt
-
-      - name: Benchmark
-        run: |
-            python3 scripts/benchmark/benchmark.py
+      
+      - name: Run Benchmark
+        run: python scripts/benchmark/benchmark_python.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
@@ -39,7 +38,7 @@ jobs:
             python -m pip install --upgrade requests
             python -m pip install -r reqs/requirements.txt
             make python
-            pip install matplotlib
+            pip install matplotlib func_timeout
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
@@ -47,8 +46,10 @@ jobs:
       - name: TROLL Install
         run: |
             cd ~
+            ls -las
             wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
             unzip Troll.zip
+            patch Main.sml /home/runner/work/GNOLL/GNOLL/scripts/benchmark/troll_noprint.patch
             sudo chmod +x compile.sh
             ./compile.sh
             ls -las
@@ -71,7 +72,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
-          name: cpp_benchmark
-          path: doc/JOSS/cpp.PNG
+          name: cmd_benchmark
+          path: doc/JOSS/C++.PNG
 
 

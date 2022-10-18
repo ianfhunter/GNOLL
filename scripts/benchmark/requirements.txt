@@ -3,5 +3,4 @@ python-dice
 dice
 rpg-dice
 matplotlib
-numpy
 d20

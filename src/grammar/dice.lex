@@ -39,8 +39,7 @@
     vector.content = safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
 
-    vector.content[0] = safe_strtol(yytext, NULL, 10);
-    if(gnoll_errno){yyerror("String Err");}
+    vector.content[0] = fast_atoi(yytext);
 
     vector.dtype = NUMERIC;
     vector.length = 1;

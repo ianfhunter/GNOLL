@@ -69,6 +69,16 @@ char * safe_strdup( const char *str1 ){
     return result;
 }
 
+int fast_atoi( const char * str )
+{
+    //Ref: https://stackoverflow.com/a/16826908/1421555
+    int val = 0;
+    while( *str ) {
+        val = val*10 + (*str++ - '0');
+    }
+    return val;
+}
+
 long int safe_strtol (const char* str, char** endptr, int base){
     if (gnoll_errno){
         // If there was already an error,

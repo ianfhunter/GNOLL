@@ -1,11 +1,10 @@
 import os
-import matplotlib.pyplot as plt
-import time
 import subprocess
 import importlib.util as iu
 
-TIMEOUT_MINS = 5
-TIMEOUT_SECS = TIMEOUT_MINS*60
+from benchmark_core import BenchMarker
+
+# ======= Benchmark Imports ==========
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 m = os.path.join(SRC_DIR, "parser.py")
@@ -23,84 +22,28 @@ diceparser_exec = os.path.join(
     "diceparser"
 )
 
-time1 = 0  # Allow start time to be overridden when prep needed
-
 def troll_roll(s):
     global troll_exec
-    global time1
-    with open("test.t", "w") as f:
-        f.write(f"sum {s}")
-    time1 = time.time()
-    # Timeout after 5 mins
-    v = subprocess.run([troll_exec, "0", "test.t"], timeout=TIMEOUT_SECS, capture_output=True)
+
+    v = subprocess.run([troll_exec, "0", "test.t"], capture_output=True)
     if (v.returncode):
         raise ValueError
 
 def dp_roll(s):
     global time1
-    subprocess.run([diceparser_exec, s], timeout=TIMEOUT_SECS)
+    subprocess.run([diceparser_exec, s])
 
 
-# X axis = Roll
-# Y axis = Time
 
-shared_x = range(0, 8)
+# ======= Benchmark Begins ==========
+bm = BenchMarker(end_range=6)
 
-configurations = {
-    "GNOLL": {
-        "roll_fn": gnoll_roll,
-        "color": "b",
-        "marker": "s"
-    },
-    "TROLL": {
-        "roll_fn": troll_roll,
-        "color": "g",
-        "marker": "o"
-    },
-    "DiceParser":{
-        "roll_fn": dp_roll,
-        "color": "r",
-        "marker": "^"
-    }
-}
+bm.addFunction("GNOLL", gnoll_roll, color="b", marker="s")
+bm.addFunction("TROLL", troll_roll, color="g", marker="o")
+bm.addFunction("DiceParser", dp_roll, color="r", marker="^")
 
-
-# Data gather
-for key in configurations:
-    print("Rolling: ", key)
-    c = configurations[key]
-    y = []
-    dx = []
-
-    for x in shared_x:
-        n = 10**x
-        r = f"{n}d{n}"
-        time1 = time.time()
-        try:
-            result = c["roll_fn"](r)
-            time2 = time.time()
-            y.append((time2 - time1)*1000)
-            dx.append(x)
-        except Exception as e:
-            print(f"Err: {key}:{r}")
-            print("\t", e)
-            break
-
-    if len(dx):
-        plt.plot(
-            dx, y,
-            color=c["color"],
-            marker=c["marker"]
-        )
-
-# Configuration and Output
-plt.xlabel("Dice Roll (10^N)d(10^N)")
-plt.ylabel("Time (ms)")
-plt.title('Cmdline Library comparison')
-
-plt.yscale('log')
-plt.legend(configurations.keys())
+bm.benchmark("C/SML/C++ Library comparison")
 
 this_folder = os.path.dirname(__file__)
-output_file = os.path.join(this_folder, "../../doc/JOSS/cpp.PNG")
-plt.savefig(output_file)
+output_file = os.path.join(this_folder, "../../doc/JOSS/C++.PNG")
+bm.save(output_file)
