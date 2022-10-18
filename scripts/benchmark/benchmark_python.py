@@ -1,11 +1,5 @@
 import os
 from benchmark_core import BenchMarker
-
-print("======= Benchmark Imports ==========")
-from rpg_dice import roll as rpgdice_roll
-from dice import roll as dice_roll
-from python_dice import PythonDiceInterpreter
-from d20 import roll as d20_roll
 import importlib.util as iu
 
 print("======= Roll Wrappers ==========")
@@ -14,8 +8,13 @@ m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
 spec.loader.exec_module(dt)
-
 gnoll_roll = dt.roll
+
+print("======= Benchmark Imports ==========")
+from rpg_dice import roll as rpgdice_roll
+from dice import roll as dice_roll
+from python_dice import PythonDiceInterpreter
+from d20 import roll as d20_roll
 
 def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
