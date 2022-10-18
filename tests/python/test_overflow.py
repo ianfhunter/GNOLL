@@ -7,6 +7,8 @@ from util import Mock, roll
 @pytest.mark.parametrize("r",[
     ("2147483647+2147483647"),
     ("-2147483647-2147483647"),
+    ("2147483645+2147483644"),
+    ("-2147483640*2")
 ])
 def test_modulo(r):
     try:
