@@ -29,9 +29,9 @@ bm.addFunction("RPG Dice", rpgdice_roll, color="g", marker="^")
 bm.addFunction("Dice", dice_roll, color="r", marker="x")
 bm.addFunction("PythonDice", pythondice_roll, color="c", marker="s", hard_limit=10000000)
 bm.addFunction("d20", d20_roll, color="y", marker="1")
-
-bm.benchmark("Python Library comparison")
 """
+bm.benchmark("Python Library comparison")
+
 this_folder = os.path.dirname(__file__)
 output_file = os.path.join(this_folder, "../../doc/JOSS/py.PNG")
 bm.save(output_file)
