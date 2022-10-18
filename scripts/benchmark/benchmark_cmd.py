@@ -36,7 +36,7 @@ def dp_roll(s):
 
 
 # ======= Benchmark Begins ==========
-bm = BenchMarker(end_range=8)
+bm = BenchMarker(end_range=6)
 
 bm.addFunction("GNOLL", gnoll_roll, color="b", marker="s")
 bm.addFunction("TROLL", troll_roll, color="g", marker="o")
