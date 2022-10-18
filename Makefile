@@ -71,7 +71,7 @@ all: clean yacc lex compile shared
 
 yacc:
 	mkdir -p build
-	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG) \
+	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG) 
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
