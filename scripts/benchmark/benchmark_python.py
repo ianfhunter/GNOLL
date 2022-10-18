@@ -1,5 +1,5 @@
-
 print("======= Python Benchmark Begin ==========")
+"""
 import os
 from benchmark_core import BenchMarker
 
@@ -38,3 +38,4 @@ bm.benchmark("Python Library comparison")
 this_folder = os.path.dirname(__file__)
 output_file = os.path.join(this_folder, "../../doc/JOSS/py.PNG")
 bm.save(output_file)
+"""
