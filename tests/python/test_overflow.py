@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
+from util import roll, error_handled_by_gnoll
+
 
 
 @pytest.mark.parametrize("r",[
