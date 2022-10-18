@@ -251,7 +251,12 @@ math:
             new_vec.content = safe_calloc(sizeof(int), 1);
             if(gnoll_errno){ YYABORT; yyclearin;}
             new_vec.length = 1;
-            new_vec.content[0] = (v1+(v2-1))/ v2;
+            if(v2==0){
+                gnoll_errno=DIVIDE_BY_ZERO;
+                new_vec.content[0] = 0;
+            }else{
+                new_vec.content[0] = (v1+(v2-1))/ v2;
+            }
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
@@ -281,7 +286,12 @@ math:
                yyclearin;
             }
             new_vec.length = 1;
-            new_vec.content[0] = v1 / v2;
+            if(v2==0){
+                gnoll_errno=DIVIDE_BY_ZERO;
+                new_vec.content[0] = 0;
+            }else{
+                new_vec.content[0] = v1 / v2;
+            }
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
