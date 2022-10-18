@@ -13,11 +13,14 @@ jobs:
 
       - name: Lib Install
         run: |
-            pip install -r scripts/python_benchmark/requirements.txt
+            python -m pip install --upgrade requests
+            python -m pip install -r reqs/requirements.txt
+            make python
+            pip install -r scripts/benchmark/requirements.txt
 
       - name: Benchmark
         run: |
-            python3 scripts/python_benchmark/benchmark.py
+            python3 scripts/benchmark/benchmark.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
@@ -33,7 +36,10 @@ jobs:
 
       - name: Package Install
         run: |
-            pip install GNOLL matplotlib
+            python -m pip install --upgrade requests
+            python -m pip install -r reqs/requirements.txt
+            make python
+            pip install matplotlib
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml
@@ -60,7 +66,7 @@ jobs:
 
       - name: Benchmark
         run: |
-            python3 scripts/python_benchmark/benchmark_cmd.py
+            python3 scripts/benchmark/benchmark_cmd.py
 
       - name: Upload
         uses: actions/upload-artifact@v1

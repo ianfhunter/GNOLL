@@ -118,29 +118,28 @@ int * perform_roll(
     }
 
     do{
+        int end_value = (int)start_value+(int)die_sides-1;
         for(unsigned int i = 0; i < number_of_dice; i++){
-            // TODO: Don't hardcode 1
-            int end_value = (int)start_value+(int)die_sides-1;
-            if (die_sides == 0){
-                start_value = end_value = 0;
-            }
-
+            if (die_sides == 0){break;}
             // printf("Roll between %d and %d\n", start_value, end_value);
             single_die_roll = random_fn(start_value, end_value);
             all_dice_roll[i] += single_die_roll;
-
             exploded_result += single_die_roll;
         }
 
         explosion_condition_score += (int)number_of_dice*(int)die_sides;
-        if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
+        if(explode != NO_EXPLOSION){
+            if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
+                break;
+            }
+            if (explode == PENETRATING_EXPLOSION){
+                die_sides--;
+                if (die_sides == 0){ break; }
+            }
+            explosion_count++;
+        }else{
             break;
         }
-        if (explode == PENETRATING_EXPLOSION){
-            die_sides--;
-            if (die_sides == 0){ break; }
-        }
-        explosion_count++;
     }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
 
     return all_dice_roll;

@@ -29,7 +29,10 @@ int yywrap();
 char * concat_strings(char ** s, int num_s);
 int roll_verbose(char * s);
 
+#ifdef JUST_YACC
 int yydebug=1;
+#endif
+
 int verbose = 1;
 int seeded = 0;
 int write_to_file = 0;
@@ -50,7 +53,6 @@ int initialize(){
             tick ^ (unsigned long int)&printf,
             54u
         );
-        //srand((unsigned long)time(0)+(unsigned long)clock());
         seeded = 1;
     }
     return 0;
@@ -93,7 +95,7 @@ int roll_symbolic_die(unsigned int length_of_symbolic_array){
 %token RANGE
 
 /* Defines Precedence from Lowest to Highest */
-%left STATEMENT_SEPERATOR
+%left SYMBOL_SEPERATOR STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
 %left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
@@ -1118,9 +1120,9 @@ int roll_verbose(char * s){
 }
 int roll_and_write(char * s, char * f){
     gnoll_errno = 0;
-    /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
+    verbose = 0;
     if(verbose) printf("Rolling: %s\n", s);
     return roll(s);
 }
