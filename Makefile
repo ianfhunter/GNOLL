@@ -47,7 +47,7 @@ ifeq ($(LEX_FALLBACK), 1)
 LEXER:=lex
 else
 #$(shell echo USING FLEX)
-LEXER:=flex
+LEXER:=flex -f 
 endif
 
 # add flags and the include paths
