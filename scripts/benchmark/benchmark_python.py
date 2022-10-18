@@ -21,7 +21,7 @@ def pythondice_roll(s):
     return interpreter.roll([s])
 
 print("======= Benchmark Begins ==========")
-bm = BenchMarker()
+bm = BenchMarker(end_range=6)
 
 bm.addFunction("GNOLL", gnoll_roll, color="b", marker="o")
 bm.addFunction("RPG Dice", rpgdice_roll, color="g", marker="^")
