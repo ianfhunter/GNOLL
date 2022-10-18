@@ -20,6 +20,7 @@ def pythondice_roll(s):
     interpreter = PythonDiceInterpreter()
     return interpreter.roll([s])
 
+
 # X axis = Roll
 # Y axis = Time
 
@@ -64,7 +65,7 @@ for key in configurations:
 
     for x in shared_x:
         n = 10**x
-        
+
         if "limit" in c and n >= c["limit"]:
             break
 
