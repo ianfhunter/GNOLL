@@ -4,6 +4,7 @@
 
 #include "uthash.h"
 #include "vector_functions.h"
+#include "rolls/dice_rolls_structs.h"
 
 struct macro_struct {
     int id;                    /* key */
