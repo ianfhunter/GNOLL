@@ -19,8 +19,7 @@ jobs:
             pip install -r scripts/benchmark/requirements.txt
 
       - name: Benchmark
-        run: |
-            python scripts/benchmark/benchmark_python.py
+        run: python scripts/benchmark/benchmark_python.py
 
       - name: Upload
         uses: actions/upload-artifact@v1

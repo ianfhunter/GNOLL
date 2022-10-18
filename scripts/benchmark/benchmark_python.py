@@ -1,3 +1,5 @@
+
+print("======= Python Benchmark Begin ==========")
 import os
 from benchmark_core import BenchMarker
 

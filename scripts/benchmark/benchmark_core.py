@@ -1,7 +1,7 @@
-import time
 import func_timeout
 import matplotlib
 import matplotlib.pyplot as plt
+import time
 
 class BenchMarker():
 
