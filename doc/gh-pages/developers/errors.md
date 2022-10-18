@@ -19,3 +19,4 @@ nav_order: 13
 | 8           | IO_ERROR | Issue with printing |
 | 9           | MAX_LOOP_LIMIT_HIT | Looping / Recursion Limit reached |
 | 10          | SYNTAX_ERROR | The dice notation cannot be parsed and is likely malformed |
+| 11          | DIVIDE_BY_ZERO | Division by zero cannot be done |
