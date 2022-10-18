@@ -6,9 +6,6 @@ from dice import roll as dice_roll
 from python_dice import PythonDiceInterpreter
 from d20 import roll as d20_roll
 import importlib.util as iu
-import signal
-from contextlib import contextmanager
-
 import func_timeout
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
