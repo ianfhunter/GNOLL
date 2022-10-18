@@ -50,7 +50,7 @@ jobs:
             ls -las
             wget http://hjemmesider.diku.dk/~torbenm/Troll/Troll.zip
             unzip Troll.zip
-            patch Main.sml GNOLL/scripts/benchmark/troll_noprint.patch
+            patch Main.sml /home/runner/work/GNOLL/GNOLL/scripts/benchmark/troll_noprint.patch
             sudo chmod +x compile.sh
             ./compile.sh
             ls -las
