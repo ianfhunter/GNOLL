@@ -13,7 +13,6 @@ jobs:
 
       - name: Lib Install
         run: |
-            apt install libbsd-dev
             python -m pip install --upgrade requests
             python -m pip install -r reqs/requirements.txt
             make python 
