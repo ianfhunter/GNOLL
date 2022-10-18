@@ -17,9 +17,7 @@ jobs:
             python -m pip install -r reqs/requirements.txt
             make python
             pip install -r scripts/benchmark/requirements.txt
-
-      - name: Benchmark
-        run: python scripts/benchmark/benchmark_python.py
+            python scripts/benchmark/benchmark_python.py
 
       - name: Upload
         uses: actions/upload-artifact@v1
