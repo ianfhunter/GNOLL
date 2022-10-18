@@ -120,6 +120,7 @@ int * perform_roll(
     do{
         int end_value = (int)start_value+(int)die_sides-1;
         for(unsigned int i = 0; i < number_of_dice; i++){
+            if (die_sides == 0){break;}
             // printf("Roll between %d and %d\n", start_value, end_value);
             single_die_roll = random_fn(start_value, end_value);
             all_dice_roll[i] += single_die_roll;
