@@ -44,7 +44,7 @@ There are not many publications that specifically discuss dice notation. The mos
 
 # Example Notation
 
-There are too many different operations and combinations of dice notation to fit into the space constraints of this paper, but are discussed at length in the project's [GitHub Wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes), including rationale for each of the notation choices. A sample of the base dice notation has been described below.
+There are too many different operations and combinations of dice notation to fit into the space constraints of this paper, but are discussed at length in the project's [documentation](https://ianhunter.ie/GNOLL/), including rationale for each of the notation choices. A sample of the base dice notation has been described below.
 
 
 The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ where\ x,y\ \in{} \mathbb{Z}^{+}. $$ `x` dice are rolled with values from 1 to `y`. Where `x` is not specified, it is assumed that its value is 1. the exclusion of `y` produces an error (It is ambiguous to have a dice with no sides).
