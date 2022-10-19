@@ -1053,6 +1053,8 @@ custom_symbol_dice:
         if (new_vector.source.dtype == NUMERIC){
             // Careful, Newvector used already
             gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
             // roll_plain_sided_dice(
             //     &number_of_dice,
