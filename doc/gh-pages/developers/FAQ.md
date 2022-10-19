@@ -2,6 +2,7 @@
 title: FAQs
 published: true
 nav_order: 14
+parent: Technical Information
 ---
 
 # FAQ
