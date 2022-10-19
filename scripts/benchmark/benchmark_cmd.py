@@ -23,14 +23,12 @@ diceparser_exec = os.path.join(
 )
 
 def troll_roll(s):
-    global troll_exec
 
     v = subprocess.run([troll_exec, "0", "test.t"], capture_output=True)
     if (v.returncode):
         raise ValueError
 
 def dp_roll(s):
-    global time1
     subprocess.run([diceparser_exec, s])
 
 
