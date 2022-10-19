@@ -1,10 +1,11 @@
 ---
-title: Technical Setup
+title: Setup
+parent: Technical Information
 published: true
 nav_order: 0
 ---
 
-# Technical Setup
+# Setup
 ## OS Information
 
 - Linux - Tested on Ubuntu '18.
