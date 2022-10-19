@@ -21,7 +21,8 @@ def error_handled_by_gnoll(e):
     test = e.__class__.__name__ == "GNOLLException"
     if not test:
         print(e)
-    assert(test)
+    if not (test):
+        raise AssertionError
 
 
 def get_roll():
