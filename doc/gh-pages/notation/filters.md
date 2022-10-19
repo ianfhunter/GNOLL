@@ -2,6 +2,7 @@
 title: Conditions & Filters
 published: true
 nav_order: 11
+parent: Dice Notation
 ---
 
 # Conditions & Filters
