@@ -79,7 +79,7 @@ class BenchMarker():
                     total_time = sum(total_time)/count
                     y.append(total_time*1000)
 
-            if len(y):
+            if y:
                 plt.plot(
                     shared_x[0:len(y)], y,
                     color=c["color"],
