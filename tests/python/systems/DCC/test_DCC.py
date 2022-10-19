@@ -3,7 +3,6 @@
 from util import roll
 
 
-
 def test_dcc_weird_dice():
     result = roll("d3")
     assert result >= 1
