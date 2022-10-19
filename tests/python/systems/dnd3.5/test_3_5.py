@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
-from util import roll, Mock
+from util import roll
 
 def test_3_5_age():
     # Age for an old Gnome 
