@@ -2,6 +2,7 @@
 title: Numeric Dice
 published: true
 nav_order: 1
+parent: Dice Notation
 ---
 
 # Numeric Dice
