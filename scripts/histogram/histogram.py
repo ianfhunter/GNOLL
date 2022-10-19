@@ -15,7 +15,7 @@ roll = dt.roll
 import time
 
 def main():
-    
+
     results = []
     die = "10d200"
     minutes = 5
