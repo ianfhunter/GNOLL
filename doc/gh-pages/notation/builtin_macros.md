@@ -24,7 +24,7 @@ nav_order: 9
 >
 >**Grindon The Brave**: Well... That's not my favorite flavour...
 >
->**GM**: Crunchy! At least you didn't have to roll a dice that had a 1! That would have been a disaster! 
+>**GM**: Crunchy! At least you didn't have to roll a dice that had a 1! That would have been a disaster!
 
 
 ## Supported Macros
