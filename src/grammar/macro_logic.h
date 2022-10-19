@@ -14,6 +14,6 @@ struct macro_struct {
 
 void register_macro(vec *macro_name, roll_params *to_store);
 
-struct macro_struct *search_macros(char * skey, roll_params *to_store);
+void *search_macros(char * skey, roll_params *to_store);
 
 #endif
