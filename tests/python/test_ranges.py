@@ -3,10 +3,12 @@
 import pytest
 from util import Mock, roll
 
+
 def test_ranges():
     result = roll("d{10..40}")
     assert result >= 10
     assert result <= 40
+
 
 @pytest.mark.skip()
 def test_multiple_ranges():

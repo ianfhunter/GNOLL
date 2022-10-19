@@ -1,13 +1,15 @@
+import time
+
 import func_timeout
 import matplotlib
 import matplotlib.pyplot as plt
-import time
 
-class BenchMarker():
 
-    TIMEOUT_MINUTES=1
-    TIMEOUT_SECONDS = TIMEOUT_MINUTES*60
-    AVERAGING_RUNS=50
+class BenchMarker:
+
+    TIMEOUT_MINUTES = 1
+    TIMEOUT_SECONDS = TIMEOUT_MINUTES * 60
+    AVERAGING_RUNS = 50
 
     def __init__(self, start_range=0, end_range=10):
         self.competitors = []
@@ -20,7 +22,7 @@ class BenchMarker():
             "fn": f,
             "color": color,
             "marker": marker,
-            "hard_limit": hard_limit
+            "hard_limit": hard_limit,
         })
 
     def benchmark(self, title):
@@ -28,8 +30,8 @@ class BenchMarker():
         for c in self.competitors:
             print(f"Benchmark::{c['name']}")
 
-            shared_x = self.range     # X axis = Roll
-            y = []                    # Y axis = Time
+            shared_x = self.range  # X axis = Roll
+            y = []  # Y axis = Time
 
             for x in shared_x:
                 n = 10**x
@@ -59,9 +61,9 @@ class BenchMarker():
                     # ------ BENCHMARK ------
                     time1 = time.time()
                     try:
-                        func_timeout.func_timeout(
-                            self.TIMEOUT_SECONDS, roll_fn, args=[r]
-                        )
+                        func_timeout.func_timeout(self.TIMEOUT_SECONDS,
+                                                  roll_fn,
+                                                  args=[r])
                     except (Exception, func_timeout.FunctionTimedOut) as e:
                         print(f"Err: {c['name']}:{r}")
                         print("\t", e)
@@ -69,38 +71,37 @@ class BenchMarker():
                     time2 = time.time()
                     # ------ END BENCHMARK ------
                     if not errored:
-                        total_time.append(time2 - time1)                    
+                        total_time.append(time2 - time1)
                         count += 1
                         if sum(total_time) > self.TIMEOUT_SECONDS:
                             # Looping has taken too long. Cut short.
                             break
 
                 if count:
-                    total_time = sum(total_time)/count
-                    y.append(total_time*1000)
+                    total_time = sum(total_time) / count
+                    y.append(total_time * 1000)
 
             if len(y):
-                plt.plot(
-                    shared_x[0:len(y)], y,
-                    color=c["color"],
-                    marker=c["marker"]
-                )
+                plt.plot(shared_x[0:len(y)],
+                         y,
+                         color=c["color"],
+                         marker=c["marker"])
 
         # Configuration and Output
         plt.xlabel("Dice Roll (10^N)d(10^N)")
         plt.ylabel("Time (ms)")
         plt.title(self.title)
 
-        plt.yscale('log')
+        plt.yscale("log")
         # plt.ticklabel_format(style="plain", axis="y")
         ax = plt.gca()
 
         ax.get_yaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
         ax.get_xaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
 
-        legend_labels = [c['name'] for c in self.competitors]
+        legend_labels = [c["name"] for c in self.competitors]
         plt.legend(legend_labels)
 
     def save(self, filename):
