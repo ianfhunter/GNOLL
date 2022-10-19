@@ -28,7 +28,7 @@ void register_macro(vec * macro_name, roll_params *to_store) {
     memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
 }
 
-void *search_macros(char * skey, roll_params *to_store) {
+void search_macros(char * skey, roll_params *to_store) {
     if(gnoll_errno){return NULL;}
     (void)(to_store); // will be refactored later
 
