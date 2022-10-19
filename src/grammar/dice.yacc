@@ -138,7 +138,7 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
-        register_macro(&key, &value);
+        register_macro(&key, &value.source);
         
         if(gnoll_errno){
             YYABORT;
@@ -1016,7 +1016,7 @@ custom_symbol_dice:
         char * name = vector.symbols[0];
 
         vec new_vector;
-        search_macros(name, &new_vector);
+        search_macros(name, &new_vector.source);
 
         // TODO: Apply rerolls!
 
