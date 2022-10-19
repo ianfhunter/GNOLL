@@ -5,4 +5,6 @@ nav_order: 2
 has_children: true
 ---
 
-(Under Construction)
+# Etc
+
+A collection of miscellaneous topics.
