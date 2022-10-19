@@ -1,7 +1,7 @@
 ---
 title: Built-In Macros
 published: true
-
+parent: Dice Notation
 nav_order: 9
 ---
 
@@ -14,17 +14,17 @@ nav_order: 9
 >
 >**GM**: You miraculously hit the ground without dying. But your blow to the head makes you delirious.
 >
->**Grindon**: Oh look, fairies wearing armors painted with Zodiac signs!
+>**Grindon**: Oh look, fairies wearing armor painted with Zodiac signs!
 >
->**GM**: Yes... (sighs) As they fly around your head, you decide to eat one of them.
+>**GM**: Yes... (sigh) As they fly around your head, you decide to eat one of them.
 >
->**Grindon**: Okay that's a #PLANETS die.
+>**Grindon**: Okay that's a #PLANETS die?
 >
 >*GNOLL*: [Mars]
 >
->**Grindon The Brave**: Well... not my favorite flavour...
+>**Grindon The Brave**: Well... That's not my favorite flavour...
 >
->**GM**: Entirely understandable. At least you didn't have to roll a dice that had a 1! That would have been a disaster! Anyway, don't worry, something better is coming.
+>**GM**: Crunchy! At least you didn't have to roll a dice that had a 1! That would have been a disaster! 
 
 
 ## Supported Macros
