@@ -2,7 +2,7 @@
 title: Drop/Keep Notation
 published: true
 nav_order: 5
-
+parent: Dice Notation
 ---
 
 # Drop/Keep Notation
