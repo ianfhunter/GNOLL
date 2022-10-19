@@ -23,6 +23,7 @@ void roll_plain_sided_dice(
 
     // e.g. d4, it is implied that it is a single dice
     roll_params rp;
+    rp.dtype = NUMERIC;
     rp.number_of_dice = num_dice;
     rp.die_sides = sides;
     rp.explode = explode;
@@ -42,6 +43,7 @@ void roll_symbolic_dice(vec * x, vec * y, vec * result){
 
     // e.g. d4, it is implied that it is a single dice
     roll_params rp;
+    rp.dtype = SYMBOLIC;
     rp.number_of_dice = num_dice ;
     rp.die_sides = y->length;
     rp.explode = 0;
@@ -51,5 +53,4 @@ void roll_symbolic_dice(vec * x, vec * y, vec * result){
     int * indexes = do_roll(rp);
 
     extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
-
 }

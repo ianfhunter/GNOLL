@@ -36,3 +36,10 @@ def test_builtins():
               if macro == "":
                   continue
               roll(f"{macro};d20") 
+
+
+def test_multiple_calls_macros():
+    r = "#TEST=d{A,B,C,D};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
+    result = roll(r)
+    print(result)
+    assert result == 33

@@ -95,17 +95,26 @@ void print_vec(vec vector){
     if (gnoll_errno){ return ; }
 
     printf("Vector Size: %u\n", vector.length);
-    printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
-        printf("Content:\n");
+        printf("Vector Type: NUMERIC\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            printf(" %d\n", vector.content[i]);
+            printf("\t%d\n", vector.content[i]);
         }
     }else{
+        printf("Vector Type: SYMBOLIC\n");
         printf("Symbols:\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            printf(" %c\n", vector.symbols[i][0]);
+            printf("\t- %s\n", vector.symbols[i]);
         }
+    }
+    if(0){
+        // printf("Reroll Info:\n");
+        // printf(" - number_of_dice: %u\n", vector.source.number_of_dice);
+        // printf(" - die_sides: %u\n", vector.source.die_sides);
+        // printf(" - explode: %u\n", vector.source.explode);
+        // // printf(" - symbol_pool: %x\n", (unsigned int)vector.source.symbol_pool);
+        // printf(" - start_value: %u\n", vector.source.start_value);
+        // printf(" - dtype: %u\n", vector.source.dtype);
     }
 }
 

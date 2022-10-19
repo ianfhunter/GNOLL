@@ -478,6 +478,8 @@ collapsing_dice_operations:
         if (vector.dtype == SYMBOLIC){
             // Symbolic, Impossible to collapse
             $<values>$ = vector;
+            
+
         }
         else{
             // Collapse if Necessary
@@ -955,14 +957,17 @@ custom_symbol_dice:
     NUMBER die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
 
+        vec left = $<values>1;
+        vec right = $<values>4;
+
         // TODO: Multiple ranges
 
         vec result_vec;
         initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
 
         roll_symbolic_dice(
-            &$<values>1,
-            &$<values>4,
+            &left,
+            &right,
             &result_vec
         );
         $<values>$ = result_vec;
@@ -1000,10 +1005,23 @@ custom_symbol_dice:
 
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
+
+            roll_params rp = {
+                .number_of_dice=(unsigned int)number_of_dice.content[0],
+                .die_sides=csd.length,
+                .dtype=SYMBOLIC,
+                .start_value=0,
+                .symbol_pool=(char **)malloc(csd.length * MAX_SYMBOL_LENGTH)
+            };
+            for(unsigned int i = 0; i != csd.length; i++){
+                rp.symbol_pool[i] = csd.symbols[i];
+            }
+            result_vec.source = rp;
+
             // Custom Symbol
             roll_symbolic_dice(
                 &number_of_dice,
-                &$<values>3,
+                &csd,
                 &result_vec
             );
         }
@@ -1017,9 +1035,43 @@ custom_symbol_dice:
 
         vec new_vector;
         search_macros(name, &new_vector.source);
+        // Resolve Roll
 
-        // TODO: Apply rerolls!
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = (int)new_vector.source.number_of_dice;
 
+        vec die_sides;
+        // TODO: Extract to function.
+        initialize_vector(&die_sides, NUMERIC, 1);
+        die_sides.content[0] = (int)new_vector.source.die_sides;
+        die_sides.length = new_vector.source.die_sides;
+        for(unsigned int i = 0; i != die_sides.length; i++){
+            die_sides.symbols[i] = new_vector.source.symbol_pool[i];
+        }
+
+        if (new_vector.source.dtype == NUMERIC){
+            // Careful, Newvector used already
+            gnoll_errno = NOT_IMPLEMENTED;
+            initialize_vector(&new_vector, new_vector.source.dtype, 1);
+            // roll_plain_sided_dice(
+            //     &number_of_dice,
+            //     &die_sides,
+            //     &new_vector,
+            //     new_vector.source.explode,
+            //     1
+            // );
+        }else{
+            
+            // Careful, Newvector used already
+            initialize_vector(&new_vector, new_vector.source.dtype, 1);
+
+            roll_symbolic_dice(
+                &number_of_dice,
+                &die_sides,
+                &new_vector
+            );
+        }
         $<values>$ = new_vector;
     }
     ;
