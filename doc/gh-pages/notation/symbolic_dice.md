@@ -2,7 +2,7 @@
 title: Symbolic Dice
 published: true
 nav_order: 2
-
+parent: Dice Notation
 ---
 
 # Symbolic Dice
