@@ -2,6 +2,7 @@
 
 from util import roll
 
+
 def test_bw_dsix_over_four():
     # TODO: x6, for all stats
     result = roll("6d6f>=4c")

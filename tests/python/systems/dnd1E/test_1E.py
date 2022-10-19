@@ -2,6 +2,7 @@
 
 from util import roll
 
+
 def test_virtual_dice():
     # roll a d2 using a d6
     result = roll(r"1d6\3")
