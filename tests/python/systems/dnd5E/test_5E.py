@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
-from util import roll, Mock
+from util import roll
 
 def test_5e_roll_for_character_stats():
     # TODO: x6, for all stats

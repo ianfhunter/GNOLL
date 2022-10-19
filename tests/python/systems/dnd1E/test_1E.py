@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
-from util import roll, Mock
+from util import roll
 
 def test_virtual_dice():
     # roll a d2 using a d6
