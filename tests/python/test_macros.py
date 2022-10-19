@@ -38,8 +38,15 @@ def test_builtins():
               roll(f"{macro};d20") 
 
 
-def test_multiple_calls_macros():
-    r = "#TEST=d{A,B,C,D};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
+def test_multiple_internal_calls_macros():
+    r = "#TEST=d{A,B,C,D};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TESTzg g ;"
     result = roll(r)
     print(result)
-    assert result == 33
+    assert not all(result == result[0])
+
+def test_multiple_external_calls_macros():
+    result = []
+    r = "#TEST=d{A,B,C,D};@TEST;"
+    result.append(roll(r))
+    print(result)
+    assert not all(result == result[0])
