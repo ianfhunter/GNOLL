@@ -93,7 +93,6 @@ class BenchMarker:
         plt.title(self.title)
 
         plt.yscale("log")
-        # plt.ticklabel_format(style="plain", axis="y")
         ax = plt.gca()
 
         ax.get_yaxis().set_major_formatter(
