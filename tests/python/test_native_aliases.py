@@ -2,6 +2,7 @@
 
 from util import roll
 
+
 def test_percentile_dice():
     result = roll("d%")
     assert result > 0
