@@ -6,7 +6,7 @@ from util import Mock, roll, error_handled_by_gnoll
 def test_random_roll():
     # Prove Random roll Is Working
     a = b = c = d = False
-    for x in range(100):
+    for _ in range(100):
         result = roll("d4")
 
         assert result > 0
