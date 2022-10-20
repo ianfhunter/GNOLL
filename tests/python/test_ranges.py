@@ -10,7 +10,7 @@ def test_ranges():
     assert result <= 40
 
 
-@pytest.mark.skip()
+@pytest.mark.skip("not implemented")
 def test_multiple_ranges():
     result = roll("2d{10..15}")
     assert result >= 20
