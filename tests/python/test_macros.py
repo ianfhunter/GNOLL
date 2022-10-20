@@ -4,7 +4,7 @@ import os
 from glob import glob
 
 import pytest
-from util import Mock, roll, error_handled_by_gnoll
+from util import Mock, error_handled_by_gnoll, roll
 
 
 @pytest.mark.parametrize(
@@ -26,11 +26,13 @@ def test_macro_usage(r, out, mock):
     assert result == out
 
 
-@pytest.mark.skip("Currently no support for rerolling operations like Addition")
+@pytest.mark.skip("Currently no support for rerolling operations like Addition"
+                  )
 def test_d66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
+
 
 def test_multiple_internal_calls_macros():
     r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
