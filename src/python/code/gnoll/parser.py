@@ -14,12 +14,11 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
-
     def __init__(self, v):
         Exception.__init__(self, v)
 
 
-def RaiseGNOLLError(value):
+def raise_gnoll_error(value):
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
@@ -57,7 +56,7 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
     if return_code != 0:
-        RaiseGNOLLError(return_code)
+        raise_gnoll_error(return_code)
 
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
