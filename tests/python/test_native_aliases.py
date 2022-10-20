@@ -2,9 +2,6 @@
 
 from util import roll
 
-# TODO: better tests for percentage dice - not fool proof
-
-
 def test_percentile_dice():
     result = roll("d%")
     assert result > 0
