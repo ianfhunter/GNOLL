@@ -23,3 +23,6 @@ callouts:
   gnoll:
     title: 🐺 GNOLL
     color: grey-lt
+  question:
+    title: ❓ Question
+    color: pink
