@@ -4,39 +4,39 @@ import pytest
 from util import Mock, error_handled_by_gnoll, roll
 
 
-@pytest.mark.parametrize("FD", ["df", "dF", "df.2", "dF.2"])
-def test_traditional_fate(FD):
+@pytest.mark.parametrize("fd", ["df", "dF", "df.2", "dF.2"])
+def test_traditional_fate(fd):
     # Assure Symbols are correct
     # TODO: Maybe it would be better to return "PLUS", "BLANK" "MINUS"?
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == 0
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "-"
 
 
-@pytest.mark.parametrize("FD", ["df.1", "dF.1"])
-def test_large_alt_fate_low(FD):
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+@pytest.mark.parametrize("fd", ["df.1", "dF.1"])
+def test_large_alt_fate_low(fd):
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == 0
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == 0
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 0
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=4)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=4)
     assert result == 0
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=5)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=5)
     assert result == "-"
 
 
-@pytest.mark.parametrize("FD", ["df.3", "dF.9"])
-def test_large_alt_fate_high(FD):
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+@pytest.mark.parametrize("fd", ["df.3", "dF.9"])
+def test_large_alt_fate_high(fd):
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(FD, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == "-"
 
 
