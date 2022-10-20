@@ -89,13 +89,6 @@ def test_dice_numbers():
     assert result == 6
 
 
-@pytest.mark.skip()
-def test_multi_d_numbers():
-    result = roll("3d3d3", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    # 2d3 -> 2,2 -> 4
-    assert result == 4
-
-
 def test_distinct_dice():
     result = roll("d6;d6", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == [2, 2]
