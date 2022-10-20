@@ -19,7 +19,7 @@ def main():
 
     results = []
     die = "10d200"
-    
+
     for _ in range(10000):
         r = roll(die)
         results.append(r[1])
