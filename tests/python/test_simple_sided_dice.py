@@ -31,7 +31,7 @@ def test_random_roll():
 def test_random_roll_zeros():
     # Prove Random roll Is Working
     a = b = c = d = False
-    for x in range(100):
+    for _ in range(100):
         result = roll("z4")
 
         assert result > -1
