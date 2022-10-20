@@ -23,11 +23,11 @@ def pythondice_roll(s):
 print("======= Benchmark Begins ==========")
 bm = BenchMarker(end_range=8)
 
-bm.addFunction("GNOLL", gnoll_roll, color="b", marker="o")
-bm.addFunction("RPG Dice", rpgdice_roll, color="g", marker="^")
-bm.addFunction("Dice", dice_roll, color="r", marker="x")
-bm.addFunction("PythonDice", pythondice_roll, color="c", marker="s", hard_limit=100000000)
-bm.addFunction("d20", d20_roll, color="y", marker="1")
+bm.add_function("GNOLL", gnoll_roll, color="b", marker="o")
+bm.add_function("RPG Dice", rpgdice_roll, color="g", marker="^")
+bm.add_function("Dice", dice_roll, color="r", marker="x")
+bm.add_function("PythonDice", pythondice_roll, color="c", marker="s", hard_limit=100000000)
+bm.add_function("d20", d20_roll, color="y", marker="1")
 
 bm.benchmark("Python Library comparison")
 
