@@ -24,7 +24,7 @@ def main():
         r = roll(die)
         results.append(r[1])
 
-    k2, p = stats.normaltest(results)
+    _, p = stats.normaltest(results)
     print("P-Value:", p)
 
     plt.hist(results, bins=1000)
