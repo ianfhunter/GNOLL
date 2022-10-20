@@ -17,6 +17,13 @@ class BenchMarker:
         self.plt = plt
 
     def add_function(self, name, f, color="r", marker="o", hard_limit=None):
+        '''Adds a function to the list of functions to benchmark.
+        @name - Human Readable name
+        @f - function
+        @colir - colour of plot points in graph 
+        @marker - shape of plot points in graph
+        @hard_limit - don't execute benchmarks above this tolerance
+        '''
         self.competitors.append({
             "name": name,
             "fn": f,
