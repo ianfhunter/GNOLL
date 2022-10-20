@@ -1,6 +1,6 @@
 import pytest
 
-@pytest.mark.skip()
+@pytest.mark.skip("only to be tested manually")
 def test_pip_package():
     from gnoll.parser import roll
 
