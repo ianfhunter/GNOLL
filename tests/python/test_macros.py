@@ -43,7 +43,7 @@ def test_multiple_internal_calls_macros():
 def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
-    for x in range(20):
+    for _ in range(20):
         result.append(roll(r))
     assert not all(r == result[0] for r in result)
 
