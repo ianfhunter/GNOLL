@@ -1,2 +1,0 @@
-- name: "Quality:Memory Leaks"
-  uses: solareenlo/42valgrind-action@v1.0.3
