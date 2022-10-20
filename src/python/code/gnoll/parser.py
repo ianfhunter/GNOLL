@@ -1,18 +1,20 @@
 import os
 import sys
 import tempfile
+from ctypes import *
 from importlib import reload
+
 # import cppyy
 from wurlitzer import pipes
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
-from ctypes import *
 libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+
     def __init__(self, v):
         Exception.__init__(self, v)
 
@@ -42,7 +44,6 @@ def raise_gnoll_error(value):
         raise err
 
 
-
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
@@ -51,18 +52,18 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     die_file = temp.name
     os.remove(die_file)
 
-    out_file = str(die_file).encode('ascii')
+    out_file = str(die_file).encode("ascii")
     if verbose:
         print("Rolling: ", s)
         print("Output in:", out_file)
 
     with pipes() as (out, err):
-        s = s.encode('ascii')
+        s = s.encode("ascii")
         if mock is None:
             return_code = libc.roll_and_write(s, out_file)
         else:
             return_code = libc.mock_roll(s, out_file, mock, mock_const)
-    
+
     if verbose:
         print("---stdout---")
         print(out.read())
