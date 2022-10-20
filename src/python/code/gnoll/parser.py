@@ -75,15 +75,15 @@ def roll(s, verbose=False, mock=None, mock_const=3):
         lines = f.readlines()
         results = lines[0].split(";")[:-1]
 
-        if isinstance(results, list) and len(results) == 1:
-            results = results[0]
+    if isinstance(results, list) and len(results) == 1:
+        results = results[0]
 
-        if isinstance(results, list):
-            if all(x.lstrip("-").isdigit() for x in results):
-                results = [int(o) for o in results]
+    if isinstance(results, list):
+        if all(x.lstrip("-").isdigit() for x in results):
+            results = [int(o) for o in results]
 
-        elif results.lstrip("-").isdigit():
-            results = int(results)
+    elif results.lstrip("-").isdigit():
+        results = int(results)
 
     return int(return_code), results
 
