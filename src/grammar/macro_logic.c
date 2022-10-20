@@ -45,7 +45,7 @@ void register_macro(vec * macro_name, roll_params *to_store) {
         s = (struct macro_struct*)safe_malloc(sizeof *s);
 
         if(gnoll_errno){return;}
-        s->id = key;
+        s->id = (int)key;
         HASH_ADD_INT(macros, id, s);  /* id: name of key field */
     }
 
