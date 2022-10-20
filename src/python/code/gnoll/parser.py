@@ -2,7 +2,6 @@ import os
 import sys
 import tempfile
 from ctypes import cdll
-from importlib import reload
 
 from wurlitzer import pipes
 
