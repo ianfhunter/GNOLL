@@ -7,7 +7,6 @@ from util import Mock, error_handled_by_gnoll, roll
 @pytest.mark.parametrize("fd", ["df", "dF", "df.2", "dF.2"])
 def test_traditional_fate(fd):
     # Assure Symbols are correct
-    # TODO: Maybe it would be better to return "PLUS", "BLANK" "MINUS"?
     result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
     result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
