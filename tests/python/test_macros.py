@@ -37,7 +37,7 @@ def test_builtins():
     here = os.path.dirname(os.path.abspath(__file__))
     d = os.path.join(here, "../../builtins/*.dice")
     for name in glob(d):
-        with open(name) as f:
+        with open(name, encoding='utf_8') as f:
             for macro in f.readlines():
                 macro = macro.strip("\n")
                 if macro == "":
