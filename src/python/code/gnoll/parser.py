@@ -19,7 +19,11 @@ class GNOLLException(Exception):
         Exception.__init__(self, v)
 
 
-def RaiseGNOLLError(value):
+def raise_gnoll_error(value):
+    """Translates a GNOLL return code into a python
+    Exception, which is then raised
+    @value return code of GNOLL
+    """
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
@@ -57,14 +61,13 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
     if return_code != 0:
-        RaiseGNOLLError(return_code)
+        raise_gnoll_error(return_code)
 
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
 
-        if isinstance(results, list):
-            if len(results) == 1:
-                results = results[0]
+        if isinstance(results, list) and len(results) == 1:
+            results = results[0]
 
         if isinstance(results, list):
             if all(x.lstrip("-").isdigit() for x in results):

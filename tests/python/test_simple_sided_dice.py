@@ -31,7 +31,7 @@ def test_random_roll():
 def test_random_roll_zeros():
     # Prove Random roll Is Working
     a = b = c = d = False
-    for x in range(100):
+    for _ in range(100):
         result = roll("z4")
 
         assert result > -1
@@ -87,13 +87,6 @@ def test_bad_simple_rolls(r):
 def test_dice_numbers():
     result = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)
     assert result == 6
-
-
-@pytest.mark.skip()
-def test_multi_d_numbers():
-    result = roll("3d3d3", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
-    # 2d3 -> 2,2 -> 4
-    assert result == 4
 
 
 def test_distinct_dice():
