@@ -43,7 +43,7 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
+def roll(s, verbose=False, mock=None, mock_const=3):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
