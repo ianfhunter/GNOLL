@@ -42,7 +42,7 @@ def test_reroll_dropkeep_until(r, out, mock, mock_const):
     result = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
-@pytest.mark.skip("combined logic not verified yet')
+@pytest.mark.skip("combined logic not verified yet")
 @pytest.mark.parametrize("r,out,mock,mock_const",[
     ("2d20khr==2", 3, Mock.RETURN_INCREMENTING, 1),
 ])
