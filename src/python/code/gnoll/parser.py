@@ -1,7 +1,7 @@
 import os
 import sys
 import tempfile
-from ctypes import *
+from ctypes import cdll
 from importlib import reload
 
 # import cppyy
