@@ -14,12 +14,15 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
-
     def __init__(self, v):
         Exception.__init__(self, v)
 
 
 def raise_gnoll_error(value):
+    """Translates a GNOLL return code into a python
+    Exception, which is then raised
+    @value return code of GNOLL 
+    """
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
