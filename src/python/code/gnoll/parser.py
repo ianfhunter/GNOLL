@@ -14,6 +14,7 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+
     def __init__(self, v):
         Exception.__init__(self, v)
 
