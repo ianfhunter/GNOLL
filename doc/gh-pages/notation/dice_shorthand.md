@@ -2,6 +2,7 @@
 title: Dice Shorthand
 published: true
 nav_order: 3
+parent: Dice Notation
 ---
 
 # Dice Shorthand

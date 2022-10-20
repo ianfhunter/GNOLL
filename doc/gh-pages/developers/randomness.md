@@ -2,6 +2,7 @@
 title: Randomness
 published: true
 nav_order: 14
+parent: Technical Information
 ---
 
 # Randomness

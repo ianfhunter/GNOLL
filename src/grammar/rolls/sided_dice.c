@@ -39,7 +39,6 @@ void roll_symbolic_dice(vec * x, vec * y, vec * result){
 
     // XdY
     unsigned int num_dice = (unsigned int)x->content[0];
-    if(gnoll_errno) return;
 
     // e.g. d4, it is implied that it is a single dice
     roll_params rp;

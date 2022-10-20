@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
-from util import Mock, roll
-
-# TODO: better tests for percentage dice - not fool proof
+from util import roll
 
 
 def test_percentile_dice():

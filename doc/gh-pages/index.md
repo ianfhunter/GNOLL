@@ -1,3 +1,8 @@
+---
+title: Home
+published: true
+nav_order: 0
+---
 # GNOLL
 
 Welcome to GNOLL's documentation! [Looking for the Git repository?](https://github.com/ianfhunter/GNOLL)

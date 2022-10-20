@@ -2,6 +2,7 @@
 title: Custom Macros
 published: true
 nav_order: 10
+parent: Dice Notation
 ---
 
 # Custom Macros
@@ -19,9 +20,9 @@ nav_order: 10
 >
 >**Grindon**: Okay! Com'on die.
 >
->*GNOLL*: [something else]
+>*GNOLL*: [SOMETHING_ELSE]
 >
->**Grindon The Brave**: I am starting to feel weird...
+>**Grindon The Brave**: Uhoh.. I am starting to feel weird...
 
 ## Usage
 

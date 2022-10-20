@@ -2,6 +2,7 @@
 title: Dice Counting
 published: true
 nav_order: 8
+parent: Dice Notation
 ---
 
 # Dice Counting

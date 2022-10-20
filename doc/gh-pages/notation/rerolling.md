@@ -2,6 +2,7 @@
 title: Rerolling
 published: true
 nav_order: 7
+parent: Dice Notation
 ---
 
 # Rerolling

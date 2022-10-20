@@ -1,7 +1,8 @@
-import cppyy
 import os
 import sys
 import tempfile
+
+import cppyy
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
@@ -13,11 +14,16 @@ cppyy.load_library(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+
     def __init__(self, v):
         Exception.__init__(self, v)
 
 
-def RaiseGNOLLError(value):
+def raise_gnoll_error(value):
+    """Translates a GNOLL return code into a python
+    Exception, which is then raised
+    @value return code of GNOLL
+    """
     d = [
         None,
         GNOLLException("BAD_ALLOC"),
@@ -30,7 +36,7 @@ def RaiseGNOLLError(value):
         GNOLLException("IO_ERROR"),
         GNOLLException("MAX_LOOP_LIMIT_HIT"),
         GNOLLException("SYNTAX_ERROR"),
-        GNOLLException ("DIVIDE_BY_ZERO")
+        GNOLLException("DIVIDE_BY_ZERO"),
     ]
     err = d[value]
     if err is not None:
@@ -38,11 +44,15 @@ def RaiseGNOLLError(value):
 
 
 def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
-    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_", suffix=".die", delete=False)
+    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
+                                       suffix=".die",
+                                       delete=False)
     die_file = temp.name
     os.remove(die_file)
 
     f = str(die_file)
+    if verbose:
+        print("Rolling: ", s)
 
     cppyy.gbl.reset_mocking()
     if mock is None:
@@ -50,15 +60,14 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     else:
         return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
 
-    if(return_code != 0):
-        RaiseGNOLLError(return_code)
+    if return_code != 0:
+        raise_gnoll_error(return_code)
 
     with open(temp.name) as f:
         results = f.readlines()[0].split(";")[:-1]
 
-        if isinstance(results, list):
-            if len(results) == 1:
-                results = results[0]
+        if isinstance(results, list) and len(results) == 1:
+            results = results[0]
 
         if isinstance(results, list):
             if all(x.lstrip("-").isdigit() for x in results):

@@ -1,6 +1,7 @@
 ---
 title: Error Codes
 published: true
+parent: Technical Information
 nav_order: 13
 ---
 
