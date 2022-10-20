@@ -16,7 +16,7 @@ class BenchMarker:
         self.range = range(start_range, end_range)
         self.plt = plt
 
-    def addFunction(self, name, f, color="r", marker="o", hard_limit=None):
+    def add_function(self, name, f, color="r", marker="o", hard_limit=None):
         self.competitors.append({
             "name": name,
             "fn": f,
