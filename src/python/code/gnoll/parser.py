@@ -3,6 +3,7 @@ import sys
 import tempfile
 from ctypes import cdll
 from importlib import reload
+
 from wurlitzer import pipes
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
@@ -12,6 +13,7 @@ libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+
     def __init__(self, v):
         Exception.__init__(self, v)
 
