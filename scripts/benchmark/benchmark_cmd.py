@@ -32,9 +32,9 @@ def dp_roll(s):
 # ======= Benchmark Begins ==========
 bm = BenchMarker(end_range=6)
 
-bm.addFunction("GNOLL", gnoll_roll, color="b", marker="s")
-bm.addFunction("TROLL", troll_roll, color="g", marker="o")
-bm.addFunction("DiceParser", dp_roll, color="r", marker="^")
+bm.add_function("GNOLL", gnoll_roll, color="b", marker="s")
+bm.add_function("TROLL", troll_roll, color="g", marker="o")
+bm.add_function("DiceParser", dp_roll, color="r", marker="^")
 
 bm.benchmark("C/SML/C++ Library comparison")
 

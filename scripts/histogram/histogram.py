@@ -1,6 +1,5 @@
 import importlib.util as iu
 import os
-import time
 
 import matplotlib.pyplot as plt
 from scipy import stats
@@ -20,10 +19,7 @@ def main():
 
     results = []
     die = "10d200"
-    minutes = 5
-    t_end = time.time() + 60 * minutes
 
-    # while time.time() < t_end:
     for _ in range(10000):
         r = roll(die)
         results.append(r[1])
