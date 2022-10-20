@@ -43,6 +43,8 @@ def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
     os.remove(die_file)
 
     f = str(die_file)
+    if verbose:
+       print("Rolling: ", s)
 
     cppyy.gbl.reset_mocking()
     if mock is None:
