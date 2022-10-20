@@ -42,7 +42,7 @@ def test_multidie():
 
 
 def test_fate_addition():
-    # Addition = Concatination
+    # Addition for symbolic dice is Concatination
     result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == ['-', '-']
 
