@@ -37,12 +37,12 @@ def test_builtins():
     here = os.path.dirname(os.path.abspath(__file__))
     d = os.path.join(here, "../../builtins/*.dice")
     for name in glob(d):
-       with open(name, encoding="utf_8") as f:
-           for macro in f.readlines():
-              macro = macro.strip("\n")
-              if macro == "":
-                  continue
-              roll(f"{macro};d20") 
+        with open(name, encoding="utf_8") as f:
+            for macro in f.readlines():
+                macro = macro.strip("\n")
+                if macro == "":
+                    continue
+                roll(f"{macro};d20")
 
 
 def test_multiple_internal_calls_macros():
@@ -50,6 +50,7 @@ def test_multiple_internal_calls_macros():
     result = roll(r)
     print(result)
     assert not all(result == result[0])
+
 
 def test_multiple_external_calls_macros():
     result = []
