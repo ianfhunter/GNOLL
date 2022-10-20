@@ -19,6 +19,3 @@ def test_count(r, out, mock, mock_const):
 def test_count_unique(r, out, mock, mock_const):
     result = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
-
-
-# TODO: vectors?
