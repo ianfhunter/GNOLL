@@ -18,3 +18,8 @@ GNOLL does not support special characters natively, due to limitations of depend
 > How can I use GNOLL to draw cards out of a deck?
 
 GNOLL does not support tracking the state of internal counters between executions and/or statements, so cannot remove cards from a pool. We recommend doing passing reduced options to GNOLL from your script as cards/dice sides are revealed.
+
+{: .question }
+> GNOLL uses a slightly different syntax than what I would like
+
+While we have put a lot of thought into GNOLL's choices of characters, You may change which characters are used for operations in the 'dice.lex' file.
