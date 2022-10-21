@@ -1174,7 +1174,7 @@ function:
     FN_POOL LBRACE term SYMBOL_SEPERATOR term RBRACE{
         make_pool($<values>2, $<values>4);
     }
-}
+;
 
 
 %%
