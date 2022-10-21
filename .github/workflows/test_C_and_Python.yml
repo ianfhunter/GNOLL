@@ -1,4 +1,4 @@
-name: "Test: C/C++/Python"
+name: "Test: C/Python"
 
 on:
   push:

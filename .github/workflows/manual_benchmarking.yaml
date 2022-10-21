@@ -1,4 +1,4 @@
-name: "Benchmarking Vs Similar libraries"
+name: "Manual: Benchmarking"
 
 on:
   workflow_dispatch

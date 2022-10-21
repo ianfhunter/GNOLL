@@ -1,4 +1,4 @@
-name: "Test: Packaging: PyPi"
+name: "Test: GNOLL from PyPi"
 
 on:
   push:

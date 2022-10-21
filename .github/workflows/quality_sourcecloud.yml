@@ -1,4 +1,4 @@
-name: Build
+name: "Quality: SourceCloud"
 on:
   push:
     branches:
