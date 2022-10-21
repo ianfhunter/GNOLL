@@ -4,6 +4,11 @@
 #include "shared_header.h"
 #include "rolls/dice_enums.h"
 
+
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
+
 // Mocking Util
 void reset_mocking();
 void init_mocking(MOCK_METHOD mock_style, int starting_value);
@@ -23,5 +28,9 @@ int * do_roll(
     roll_params rp
 );
 
+
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif

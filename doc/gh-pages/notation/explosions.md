@@ -2,6 +2,7 @@
 title: Explosions & Implosions
 published: true
 nav_order: 6
+parent: Dice Notation
 ---
 
 # Explosions & Implosions

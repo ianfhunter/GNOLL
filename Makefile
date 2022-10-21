@@ -6,7 +6,18 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2
+	-Wundef -Wno-unused -Wformat=2 \
+        -ffast-math
+
+# === DEBUG OPTIONS ====
+DEBUG=0
+ifeq ($(DEBUG), 1)
+OPT=-O0 -g  # Valgrind info
+PARSER_DEBUG:=--debug --verbose
+PARSER_DEBUG:=
+else
+PARSER_DEBUG:=
+endif
 
 # YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
@@ -14,11 +25,40 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 # EMCC fails for the following, so disabled:
 # -Wlogical-op
 
+USE_SECURE_RANDOM=0
+ifeq ($(USE_SECURE_RANDOM), 1)
+#$(shell echo "Using Fast, but Cryptographically insecure random fn")
+ARC4RANDOM:=-lbsd `pkg-config --libs libbsd`
+else
+#$(shell echo abc) "Using Cryptographically Secure, but slow random fn")
+ARC4RANDOM:=
+endif
+
+YACC_FALLBACK=0
+ifeq ($(YACC_FALLBACK), 1)
+#$(shell echo USING YACC)
+PARSER:=yacc
+else
+#$(shell echo USING BISON)
+PARSER:=bison --yacc
+endif
+
+LEX_FALLBACK=0
+ifeq ($(LEX_FALLBACK), 1)
+#$(shell echo USING LEX)
+LEXER:=lex
+else
+#$(shell echo USING FLEX)
+LEXER:=flex -f -Ca -Ce -Cr 
+endif
+
 # add flags and the include paths
-CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT)
+DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK}
+
+CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
 
 # add flags to build for shared library and add include paths
-SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D))
+SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS)
 
 # generate list of c files and remove y.tab.c from src/grammar directory
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c)) build/lex.yy.c build/y.tab.c
@@ -33,26 +73,22 @@ all: clean yacc lex compile shared
 
 yacc:
 	mkdir -p build
-	if [ -z $(DEBUG) ]; then \
-		yacc -d src/grammar/dice.yacc; \
-	else \
-		yacc -d src/grammar/dice.yacc --debug --verbose; \
-	fi
+	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG) 
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
-
 lex:
-	lex src/grammar/dice.lex
+	$(LEXER) src/grammar/dice.lex
 	mv lex.yy.c build/lex.yy.c
 
 # Executable
 compile:
-	$(CC) $(CFLAGS) $(CFILES)
+	# FLEX creates warning when run with -f
+	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) -Wno-error=implicit-function-declaration
 
 # Shared Lib
 shared: $(OBJECTS)
-	$(CC) -shared -o build/dice.so $^
+	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM)
 
 # Linux
 	mv ./a.out build/dice | true

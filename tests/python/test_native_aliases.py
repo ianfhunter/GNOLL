@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
-import pytest
-from util import Mock, roll
-
-# TODO: better tests for percentage dice - not fool proof
+from util import roll
 
 
 def test_percentile_dice():
     result = roll("d%")
     assert result > 0
     assert result <= 100
+
 
 def test_coin_as_dice():
     result = roll("dc")

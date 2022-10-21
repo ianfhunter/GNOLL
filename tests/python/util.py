@@ -1,10 +1,12 @@
-from enum import Enum
 import importlib.util as iu
 import os
 import subprocess
+from enum import Enum
 
-GRAMMAR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/grammar"))
-SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+GRAMMAR_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../src/grammar"))
+SRC_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 first_run = True
@@ -16,6 +18,13 @@ class Mock(Enum):
     RETURN_INCREMENTING = 2
     RETURN_DECREMENTING = 3
     RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE = 4
+
+
+def error_handled_by_gnoll(e):
+    test = e.__class__.__name__ == "GNOLLException"
+    if not test:
+        print(e)
+        raise AssertionError
 
 
 def get_roll():
@@ -34,14 +43,14 @@ def get_roll():
 
 def make_all():
     cmd = "make all -s -C " + MK_DIR
-    cmd = cmd.split(' ')
+    cmd = cmd.split(" ")
     parser = subprocess.Popen(cmd, shell=False)
     parser.communicate()
     if parser.returncode:
         raise ValueError
 
 
-def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
+def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False):
     global first_run
 
     if first_run:
@@ -52,7 +61,10 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3):
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    exit_code, result = dice_tower_roll(s, mock=mock_mode.value, quiet=False, mock_const=mock_const)
+    exit_code, result = dice_tower_roll(s,
+                                        mock=mock_mode.value,
+                                        mock_const=mock_const,
+                                        verbose=verbose)
 
     if exit_code:
         raise ValueError

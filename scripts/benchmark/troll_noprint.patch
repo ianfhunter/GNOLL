@@ -1,0 +1,10 @@
+172,177c172,173
+< 	   if n<0 then (Distribution.maxiterations := ~n;
+< 		        printDist (Distribution.distribDice dice))
+< 	   else if n=0 then printDist (Distribution.distribDice dice)
+< 	   else
+< 	     hd (List.tabulate
+< 	         (n,fn x => printVal (Interpreter.rollDice dice)))
+---
+> 
+> 	   printVal (Interpreter.rollDice dice)

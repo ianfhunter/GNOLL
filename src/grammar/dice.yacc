@@ -17,6 +17,7 @@
 #include "rolls/sided_dice.h"
 #include "rolls/condition_checking.h"
 #include <errno.h>
+#include "pcg_basic.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -26,15 +27,19 @@ int yywrap();
 
 //TODO: move to external file 
 char * concat_strings(char ** s, int num_s);
-int roll_verbose(char * s);
 
+#ifdef JUST_YACC
 int yydebug=1;
+#endif
+
 int verbose = 1;
 int seeded = 0;
 int write_to_file = 0;
 char * output_file;
 
 extern int gnoll_errno;
+extern struct macro_struct *macros;
+pcg32_random_t rng;
 
 // Registers
 
@@ -42,7 +47,12 @@ extern int gnoll_errno;
 
 int initialize(){
     if (!seeded){
-        srand((unsigned int)time(0));
+        unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
+        pcg32_srandom_r(
+            &rng,
+            tick ^ (unsigned long int)&printf,
+            54u
+        );
         seeded = 1;
     }
     return 0;
@@ -56,15 +66,6 @@ int sum(int * arr, unsigned int len){
     int result = 0;
     for(unsigned int i = 0; i != len; i++) result += arr[i];
     return result;
-}
-
-int roll_numeric_die(int small, int big){
-    return random_fn(small, big);
-}
-
-int roll_symbolic_die(unsigned int length_of_symbolic_array){
-    // Returns random index into symbolic array
-    return roll_numeric_die(0, (int)length_of_symbolic_array -1);
 }
 
 %}
@@ -86,7 +87,7 @@ int roll_symbolic_die(unsigned int length_of_symbolic_array){
 %token FN_MAX FN_MIN FN_ABS FN_POOL
 
 /* Defines Precedence from Lowest to Highest */
-%left STATEMENT_SEPERATOR
+%left SYMBOL_SEPERATOR STATEMENT_SEPERATOR
 %left PLUS MINUS
 %left MULT DIVIDE_ROUND_DOWN DIVIDE_ROUND_UP MODULO
 %left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
@@ -105,6 +106,9 @@ int roll_symbolic_die(unsigned int length_of_symbolic_array){
 
 gnoll_statement:
     gnoll_statement STATEMENT_SEPERATOR gnoll_statement
+    |
+    /* Allow ending with ; */
+    gnoll_statement STATEMENT_SEPERATOR
     |
     sub_statement
     |
@@ -129,7 +133,7 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
-        register_macro(&key, &value);
+        register_macro(&key, &value.source);
         
         if(gnoll_errno){
             YYABORT;
@@ -242,7 +246,12 @@ math:
             new_vec.content = safe_calloc(sizeof(int), 1);
             if(gnoll_errno){ YYABORT; yyclearin;}
             new_vec.length = 1;
-            new_vec.content[0] = (v1+(v2-1))/ v2;
+            if(v2==0){
+                gnoll_errno=DIVIDE_BY_ZERO;
+                new_vec.content[0] = 0;
+            }else{
+                new_vec.content[0] = (v1+(v2-1))/ v2;
+            }
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
@@ -272,7 +281,12 @@ math:
                yyclearin;
             }
             new_vec.length = 1;
-            new_vec.content[0] = v1 / v2;
+            if(v2==0){
+                gnoll_errno=DIVIDE_BY_ZERO;
+                new_vec.content[0] = 0;
+            }else{
+                new_vec.content[0] = v1 / v2;
+            }
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
@@ -459,6 +473,8 @@ collapsing_dice_operations:
         if (vector.dtype == SYMBOLIC){
             // Symbolic, Impossible to collapse
             $<values>$ = vector;
+            
+
         }
         else{
             // Collapse if Necessary
@@ -781,7 +797,7 @@ die_roll:
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
-
+        
         roll_plain_sided_dice(
             &number_of_dice,
             &$<values>2,
@@ -936,14 +952,17 @@ custom_symbol_dice:
     NUMBER die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
 
+        vec left = $<values>1;
+        vec right = $<values>4;
+
         // TODO: Multiple ranges
 
         vec result_vec;
         initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
 
         roll_symbolic_dice(
-            &$<values>1,
-            &$<values>4,
+            &left,
+            &right,
             &result_vec
         );
         $<values>$ = result_vec;
@@ -981,10 +1000,25 @@ custom_symbol_dice:
 
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
+
+            roll_params rp = {
+                .number_of_dice=(unsigned int)number_of_dice.content[0],
+                .die_sides=csd.length,
+                .dtype=SYMBOLIC,
+                .start_value=0,
+                .symbol_pool=(char **)safe_calloc(csd.length , sizeof(char *))
+            };
+            for(unsigned int i = 0; i != csd.length; i++){
+                rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
+                memcpy(rp.symbol_pool[i], csd.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
+                // rp.symbol_pool[i] = csd.symbols[i];
+            }
+            result_vec.source = rp;
+
             // Custom Symbol
             roll_symbolic_dice(
                 &number_of_dice,
-                &$<values>3,
+                &csd,
                 &result_vec
             );
         }
@@ -997,10 +1031,53 @@ custom_symbol_dice:
         char * name = vector.symbols[0];
 
         vec new_vector;
-        search_macros(name, &new_vector);
+        search_macros(name, &new_vector.source);
+        if(gnoll_errno){YYABORT;yyclearin;}
+        // Resolve Roll
 
-        // TODO: Apply rerolls!
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = (int)new_vector.source.number_of_dice;
 
+        vec die_sides;
+        // TODO: Extract to function.
+        light_initialize_vector(&die_sides, NUMERIC, 1);
+        die_sides.content[0] = (int)new_vector.source.die_sides;
+        die_sides.length = new_vector.source.die_sides;
+        die_sides.symbols = NULL;
+
+        if (new_vector.source.dtype == NUMERIC){
+            // Careful, Newvector used already
+
+            initialize_vector(&new_vector, new_vector.source.dtype, 1);
+            roll_plain_sided_dice(
+                &number_of_dice,
+                &die_sides,
+                &new_vector,
+                new_vector.source.explode,
+                1
+            );
+        }else if (new_vector.source.dtype == SYMBOLIC){
+            free_2d_array(&die_sides.symbols, die_sides.length);
+            safe_copy_2d_chararray_with_allocation(
+                &die_sides.symbols,
+                new_vector.source.symbol_pool,
+                die_sides.length,
+                MAX_SYMBOL_LENGTH
+            );
+
+            // Careful, Newvector used already
+            initialize_vector(&new_vector, new_vector.source.dtype, 1);
+
+            roll_symbolic_dice(
+                &number_of_dice,
+                &die_sides,
+                &new_vector
+            );
+        }else{
+            printf("Complex Dice Equation. Only dice definitions supported. No operations\n");
+            gnoll_errno = NOT_IMPLEMENTED;
+        }
         $<values>$ = new_vector;
     }
     ;
@@ -1047,7 +1124,6 @@ csd:
         vec new_vector;
         initialize_vector(&new_vector, SYMBOLIC, spread);
         for (int i = 0; i <= (e-s); i++){
-            // new_vector.symbols[i] = s+i;
             sprintf(new_vector.symbols[i], "%d", s+i);
         }
         $<values>$ = new_vector;
@@ -1109,35 +1185,28 @@ extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 int roll(char * s){
+    if (verbose){
+        printf("Trying to roll '%s'\n", s);
+    }
     initialize();
-    verbose = 0;
     YY_BUFFER_STATE buffer = yy_scan_string(s);
     yyparse();
     yy_delete_buffer(buffer);
     return gnoll_errno;
 }
-int roll_verbose(char * s){
-    initialize();
-    verbose = 1;
-    YY_BUFFER_STATE buffer = yy_scan_string(s);
 
-    yyparse();
-
-    yy_delete_buffer(buffer);
-    return gnoll_errno;
-}
 int roll_and_write(char * s, char * f){
     gnoll_errno = 0;
-    /* Write the result to file. */
     write_to_file = 1;
     output_file = f;
-    if(verbose) printf("Rolling: %s\n", s);
-    return roll(s);
+    verbose = 0;
+    int return_code = roll(s);
+    /* free(macros); */
+    return return_code;
 }
-int mock_roll(char * s, char * f, int mock_value, int quiet, int mock_const){
+int mock_roll(char * s, char * f, int mock_value, int mock_const){
     gnoll_errno = 0;
     init_mocking((MOCK_METHOD)mock_value, mock_const);
-    verbose = !quiet;
     return roll_and_write(s, f);
 }
 
@@ -1169,7 +1238,8 @@ char * concat_strings(char ** s, int num_s){
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
-    return roll_verbose(s);
+    verbose = 1;
+    return roll(s);
 }
 
 int yyerror(s)

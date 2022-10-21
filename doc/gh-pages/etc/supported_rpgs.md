@@ -2,6 +2,7 @@
 title: Supported TTRPGs
 published: true
 nav_order: 11
+parent: Etc
 ---
 
 # {{page.title}}

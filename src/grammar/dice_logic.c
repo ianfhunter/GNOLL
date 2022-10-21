@@ -1,13 +1,21 @@
 #include <stddef.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <stdio.h>
 #include "dice_logic.h"
 #include "shared_header.h"
 #include "safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
+#include "pcg_basic.h"
+
+#if USE_SECURE_RANDOM==1
+#include <bsd/stdlib.h>
+#endif
 
 #define EXPLOSION_LIMIT 50
+
+extern pcg32_random_t rng;
 
 int random_fn_run_count = 0;
 int global_mock_value = 0;
@@ -21,8 +29,9 @@ void reset_mocking(){
     global_mock_style=NO_MOCK;
 }
 void init_mocking(MOCK_METHOD mock_style, int starting_value){
+    random_fn_run_count = 0;
     global_mock_value = starting_value;
-    global_mock_style=mock_style;
+    global_mock_style = mock_style;
 }
 
 void mocking_tick(){
@@ -70,7 +79,12 @@ int random_fn(int small, int big){
 
     int value = 0;
     if (global_mock_style == NO_MOCK){
-        value = rand()%(big+1-small)+small;
+        #if USE_SECURE_RANDOM==1
+            value = (int)arc4random_uniform(INT_MAX);
+        #else
+            value = (int)pcg32_boundedrand_r(&rng, INT_MAX);
+        #endif
+        value = value%(big+1-small)+small;
     }else{
         value = global_mock_value;
         mocking_tick();
@@ -105,29 +119,28 @@ int * perform_roll(
     }
 
     do{
+        int end_value = (int)start_value+(int)die_sides-1;
         for(unsigned int i = 0; i < number_of_dice; i++){
-            // TODO: Don't hardcode 1
-            int end_value = (int)start_value+(int)die_sides-1;
-            if (die_sides == 0){
-                start_value = end_value = 0;
-            }
-
+            if (die_sides == 0){break;}
             // printf("Roll between %d and %d\n", start_value, end_value);
             single_die_roll = random_fn(start_value, end_value);
             all_dice_roll[i] += single_die_roll;
-
             exploded_result += single_die_roll;
         }
 
         explosion_condition_score += (int)number_of_dice*(int)die_sides;
-        if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
+        if(explode != NO_EXPLOSION){
+            if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0){
+                break;
+            }
+            if (explode == PENETRATING_EXPLOSION){
+                die_sides--;
+                if (die_sides == 0){ break; }
+            }
+            explosion_count++;
+        }else{
             break;
         }
-        if (explode == PENETRATING_EXPLOSION){
-            die_sides--;
-            if (die_sides == 0){ break; }
-        }
-        explosion_count++;
     }while(explode && (exploded_result == explosion_condition_score) && explosion_count < EXPLOSION_LIMIT);
 
     return all_dice_roll;
