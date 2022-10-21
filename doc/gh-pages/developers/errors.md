@@ -21,3 +21,4 @@ nav_order: 13
 | 9           | MAX_LOOP_LIMIT_HIT | Looping / Recursion Limit reached |
 | 10          | SYNTAX_ERROR | The dice notation cannot be parsed and is likely malformed |
 | 11          | DIVIDE_BY_ZERO | Division by zero cannot be done |
+| 12          | UNDEFINED_MACRO | Attempt to access macro that was not defined | 

@@ -9,6 +9,7 @@ typedef struct roll_params{
     EXPLOSION_TYPE explode;
     char ** symbol_pool;
     int start_value;
+    DIE_TYPE dtype;
 } roll_params;
 
 #endif

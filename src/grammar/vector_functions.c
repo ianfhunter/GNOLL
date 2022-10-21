@@ -10,6 +10,19 @@
 
 extern int gnoll_errno;
 
+void light_initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
+    vector->dtype = dt;
+    vector->length = number_of_items;
+
+
+    if (dt == NUMERIC){
+        vector->content = safe_calloc(number_of_items, sizeof (int));
+        if(gnoll_errno) return;
+    }
+    else if (dt == SYMBOLIC){
+        vector->symbols = safe_calloc(1, sizeof(char **));
+    }
+}
 void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
     if (gnoll_errno){ return ; }
     
@@ -36,10 +49,12 @@ void concat_symbols(char ** arr1, unsigned int len1, char ** arr2,unsigned int l
 
     for(unsigned int i = 0; i != len1; i++){
         strcpy(new_arr[i], arr1[i]);
+        // free(arr1[i]);
     }
     for(unsigned int i = 0; i != len2; i++){
         unsigned int idx = len1+i;
         strcpy(new_arr[idx], arr2[i]);
+        // free(arr2[i]);
     }
 }
 
@@ -95,17 +110,26 @@ void print_vec(vec vector){
     if (gnoll_errno){ return ; }
 
     printf("Vector Size: %u\n", vector.length);
-    printf("Vector Type: %d\n", vector.dtype);
     if(vector.dtype == NUMERIC){
-        printf("Content:\n");
+        printf("Vector Type: NUMERIC\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            printf(" %d\n", vector.content[i]);
+            printf("\t%d\n", vector.content[i]);
         }
     }else{
+        printf("Vector Type: SYMBOLIC\n");
         printf("Symbols:\n");
         for(unsigned int i = 0; i != vector.length; i++){
-            printf(" %c\n", vector.symbols[i][0]);
+            printf("\t- %s\n", vector.symbols[i]);
         }
+    }
+    if(0){
+        // printf("Reroll Info:\n");
+        // printf(" - number_of_dice: %u\n", vector.source.number_of_dice);
+        // printf(" - die_sides: %u\n", vector.source.die_sides);
+        // printf(" - explode: %u\n", vector.source.explode);
+        // // printf(" - symbol_pool: %x\n", (unsigned int)vector.source.symbol_pool);
+        // printf(" - start_value: %u\n", vector.source.start_value);
+        // printf(" - dtype: %u\n", vector.source.dtype);
     }
 }
 
@@ -227,9 +251,16 @@ unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int nu
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, unsigned int idx_length){
     if (gnoll_errno){ return ; }
 
+    // Free up memory before overwriting (done in vec-init)
+    for (unsigned int i = 0; i != idx_length;i++){
+        if(result_symbols[i]){
+            free(result_symbols[i]);
+        }
+    }
+
     for (unsigned int i = 0; i != idx_length;i++){
         int index = indexes[i];
-        strcpy(result_symbols[i], symbols_list[index]);
+        result_symbols[i] = safe_strdup(symbols_list[index]);
     }
 }
 

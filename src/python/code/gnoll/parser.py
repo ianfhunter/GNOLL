@@ -1,16 +1,14 @@
 import os
 import sys
 import tempfile
+from ctypes import cdll
 
-import cppyy
+from wurlitzer import pipes
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
-C_HEADER = os.path.join(os.path.dirname(__file__), "c_includes")
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
-cppyy.c_include(os.path.join(C_HEADER, "shared_header.h"))
-cppyy.c_include(os.path.join(C_HEADER, "dice_logic.h"))
-cppyy.load_library(C_SHARED_LIB)
+libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
@@ -37,44 +35,55 @@ def raise_gnoll_error(value):
         GNOLLException("MAX_LOOP_LIMIT_HIT"),
         GNOLLException("SYNTAX_ERROR"),
         GNOLLException("DIVIDE_BY_ZERO"),
+        GNOLLException("UNDEFINED_MACRO"),
     ]
     err = d[value]
     if err is not None:
         raise err
 
 
-def roll(s, verbose=False, mock=None, quiet=True, mock_const=3):
+def roll(s, verbose=False, mock=None, mock_const=3):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
+
     die_file = temp.name
     os.remove(die_file)
 
-    f = str(die_file)
+    out_file = str(die_file).encode("ascii")
     if verbose:
         print("Rolling: ", s)
+        print("Output in:", out_file)
 
-    cppyy.gbl.reset_mocking()
-    if mock is None:
-        return_code = cppyy.gbl.roll_and_write(s, f)
-    else:
-        return_code = cppyy.gbl.mock_roll(s, f, mock, quiet, mock_const)
+    with pipes() as (out, err):
+        s = s.encode("ascii")
+        if mock is None:
+            return_code = libc.roll_and_write(s, out_file)
+        else:
+            return_code = libc.mock_roll(s, out_file, mock, mock_const)
+
+    if verbose:
+        print("---stdout---")
+        print(out.read())
+        print("---stderr---")
+        print(err.read())
 
     if return_code != 0:
         raise_gnoll_error(return_code)
 
-    with open(temp.name) as f:
-        results = f.readlines()[0].split(";")[:-1]
+    with open(out_file, encoding="utf-8") as f:
+        lines = f.readlines()
+        results = lines[0].split(";")[:-1]
 
-        if isinstance(results, list) and len(results) == 1:
-            results = results[0]
+    if isinstance(results, list) and len(results) == 1:
+        results = results[0]
 
-        if isinstance(results, list):
-            if all(x.lstrip("-").isdigit() for x in results):
-                results = [int(o) for o in results]
+    if isinstance(results, list):
+        if all(x.lstrip("-").isdigit() for x in results):
+            results = [int(o) for o in results]
 
-        elif results.lstrip("-").isdigit():
-            results = int(results)
+    elif results.lstrip("-").isdigit():
+        results = int(results)
 
     return int(return_code), results
 

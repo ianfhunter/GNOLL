@@ -153,3 +153,7 @@ src/go/main
 *out.js
 *.wasm
 *.html
+*.stackdump
+
+# TROLL
+test.t

@@ -13,7 +13,7 @@ jobs:
 
       - name: Lib Install
         run: |
-            python -m pip install --upgrade requests
+            python -m pip install --upgrade requests wurlitzer
             python -m pip install -r reqs/requirements.txt
             python -m pip install -r scripts/benchmark/requirements.txt
             make python
@@ -38,7 +38,7 @@ jobs:
             python -m pip install --upgrade requests
             python -m pip install -r reqs/requirements.txt
             make python
-            pip install matplotlib func_timeout
+            pip install matplotlib func_timeout wurlitzer
             sudo add-apt-repository ppa:kflarsen/mosml
             sudo apt update
             sudo apt install mosml

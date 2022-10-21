@@ -6,6 +6,7 @@
 #include "rolls/vec.h"
 
 void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items);
+void light_initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items);
 
 void pop(int * arr, unsigned int len, int value, int * new_arr);
 
