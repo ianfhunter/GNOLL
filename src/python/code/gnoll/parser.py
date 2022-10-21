@@ -71,7 +71,7 @@ def roll(s, verbose=False, mock=None, mock_const=3):
     if return_code != 0:
         raise_gnoll_error(return_code)
 
-    with open(out_file) as f:
+    with open(out_file, encoding="utf-8") as f:
         lines = f.readlines()
         results = lines[0].split(";")[:-1]
 
