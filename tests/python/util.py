@@ -61,12 +61,10 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False):
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    exit_code, result = dice_tower_roll(
-        s,
-        mock=mock_mode.value,
-        mock_const=mock_const,
-        verbose=verbose
-    )
+    exit_code, result = dice_tower_roll(s,
+                                        mock=mock_mode.value,
+                                        mock_const=mock_const,
+                                        verbose=verbose)
 
     if exit_code:
         raise ValueError
