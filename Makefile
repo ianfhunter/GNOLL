@@ -86,7 +86,7 @@ compile:
 	# FLEX creates warning when run with -f
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
-           -Wno-sign-conversion
+           -Wno-sign-conversion -Wno-sign-compare
 
 # Shared Lib
 shared: $(OBJECTS)
