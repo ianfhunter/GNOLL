@@ -84,7 +84,9 @@ lex:
 # Executable
 compile:
 	# FLEX creates warning when run with -f
-	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) -Wno-error=implicit-function-declaration
+	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
+           -Wno-error=implicit-function-declaration \
+           -Wno-sign-conversion
 
 # Shared Lib
 shared: $(OBJECTS)
