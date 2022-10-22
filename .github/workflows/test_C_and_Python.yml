@@ -56,3 +56,14 @@ jobs:
       run: |
         make all
         ./build/dice d100
+  build_mac:
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make all
+      - name: Test
+        run: ./build/dice 20
+        #run: python3 -m pip install GNOLL
+      #- name: Run tests
+       # run: python3 -c "from gnoll.parser import roll;roll('1d20')"
