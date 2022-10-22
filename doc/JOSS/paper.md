@@ -29,6 +29,7 @@ Dice Notation is a system for describing how to roll collections of dice. It is 
 
 # Statement of Need
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which:
+
 - is open source / permissively licensed.
 - can be easily integrated into other software despite language differences.
 - provides reference for other implementations.
