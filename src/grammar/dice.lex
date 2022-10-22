@@ -288,5 +288,5 @@ abs {
     return (FN_ABS);
 }
 pool {
-    return (FN_POOL)
+    return (FN_POOL);
 }
