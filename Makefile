@@ -84,6 +84,7 @@ lex:
 # Executable
 compile:
 	# FLEX creates warning when run with -f
+        # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare
