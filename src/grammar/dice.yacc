@@ -123,7 +123,7 @@ gnoll_statement:
 sub_statement:
     macro_statement
     |
-    dice_statement
+    function
 ;
 
 
@@ -1160,20 +1160,23 @@ die_symbol:
 ;
 
 function: 
-    FN_MAX LBRACE term SYMBOL_SEPERATOR term RBRACE{
+    FN_MAX LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
         max($<values>2, $<values>4);
     }
     |
-    FN_MIN LBRACE term SYMBOL_SEPERATOR term RBRACE{
+    FN_MIN LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
         min($<values>2, $<values>4);
     }
-    |FN_ABS LBRACE term RBRACE{
+    |
+    FN_ABS LBRACE dice_statement RBRACE{
         abs($<values>2);
     }
     |
-    FN_POOL LBRACE term SYMBOL_SEPERATOR term RBRACE{
+    FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
         make_pool($<values>2, $<values>4);
     }
+    |
+    dice_statement
 ;
 
 
