@@ -1,4 +1,4 @@
 .PHONY: r
 
 r:
-	rscript main.r
+	Rscript main.r
