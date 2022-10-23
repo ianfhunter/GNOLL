@@ -1,4 +1,4 @@
 .PHONY: r
 
 r:
-	Rscript main.r
+	Rscript src/R/main.r
