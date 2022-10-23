@@ -128,6 +128,7 @@ include src/js/target.mk
 include src/go/target.mk
 include src/perl/target.mk
 include src/swig/target.mk
+include src/R/target.mk
 
 clean: perl_clean python_clean clean_js
 	rm -rf build
