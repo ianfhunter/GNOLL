@@ -4,9 +4,8 @@ library.dynam(
     "dice.so", 
     "GNOLL", 
     "",
-    "../../build/"
-    verbose = True,
-    file.ext = .Platform$dynlib.ext
+    "../../build/",
+    verbose = True
 )
 
 return_code <- GNOLL.roll_and_write(
