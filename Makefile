@@ -6,8 +6,9 @@ OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 \
-        -ffast-math
+	-Wundef -Wno-unused -Wformat=2 
+
+        # -ffast-math # Problematic for Python 
 
 # === DEBUG OPTIONS ====
 DEBUG=0
