@@ -1,0 +1,4 @@
+name = "GNOLL"
+authors = ["Ian Hunter <ianfhunter@gmail.com>"]
+uuid = "b35ad925-2fb6-40c5-946e-45c8863d2ca5"
+version = "3.1.0"
