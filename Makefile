@@ -1,4 +1,4 @@
-CODEDIRS=./src/grammar ./src/grammar/rolls
+CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations 
 INCDIRS=./src/grammar
 
 CC=cc
