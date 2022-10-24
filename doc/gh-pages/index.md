@@ -1,6 +1,11 @@
-Welcome to GNOLL's documentation!
+---
+title: Home
+published: true
+nav_order: 0
+---
+# GNOLL
 
-Please bear with us as we migrate from [our Wiki](https://github.com/ianfhunter/GNOLL/wiki).
+Welcome to GNOLL's documentation! [Looking for the Git repository?](https://github.com/ianfhunter/GNOLL)
 
 The aim of GNOLL is to provide the world with a dice parsing library that:
 - Is simple to use (By the general public, not by statisticians)
@@ -8,7 +13,6 @@ The aim of GNOLL is to provide the world with a dice parsing library that:
 - Is performant
 - Supports a wide range of dice notation formats and operations.
 - Can be used as a reference implementation for others trying to understand dice notation.
-
 
 If you're looking to set up GNOLL, read our [Technical Setup](setup/installation.md)
 

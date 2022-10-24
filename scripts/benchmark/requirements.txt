@@ -1,0 +1,6 @@
+func_timeout
+python-dice
+dice
+rpg-dice
+matplotlib
+d20

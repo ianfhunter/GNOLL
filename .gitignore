@@ -24,6 +24,8 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+_site
+.jekyll-cache
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -148,5 +150,10 @@ result.die
 src/go/main
 
 # JS Artifacts
-a.out.js
-a.out.wasm
+*out.js
+*.wasm
+*.html
+*.stackdump
+
+# TROLL
+test.t

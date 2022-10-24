@@ -14,15 +14,15 @@ callouts:
   warning:
     title: ⚠️ Warning
     color: red
-  
   explanation:
     title: 🤔 Design Decision
     color: blue
-  
   story:
     title: ⚔️ Grindon's Tale
     color: yellow
-  
   gnoll:
     title: 🐺 GNOLL
     color: grey-lt
+  question:
+    title: ❓ Question
+    color: pink

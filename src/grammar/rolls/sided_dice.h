@@ -2,11 +2,11 @@
 #ifndef __ROLL_SIDED_DICE_H__
 #define __ROLL_SIDED_DICE_H__
 
-#include "../vector_functions.h"
+#include "../util/vector_functions.h"
 #include "dice_enums.h"
 #include "vec.h"
 
-int roll_plain_sided_dice(
+void roll_plain_sided_dice(
     vec * x, 
     vec * y, 
     vec * result,
@@ -14,7 +14,7 @@ int roll_plain_sided_dice(
     int start_offset
 );
 
-int roll_symbolic_dice(
+void roll_symbolic_dice(
     vec * x, 
     vec * y, 
     vec * result

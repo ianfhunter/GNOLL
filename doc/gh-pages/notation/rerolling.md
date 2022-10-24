@@ -2,31 +2,32 @@
 title: Rerolling
 published: true
 nav_order: 7
+parent: Dice Notation
 ---
 
 # Rerolling
 
 {: .story}
 >
->   GM: Well, you took a load of damage, but you did level up.
+>**GM**: Well, you took a load of damage, but you did level up.
 >
->   Grindon: Nice, I get my class feature - I can reroll 1s!
+>**Grindon**: Nice, I get my class feature - I can reroll 1s!
 >
->   GM: Do you remember how to do that?
+>**GM**: Do you remember how to do that?
 >
->   Grindon: Yep, I just do a "1d20r#1"
+>**Grindon**: Yep, I just do a "1d20r#1"
 >
->   GNOLL: [9]
+>*GNOLL*: [9]
 >
->   GM: Great. Remember, you could still get a 1 on your second roll.
+>**GM**: Great. Remember, you could still get a 1 on your second roll.
 >
->   Grindon: Yeah, but then I deserved it.
+>**Grindon**: Yeah, but then I deserved it.
 
 Rerolling is often based on conditions (e.g. reroll if result is a 1). There are two options when using these conditions
- - Reroll once 
- - Reroll until the condition is no longer true.
+- Reroll once
+- Reroll until the condition is no longer true.
 
-We represent these as "r" and "R" respectively.
+We represent these as "ro" and "r" respectively.
 
 
 ## Repeat Dice Rolls

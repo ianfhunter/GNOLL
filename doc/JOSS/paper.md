@@ -29,6 +29,7 @@ Dice Notation is a system for describing how to roll collections of dice. It is 
 
 # Statement of Need
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which:
+
 - is open source / permissively licensed.
 - can be easily integrated into other software despite language differences.
 - provides reference for other implementations.
@@ -44,7 +45,7 @@ There are not many publications that specifically discuss dice notation. The mos
 
 # Example Notation
 
-There are too many different operations and combinations of dice notation to fit into the space constraints of this paper, but are discussed at length in the project's [GitHub Wiki](https://github.com/ianfhunter/GNOLL/wiki/Dice-Roll-Syntaxes), including rationale for each of the notation choices. A sample of the base dice notation has been described below.
+There are too many different operations and combinations of dice notation to fit into the space constraints of this paper, but are discussed at length in the project's [documentation](https://ianhunter.ie/GNOLL/), including rationale for each of the notation choices. A sample of the base dice notation has been described below.
 
 
 The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ where\ x,y\ \in{} \mathbb{Z}^{+}. $$ `x` dice are rolled with values from 1 to `y`. Where `x` is not specified, it is assumed that its value is 1. the exclusion of `y` produces an error (It is ambiguous to have a dice with no sides).
@@ -59,11 +60,11 @@ The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ 
 
 Comparison of `GNOLL`'s performance against other C/C++/SmallTalk dice notation parsers - [TROLL](http://hjemmesider.diku.dk/~torbenm/Troll/) and [E Bailey's 'Dice Parser'](https://github.com/EBailey67/DiceParser).
 
-![A graph showing GNOLL's performance on different sizes of dice rolls. It is faster than TROLL and ROLL on each tick](C++.PNG)
+![A graph showing GNOLL's performance on different sizes of dice rolls. It is faster than TROLL and DiceParser on each tick](C++.PNG)
 
 ## Figure 2 - GNOLL Performance (Python)
 
-Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi] - ["Dice"](https://pypi.org/project/dice/), ["RPG Dice"](https://pypi.org/project/rpg-dice/), ["Python Dice"](https://pypi.org/project/python-dice/))
+Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi] - ["Dice"](https://pypi.org/project/dice/), ["RPG Dice"](https://pypi.org/project/rpg-dice/), ["Python Dice"](https://pypi.org/project/python-dice/), ["d20"](https://pypi.org/project/d20/)). Unplotted points either were non-functional or exceeded a set timeout.
 
 ![A graph showing GNOLL's performance (via Python binding) on different sizes of dice rolls. It slightly underperforms for small sizes, but is faster than other python libraries for large sizes.](py.PNG)
 
