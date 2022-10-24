@@ -1,9 +1,9 @@
 
-#include "uthash.h"
-#include "vector_functions.h"
-#include "macro_logic.h"
+#include "external/uthash.h"
+#include "util/vector_functions.h"
+#include "operations/macro_logic.h"
 #include "shared_header.h"
-#include "safe_functions.h"
+#include "util/safe_functions.h"
 #include "yacc_header.h"
 
 //Initialized to NULL (Important)
@@ -14,8 +14,13 @@ extern int gnoll_errno;
 
 unsigned long hash_function(unsigned char *str)
 {
-    // djb2 algorithm from
-    // http://www.cse.yorku.ca/~oz/hash.html
+    /**
+    * @brief DJB2 hashing algorithm from http://www.cse.yorku.ca/~oz/hash.html
+    * 
+    * @param str string to encode
+    * @return numeric hash encoding
+    */
+
     unsigned long hash = 5381;
     int c;
 
@@ -26,7 +31,13 @@ unsigned long hash_function(unsigned char *str)
 }
 
 void register_macro(vec * macro_name, roll_params *to_store) {
-    
+    /**
+    * @brief Register a Macro in GNOLL
+    * 
+    * @param macro_name - Unique name for macro reference
+    * @param to_store - Structure containing information on how to roll the dice referenced to by the key
+    */
+
     if(gnoll_errno){return;}
 
     unsigned int count = 0;
@@ -63,14 +74,16 @@ void register_macro(vec * macro_name, roll_params *to_store) {
             to_store->die_sides,
             MAX_SYMBOL_LENGTH
         );
-        // for(unsigned int i = 0; i != to_store->die_sides; i++){
-        //     memcpy(s->stored_dice_roll.symbol_pool[i], to_store->symbol_pool[i], MAX_SYMBOL_LENGTH);
-        // }
     }
 }
 
 void search_macros(char * skey, roll_params *to_store) {
-
+    /**
+    * @brief Search for a registered macro
+    * 
+    * @param macro_name - Unique name for macro reference
+    * @param to_store - Where to store the macro, if found
+    */
     if(gnoll_errno){return ;}
     (void)(to_store); // will be refactored later
 
