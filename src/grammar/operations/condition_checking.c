@@ -2,7 +2,7 @@
 #include "shared_header.h"
 #include "yacc_header.h"
 #include "rolls/dice_logic.h"
-#include "rolls/vector_functions.h"
+#include "util/vector_functions.h"
 #include "util/safe_functions.h"
 #include "condition_checking.h"
 #include <stdlib.h>

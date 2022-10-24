@@ -2,7 +2,7 @@
 #ifndef __ROLL_SIDED_DICE_H__
 #define __ROLL_SIDED_DICE_H__
 
-#include "../rolls/vector_functions.h"
+#include "../util/vector_functions.h"
 #include "dice_enums.h"
 #include "vec.h"
 

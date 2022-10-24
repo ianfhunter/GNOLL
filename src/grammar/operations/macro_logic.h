@@ -3,7 +3,7 @@
 #define __MACRO_LOGIC_H
 
 #include "external/uthash.h"
-#include "rolls/vector_functions.h"
+#include "util/vector_functions.h"
 #include "rolls/dice_roll_structs.h"
 
 unsigned long hash_function(unsigned char *str);

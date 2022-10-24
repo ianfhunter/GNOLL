@@ -9,7 +9,7 @@
 #include <time.h>
 #include <limits.h>
 #include "yacc_header.h"
-#include "rolls/vector_functions.h"
+#include "util/vector_functions.h"
 #include "shared_header.h"
 #include "rolls/dice_logic.h"
 #include "util/safe_functions.h"

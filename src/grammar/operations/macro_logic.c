@@ -1,6 +1,6 @@
 
 #include "external/uthash.h"
-#include "rolls/vector_functions.h"
+#include "util/vector_functions.h"
 #include "operations/macro_logic.h"
 #include "shared_header.h"
 #include "util/safe_functions.h"
