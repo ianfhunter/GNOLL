@@ -11,6 +11,14 @@
 extern int gnoll_errno;
 
 void light_initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
+    
+    /**
+    * @brief Initializes a vector, but does not fill out 2d arrays
+    * @param vector vector to initialize
+    * @param dt dice type
+    * @param number_of_items how many items in the arrays
+    * @return
+    */
     vector->dtype = dt;
     vector->length = number_of_items;
 
@@ -24,6 +32,13 @@ void light_initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_i
     }
 }
 void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
+    /**
+    * @brief Initializes a vector, reserving space for 2d arrays
+    * @param vector vector to initialize
+    * @param dt dice type
+    * @param number_of_items how many items in the arrays
+    * @return
+    */
     if (gnoll_errno){ return ; }
     
     vector->dtype = dt;
@@ -45,6 +60,15 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
 }
 
 void concat_symbols(char ** arr1, unsigned int len1, char ** arr2,unsigned int len2, char ** new_arr){
+    /**
+    * @brief Concatenates two 2D arrays of dice symbols
+    * @param arr1
+    * @param len1
+    * @param arr2
+    * @param len2
+    * @param new_arr
+    * @return
+    */
     if (gnoll_errno){ return ; }
 
     for(unsigned int i = 0; i != len1; i++){
@@ -59,6 +83,13 @@ void concat_symbols(char ** arr1, unsigned int len1, char ** arr2,unsigned int l
 }
 
 void pop(int * arr, unsigned int len, int value, int * new_arr){
+    /**
+    * @brief Removes a value from an array
+    * @param arr
+    * @param len
+    * @param value
+    * @param new_arr
+    */
     if (gnoll_errno){ return ; }
 
     // This could be done in-place.
@@ -78,6 +109,13 @@ void pop(int * arr, unsigned int len, int value, int * new_arr){
 }
 
 int contains(int * arr, unsigned int len, int value){
+    /**
+    * @brief Checks if a value exists in an array
+    * @param arr
+    * @param len
+    * @param value
+    * @return true or false (1 or 0)
+    */
     if (gnoll_errno){ return 0; }
 
     for(unsigned int i = 0; i != len; i++){
@@ -86,7 +124,13 @@ int contains(int * arr, unsigned int len, int value){
     return 0;
 }
 
-int min(int * arr, unsigned int len){
+int min(int * arr, unsigned int len){    
+    /**
+    * @brief Return the smallest value from an array
+    * @param arr
+    * @param len
+    * @return minimum value
+    */
     if (gnoll_errno){ return 0; }
 
     int lowest = INT_MAX;
@@ -97,6 +141,12 @@ int min(int * arr, unsigned int len){
 }
 
 int max(int * arr, unsigned int len){
+    /**
+    * @brief Return the biggest value from an array
+    * @param arr
+    * @param len
+    * @return maximum value
+    */
     if (gnoll_errno){ return 0; }
 
     int highest = INT_MIN;
@@ -107,6 +157,10 @@ int max(int * arr, unsigned int len){
 }
 
 void print_vec(vec vector){
+    /**
+    * @brief Print information about a vec that may be interesting for debug
+    * @param vec
+    */
     if (gnoll_errno){ return ; }
 
     printf("Vector Size: %u\n", vector.length);
@@ -133,26 +187,13 @@ void print_vec(vec vector){
     }
 }
 
-unsigned int remove_if_present(char ** arr1, unsigned int len1,
-                    char ** arr2, unsigned int len2,
-                    char ** new_arr)
-{
-    if (gnoll_errno){ return 0; }
-
-    (void)(arr1);
-    (void)(arr2);
-    (void)(len1);
-    (void)(len2);
-    (void)(new_arr);
-    gnoll_errno = NOT_IMPLEMENTED; 
-    return 1;
-}
-
 
 void collapse_vector(vec * vector, vec * new_vector){
-    // Converts the like of "2d3"
-    // from {1,2,3} to {6}
-    // cannot operate on symbols.
+    /**
+    * @brief Collapses multiple Numeric dice to one value by summing
+    * @param vector source
+    * @param new_vector dest
+    */
     if (gnoll_errno){ return ; }
 
     if (vector->dtype == SYMBOLIC ){
@@ -172,7 +213,14 @@ void collapse_vector(vec * vector, vec * new_vector){
     }
 }
 
-unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
+void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int keep_high){
+    /**
+    * @brief Collapses multiple Numeric dice to one value by summing
+    * @param vector source
+    * @param new_vector dest
+    * @param number_to_keep how many values to keep or drop
+    * @param keep_high Whether to keep the highest (1) or Lowest (0) values
+    */
     if (gnoll_errno){ return 0; }
 
     if (vector->dtype == SYMBOLIC){
@@ -212,32 +260,36 @@ unsigned int keep_logic(vec * vector, vec * new_vector, unsigned int number_to_k
         printf("Warning: KeepHighest: Keeping <= produced amount");
         new_vector = vector;
     }
-    return 0;
 }
 
-unsigned int keep_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
-    if (gnoll_errno){ return 0; }
-
-    return keep_logic(vector, new_vector, number_to_keep, 0);
+void keep_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    /**
+    * @brief Keep the lowest values from a set of dice
+    */
+    keep_logic(vector, new_vector, number_to_keep, 0);
 }
-unsigned int keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
-    if (gnoll_errno){ return 0; }
-
-    return keep_logic(vector, new_vector, number_to_keep, 1);
+void keep_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    /**
+    * @brief Keep the Highest values from a set of dice
+    */
+    keep_logic(vector, new_vector, number_to_keep, 1);
 }
-unsigned int drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
-    if (gnoll_errno){ return 0; }
-
+void drop_lowest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    /**
+    * @brief Drop the lowest values from a set of dice
+    */
     int calc_keep = (int)vector->length - (int)number_to_keep;
     if (calc_keep > 0){
         number_to_keep = (unsigned int)calc_keep;
     }else{
         number_to_keep = (unsigned int)vector->length;
     }
-    return keep_logic(vector, new_vector, number_to_keep, 1);
+    keep_logic(vector, new_vector, number_to_keep, 1);
 }
-unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
-    if (gnoll_errno){ return 0; }
+void drop_highest_values(vec * vector, vec * new_vector, unsigned int number_to_keep){
+    /**
+    * @brief Drop the highest values from a set of dice
+    */
 
     int calc_keep = (int)vector->length -(int) number_to_keep;
     if (calc_keep > 0){
@@ -245,10 +297,17 @@ unsigned int drop_highest_values(vec * vector, vec * new_vector, unsigned int nu
     }else{
         number_to_keep = (unsigned int)vector->length;
     }
-    return keep_logic(vector, new_vector, number_to_keep, 0);
+    keep_logic(vector, new_vector, number_to_keep, 0);
 }
 
 void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes, unsigned int idx_length){
+    /**
+    * @brief Take symbols from indexed locations in an array and save to a new location
+    * @param symbols_list List of symbols
+    * @param result_symbols Output location
+    * @param indexes List of symbol indexes to choose
+    * @param idx_length How long is the `indexes` list
+    */
     if (gnoll_errno){ return ; }
 
     // Free up memory before overwriting (done in vec-init)
@@ -265,6 +324,13 @@ void extract_symbols(char ** symbols_list, char ** result_symbols, int * indexes
 }
 
 void filter(vec * dice, vec * cond, int comp_op, vec * output){
+    /**
+    * @brief Keep dice that match a filter, discard otherwise
+    * @param dice Dice vector
+    * @param cond Values to compare to
+    * @param comp_op Comparison Operation
+    * @param output Output location
+    */
     if (gnoll_errno){ return ; }
 
     unsigned int success_idx = 0;
@@ -283,6 +349,11 @@ void filter(vec * dice, vec * cond, int comp_op, vec * output){
 }
 
 void filter_unique(vec * dice, vec * new_vec){
+    /**
+    * @brief Keep dice that are unique, discard otherwise.
+    * @param dice Dice vector
+    * @param new_vec Output location
+    */
     if (gnoll_errno){ return ; }
 
     unsigned int tracker_idx = 0;
