@@ -1,4 +1,4 @@
-module GNOLL
+module GnollDiceNotation
 
 using Printf
 
