@@ -111,6 +111,10 @@ build/condition_checking.o:
 	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/condition_checking.c -o $@
 
 # for /grammar/rolls hardcode
+build/dice_logic.o:
+	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/dice_logic.c -o $@
+
+# for /grammar/rolls hardcode
 build/sided_dice.o:
 	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/sided_dice.c -o $@
 
