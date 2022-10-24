@@ -1,3 +1,3 @@
 .PHONY: julia
 julia: clean yacc lex compile shared
-	julia src/Julia/main.jl
+	julia src/julia/main.jl
