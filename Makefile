@@ -118,6 +118,14 @@ build/dice_logic.o:
 build/sided_dice.o:
 	$(CC) $(SHAREDCFLAGS) -c src/grammar/rolls/sided_dice.c -o $@
 
+# for /grammar/util hardcode
+build/vector_functions.o:
+	$(CC) $(SHAREDCFLAGS) -c src/grammar/util/vector_functions.c -o $@
+
+# for /grammar/operation hardcode
+build/macro_logic.o:
+	$(CC) $(SHAREDCFLAGS) -c src/grammar/operation/macro_logic.c -o $@
+
 # for rest, wildcard
 build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
