@@ -221,7 +221,7 @@ void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int
     * @param number_to_keep how many values to keep or drop
     * @param keep_high Whether to keep the highest (1) or Lowest (0) values
     */
-    if (gnoll_errno){ return 0; }
+    if (gnoll_errno){ return; }
 
     if (vector->dtype == SYMBOLIC){
         printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
@@ -231,7 +231,7 @@ void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int
     unsigned int available_amount = vector->length;
     if(available_amount > number_to_keep){
         new_vector->content = safe_calloc(sizeof(int), number_to_keep);
-        if(gnoll_errno) return 0;
+        if(gnoll_errno){return;}
         new_vector->length = number_to_keep;
 
         int * arr = vector->content;
@@ -247,7 +247,7 @@ void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int
             }
             new_vector->content[i] = m;
             new_arr = safe_calloc(sizeof(int), length-1 );
-            if(gnoll_errno) return 0;
+            if(gnoll_errno){return;}
 
             pop(arr, length, m, new_arr);
             free(arr);
