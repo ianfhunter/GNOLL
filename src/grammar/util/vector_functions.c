@@ -226,7 +226,7 @@ void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int
     if (vector->dtype == SYMBOLIC){
         printf("Symbolic Dice, Cannot determine value. Consider using filters instead");
         gnoll_errno = UNDEFINED_BEHAVIOUR;
-        return 0;
+        return;
     }
     unsigned int available_amount = vector->length;
     if(available_amount > number_to_keep){
