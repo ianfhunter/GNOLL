@@ -1,9 +1,9 @@
 #include <stddef.h>
 #include "shared_header.h"
 #include "yacc_header.h"
-#include "dice_logic.h"
-#include "vector_functions.h"
-#include "safe_functions.h"
+#include "rolls/dice_logic.h"
+#include "rolls/vector_functions.h"
+#include "util/safe_functions.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,6 +17,14 @@ void roll_plain_sided_dice(
     EXPLOSION_TYPE explode,
     int start_offset
 ){
+    /**
+    * @brief Roll numeric dice
+    * @param x - Amount of dice (xDy)
+    * @param y - Dice Sides (xDy)
+    * @param result - Where to store the dice roll result
+    * @param explode Explosion logic to apply (if applicable)
+    * @param start_offset offset each dice roll by this amount
+    */
     if(gnoll_errno) return;
 
     // XdY
@@ -37,9 +45,14 @@ void roll_plain_sided_dice(
 }
 
 void roll_symbolic_dice(vec * x, vec * y, vec * result){
+    /**
+    * @brief Roll symbolic dice
+    * @param x - Amount of dice (xDy)
+    * @param y - Dice Sides (xDy)
+    * @param result - Where to store the dice roll result
+    */
     if(gnoll_errno) return;
 
-    // XdY
     unsigned int num_dice = (unsigned int)x->content[0];
 
     // e.g. d4, it is implied that it is a single dice

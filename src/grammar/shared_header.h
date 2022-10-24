@@ -1,7 +1,7 @@
 #ifndef SHARED_YACC_HEADER
 #define SHARED_YACC_HEADER
 
-#include "vector_functions.h"
+#include "rolls/vector_functions.h"
 #include "rolls/sided_dice.h"
 
 

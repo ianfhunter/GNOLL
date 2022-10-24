@@ -2,8 +2,8 @@
 #ifndef __MACRO_LOGIC_H
 #define __MACRO_LOGIC_H
 
-#include "uthash.h"
-#include "vector_functions.h"
+#include "external/uthash.h"
+#include "rolls/vector_functions.h"
 #include "rolls/dice_roll_structs.h"
 
 unsigned long hash_function(unsigned char *str);

@@ -9,15 +9,15 @@
 #include <time.h>
 #include <limits.h>
 #include "yacc_header.h"
-#include "vector_functions.h"
+#include "rolls/vector_functions.h"
 #include "shared_header.h"
-#include "dice_logic.h"
-#include "safe_functions.h"
-#include "macro_logic.h"
+#include "rolls/dice_logic.h"
+#include "util/safe_functions.h"
+#include "operations/macro_logic.h"
 #include "rolls/sided_dice.h"
-#include "rolls/condition_checking.h"
+#include "operations/condition_checking.h"
 #include <errno.h>
-#include "pcg_basic.h"
+#include "external/pcg_basic.h"
 
 #define UNUSED(x) (void)(x)
 

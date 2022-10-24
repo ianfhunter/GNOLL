@@ -1,9 +1,9 @@
 #include <stddef.h>
 #include "shared_header.h"
 #include "yacc_header.h"
-#include "dice_logic.h"
-#include "vector_functions.h"
-#include "safe_functions.h"
+#include "rolls/dice_logic.h"
+#include "rolls/vector_functions.h"
+#include "util/safe_functions.h"
 #include "condition_checking.h"
 #include <stdlib.h>
 #include <stdio.h>

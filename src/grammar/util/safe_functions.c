@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <errno.h>
 #include "shared_header.h"
-#include "safe_functions.h"
+#include "util/safe_functions.h"
 
 int gnoll_errno = 0;
 
