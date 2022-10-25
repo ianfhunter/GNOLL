@@ -17,7 +17,7 @@ jobs:
 
       - name: Lib Install
         run: |
-            apt-get install valgrind
+            sudo apt-get install valgrind
             make all DEBUG=1
  
       - name: Run Valgrind 
