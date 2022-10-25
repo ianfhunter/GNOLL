@@ -8,9 +8,11 @@ nav_order: 0
 # Setup
 ## OS Information
 
-- Linux - Tested on Ubuntu '18.
-- Windows - Tested on Windows Subsystem for Linux (WSL)
-- Mac - Untested.
+| OS | Version | Tested (From Source) | Tested (PyPi) |
+| -- | ------- | -------------------- | ------------- |
+| Linux | Ubuntu 18.04 | Yes | Yes |
+| Windows | WSL1 | Yes | No |
+| MacOS | 12 | Yes | Error |
 
 ## Common Pre-requisites
 ```bash
@@ -40,6 +42,11 @@ make python
 ## Perl
 ```bash
 make perl
+```
+
+## Julia
+```
+make julia
 ```
 
 ## JavaScript Setup

@@ -5,8 +5,8 @@
 %{
     #include <stdio.h>
     #include "shared_header.h"
-    #include "safe_functions.h"
-    #include "rolls/condition_checking.h"
+    #include "util/safe_functions.h"
+    #include "operations/condition_checking.h"
     #include "y.tab.h"
     #include <assert.h>
 

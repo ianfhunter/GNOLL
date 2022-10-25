@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-#include "dice_logic.h"
+#include "rolls/dice_logic.h"
 #include "shared_header.h"
-#include "safe_functions.h"
+#include "util/safe_functions.h"
 #include "yacc_header.h"
 #include "rolls/dice_enums.h"
-#include "pcg_basic.h"
+#include "external/pcg_basic.h"
 
 #if USE_SECURE_RANDOM==1
 #include <bsd/stdlib.h>
@@ -24,17 +24,28 @@ MOCK_METHOD global_mock_style = NO_MOCK;
 extern int gnoll_errno;
 
 void reset_mocking(){
+    /**
+    * @brief Resets various globals for test mocking
+    */
     random_fn_run_count = 0;
     global_mock_value = 0;
     global_mock_style=NO_MOCK;
 }
 void init_mocking(MOCK_METHOD mock_style, int starting_value){
+    /**
+    * @brief Initializes test mocking with given settings
+    * @param mock_style How to apply mocking
+    * @param starting_value Where mocking is applied, sets the value for the first roll on the system
+    */
     random_fn_run_count = 0;
     global_mock_value = starting_value;
     global_mock_style = mock_style;
 }
 
 void mocking_tick(){
+    /**
+    * @brief Every time a dice is rolled, this function is called so that the mocking logic can update
+    */
     switch(global_mock_style){
         case RETURN_INCREMENTING: {
             global_mock_value = global_mock_value+1;
@@ -62,6 +73,11 @@ void mocking_tick(){
 
 
 int random_fn(int small, int big){
+    /**
+    * @brief Get a random number between 'small' and 'big'
+    * @param small lower value
+    * @param big higher value
+    */
     if (gnoll_errno){ return 0; }
 
     // printf("Between %i and %i\n", small, big);
@@ -103,6 +119,14 @@ int * perform_roll(
     int start_value
 )
 {
+    /**
+    * @brief Controls logic of dice rolling above basic dX
+    * @param number_of_dice - How many dice to roll
+    * @param die_sides - How many sides a dice has
+    * @param explode - What (if any) type of explosion logic to apply
+    * @param start_value - Offset the roll results by this amojunt
+    * @return Numeric Summation of all dice rolled in this fn
+    */
     if (gnoll_errno){ return NULL; }
 
     int explosion_condition_score = 0;
@@ -148,9 +172,9 @@ int * perform_roll(
 
 
 int * do_roll(roll_params rp){
-    // printf("Number of Dice: %i\n", rp.number_of_dice);
-    // printf("Die Sides: %i\n", rp.die_sides);
-    // printf("Explode: %i\n", rp.explode);
+    /**
+    * @brief Unfurls the roll_params struct and calls dice rolling logic
+    */
     return perform_roll(
         rp.number_of_dice,
         rp.die_sides,

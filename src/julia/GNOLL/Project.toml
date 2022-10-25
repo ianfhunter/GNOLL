@@ -1,0 +1,16 @@
+name = "GnollDiceNotation"
+uuid = "6d20aa67-345f-4b27-9ab4-1a86910b1003"
+authors = ["Ian-Hunter"]
+version = "3.1.0"
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
