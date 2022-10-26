@@ -44,6 +44,11 @@ make python
 make perl
 ```
 
+## Julia
+```
+make julia
+```
+
 ## JavaScript Setup
 
 ### Pre-Requisites

@@ -4,11 +4,17 @@
 #include <stdarg.h>
 #include <errno.h>
 #include "shared_header.h"
-#include "safe_functions.h"
+#include "util/safe_functions.h"
 
 int gnoll_errno = 0;
 
 void * safe_malloc(size_t size){
+    /**
+    * @brief Safe version of malloc. Populates gnoll_errno on error
+    * @param size 
+    * @return
+    */
+
     if (gnoll_errno){
         // If there was already an error,
         // Don't even try to execute.
@@ -23,7 +29,11 @@ void * safe_malloc(size_t size){
 }
 
 void free_2d_array(char ***arr, unsigned int items){
-    // printf("Try to free: %p\n",*arr);
+    /**
+    * @brief Free a 2d char array in a repeatable manner.
+    * @param arr
+    * @param items
+    */
     if (*arr){
         for(unsigned int i = 0; i != items; i++){
             // printf("[%u] Try to free: %p\n",i, (*arr)[i]);
@@ -41,19 +51,29 @@ void safe_copy_2d_chararray_with_allocation(
     unsigned int items, 
     unsigned int max_size)
 {
+    /**
+    * @brief Copy from one 2d char array to another in a repeatable manner.
+    * @param dst
+    * @param src
+    * @param item
+    * @param max_size
+    */
     *dst = safe_calloc(items, sizeof(char **));
     if(gnoll_errno){return;}
-    // printf("memcpy %p <- %p (%u)\n", *dst, src, items);
+    
     for(unsigned int i = 0; i!=items; i++){
         (*dst)[i] = safe_calloc(sizeof(char), max_size);
         if(gnoll_errno){return;}
-        // printf("---memcpy %p <- %p (%u)[%s]\n", (*dst)[i], src[i], max_size, src[i]);
-        memcpy((*dst)[i], src[i], max_size);
-        // printf("1 Debug %p %s\n", (*dst)[i], (*dst)[i]);
+        memcpy((*dst)[i], src[i], max_size);        
     }
 }
 
 void * safe_calloc(size_t nitems, size_t size){
+    /**
+    * @brief Safe version of calloc. Populates gnoll_errno on error
+    * @param size 
+    * @return
+    */
     if (gnoll_errno){
         // If there was already an error,
         // Don't even try to execute.
@@ -69,6 +89,11 @@ void * safe_calloc(size_t nitems, size_t size){
 }
 
 FILE * safe_fopen(const char *filename, const char *mode){
+    /**
+    * @brief Safe version of fopen. Populates gnoll_errno on error
+    * @param size 
+    * @return
+    */
     if (gnoll_errno){
         // If there was already an error,
         // Don't even try to execute.
@@ -85,6 +110,11 @@ FILE * safe_fopen(const char *filename, const char *mode){
 }
 
 char * safe_strdup( const char *str1 ){
+    /**
+    * @brief Safe version of strdup. Populates gnoll_errno on error
+    * @param str1 
+    * @return
+    */
     if (gnoll_errno){
         // If there was already an error,
         // Don't even try to execute.
@@ -102,6 +132,11 @@ char * safe_strdup( const char *str1 ){
 
 int fast_atoi( const char * str )
 {
+    /**
+    * @brief Safe version of atoi. Populates gnoll_errno on error
+    * @param str 
+    * @return
+    */
     //Ref: https://stackoverflow.com/a/16826908/1421555
     int val = 0;
     while( *str ) {
@@ -111,11 +146,14 @@ int fast_atoi( const char * str )
 }
 
 long int safe_strtol (const char* str, char** endptr, int base){
-    if (gnoll_errno){
-        // If there was already an error,
-        // Don't even try to execute.
-        return 0;
-    }
+    /**
+    * @brief Safe version of strtol. Populates gnoll_errno on error
+    * @param str
+    * @param endptr 
+    * @param base
+    * @return
+    */
+    if (gnoll_errno){ return 0; }
     long int result;
     result = strtol(str,endptr,base);
     if(errno == ERANGE){
