@@ -21,4 +21,4 @@ jobs:
             make all DEBUG=1
  
       - name: Run Valgrind 
-        run: valgrind ./build/dice d20
+        run: valgrind --leak-check=full ./build/dice d20
