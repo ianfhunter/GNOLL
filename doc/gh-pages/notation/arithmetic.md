@@ -2,6 +2,7 @@
 title: Math with Dice
 published: true
 nav_order: 4
+parent: Dice Notation
 ---
 
 # Math with Dice

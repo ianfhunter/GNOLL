@@ -2,28 +2,29 @@
 title: Dice Counting
 published: true
 nav_order: 8
+parent: Dice Notation
 ---
 
 # Dice Counting
 
 {: .story}
->GM: The room ahead of you is clear now
+>**GM**: The room ahead of you is clear now
 >
->Grindon: Great, I continue deeper into the dungeon. I'll run and get there faster
+>**Grindon**: Great, I continue deeper into the dungeon. I'll run and get there faster
 >
->GM: Don't forget to check those corridors! The ground slips from under you and spikes appear below!
+>**GM**: Don't forget to check those corridors! The ground slips from under you and spikes appear below!
 >
->Grindon: Oh no! Can I run along the wall?
+>**Grindon**: Oh no! Can I run along the wall?
 >
->GM: Sure. You'll need to get your feet on 2 secure parts of the wall to make it. Let's say you have 3 seconds (3 dice) and you need to get at least a 5 on each dice
+>**GM**: Sure. You'll need to get your feet on 2 secure parts of the wall to make it. Let's say you have 3 seconds (3 dice) and you need to get at least a 5 on each dice
 >
->Grindon: at least a 5?! Aw man, I'm ruined!  3d6f>5c
+>**Grindon**: at least a 5?! Aw man, I'm ruined!  3d6f>5c
 >
->GNOLL: [2]
+>*GNOLL*: [2]
 >
->GM: Great. Remember, you could still get a 1 on your second roll.
+>**GM**: Great. Remember, you could still get a 1 on your second roll.
 >
->Grindon: Yeah, but then I deserved it.
+>**Grindon**: Yeah, but then I deserved it.
 
 ## Counting Dice
 

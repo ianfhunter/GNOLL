@@ -9,9 +9,8 @@ python: all
 	cp -r build/  src/python/code/gnoll/c_build/
 	cp -r src/grammar/  src/python/code/gnoll/c_includes/
 
-	cd src/python/ ; python3 -m build
-
 pip : python
+	cd src/python/ ; python3 -m build
 	python3 -m pip install -vvv --user --find-links=src/python/dist/ --force-reinstall --ignore-installed gnoll
 	python3 -c "from gnoll import parser as dt; dt.roll('2')"
 

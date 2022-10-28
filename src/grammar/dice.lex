@@ -1,8 +1,19 @@
+%option never-interactive
+%option nounput
+%option noinput
+
 %{
     #include <stdio.h>
     #include "shared_header.h"
-    #include "rolls/condition_checking.h"
+    #include "util/safe_functions.h"
+    #include "operations/condition_checking.h"
     #include "y.tab.h"
+    #include <assert.h>
+
+    extern int gnoll_errno;
+    void yyerror(char *s); // From YACC Code
+
+    int fileno(FILE *stream);   // Bad practise, but solves warning in lex.yy.c for C99. It is unused in our application.
 %}
 
 %%
@@ -12,8 +23,12 @@
     /* TODO */
 [A-Z_]+ {
     vec vector;
-    vector.symbols = malloc(sizeof(char **));
-    vector.symbols[0] = strdup(yytext);
+    vector.symbols = safe_malloc(sizeof(char **));
+    if(gnoll_errno){yyerror("Malloc Err");}
+
+    vector.symbols[0] = safe_strdup(yytext);
+    if(gnoll_errno){yyerror("String Err");}
+
     vector.dtype = SYMBOLIC;
     vector.length = 1;
 
@@ -23,8 +38,11 @@
 
 [0-9]+ {
     vec vector;
-    vector.content = malloc(sizeof(int));
-    vector.content[0] = atoi(yytext);
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+
+    vector.content[0] = fast_atoi(yytext);
+
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
@@ -41,16 +59,20 @@ d {
 
 (dF|df)\.1 {
     char * plus, *minus, *zero;
-    plus = (char *)malloc(sizeof(char *));
+    plus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     plus = "+";
-    zero = (char *)malloc(sizeof(char *));
+    zero = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     zero = "0";
-    minus = (char *)malloc(sizeof(char *));
+    minus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     minus = "-";
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = malloc(sizeof(char **) * 6);
+    vector.symbols = safe_malloc(sizeof(char **) * 6);
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
     vector.symbols[2] = zero;
@@ -64,14 +86,17 @@ d {
 }
 (dF|df)\.[3-9] {
     char * plus, *minus;
-    plus = (char *)malloc(sizeof(char *));
+    plus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     plus = "+";
-    minus = (char *)malloc(sizeof(char *));
+    minus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     minus = "-";
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = malloc(sizeof(char **) * 2);
+    vector.symbols = safe_malloc(sizeof(char **) * 2);
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = minus;
     vector.length = 2;
@@ -81,16 +106,20 @@ d {
 }
 (dF|df)(\.2)? {
     char * plus, *minus, *zero;
-    plus = (char *)malloc(sizeof(char *));
+    plus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     plus = "+";
-    zero = (char *)malloc(sizeof(char *));
+    zero = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     zero = "0";
-    minus = (char *)malloc(sizeof(char *));
+    minus = (char *)safe_malloc(sizeof(char *));
+    if(gnoll_errno){yyerror("Memory Err");}
     minus = "-";
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = malloc(sizeof(char **) * 3);
+    vector.symbols = safe_malloc(sizeof(char **) * 3);
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
     vector.symbols[2] = minus;
@@ -154,7 +183,7 @@ f { return(FILTER); }
 \.\. {
     return(RANGE);
 }
-; {
+;+ {
     return(STATEMENT_SEPERATOR);
 }
 
@@ -182,7 +211,8 @@ o {
     /* Comparitors */
 \!\= {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = NOT_EQUAL;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -191,7 +221,8 @@ o {
 }
 \=\= {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -200,7 +231,8 @@ o {
 }
 \< {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = LESS_THAN;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -209,7 +241,8 @@ o {
 }
 \> {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_THAN;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -218,7 +251,8 @@ o {
 }
 \<\= {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = LESS_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -227,7 +261,8 @@ o {
 }
 \>\= {
     vec vector;
-    vector.content = malloc(sizeof(int));
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
@@ -240,4 +275,20 @@ o {
 }
 [~] {
     return(IMPLOSION);
+}
+
+    /*         Builtin Functions        */
+    /* These should be limited in scope */
+
+max {
+    return (FN_MAX);
+}
+min {
+    return (FN_MIN);
+}
+abs {
+    return (FN_ABS);
+}
+pool {
+    return (FN_POOL);
 }

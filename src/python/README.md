@@ -1,37 +1,51 @@
 # GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/c-cpp.yml) 
-[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/perl-test.yml)
-[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/go-test.yml)
+[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/test_C_and_Python.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_C_and_Python.yml)
+[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Perl.yml)
+[![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml)
+[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml)
+[![Test: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml)
+
+[![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
+
+[![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
+[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
-<!-- Dark and Light Mode switches -->
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
+<p align="center">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_halloween.png" height="200">
+</p>
 
-
-An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for C, C++, Go, Perl and Python.
+An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
 Use for instant support of common syntax and a library that can scale with your demands, rather than a sticky taped monstrousity of regular expressions and tears.
 
 Here's an example of how you might use GNOLL:
 ```markdown
-   Grindon The Brave: I want to steal from the goblin sitting at the bar.
-   Dungeon Master: Okay, give me a stealth check!
-   Grindon The Brave: Okay, that's a <1d20+5>
-   [GNOLL]: 21
-   Dungeon Master: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
+**Grindon The Brave**: I want to steal from the goblin sitting at the bar.
+**Dungeon Master**: Okay, give me a stealth check!
+**Grindon The Brave**: Okay, that's a <1d20+5>
+[GNOLL]: 21
+**Dungeon Master**: Hurrah! You successfully pickpocket the goblin! However, all he had in there were some crummy dice...
 ```
 
-[You can follow Grindon's Tale through the world of dice notation in our Documentation](https://ianhunter.ie/GNOLL)
+[You can follow Grindon's full adventure through the world of dice notation in our Documentation](https://www.ianhunter.ie/GNOLL).
+
+Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
 
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! We will be adding more wrappers for you to access GNOLL's functionality through different languages in the near future.
+We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too:
 
 - C / C++
 - Python
 - Perl
 - Go
+- JavaScript (Node.js)
+- Julia
+
+ We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
 Tested on Linux (Ubuntu) and Windows (10, WSL).
 
@@ -40,24 +54,41 @@ Tested on Linux (Ubuntu) and Windows (10, WSL).
 - Arithmetic
 - Fate Dice
 - Miscellaneous Symbolic Dice
-- Macros 
+- Shorthands & Macros
+- Alternate Syntax
 - Explosions
 - Drop/Keep
+- Rerolling
+- Filtering
+- Functions
 
-For the specific details of supported notation, [check out the docs](https://ianhunter.ie/GNOLL).
-And feel free to ask for anything we're missing!
+There's so many different things, we'd bore you to list them all here. For the specific details of supported notation, [check out our documentation](https://www.ianhunter.ie/GNOLL).
 
 ## Getting Started
-### 🛠️ Prerequisites
+### Usage from a package manager
+#### Python
+```bash
+pip3 install GNOLL
+```
 
+Then, in your code:
+```python
+from gnoll.parser import roll
+roll("1d20")
+>> 7
+```
+
+### 🛠️ Installing From Source
+#### Basic Requirements
 ```bash
 sudo apt-get install bison flex make python3-pip -y
+pip install -r reqs/requirements.txt
 make all
 ```
 
 To verify your setup, try our tests:
 ```bash
-   make test
+make test
 ```
 Or, just try some commands yourself!
 
@@ -67,12 +98,7 @@ $ ./dice 1d20
 ```
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
-Sample Python Call:
-```python
-from gnoll.parser import roll
-roll("1d20")
->> 7
-```
+For languages other than Python/C/C++ call the corresponding make target after the commands above.
 
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 
@@ -88,7 +114,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## 🤹 Authors / Contributers / Attributions
 
-* **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+  - **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
 
 See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
@@ -96,17 +122,19 @@ See also the list of [contributors](https://github.com/ianfhunter/gnoll/contribu
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
 
-Individiual licensing arrangements can be made if this is an issue for your project - Contact Me at [LinkedIn](https://www.linkedin.com/in/ianfhunter) to discuss.
+Individual licensing arrangements can be made if this is an issue for your project - Contact Me at [LinkedIn](https://www.linkedin.com/in/ianfhunter) to discuss.
 
 ## 👏 Acknowledgments
 
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+  - **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## 🏗️ Built With
 
-* [Lex & Yacc](http://dinosaur.compilertools.net/) - Grammar Lexing & Parsing
-* [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
-* Love! 💖
+  - [Flex & Bison](https://aquamentus.com/flex_bison.html) - Grammar Lexing & Parsing
+  - [uthash](https://troydhanson.github.io/uthash/userguide.html) - C hashtable lib
+  - [PCG](https://www.pcg-random.org/) - Random Number Generation
+  - [Arc4Random](https://www.freebsd.org/cgi/man.cgi?query=arc4random) - Random Number Generation (Cryptographically secure)
+  - Love! 💖
 
 ## 💰 Donate
 

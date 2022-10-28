@@ -1,63 +1,72 @@
 #include <stddef.h>
-#include "shared_header.h"
-#include "yacc_header.h"
-#include "dice_logic.h"
-#include "vector_functions.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include "rolls/dice_logic.h"
+#include "shared_header.h"
+#include "util/safe_functions.h"
+#include "util/vector_functions.h"
+#include "yacc_header.h"
 
-int roll_plain_sided_dice(
-    vec * x,
-    vec * y,
-    vec * result,
-    EXPLOSION_TYPE explode,
-    int start_offset
-){
+extern int gnoll_errno;
 
-    // XdY
-    int num_dice = x->content[0];
-    int sides = y->content[0];
+void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
+                           int start_offset) {
+  /**
+   * @brief Roll numeric dice
+   * @param x - Amount of dice (xDy)
+   * @param y - Dice Sides (xDy)
+   * @param result - Where to store the dice roll result
+   * @param explode Explosion logic to apply (if applicable)
+   * @param start_offset offset each dice roll by this amount
+   */
+  if (gnoll_errno) return;
 
-    int err = validate_roll(num_dice, sides);
-    if (err){
-        printf("Validation Error\n");
-        return 1;
-    }else{
-        // e.g. d4, it is implied that it is a single dice
-        roll_params rp;
-        rp.number_of_dice = num_dice;
-        rp.die_sides = sides;
-        rp.explode = explode;
-        rp.start_value = start_offset;
-        int * roll_result = do_roll(rp);
-        initialize_vector(result, NUMERIC, num_dice);
-        result->content = roll_result;
-        result->source = rp;
-    }
-    return 0;
+  // XdY
+  unsigned int num_dice = (unsigned int)x->content[0];
+  unsigned int sides = (unsigned int)y->content[0];
+
+  // e.g. d4, it is implied that it is a single dice
+  roll_params rp;
+  rp.dtype = NUMERIC;
+  rp.number_of_dice = num_dice;
+  rp.die_sides = sides;
+  rp.explode = explode;
+  rp.start_value = start_offset;
+  int* roll_result = do_roll(rp);
+  initialize_vector(result, NUMERIC, num_dice);
+  result->content = roll_result;
+  result->source = rp;
 }
 
-int roll_symbolic_dice(vec * x, vec * y, vec * result){
-    // XdY
-    int num_dice = x->content[0];
+void roll_symbolic_dice(vec* x, vec* y, vec* result) {
+  /**
+   * @brief Roll symbolic dice
+   * @param x - Amount of dice (xDy)
+   * @param y - Dice Sides (xDy)
+   * @param result - Where to store the dice roll result
+   */
+  if (gnoll_errno) return;
 
-    int err = validate_roll(num_dice, 1);
-    if (err){
-        return 1;
-    }else{
-        // e.g. d4, it is implied that it is a single dice
-        roll_params rp;
-        rp.number_of_dice = num_dice ;
-        rp.die_sides = y->length;
-        rp.explode = 0;
-        rp.symbol_pool = y->symbols;
-        rp.start_value = 0; // First index of array
+  unsigned int num_dice = (unsigned int)x->content[0];
 
-        int * indexes = do_roll(rp);
+  // e.g. d4, it is implied that it is a single dice
+  roll_params rp;
+  rp.dtype = SYMBOLIC;
+  rp.number_of_dice = num_dice;
+  rp.die_sides = y->length;
+  rp.explode = 0;
+  rp.symbol_pool = NULL;
 
-        extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
+  // Copy over memory to Symbol Pool for reloading
 
-    }
-    return 0;
+  free_2d_array(&rp.symbol_pool, rp.die_sides);
+  safe_copy_2d_chararray_with_allocation(&rp.symbol_pool, y->symbols, y->length,
+                                         MAX_SYMBOL_LENGTH);
+  rp.start_value = 0;  // First index of array
+
+  int* indexes = do_roll(rp);
+
+  extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
 }

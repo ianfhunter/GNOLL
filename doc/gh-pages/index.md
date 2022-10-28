@@ -1,6 +1,11 @@
+---
+title: Home
+published: true
+nav_order: 0
+---
 # GNOLL
 
-Welcome to GNOLL's documentation!
+Welcome to GNOLL's documentation! [Looking for the Git repository?](https://github.com/ianfhunter/GNOLL)
 
 The aim of GNOLL is to provide the world with a dice parsing library that:
 - Is simple to use (By the general public, not by statisticians)

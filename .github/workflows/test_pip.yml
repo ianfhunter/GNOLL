@@ -1,0 +1,21 @@
+name: "Test: GNOLL from PyPi"
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - uses: actions/checkout@v2
+    - name: Test PyPi
+      run: |
+        python -m pip install gnoll
+        python -c "from gnoll.parser import roll; roll('d34')"
