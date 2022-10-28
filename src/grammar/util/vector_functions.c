@@ -45,7 +45,7 @@ void initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_items){
     vector->length = number_of_items;
 
     if (dt == NUMERIC){
-        vector->content = safe_calloc(number_of_items, sizeof (int));
+        vector->content = safe_calloc(number_of_items, sizeof(int));
         if(gnoll_errno) return;
     }
     else if (dt == SYMBOLIC){
@@ -124,7 +124,7 @@ int contains(int * arr, unsigned int len, int value){
     return 0;
 }
 
-int min(int * arr, unsigned int len){    
+int min_in_vec(int * arr, unsigned int len){    
     /**
     * @brief Return the smallest value from an array
     * @param arr
@@ -140,9 +140,11 @@ int min(int * arr, unsigned int len){
     return lowest;
 }
 
-int max(int * arr, unsigned int len){
+int max_in_vec(
+    int * arr, unsigned int len
+){
     /**
-    * @brief Return the biggest value from an array
+    * @brief Return the biggest value in an array
     * @param arr
     * @param len
     * @return maximum value
@@ -155,6 +157,15 @@ int max(int * arr, unsigned int len){
     }
     return highest;
 }
+void abs_vec(vec * x){ 
+    for (unsigned int i=0;i!=x->length;i++){
+        int v = x->content[i];
+        if (v < 0){
+           x->content[i] *= -1;
+        }
+    }
+}
+
 
 void print_vec(vec vector){
     /**
@@ -241,9 +252,9 @@ void keep_logic(vec * vector, vec * new_vector, unsigned int number_to_keep, int
         for(unsigned int i = 0; i != number_to_keep; i++){
             int m;
             if (keep_high){
-                m =  max(arr, length);
+                m =  max_in_vec(arr, length);
             }else{
-                m =  min(arr, length);
+                m =  min_in_vec(arr, length);
             }
             new_vector->content[i] = m;
             new_arr = safe_calloc(sizeof(int), length-1 );

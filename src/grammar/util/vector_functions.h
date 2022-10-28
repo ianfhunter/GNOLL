@@ -10,9 +10,11 @@ void light_initialize_vector(vec * vector, DIE_TYPE dt, unsigned int number_of_i
 
 void pop(int * arr, unsigned int len, int value, int * new_arr);
 
+void abs_vec(vec * x);
+
 int contains(int * arr, unsigned int len, int value);
-int min(int * arr, unsigned int len);
-int max(int * arr, unsigned int len);
+int min_in_vec(int * arr, unsigned int len);
+int max_in_vec(int * arr, unsigned int len);
 
 void concat_symbols(char ** arr1, unsigned int len1,
                     char ** arr2, unsigned int len2,

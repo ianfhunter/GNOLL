@@ -79,7 +79,7 @@ void * safe_calloc(size_t nitems, size_t size){
         // Don't even try to execute.
         return NULL;
     }
-    void * calloc_result;
+    void * calloc_result = NULL;
     calloc_result = calloc(nitems, size);
     unsigned int total_sz = nitems*size;
     if(!calloc_result && total_sz){

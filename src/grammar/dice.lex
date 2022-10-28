@@ -12,6 +12,8 @@
 
     extern int gnoll_errno;
     void yyerror(char *s); // From YACC Code
+
+    int fileno(FILE *stream);   // Bad practise, but solves warning in lex.yy.c for C99. It is unused in our application.
 %}
 
 %%
@@ -273,4 +275,20 @@ o {
 }
 [~] {
     return(IMPLOSION);
+}
+
+    /*         Builtin Functions        */
+    /* These should be limited in scope */
+
+max {
+    return (FN_MAX);
+}
+min {
+    return (FN_MIN);
+}
+abs {
+    return (FN_ABS);
+}
+pool {
+    return (FN_POOL);
 }

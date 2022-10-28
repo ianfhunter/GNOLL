@@ -20,6 +20,9 @@
 #include "external/pcg_basic.h"
 
 #define UNUSED(x) (void)(x)
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define ABS(x) (((x) < 0) ? (-x) : (x))
 
 int yylex(void);
 int yyerror(const char* s);
@@ -84,6 +87,7 @@ int sum(int * arr, unsigned int len){
 %token DO_COUNT MAKE_UNIQUE
 %token NE EQ GT LT LE GE
 %token RANGE
+%token FN_MAX FN_MIN FN_ABS FN_POOL
 
 /* Defines Precedence from Lowest to Highest */
 %left SYMBOL_SEPERATOR STATEMENT_SEPERATOR
@@ -141,7 +145,7 @@ macro_statement:
     }
 ;
 
-dice_statement: math{
+dice_statement: functions{
 
     vec vector = $<values>1;
     vec new_vec = vector;       // Code Smell.
@@ -191,7 +195,11 @@ dice_statement: math{
     if(write_to_file){
         fclose(fp);
     }
-}
+};
+
+functions: 
+    function
+;
 
 math:
     LBRACE math RBRACE{
@@ -1158,6 +1166,49 @@ die_symbol:
     }
 ;
 
+function: 
+    FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        int vmax = MAX(
+            $<values>3.content[0],
+            $<values>5.content[0]
+        );
+        new_vec.content[0] = vmax;
+        $<values>$ = new_vec;
+        free($<values>3.content);
+        free($<values>5.content);
+    }
+    |
+    FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        new_vec.content[0] = MIN(
+            $<values>3.content[0],
+            $<values>5.content[0]
+        );
+        $<values>$ = new_vec;
+        free($<values>3.content);
+        free($<values>5.content);
+    }
+    |
+    FN_ABS LBRACE function RBRACE{
+                vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        new_vec.content[0] = ABS(
+            $<values>3.content[0]
+        );
+        $<values>$ = new_vec;
+        free($<values>3.content);
+    }
+    |
+    /* FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
+        make_pool($<values>2, $<values>4);
+    } */
+    |
+    math
+;
+
 
 %%
 /* Subroutines */
@@ -1206,6 +1257,8 @@ char * concat_strings(char ** s, int num_s){
     char * result;
     result = (char *)safe_calloc(sizeof(char), (size_total+1));
     if(gnoll_errno){return NULL;}
+
+
 
     for(int i = 1; i != num_s + 1; i++){
         strcat(result, s[i]);
