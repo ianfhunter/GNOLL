@@ -1,7 +1,10 @@
 ---
+title: Functions
+published: true
+nav_order: 12
+parent: Dice Notation
 ---
-
-#Functions
+# Functions
 
 Writing user functions is not implemented in GNOLL to avoid overwhelming users. Not all who use GNOLL are programming literate.
 
