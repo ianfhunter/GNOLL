@@ -158,7 +158,7 @@ int max_in_vec(
     return highest;
 }
 void abs_vec(vec * x){ 
-    for (int i=0;i!=x->length;i++){
+    for (unsigned int i=0;i!=x->length;i++){
         int v = x->content[i];
         if (v < 0){
            x->content[i] *= -1;

@@ -12,6 +12,8 @@
 
     extern int gnoll_errno;
     void yyerror(char *s); // From YACC Code
+
+    int fileno(FILE *stream);   // Bad practise, but solves warning in lex.yy.c for C99. It is unused in our application.
 %}
 
 %%
