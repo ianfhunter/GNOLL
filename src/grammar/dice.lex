@@ -269,6 +269,36 @@ o {
     yylval.values = vector;
     return(GE);
 }
+even {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_EVEN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(ISEVEN);
+}
+same {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_SAME;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(ISSAMD);
+}
+odd {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_ODD;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(ISODD);
+}
     /* Macros*/
 [\=] {
     return(ASSIGNMENT);
