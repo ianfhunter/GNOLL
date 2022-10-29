@@ -16,7 +16,7 @@ from util import Mock, roll
         ("10d10f<=3", 6, Mock.RETURN_INCREMENTING, 1),  # equal or less than
         ("10d10fis_even", 5, Mock.RETURN_INCREMENTING, 1),  # even
         ("10d10fis_odd", 5, Mock.RETURN_INCREMENTING, 1),  # odd
-       # ("10d10fis_same", 0, Mock.RETURN_INCREMENTING, 1),  # same
+        # ("10d10fis_same", 0, Mock.RETURN_INCREMENTING, 1),  # same
     ],
 )
 def test_filter(r, out, mock, mock_const):
