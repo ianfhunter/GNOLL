@@ -15,7 +15,6 @@ typedef enum {
   IS_UNIQUE = 7,
   IF_EVEN = 8,
   IF_ODD = 9,
-  IF_SAME = 10,
 } COMPARATOR;
 
 int check_condition(vec* x, vec* y, COMPARATOR c);
