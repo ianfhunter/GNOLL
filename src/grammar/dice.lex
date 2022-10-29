@@ -277,7 +277,7 @@ even {
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
-    return(ISEVEN);
+    return(IS_EVEN);
 }
 same {
     vec vector;
@@ -287,7 +287,7 @@ same {
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
-    return(ISSAMD);
+    return(IS_SAME);
 }
 odd {
     vec vector;
@@ -297,7 +297,7 @@ odd {
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
-    return(ISODD);
+    return(IS_ODD);
 }
     /* Macros*/
 [\=] {
