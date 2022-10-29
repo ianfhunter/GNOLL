@@ -22,5 +22,5 @@ from util import Mock, roll
 def test_filter(r, out, mock, mock_const):
 
     # https://github.com/ianfhunter/GNOLL/issues/216
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result = roll(r, mock_mode=mock, mock_const=mock_const, verbose=True)
     assert result == out
