@@ -84,8 +84,7 @@ int sum(int * arr, unsigned int len){
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token REROLL
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
-%token DO_COUNT MAKE_UNIQUE
-%token NE EQ GT LT LE GE IS_EVEN IS_ODD IS_SAME
+%token DO_COUNT UNIQUE
 %token RANGE
 %token FN_MAX FN_MIN FN_ABS FN_POOL
 
@@ -599,7 +598,26 @@ dice_operations:
 
     }
     |
-    dice_operations MAKE_UNIQUE{
+    dice_operations FILTER singular_condition{
+        vec new_vec;
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);
+            filter(&dice, NULL, check, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!\n");
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
+        }
+
+    }
+    |
+    dice_operations UNIQUE{
         // TODO
         vec new_vec;
         vec dice = $<values>1;
@@ -1150,7 +1168,8 @@ csd:
     }
     ;
 
-condition: EQ | LT | GT | LE | GE | NE | IS_ODD | IS_EVEN | IS_SAME;
+singular_condition: UNIQUE | IS_ODD | IS_EVEN | IS_SAME;
+condition: EQ | LT | GT | LE | GE | NE ;
 
 die_symbol:
     SIDED_DIE{
