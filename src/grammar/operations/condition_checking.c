@@ -36,7 +36,7 @@ int check_condition(vec* x, vec* y, COMPARATOR c) {
 
 int check_condition_vector(vec* v, COMPARATOR c) {
    switch (c){
-     case UNIQUE: {
+     case IS_UNIQUE: {
        gnoll_errno = NOT_IMPLEMENTED;
        return 1;
      }
@@ -89,7 +89,7 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
     case GREATER_OR_EQUALS: {
       return xvalue >= yvalue;
     }
-    case UNIQUE: {
+    case IS_UNIQUE: {
       // Unique by the fact that it is scalar
       return 1;
     }
