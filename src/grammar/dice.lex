@@ -191,7 +191,7 @@ c {
     return(DO_COUNT);
 }
 u {
-    return (MAKE_UNIQUE);
+    return (UNIQUE);
 }
 
     /* Explosions */
