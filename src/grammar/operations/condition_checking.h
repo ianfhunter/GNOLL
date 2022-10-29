@@ -12,7 +12,7 @@ typedef enum {
   GREATER_OR_EQUALS = 4,
   LESS_OR_EQUALS = 5,
   NOT_EQUAL = 6,
-  UNIQUE = 7,
+  IS_UNIQUE = 7,
   IF_EVEN = 8,
   IF_ODD = 9,
   IF_SAME = 10,
