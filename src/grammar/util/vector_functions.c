@@ -365,7 +365,8 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
     return;
   }
   if (comp_op == IS_UNIQUE){
-    return filter_unique(dice, output);
+    filter_unique(dice, output);
+    return;
   }
 
   unsigned int success_idx = 0;
