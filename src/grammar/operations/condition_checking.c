@@ -24,10 +24,39 @@ extern int gnoll_errno;
 int check_condition(vec* x, vec* y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  int xvalue = collapse(x->content, x->length);
-  int yvalue = y->content[0];
+  if(c == UNIQUE || c == IF_SAME){
+      return check_condition_vector(x, c);
+  }else{
 
-  return check_condition_scalar(xvalue, yvalue, c);
+      int xvalue = collapse(x->content, x->length);
+      int yvalue = y->content[0];
+      return check_condition_scalar(xvalue, yvalue, c);
+  }
+}
+
+int check_condition_vector(vec* v, COMPARATOR c) {
+   switch (c){
+     case UNIQUE: {
+       gnoll_errno = NOT_IMPLEMENTED;
+       return 1;
+     }
+     case IF_SAME: {
+       if(v->dtype == SYMBOLIC){
+          gnoll_errno = NOT_IMPLEMENTED;
+          return 0;
+       }
+       int chk = v->content[0];
+       for(unsigned int i=0;i!=v->length;i++){
+         if(v->content[0] != chk)
+           return 0;
+       }
+       return 1;
+     }
+     default: {
+       gnoll_errno = NOT_IMPLEMENTED;
+       return 0;
+     }
+   }
 }
 
 int check_condition_scalar(int x, int y, COMPARATOR c) {
@@ -56,6 +85,16 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
     }
     case UNIQUE: {
       // Unique by the fact that it is scalar
+      return 1;
+    }
+    case IF_ODD: {
+      return x % 2);
+    }
+    case IF_EVEN: {
+      return x % 2;
+    }
+    case IF_SAME: {
+      // Same by virtue of it being a single value
       return 1;
     }
     case INVALID: {
