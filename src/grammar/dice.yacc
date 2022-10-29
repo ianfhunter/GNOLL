@@ -85,7 +85,7 @@ int sum(int * arr, unsigned int len){
 %token REROLL
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
 %token DO_COUNT MAKE_UNIQUE
-%token NE EQ GT LT LE GE
+%token NE EQ GT LT LE GE IS_EVEN IS_ODD IS_SAME
 %token RANGE
 %token FN_MAX FN_MIN FN_ABS FN_POOL
 
@@ -1148,7 +1148,7 @@ csd:
     }
     ;
 
-condition: EQ | LT | GT | LE | GE | NE ;
+condition: EQ | LT | GT | LE | GE | NE | IS_ODD | IS_EVEN | IS_SAME;
 
 die_symbol:
     SIDED_DIE{
