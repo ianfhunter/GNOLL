@@ -269,7 +269,7 @@ o {
     yylval.values = vector;
     return(GE);
 }
-even {
+is_even {
     vec vector;
     vector.content = safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
@@ -279,7 +279,7 @@ even {
     yylval.values = vector;
     return(IS_EVEN);
 }
-same {
+is_same {
     vec vector;
     vector.content = safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
@@ -289,7 +289,7 @@ same {
     yylval.values = vector;
     return(IS_SAME);
 }
-odd {
+is_odd {
     vec vector;
     vector.content = safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
