@@ -14,6 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: dep install
-      run: sudo apt install cabal-install ghc haskell-stack
+      run: |
+        sudo apt install cabal-install ghc haskell-stack
+        cabal update
     - name: make haskell
       run: make haskell
