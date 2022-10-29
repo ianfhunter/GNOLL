@@ -96,6 +96,8 @@ int sum(int * arr, unsigned int len){
 %left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
 %left UMINUS
 %left LBRACE RBRACE
+%left EXPLOSION
+%left NE EQ GT LT LE GE IS_EVEN IS_ODD IS_SAME
 
 %union{
     vec values;
