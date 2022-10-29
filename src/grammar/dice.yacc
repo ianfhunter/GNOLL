@@ -84,7 +84,7 @@ int sum(int * arr, unsigned int len){
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token REROLL
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
-%token DO_COUNT UNIQUE
+%token DO_COUNT UNIQUE IS_EVEN IS_ODD
 %token RANGE
 %token FN_MAX FN_MIN FN_ABS FN_POOL
 
@@ -96,7 +96,7 @@ int sum(int * arr, unsigned int len){
 %left UMINUS
 %left LBRACE RBRACE
 %left EXPLOSION
-%left NE EQ GT LT LE GE IS_EVEN IS_ODD IS_SAME
+%left NE EQ GT LT LE GE
 
 %union{
     vec values;
@@ -1168,7 +1168,7 @@ csd:
     }
     ;
 
-singular_condition: UNIQUE | IS_ODD | IS_EVEN | IS_SAME;
+singular_condition: UNIQUE | IS_ODD | IS_EVEN ;
 condition: EQ | LT | GT | LE | GE | NE ;
 
 die_symbol:
