@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: go install
+    - name: dep install
       run: sudo apt install cabal-install ghc haskell-stack
     - name: make haskell
       run: make haskell
