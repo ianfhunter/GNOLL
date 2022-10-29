@@ -84,14 +84,10 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
       return 1;
     }
     case IF_ODD: {
-      // Should not be called with a parameter 
-      gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 0;
+      return x % 2;
     }
     case IF_EVEN: {
-      // Should not be called with a parameter 
-      gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 0;
+      return (x+1) % 2;
     }
     case INVALID: {
       printf("Invalid Conditional\n");
