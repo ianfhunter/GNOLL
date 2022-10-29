@@ -24,7 +24,7 @@ extern int gnoll_errno;
 int check_condition(vec* x, vec* y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  if(c == IS_UNIQUE || c == IF_SAME || c == IF_ODD || c == IF_EVEN){
+  if(c == IS_UNIQUE || c == IF_ODD || c == IF_EVEN){
       return check_condition_vector(x, c);
   }else{
 
@@ -47,15 +47,6 @@ int check_condition_vector(vec* v, COMPARATOR c) {
      case IF_ODD: {
         int x = collapse(v->content, v->length);
         return x % 2;
-     }
-     case IF_SAME: {
-       int chk = v->content[0];
-       for(unsigned int i=0;i!=v->length;i++){
-         if(v->content[i] != chk){
-           return 0;
-         }
-       }
-       return 1;
      }
      default: {
        gnoll_errno = NOT_IMPLEMENTED;
@@ -98,12 +89,6 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
       return 0;
     }
     case IF_EVEN: {
-      // Should not be called with a parameter 
-      gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 0;
-    }
-    case IF_SAME: {
-      // Same by virtue of it being a single value
       // Should not be called with a parameter 
       gnoll_errno = UNDEFINED_BEHAVIOUR;
       return 0;
