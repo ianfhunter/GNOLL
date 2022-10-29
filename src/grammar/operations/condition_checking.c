@@ -24,7 +24,7 @@ extern int gnoll_errno;
 int check_condition(vec* x, vec* y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  if(c == UNIQUE || c == IF_SAME){
+  if(c == UNIQUE || c == IF_SAME || c == UNIQUE){
       return check_condition_vector(x, c);
   }else{
 
@@ -39,6 +39,12 @@ int check_condition_vector(vec* v, COMPARATOR c) {
      case UNIQUE: {
        gnoll_errno = NOT_IMPLEMENTED;
        return 1;
+     }
+     case IF_EVEN:{
+        return (x+1) % 2;
+     }
+     case IF_ODD: {
+        return x % 2;
      }
      case IF_SAME: {
        if(v->dtype == SYMBOLIC){
@@ -88,24 +94,30 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
       return 1;
     }
     case IF_ODD: {
-      return x % 2;
+      // Should not be called with a parameter 
+      gnoll_errno = UNDEFINED_BEHAVIOUR;
+      return 0;
     }
     case IF_EVEN: {
-      return (x+1) % 2;
+      // Should not be called with a parameter 
+      gnoll_errno = UNDEFINED_BEHAVIOUR;
+      return 0;
     }
     case IF_SAME: {
       // Same by virtue of it being a single value
-      return 1;
+      // Should not be called with a parameter 
+      gnoll_errno = UNDEFINED_BEHAVIOUR;
+      return 0;
     }
     case INVALID: {
       printf("Invalid Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 1;
+      return 0;
     }
     default: {
       printf("Unknown Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 1;
+      return 0;
     }
   }
   printf("Unknown Conditional\n");
