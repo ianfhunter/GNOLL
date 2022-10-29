@@ -41,9 +41,11 @@ int check_condition_vector(vec* v, COMPARATOR c) {
        return 1;
      }
      case IF_EVEN:{
+        int x = collapse(x->content, x->length); no ñ
         return (x+1) % 2;
      }
      case IF_ODD: {
+        int x = collapse(x->content, x->length);
         return x % 2;
      }
      case IF_SAME: {
