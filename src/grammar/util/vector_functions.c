@@ -374,17 +374,25 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
   if (gnoll_errno) {
     return;
   }
+  if (comp_op == IS_UNIQUE){
+    return filter_unique(dice, output);
+  }
 
   unsigned int success_idx = 0;
   for (unsigned int i = 0; i != dice->length; i++) {
     int v = dice->content[i];
-    int compare_to = cond->content[0];
-    // TODO: Non-First value
-    // printf("%i == %i\n", v, compare_to);
-
-    if (check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)) {
+    if (comp_op == IF_EVEN || comp_op == IF_ODD){
+      check_condition_vector(v, (COMPARATOR)comp_op));
       output->content[success_idx] = v;
       success_idx++;
+    }else{
+
+      int compare_to = cond->content[0];
+
+      if (check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)) {
+        output->content[success_idx] = v;
+        success_idx++;
+      }
     }
   }
   output->length = success_idx;
