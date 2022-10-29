@@ -197,16 +197,6 @@ void print_vec(vec vector) {
       printf("\t- %s\n", vector.symbols[i]);
     }
   }
-  if (0) {
-    // printf("Reroll Info:\n");
-    // printf(" - number_of_dice: %u\n", vector.source.number_of_dice);
-    // printf(" - die_sides: %u\n", vector.source.die_sides);
-    // printf(" - explode: %u\n", vector.source.explode);
-    // // printf(" - symbol_pool: %x\n", (unsigned
-    // int)vector.source.symbol_pool); printf(" - start_value: %u\n",
-    // vector.source.start_value); printf(" - dtype: %u\n",
-    // vector.source.dtype);
-  }
 }
 
 void collapse_vector(vec *vector, vec *new_vector) {
@@ -382,7 +372,7 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
   for (unsigned int i = 0; i != dice->length; i++) {
     int v = dice->content[i];
     if (comp_op == IF_EVEN || comp_op == IF_ODD){
-      check_condition_vector(v, (COMPARATOR)comp_op));
+      check_condition_scalar(v, v, (COMPARATOR)comp_op));
       output->content[success_idx] = v;
       success_idx++;
     }else{
