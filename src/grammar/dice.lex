@@ -191,6 +191,13 @@ c {
     return(DO_COUNT);
 }
 u {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IS_UNIQUE;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
     return (UNIQUE);
 }
 
