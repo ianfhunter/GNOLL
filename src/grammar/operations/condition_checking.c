@@ -24,7 +24,7 @@ extern int gnoll_errno;
 int check_condition(vec* x, vec* y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  if(c == UNIQUE || c == IF_SAME || c == UNIQUE){
+  if(c == IS_UNIQUE || c == IF_SAME || c == UNIQUE){
       return check_condition_vector(x, c);
   }else{
 
