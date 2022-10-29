@@ -49,14 +49,11 @@ int check_condition_vector(vec* v, COMPARATOR c) {
         return x % 2;
      }
      case IF_SAME: {
-       if(v->dtype == SYMBOLIC){
-          gnoll_errno = NOT_IMPLEMENTED;
-          return 0;
-       }
        int chk = v->content[0];
        for(unsigned int i=0;i!=v->length;i++){
-         if(v->content[0] != chk)
+         if(v->content[i] != chk){
            return 0;
+         }
        }
        return 1;
      }
