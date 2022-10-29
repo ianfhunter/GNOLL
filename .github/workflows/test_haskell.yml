@@ -17,6 +17,5 @@ jobs:
       run: |
         sudo apt install cabal-install ghc haskell-stack
         cabal update
-        stack config set resolver ghc-9.2.4
     - name: make haskell
       run: make haskell
