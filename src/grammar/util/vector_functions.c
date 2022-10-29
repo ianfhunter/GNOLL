@@ -372,7 +372,7 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
   for (unsigned int i = 0; i != dice->length; i++) {
     int v = dice->content[i];
     if (comp_op == IF_EVEN || comp_op == IF_ODD){
-      check_condition_scalar(v, v, (COMPARATOR)comp_op));
+      check_condition_scalar(v, v, (COMPARATOR)comp_op);
       output->content[success_idx] = v;
       success_idx++;
     }else{
