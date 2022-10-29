@@ -88,10 +88,10 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
       return 1;
     }
     case IF_ODD: {
-      return x % 2);
+      return x % 2;
     }
     case IF_EVEN: {
-      return x % 2;
+      return (x+1) % 2;
     }
     case IF_SAME: {
       // Same by virtue of it being a single value
