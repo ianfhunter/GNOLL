@@ -17,5 +17,6 @@ jobs:
       run: |
         sudo apt install cabal-install ghc haskell-stack
         cabal update
+        stack --resolver lts-18 build
     - name: make haskell
       run: make haskell
