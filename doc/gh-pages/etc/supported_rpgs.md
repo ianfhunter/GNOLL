@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEJKQUXYZ`
+**Letters Done:** `0ABCDEFIJKOQUXYZ`
 
-**Remaining Letters:** `FGHILMNOPRSTVW`
+**Remaining Letters:** `GHLMNPRSTVW`
 
 ## Legend
 
@@ -281,6 +281,54 @@ This list is currently **Under Construction**.
 |Exodus	|  d20/OGL | ✔️ |		
 |Expendables		|    | ❓ |		
 |The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Fading Suns	| | |			
+| Fanhunter	| | |		
+| Fantasy Craft | | |		
+| Fantasy Earth	| | |	
+| Fantasy Hero	| | |		
+| The Fantasy Trip	| | |				
+| Fantasy Wargaming	| | |		
+| Farscape Roleplaying Game	| | |				
+| F.A.T.A.L.	| | |
+| Fate Core	| | ✔️ |
+| Fate of the Norns	| | |
+| Fates Worse than Death| | |	
+| Fear Itself	| | |	
+| Feng Shui| | |
+| Fiasco	| | |	
+| Field Guide to Encounters| | |				
+| Fifth Cycle	| | |			
+| Fighting Fantasy: The Introductory Role-Playing Game	| | |
+| Fireborn	| | |			
+| Firefly	| | |
+| Flash Gordon & the Warriors of Mongo	| | |				
+| Flashing Blades	| | |				
+| Forbidden Kingdoms	| | |			
+| Forgotten Futures| | |
+| Freedom Fighters| | |
+| Fringeworthy | | |				
+| FTL:2448| | |				
+| FUDGE	| | ✔️ |
+| Furry Pirates	| | |	
+| Future Worlds	| | |
+| Fuzion | | |	
+| Immortal: The Invisible War	 | | |	
+| In Dark Alleys | | |
+| In Nomine	 | | |		
+| In Nomine Satanis / Magna Veritas	 | | |
+| Incursion	 | | |
+| Infernum	 | | |		
+| Infinity	 | | |	
+| Inner City	 | | |	
+| Inou Tsukai	 | | |				
+| InSpectres	 | | |
+| Invisible Sun	 | | |
+| Iron Kingdoms	 | d20 | ✔️ |		
+| Ironhedge	 | | |	
+| Iron Heroes | d20 | ✔️ |
+| Ironsworn | PbtA | ✔️ |		
+| It Came From The Late, Late, Late Show | | |	
+| It Was a Mutual Decision | | |	
 | Jadeclaw | | ❓ |		
 | James Bond 007 | d100 | ✔️ |		
 | Jeremiah | d20 | ✔️|
@@ -302,6 +350,18 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
+| Odysseus	| | |		
+| The Official Superhero Adventure Game	| | |	
+| Omnigon	| | |	
+| The One Ring: Adventures over the Edge of the Wild	| | |				
+| Only War	| | |				
+| Ork! | | |	
+| Orkworld	| | |	
+| Orpheus	| | |
+| OSRIC		| | |			
+| Other Suns	| | |	
+| Outime	| | |
+| Over the Edge	| | |
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
