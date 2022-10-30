@@ -24,10 +24,35 @@ extern int gnoll_errno;
 int check_condition(vec* x, vec* y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  int xvalue = collapse(x->content, x->length);
-  int yvalue = y->content[0];
+  if(c == IS_UNIQUE || c == IF_ODD || c == IF_EVEN){
+      return check_condition_vector(x, c);
+  }else{
 
-  return check_condition_scalar(xvalue, yvalue, c);
+      int xvalue = collapse(x->content, x->length);
+      int yvalue = y->content[0];
+      return check_condition_scalar(xvalue, yvalue, c);
+  }
+}
+
+int check_condition_vector(vec* v, COMPARATOR c) {
+   switch (c){
+     case IS_UNIQUE: {
+       gnoll_errno = NOT_IMPLEMENTED;
+       return 1;
+     }
+     case IF_EVEN:{
+        int x = collapse(v->content, v->length);
+        return (x+1) % 2;
+     }
+     case IF_ODD: {
+        int x = collapse(v->content, v->length);
+        return x % 2;
+     }
+     default: {
+       gnoll_errno = NOT_IMPLEMENTED;
+       return 0;
+     }
+   }
 }
 
 int check_condition_scalar(int x, int y, COMPARATOR c) {
@@ -54,19 +79,25 @@ int check_condition_scalar(int x, int y, COMPARATOR c) {
     case GREATER_OR_EQUALS: {
       return xvalue >= yvalue;
     }
-    case UNIQUE: {
+    case IS_UNIQUE: {
       // Unique by the fact that it is scalar
       return 1;
+    }
+    case IF_ODD: {
+      return x % 2;
+    }
+    case IF_EVEN: {
+      return (x+1) % 2;
     }
     case INVALID: {
       printf("Invalid Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 1;
+      return 0;
     }
     default: {
       printf("Unknown Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return 1;
+      return 0;
     }
   }
   printf("Unknown Conditional\n");
