@@ -19,9 +19,9 @@ This list is currently **Under Construction**.
 
 **Letters Done:** `0ABCDQUXYZ`
 
-**Letters Actively Working on:** `E`
+**Letters Actively Working on:** `F`
 
-**Remaining Letters:** `FGHIJKLMNOPRSTVW`
+**Remaining Letters:** `GHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -235,6 +235,33 @@ This list is currently **Under Construction**.
 | Dying Earth                                                                                                                 |                         | ✔️                                                            |
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
 | EABA | EABA | 🔼 |
+| Earth 2020	|    | ? |
+| Earthdawn		|    | ? |	
+| Eclipse Phase		| d100   | ✔️ |	
+| El-Hazard 	|    | ? |		
+| Eldritch 	|    | ? |		
+| Element Masters		|    | ? |		
+| Elfquest		|    | ? |
+|Elfs		|    | ? |				
+|Elric!		|    | ? |
+| Empire of the Petal Throne		|    | ? |	
+|En Garde!		|    | ? |	
+|The End		|    | ? |
+|Enforcers		|    | ? |	
+|Engel		|    | ? |		
+|Eon		|    | ? |	
+| The Esoterrorists		| GUMSHOE   | ✔️ |	
+| Espionage!		|    | ? |
+| Eternal Soldier		| Free Universal RPG    | ? |	
+| Etherscope		|    | ? |
+| The Everlasting		|    | ? |				
+| EverQuest 	|    | ? |	
+|Everway			|    | ? |			
+|Ex Machina		|    | ? |	
+|Exalted		|    | ? |	
+|Exodus	|    | ? |		
+|Expendables		|    | ? |		
+|The Extraordinary Adventures of Baron Munchausen		|    | ? |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
 | Universe                                                                                                                    |                         | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)   |
