@@ -263,26 +263,27 @@ This list is currently **Under Construction**.
 | Eldritch [[1]](https://www.therpgsite.com/pen-paper-roleplaying-games-rpgs-discussion/eldritch-role-playing-system/)	|    |  🔼 |		
 | Element Masters		|    | ❓ |		
 | Elfquest		| Basic Roleplaying  | ✔️ |
-|Elfs		|    | ? |				
-|Elric!		|    | ? |
-| Empire of the Petal Throne		|    | ? |	
-|En Garde!		|    | ? |	
-|The End		|    | ? |
-|Enforcers		|    | ? |	
-|Engel		|    | ? |		
-|Eon		|    | ? |	
+| Elfs		|    | ✔️ |				
+| Elric!		|  Basic Roleplaying  | ✔️ |
+| Empire of the Petal Throne		|    | ✔️ |	
+|En Garde!		|    |   🔼 |	
+|The End		|    |   🔼 |
+|Enforcers		|    | ❓ |	
+|Engel		|    | ✔️ |		
+|Eon		|    |    🔼 |	
 | The Esoterrorists		| GUMSHOE   | ✔️ |	
-| Espionage!		|    | ? |
-| Eternal Soldier		| Free Universal RPG    | ? |	
-| Etherscope		|    | ? |
-| The Everlasting		|    | ? |				
-| EverQuest 	|    | ? |	
-|Everway			|    | ? |			
-|Ex Machina		|    | ? |	
-|Exalted		|    | ? |	
-|Exodus	|    | ? |		
-|Expendables		|    | ? |		
-|The Extraordinary Adventures of Baron Munchausen		|    | ? |
+| Espionage!		|    | ❓ |
+| Eternal Soldier		| GURPS    |    🔼 |	
+| Etherscope		| d20   | ✔️ |
+| The Everlasting		|    | ❓ |				
+| EverQuest 	|  d20  | ✔️ |	
+|Everway			|  Diceless |  〰️ |			
+|Ex Machina		|  TriStat/d20  | ✔️ |	
+|Exalted		|  Storyteller  | ✔️ |	
+|Exodus	|  d20/OGL | ✔️ |		
+|Expendables		|    | ❓ |		
+|The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
 | Universe                                                                                                                    |                         | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)   |
