@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEJQUXYZ`
+**Letters Done:** `0ABCDEJKQUXYZ`
 
-**Remaining Letters:** `FGHIKLMNOPRSTVW`
+**Remaining Letters:** `FGHILMNOPRSTVW`
 
 ## Legend
 
@@ -292,6 +292,16 @@ This list is currently **Under Construction**.
 | The Judge Dredd Roleplaying Game	| Traveller | ✔️ |		
 | Justice, Inc.	| Hero |✔️ |
 | Justifiers	| |✔️ |	
+| KABAL	| |❓ |		
+| kill puppies for satan (sic)	| | ✔️ |		
+| Killer | LARP | 〰️ |
+| Kindred of the East	| Storyteller | ✔️ |
+| Kindred of the Ebony Kingdom	| Storyteller | ✔️ |
+| Knights and Magick	| | ❓ |		
+| Knights of the Round Table	| | ✔️ |
+| Kobolds Ate My Baby!	| | ✔️ |	
+| Krysztaly Czasu | d100 |✔️ |
+| Kult | PBtA | ✔️ |
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
