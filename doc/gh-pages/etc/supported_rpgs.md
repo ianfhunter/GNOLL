@@ -129,27 +129,27 @@ This list is currently **Under Construction**.
 | The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)                |                         | ✔️                                                          |
 | Bushido                                                                                                                     |                         | 🔼                                                          |
 | By the Gods                                                                                                                 | Ysgarth-like            | 🔼                                                          |
-| Cadillacs and Dinosaurs	|  | ? |
-| Cadwallon	|  | ? |
+| Cadillacs and Dinosaurs	| Year Zero Engine |    🔼 |
+| Cadwallon	|  |  🔼 |
 | Call of Cthulhu | Basic Role-Playing	✔️ |
-| Capes, Cowls & Villains |  | ? |		
-| Cartoon Action Hour	|  | ? |	
-| Car Wars	|  | ? |		
-| Cassiopean Empire	|  | ? |	
-| Castles & Crusades	| OGL  | ? |
-| Castle Falkenstein	|  | ? |	
-| The Castle Perilous	|  | ? |	
-| Challengers	|  | ? |		
-| Champions	| Hero System | ? |		
-| Changeling: The Dreaming | Storyteller | ? |
-| Changeling: The Lost	| Storyteller |	? |	
-| Children of the Sun	| Token System	| ? |	
-| Chill	|  | ? |
-| Chivalry & Sorcery	|  | ? |		
-| Chronicles of Ramlar	| A/B | ? |		
-| City of Heroes	|  | ? |	
+| Capes, Cowls & Villains |  |     🔼 |		
+| Cartoon Action Hour	|  | ✔️ |	
+| Car Wars	|  | ❓ |		
+| Cassiopean Empire	|  | ❓ |	
+| Castles & Crusades	| OGL  | ✔️ |
+| Castle Falkenstein	| Cards/GURPS | ✔️* |	
+| The Castle Perilous	|  | ✔️ |	
+| Challengers	|  | ❓ |		
+| Champions	| Hero System | ✔️ |		
+| Changeling: The Dreaming | Storyteller | ✔️ |
+| Changeling: The Lost	| Storyteller |	✔️ |	
+| Children of the Sun [[1]](https://www.rpg.net/reviews/archive/classic/rev_7830.phtml)	| Token System	| ✔️ |	
+| Chill	| d100 | ✔️ |
+| Chivalry & Sorcery	|  | ❓ |		
+| Chronicles of Ramlar	| A/B | ✔️ |		
+| City of Heroes	|  | ❓ |	
 | City of Mist	|  Powered by the Apocalypse | ✔️ |
-| Commando	|  | ? |
+| Commando	|  |      🔼 |
 | Conan: The Roleplaying Game                                                                                                 | d20                     | ✔️                                                          |
 | The Confederate Rangers                                                                                                     |                         | ❓                                                          |
 | Conspiracy X                                                                                                                | GURPS, Unisystem        | ✔️                                                          |
