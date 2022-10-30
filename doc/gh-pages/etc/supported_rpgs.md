@@ -286,7 +286,7 @@ This list is currently **Under Construction**.
 | Jeremiah | d20 | ✔️|
 | John Carter, Warlord of Mars	| 2d20 | ✔️|		
 | Jorune [[1]](https://archive.org/details/SkyrealmsofJoruneArchive/01%202ndEd_ASholariGuide/page/n3/mode/2up?q=d100)| |    🔼 |	
-| Jovian Chronicles| 🔽  | |				
+| Jovian Chronicles|   |  🔽 |				
 | Judge Dredd: The Role-Playing Game	| | ✔️|		
 | The Judge Dredd Roleplaying Game	| d20 | ✔️ |		
 | The Judge Dredd Roleplaying Game	| Traveller | ✔️ |		
