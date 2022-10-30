@@ -281,17 +281,17 @@ This list is currently **Under Construction**.
 |Exodus	|  d20/OGL | ✔️ |		
 |Expendables		|    | ❓ |		
 |The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
-| Jadeclaw | | |		
-| James Bond 007 | | |		
-| Jeremiah | | |
-| John Carter, Warlord of Mars	| | |		
-| Jorune| | |	
-| Jovian Chronicles| | |				
-| Judge Dredd: The Role-Playing Game	| | |		
+| Jadeclaw | | ❓ |		
+| James Bond 007 | d100 | ✔️ |		
+| Jeremiah | d20 | ✔️|
+| John Carter, Warlord of Mars	| 2d20 | ✔️|		
+| Jorune [[1]](https://archive.org/details/SkyrealmsofJoruneArchive/01%202ndEd_ASholariGuide/page/n3/mode/2up?q=d100)| |    🔼 |	
+| Jovian Chronicles| 🔽  | |				
+| Judge Dredd: The Role-Playing Game	| | ✔️|		
 | The Judge Dredd Roleplaying Game	| d20 | ✔️ |		
 | The Judge Dredd Roleplaying Game	| Traveller | ✔️ |		
-| Justice, Inc.	| | |
-| Justifiers	| | |	
+| Justice, Inc.	| Hero |✔️ |
+| Justifiers	| |✔️ |	
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
