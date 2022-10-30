@@ -17,11 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDQUXYZ`
+**Letters Done:** `0ABCDEJQUXYZ`
 
-**Letters Actively Working on:** `F`
-
-**Remaining Letters:** `GHIJKLMNOPRSTVW`
+**Remaining Letters:** `FGHIKLMNOPRSTVW`
 
 ## Legend
 
@@ -283,6 +281,17 @@ This list is currently **Under Construction**.
 |Exodus	|  d20/OGL | ✔️ |		
 |Expendables		|    | ❓ |		
 |The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Jadeclaw | | |		
+| James Bond 007 | | |		
+| Jeremiah | | |
+| John Carter, Warlord of Mars	| | |		
+| Jorune| | |	
+| Jovian Chronicles| | |				
+| Judge Dredd: The Role-Playing Game	| | |		
+| The Judge Dredd Roleplaying Game	| d20 | ✔️ |		
+| The Judge Dredd Roleplaying Game	| Traveller | ✔️ |		
+| Justice, Inc.	| | |
+| Justifiers	| | |	
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
