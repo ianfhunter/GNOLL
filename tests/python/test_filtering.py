@@ -14,7 +14,7 @@ from util import Mock, roll
         ("10d10f>=8", 27, Mock.RETURN_INCREMENTING,
          1),  # equal or greater than
         ("10d10f<=3", 6, Mock.RETURN_INCREMENTING, 1),  # equal or less than
-        ("10d10fis_even", 20, Mock.RETURN_INCREMENTING, 1),  # even
+        ("10d10fis_even", 30, Mock.RETURN_INCREMENTING, 1),  # even
         ("10d10fis_odd", 25, Mock.RETURN_INCREMENTING, 1),  # odd
         # ("10d10fis_same", 0, Mock.RETURN_INCREMENTING, 1),  # same
     ],
