@@ -312,6 +312,24 @@ This list is currently **Under Construction**.
 | Furry Pirates	| | |	
 | Future Worlds	| | |
 | Fuzion | | |	
+| A Game of Thrones	| | |	
+| Gamma World	| | ✔️|
+| Gangbusters	| | |
+| Gangster!	| | |
+| Gatecrasher	| | |			
+| Gear Krieg	| | |	
+| Geist: The Sin-Eaters	| | Storyteller |	
+| Ghost Dog: The Way of the Samurai	| | |		
+| Ghostbusters	| | ? |
+| Ghosts of Albion	Eden Studios, Inc.			Based on the Ghosts of Albion animations and novels by Amber Benson and Christopher Golden.	
+| Ghoulash: The Last Game on Earth					
+| Godlike	Hawthorn Hobgoblynn Press				
+| Golden Heroes	Games Workshop				
+| Grey Ranks	Jason Morningstar				
+| Grimm	Fantasy Flight Games				
+| GUMSHOE System	Pelgrane Press				By Robin D. Laws
+| Gunslingers and Gamblers	FJGaming			The American Wild West of 1876	
+| GURPS	Steve Jackson Games	GURPS		Generic
 | Immortal: The Invisible War	 | | |	
 | In Dark Alleys | | |
 | In Nomine	 | | |		
