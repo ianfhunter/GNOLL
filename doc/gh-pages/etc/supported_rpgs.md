@@ -19,9 +19,9 @@ This list is currently **Under Construction**.
 
 **Letters Done:** `0ABCDQUXYZ`
 
-**Letters Actively Working on:** `E`
+**Letters Actively Working on:** `F`
 
-**Remaining Letters:** `FGHIJKLMNOPRSTVW`
+**Remaining Letters:** `GHIJKLMNOPRSTVW`
 
 ## Legend
 
@@ -129,6 +129,27 @@ This list is currently **Under Construction**.
 | The Burning Wheel [[1]](https://www.dicemonkey.net/2019/11/05/rpg-review-burning-wheel-gold-revised-part-1/)                |                         | ✔️                                                          |
 | Bushido                                                                                                                     |                         | 🔼                                                          |
 | By the Gods                                                                                                                 | Ysgarth-like            | 🔼                                                          |
+| Cadillacs and Dinosaurs	| Year Zero Engine |    🔼 |
+| Cadwallon	|  |  🔼 |
+| Call of Cthulhu | Basic Role-Playing	✔️ |
+| Capes, Cowls & Villains |  |     🔼 |		
+| Cartoon Action Hour	|  | ✔️ |	
+| Car Wars	|  | ❓ |		
+| Cassiopean Empire	|  | ❓ |	
+| Castles & Crusades	| OGL  | ✔️ |
+| Castle Falkenstein	| Cards/GURPS | ✔️* |	
+| The Castle Perilous	|  | ✔️ |	
+| Challengers	|  | ❓ |		
+| Champions	| Hero System | ✔️ |		
+| Changeling: The Dreaming | Storyteller | ✔️ |
+| Changeling: The Lost	| Storyteller |	✔️ |	
+| Children of the Sun [[1]](https://www.rpg.net/reviews/archive/classic/rev_7830.phtml)	| Token System	| ✔️ |	
+| Chill	| d100 | ✔️ |
+| Chivalry & Sorcery	|  | ❓ |		
+| Chronicles of Ramlar	| A/B | ✔️ |		
+| City of Heroes	|  | ❓ |	
+| City of Mist	|  Powered by the Apocalypse | ✔️ |
+| Commando	|  |      🔼 |
 | Conan: The Roleplaying Game                                                                                                 | d20                     | ✔️                                                          |
 | The Confederate Rangers                                                                                                     |                         | ❓                                                          |
 | Conspiracy X                                                                                                                | GURPS, Unisystem        | ✔️                                                          |
@@ -235,6 +256,34 @@ This list is currently **Under Construction**.
 | Dying Earth                                                                                                                 |                         | ✔️                                                            |
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
 | EABA | EABA | 🔼 |
+| Earth 2020	| Step System   |  🔼 |
+| Earthdawn		|    | ? |	
+| Eclipse Phase		| d100   | ✔️ |	
+| El-Hazard 	| Tri-Stat   | ✔️ |		
+| Eldritch [[1]](https://www.therpgsite.com/pen-paper-roleplaying-games-rpgs-discussion/eldritch-role-playing-system/)	|    |  🔼 |		
+| Element Masters		|    | ❓ |		
+| Elfquest		| Basic Roleplaying  | ✔️ |
+| Elfs		|    | ✔️ |				
+| Elric!		|  Basic Roleplaying  | ✔️ |
+| Empire of the Petal Throne		|    | ✔️ |	
+|En Garde!		|    |   🔼 |	
+|The End		|    |   🔼 |
+|Enforcers		|    | ❓ |	
+|Engel		|    | ✔️ |		
+|Eon		|    |    🔼 |	
+| The Esoterrorists		| GUMSHOE   | ✔️ |	
+| Espionage!		|    | ❓ |
+| Eternal Soldier		| GURPS    |    🔼 |	
+| Etherscope		| d20   | ✔️ |
+| The Everlasting		|    | ❓ |				
+| EverQuest 	|  d20  | ✔️ |	
+|Everway			|  Diceless |  〰️ |			
+|Ex Machina		|  TriStat/d20  | ✔️ |	
+|Exalted		|  Storyteller  | ✔️ |	
+|Exodus	|  d20/OGL | ✔️ |		
+|Expendables		|    | ❓ |		
+|The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
 | Universe                                                                                                                    |                         | ✔️ [#203](https://github.com/ianfhunter/GNOLL/issues/203)   |
