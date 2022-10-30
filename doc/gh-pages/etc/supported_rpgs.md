@@ -281,11 +281,11 @@ This list is currently **Under Construction**.
 |Exodus	|  d20/OGL | ✔️ |		
 |Expendables		|    | ❓ |		
 |The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
-| Fading Suns	| | |			
-| Fanhunter	| | |		
-| Fantasy Craft | | |		
-| Fantasy Earth	| | |	
-| Fantasy Hero	| | |		
+| Fading Suns	| d20 | ✔️ |			
+| Fanhunter	| | ❓ |		
+| Fantasy Craft | | ✔️ |		
+| Fantasy Earth	| |✔️ |	
+| Fantasy Hero	| Hero | ✔️|		
 | The Fantasy Trip	| | |				
 | Fantasy Wargaming	| | |		
 | Farscape Roleplaying Game	| | |				
