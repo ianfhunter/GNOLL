@@ -137,7 +137,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
   if (gnoll_errno) {
     return 0;
   }
-  int single_die_roll = 0;
+  int single_die_roll;
   int exploded_result = 0;
 
   for (unsigned int i = 0; i < number_of_dice; i++) {
