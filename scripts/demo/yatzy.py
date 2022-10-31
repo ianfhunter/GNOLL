@@ -1,3 +1,11 @@
+from collections import Counter
+
+
+def is_low_straight(dice):
+    return False
+
+def is_high_straight(dice):
+    return True
 
 def scorecard (dice):
 
@@ -24,10 +32,31 @@ def scorecard (dice):
     chance = 0
     five_oak = 0
 
+    foak = [a for a,b in Counter(dice).items() if b == 4])
+    toak = [a for a,b in counter(dice).items() if b == 3])
+    twoak = [a for a,b in Counter(dice).items() if b == 3])
+
     if(all(dice[0] == dice)):
         five_oak = 50
-    
-    # hello
+    elif(len(foak) >0):
+        four_oak_sum = sum(foak)
+    elif(len(toak) >0):
+        if(len(twoak)>0):
+            # full house
+            full_house = sum(toak) + sum(twoak)
+        else:
+            three_oak_sum = sum(toak)
+    elif(len(twoak) > 0):
+        if len(twoak) == 2:
+            two_pair_sum = sum(twoak)
+        else:
+            one_pair_sum = sum(twoak)
+    elif is_low_straight(dice):
+        low_straight = 15
+    elif is_high_straight(dice):
+        low_straight = 20
+    else:
+        chance= sum(dice)
 
     print(f"""
 Dice: {dice}
