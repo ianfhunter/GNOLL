@@ -17,7 +17,7 @@ jobs:
             python -m pip install -r reqs/requirements.txt
             python -m pip install -r scripts/benchmark/requirements.txt
             make python
-      
+
       - name: Run Benchmark
         run: python scripts/benchmark/benchmark_python.py
 
