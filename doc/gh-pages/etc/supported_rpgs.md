@@ -286,9 +286,9 @@ This list is currently **Under Construction**.
 | Fantasy Craft | | ✔️ |		
 | Fantasy Earth	| |✔️ |	
 | Fantasy Hero	| Hero | ✔️|		
-| The Fantasy Trip	| | |				
-| Fantasy Wargaming	| | |		
-| Farscape Roleplaying Game	| | |				
+| The Fantasy Trip	| |✔️ |				
+| Fantasy Wargaming	| | ❓ |		
+| Farscape Roleplaying Game	| d20 |✔️ |				
 | F.A.T.A.L.	| | |
 | Fate Core	| | ✔️ |
 | Fate of the Norns	| | |
