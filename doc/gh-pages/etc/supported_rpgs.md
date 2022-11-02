@@ -291,9 +291,9 @@ This list is currently **Under Construction**.
 | Farscape Roleplaying Game	| d20 |✔️ |				
 | F.A.T.A.L.	| | |
 | Fate Core	| | ✔️ |
-| Fate of the Norns	| | |
-| Fates Worse than Death| | |	
-| Fear Itself	| | |	
+| Fate of the Norns	| | ✔️* |
+| Fates Worse than Death| | ❓ |	
+| Fear Itself	| |🔼 |	
 | Feng Shui| | |
 | Fiasco	| | |	
 | Field Guide to Encounters| | |				
