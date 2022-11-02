@@ -1,5 +1,16 @@
 from collections import Counter
+import os
+import importlib.util as iu
 
+# Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
+SRC_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+m = os.path.join(SRC_DIR, "parser.py")
+spec = iu.spec_from_file_location("dt", m)
+dt = iu.module_from_spec(spec)
+spec.loader.exec_module(dt)
+
+roll = dt.roll
 
 def is_low_straight(dice):
     return False
@@ -9,7 +20,7 @@ def is_high_straight(dice):
 
 def scorecard (dice):
 
-    tot_sides = lamda y : sum([x for x in dice if x == y])
+    tot_sides = lambda y : sum([x for x in dice if x == y])
 
     top = [
        tot_sides(1),
@@ -32,31 +43,45 @@ def scorecard (dice):
     chance = 0
     five_oak = 0
 
-    foak = [a for a,b in Counter(dice).items() if b == 4])
-    toak = [a for a,b in counter(dice).items() if b == 3])
-    twoak = [a for a,b in Counter(dice).items() if b == 3])
+    fiveoak = [a for a,b in Counter(dice).items() if b == 5]
+    foak = [a for a,b in Counter(dice).items() if b == 4]
+    toak = [a for a,b in Counter(dice).items() if b == 3]
+    twoak = [a for a,b in Counter(dice).items() if b == 2]
 
-    if(all(dice[0] == dice)):
+    if(len(fiveoak) > 0):
         five_oak = 50
     elif(len(foak) >0):
-        four_oak_sum = sum(foak)
+        four_oak_sum = foak[0]*4
     elif(len(toak) >0):
         if(len(twoak)>0):
             # full house
-            full_house = sum(toak) + sum(twoak)
+            full_house = toak[0]*3 + twoak[0]*2
         else:
-            three_oak_sum = sum(toak)
+            three_oak_sum = toak[0]*3
     elif(len(twoak) > 0):
         if len(twoak) == 2:
-            two_pair_sum = sum(twoak)
+            two_pair_sum = twoak[0]*2 + twoak[1]*2
         else:
-            one_pair_sum = sum(twoak)
+            one_pair_sum = twoak[0]*2
     elif is_low_straight(dice):
         low_straight = 15
     elif is_high_straight(dice):
         low_straight = 20
     else:
         chance= sum(dice)
+
+    total = sum([
+        top_bonus,
+        one_pair_sum,
+        two_pair_sum,
+        three_oak_sum,
+        four_oak_sum,
+        low_straight,
+        high_straight,
+        full_house,
+        chance,
+        five_oak,
+    ])
 
     print(f"""
 Dice: {dice}
@@ -80,12 +105,57 @@ Full House: {full_house}
 Chance: {chance}
 Yatzy: {five_oak}
 
-Total: {}
+Total: {total}
     """)
+    return total
 
+
+def yatzy_round(dice, first=False):
+    if first:
+        _, dice = roll("d6;d6;d6;d6;d6")
+    else:
+        choice = ""
+        while choice.upper() not in ["R", "K"]:
+            choice = input("(K)eep or (R)oll again?")
+
+        if choice.upper() == "K":
+            print("Thank you for playing")
+            quit()
+        
+        # Roll 2
+        print(f"""
+        1: {dice[0]}
+        2: {dice[1]}
+        3: {dice[2]}
+        4: {dice[3]}
+        5: {dice[4]}
+        """)
+        # TODO: Check valid input
+        choice = input("Please enter the numbers you wish to swap (space seperated)")
+        choice = sorted([int(x) for x in choice.split(" ")], reverse=True)
+        for x in choice:
+            del dice[x-1]
+
+        print("Remaining Dice:", dice)
+
+        new_dice_roll = 'd6;'*len(choice)
+        _, second_roll = roll(new_dice_roll)
+        print("New Dice Roll: ", second_roll)
+
+        dice.extend(new_dice_roll)
+        print("Joined Dice:", dice)
+        
+    scorecard(dice) 
+
+    return dice
 
 def main():
-    scorecard()
+    # Roll 1.
+    dice = yatzy_round(None, first=True)
+    dice = yatzy_round(dice)
+    dice = yatzy_round(dice)
+
+
 
 if __name__ == "__main__":
     main()
