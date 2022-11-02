@@ -299,17 +299,17 @@ This list is currently **Under Construction**.
 | Field Guide to Encounters| | 🔼|				
 | Fifth Cycle	| | 🔼|			
 | Fighting Fantasy: The Introductory Role-Playing Game	| |✔️ |
-| Fireborn	| | |			
-| Firefly	| | |
-| Flash Gordon & the Warriors of Mongo	| | |				
-| Flashing Blades	| | |				
-| Forbidden Kingdoms	| | |			
-| Forgotten Futures| | |
-| Freedom Fighters| | |
-| Fringeworthy | | |				
-| FTL:2448| | |				
+| Fireborn	| |     🔼|			
+| Firefly	| Cortex |     🔼|
+| Flash Gordon & the Warriors of Mongo	| |      🔼|				
+| Flashing Blades	| |      🔼|				
+| Forbidden Kingdoms	| d20 |✔️ |			
+| Forgotten Futures| 2d6 |    🔼 |
+| Freedom Fighters| |❓ |
+| Fringeworthy | TriTac/d20|✔️ |				
+| FTL:2448| TriTac|✔️ |				
 | FUDGE	| | ✔️ |
-| Furry Pirates	| | |	
+| Furry Pirates	| HaloGen| ❓|	
 | Future Worlds	| | |
 | Fuzion | | |	
 | A Game of Thrones	| | |	
