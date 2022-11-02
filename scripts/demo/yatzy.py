@@ -23,22 +23,19 @@ def is_high_straight(dice):
     """2-6 continuous"""
     return 6 in dice and 2 in dice and 3 in dice and 4 in dice and 5 in dice
 
+def show_individual_dice_score(top):
+    print(f"""
+[1]: {top[0]}
+[2]: {top[1]}
+[3]: {top[2]}
+[4]: {top[3]}
+[5]: {top[4]}
+[6]: {top[5]}"""
+    )
+
 
 def scorecard(dice):
     """Print out player scorecard"""
-    def tot_sides(y):
-        return sum([x for x in dice if x == y])
-
-    top = [
-        tot_sides(1),
-        tot_sides(2),
-        tot_sides(3),
-        tot_sides(4),
-        tot_sides(5),
-        tot_sides(6),
-    ]
-
-    top_bonus = 50 if sum(top) >= 63 else 0
 
     one_pair_sum = 0
     two_pair_sum = 0
@@ -49,11 +46,26 @@ def scorecard(dice):
     full_house = 0
     chance = 0
     five_oak = 0
+    top_bonus = 0 
 
-    fiveoak = [a for a, b in Counter(dice).items() if b == 5]
-    foak = [a for a, b in Counter(dice).items() if b == 4]
-    toak = [a for a, b in Counter(dice).items() if b == 3]
-    twoak = [a for a, b in Counter(dice).items() if b == 2]
+    tot_sides = lambda y, dice: sum([x for x in dice if x == y])
+    count_sides = lambda v, dice: [a for a, b in Counter(dice).items() if b == v]
+
+    top = [
+        tot_sides(1, dice),
+        tot_sides(2, dice),
+        tot_sides(3, dice),
+        tot_sides(4, dice),
+        tot_sides(5, dice),
+        tot_sides(6, dice),
+    ]
+
+    top_bonus = 50 if sum(top) >= 63 else 0
+
+    fiveoak = count_sides(5, dice)
+    foak = count_sides(4, dice)
+    toak = count_sides(3, dice)
+    twoak = count_sides(2, dice)
 
     if len(fiveoak) > 0:
         five_oak = 50
@@ -90,15 +102,10 @@ def scorecard(dice):
         five_oak,
     ])
 
-    print(f"""
-Dice: {dice}
+    print(f"Dice: {dice}")
+    show_individual_dice_score(top)
 
-[1]: {top[0]}
-[2]: {top[1]}
-[3]: {top[2]}
-[4]: {top[3]}
-[5]: {top[4]}
-[6]: {top[5]}
+    print(f"""
 
 Top Bonus: {top_bonus}
 
@@ -151,7 +158,7 @@ def yatzy_round(dice, first=False):
         _, second_roll = roll(new_dice_roll)
         print("New Dice Roll: ", second_roll)
 
-        dice.extend(new_dice_roll)
+        dice.extend(second_roll)
         print("Joined Dice:", dice)
 
     scorecard(dice)
