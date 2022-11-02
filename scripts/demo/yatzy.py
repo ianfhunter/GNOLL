@@ -42,9 +42,11 @@ def tot_sides(y, dice):
     """Sum of dice equal to a value 'y'"""
     return sum([x for x in dice if x == y])
 
+
 def count_sides(v, dice):
     """Count of dice that have 'v' matches"""
     return [a for a, b in Counter(dice).items() if b == v]
+
 
 def scorecard(dice):
     """Print out player scorecard"""
@@ -58,7 +60,6 @@ def scorecard(dice):
     chance = 0
     five_oak = 0
     top_bonus = 0
-
 
     top = [
         tot_sides(1, dice),
