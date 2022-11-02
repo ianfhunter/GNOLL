@@ -1,5 +1,6 @@
 import importlib.util as iu
 import os
+import sys
 from collections import Counter
 
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
@@ -14,15 +15,17 @@ roll = dt.roll
 
 
 def is_low_straight(dice):
-    return False
+    """1-5 continuous"""
+    return 1 in dice and 2 in dice and 3 in dice and 4 in dice and 5 in dice
 
 
 def is_high_straight(dice):
-    return True
+    """2-6 continuous"""
+    return 6 in dice and 2 in dice and 3 in dice and 4 in dice and 5 in dice
 
 
 def scorecard(dice):
-
+    """Print out player scorecard"""
     def tot_sides(y):
         return sum([x for x in dice if x == y])
 
@@ -104,7 +107,7 @@ Two Pairs: {two_pair_sum}
 Three of a Kind: {three_oak_sum}
 Four of a Kind: {four_oak_sum}
 Small Straight: {low_straight}
-Large Straight: {high_straight} 
+Large Straight: {high_straight}
 Full House: {full_house}
 Chance: {chance}
 Yatzy: {five_oak}
@@ -115,6 +118,7 @@ Total: {total}
 
 
 def yatzy_round(dice, first=False):
+    """Roll Yatzy Dice and replace if nessicary"""
     if first:
         _, dice = roll("d6;d6;d6;d6;d6")
     else:
@@ -124,7 +128,7 @@ def yatzy_round(dice, first=False):
 
         if choice.upper() == "K":
             print("Thank you for playing")
-            quit()
+            sys.exit(0)
 
         # Roll 2
         print(f"""
@@ -156,6 +160,7 @@ def yatzy_round(dice, first=False):
 
 
 def main():
+    """Play a game of Yatzy"""
     # Roll 1.
     dice = yatzy_round(None, first=True)
     dice = yatzy_round(dice)
