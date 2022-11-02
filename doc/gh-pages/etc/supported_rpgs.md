@@ -298,7 +298,7 @@ This list is currently **Under Construction**.
 | Fiasco	| | ✔️|	
 | Field Guide to Encounters| | 🔼|				
 | Fifth Cycle	| | 🔼|			
-| Fighting Fantasy: The Introductory Role-Playing Game	| | |
+| Fighting Fantasy: The Introductory Role-Playing Game	| |✔️ |
 | Fireborn	| | |			
 | Firefly	| | |
 | Flash Gordon & the Warriors of Mongo	| | |				
