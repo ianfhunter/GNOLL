@@ -5,7 +5,8 @@ from collections import Counter
 
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
+)
 m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -23,8 +24,10 @@ def is_high_straight(dice):
     """2-6 continuous"""
     return 6 in dice and 2 in dice and 3 in dice and 4 in dice and 5 in dice
 
+
 def show_individual_dice_score(top):
-    print(f"""
+    print(
+        f"""
 [1]: {top[0]}
 [2]: {top[1]}
 [3]: {top[2]}
@@ -46,10 +49,13 @@ def scorecard(dice):
     full_house = 0
     chance = 0
     five_oak = 0
-    top_bonus = 0 
+    top_bonus = 0
 
-    tot_sides = lambda y, dice: sum([x for x in dice if x == y])
-    count_sides = lambda v, dice: [a for a, b in Counter(dice).items() if b == v]
+    def tot_sides(y, dice):
+        return sum([x for x in dice if x == y])
+
+    def count_sides(v, dice):
+        return [a for a, b in Counter(dice).items() if b == v]
 
     top = [
         tot_sides(1, dice),
@@ -89,23 +95,26 @@ def scorecard(dice):
     else:
         chance = sum(dice)
 
-    total = sum([
-        top_bonus,
-        one_pair_sum,
-        two_pair_sum,
-        three_oak_sum,
-        four_oak_sum,
-        low_straight,
-        high_straight,
-        full_house,
-        chance,
-        five_oak,
-    ])
+    total = sum(
+        [
+            top_bonus,
+            one_pair_sum,
+            two_pair_sum,
+            three_oak_sum,
+            four_oak_sum,
+            low_straight,
+            high_straight,
+            full_house,
+            chance,
+            five_oak,
+        ]
+    )
 
     print(f"Dice: {dice}")
     show_individual_dice_score(top)
 
-    print(f"""
+    print(
+        f"""
 
 Top Bonus: {top_bonus}
 
@@ -120,7 +129,8 @@ Chance: {chance}
 Yatzy: {five_oak}
 
 Total: {total}
-    """)
+    """
+    )
     return total
 
 
@@ -138,13 +148,15 @@ def yatzy_round(dice, first=False):
             sys.exit(0)
 
         # Roll 2
-        print(f"""
+        print(
+            f"""
         1: {dice[0]}
         2: {dice[1]}
         3: {dice[2]}
         4: {dice[3]}
         5: {dice[4]}
-        """)
+        """
+        )
         # TODO: Check valid input
         choice = input(
             "Please enter the numbers you wish to swap (space seperated)")
