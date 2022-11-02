@@ -289,15 +289,15 @@ This list is currently **Under Construction**.
 | The Fantasy Trip	| |✔️ |				
 | Fantasy Wargaming	| | ❓ |		
 | Farscape Roleplaying Game	| d20 |✔️ |				
-| F.A.T.A.L.	| | |
+| F.A.T.A.L.	| | ✔️|
 | Fate Core	| | ✔️ |
 | Fate of the Norns	| | ✔️* |
 | Fates Worse than Death| | ❓ |	
 | Fear Itself	| |🔼 |	
-| Feng Shui| | |
-| Fiasco	| | |	
-| Field Guide to Encounters| | |				
-| Fifth Cycle	| | |			
+| Feng Shui| | ✔️|
+| Fiasco	| | ✔️|	
+| Field Guide to Encounters| | 🔼|				
+| Fifth Cycle	| | 🔼|			
 | Fighting Fantasy: The Introductory Role-Playing Game	| | |
 | Fireborn	| | |			
 | Firefly	| | |
