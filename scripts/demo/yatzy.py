@@ -26,6 +26,7 @@ def is_high_straight(dice):
 
 def scorecard(dice):
     """Print out player scorecard"""
+
     def tot_sides(y):
         return sum([x for x in dice if x == y])
 
