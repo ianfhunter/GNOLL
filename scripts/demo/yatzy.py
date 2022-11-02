@@ -38,6 +38,14 @@ def show_individual_dice_score(top):
     )
 
 
+def tot_sides(y, dice):
+    """Sum of dice equal to a value 'y'"""
+    return sum([x for x in dice if x == y])
+
+def count_sides(v, dice):
+    """Count of dice that have 'v' matches"""
+    return [a for a, b in Counter(dice).items() if b == v]
+
 def scorecard(dice):
     """Print out player scorecard"""
     one_pair_sum = 0
@@ -51,11 +59,6 @@ def scorecard(dice):
     five_oak = 0
     top_bonus = 0
 
-    def tot_sides(y, dice):
-        return sum([x for x in dice if x == y])
-
-    def count_sides(v, dice):
-        return [a for a, b in Counter(dice).items() if b == v]
 
     top = [
         tot_sides(1, dice),
