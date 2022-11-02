@@ -24,6 +24,7 @@ def is_high_straight(dice):
     return 6 in dice and 2 in dice and 3 in dice and 4 in dice and 5 in dice
 
 def show_individual_dice_score(top):
+    """Print out pip scores"""
     print(f"""
 [1]: {top[0]}
 [2]: {top[1]}
@@ -36,7 +37,6 @@ def show_individual_dice_score(top):
 
 def scorecard(dice):
     """Print out player scorecard"""
-
     one_pair_sum = 0
     two_pair_sum = 0
     three_oak_sum = 0
