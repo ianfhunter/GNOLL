@@ -318,15 +318,15 @@ This list is currently **Under Construction**.
 | Gangster!	| d100 | ✔️|
 | Gatecrasher	| Fudge |✔️ |			
 | Gear Krieg	| | ✔️* |	
-| Geist: The Sin-Eaters	| | Storyteller |	
-| Ghost Dog: The Way of the Samurai	| | |		
-| Ghostbusters	| | ? |
-| Ghosts of Albion	| | |
-| Ghoulash: The Last Game on Earth	| | |				
-| Godlike	| | |				
-| Golden Heroes	| | |
-| Grey Ranks	| | |
-| Grimm	| | |
+| Geist: The Sin-Eaters	| Storyteller |	✔️ |
+| Ghost Dog: The Way of the Samurai	| TriStat| |		
+| Ghostbusters	| d6 | ✔️ |
+| Ghosts of Albion	| Unisystem | ✔️ |
+| Ghoulash: The Last Game on Earth	| | 〰️ |				
+| Godlike	| ORE | ✔️|				
+| Golden Heroes	| | ❓ |
+| Grey Ranks	| | ✔️|
+| Grimm	| Linear d6 | TBC: #366 |
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
