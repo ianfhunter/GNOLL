@@ -310,11 +310,11 @@ This list is currently **Under Construction**.
 | FTL:2448| TriTac|✔️ |				
 | FUDGE	| | ✔️ |
 | Furry Pirates	| HaloGen| ❓|	
-| Future Worlds	| | |
-| Fuzion | | |	
-| A Game of Thrones	| | |	
+| Future Worlds	| | ❓|
+| Fuzion | | ✔️|	
+| A Game of Thrones	|TriStat dX, d20 |✔️ |	
 | Gamma World	| | ✔️|
-| Gangbusters	| | |
+| Gangbusters	| | ✔️|
 | Gangster!	| | |
 | Gatecrasher	| | |			
 | Gear Krieg	| | |	
