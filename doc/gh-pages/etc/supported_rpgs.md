@@ -330,10 +330,10 @@ This list is currently **Under Construction**.
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
-| Immortal: The Invisible War	 | | |	
-| In Dark Alleys | | |
-| In Nomine	 | | |		
-| In Nomine Satanis / Magna Veritas	 | | |
+| Immortal: The Invisible War	 | |✔️* |	
+| In Dark Alleys | ORC |✔️ |
+| In Nomine	 |d666 | ✔️*|		
+| In Nomine Satanis / Magna Veritas	 | d666|✔️* |
 | Incursion	 | | |
 | Infernum	 | | |		
 | Infinity	 | | |	
