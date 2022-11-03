@@ -315,9 +315,9 @@ This list is currently **Under Construction**.
 | A Game of Thrones	|TriStat dX, d20 |✔️ |	
 | Gamma World	| | ✔️|
 | Gangbusters	| | ✔️|
-| Gangster!	| | |
-| Gatecrasher	| | |			
-| Gear Krieg	| | |	
+| Gangster!	| d100 | ✔️|
+| Gatecrasher	| Fudge |✔️ |			
+| Gear Krieg	| | ✔️* |	
 | Geist: The Sin-Eaters	| | Storyteller |	
 | Ghost Dog: The Way of the Samurai	| | |		
 | Ghostbusters	| | ? |
