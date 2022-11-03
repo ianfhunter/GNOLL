@@ -326,7 +326,7 @@ This list is currently **Under Construction**.
 | Godlike	| ORE | ✔️|				
 | Golden Heroes	| | ❓ |
 | Grey Ranks	| | ✔️|
-| Grimm	| Linear d6 | TBC: #366 |
+| Grimm	| Linear d6 | ✔️* |
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
@@ -395,7 +395,7 @@ This list is currently **Under Construction**.
 | The Zorcerer of Zo                                                                                                          | PDQ                     | ✔️                                                          |
 | Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander)                                                                       |                         | ✔️                                                          |
 
-* Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, etc)
+* Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, Difficulty Stepping etc)
 
 **Compatibility Percentage:** 96.875%
 
