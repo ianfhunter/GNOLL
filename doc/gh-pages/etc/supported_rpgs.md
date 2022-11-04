@@ -319,7 +319,7 @@ This list is currently **Under Construction**.
 | Gatecrasher	| Fudge |✔️ |			
 | Gear Krieg	| | ✔️* |	
 | Geist: The Sin-Eaters	| Storyteller |	✔️ |
-| Ghost Dog: The Way of the Samurai	| TriStat| |		
+| Ghost Dog: The Way of the Samurai	| TriStat|✔️ |		
 | Ghostbusters	| d6 | ✔️ |
 | Ghosts of Albion	| Unisystem | ✔️ |
 | Ghoulash: The Last Game on Earth	| | 〰️ |				
