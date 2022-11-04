@@ -334,19 +334,19 @@ This list is currently **Under Construction**.
 | In Dark Alleys | ORC |✔️ |
 | In Nomine	 |d666 | ✔️*|		
 | In Nomine Satanis / Magna Veritas	 | d666|✔️* |
-| Incursion	 | | |
-| Infernum	 | | |		
-| Infinity	 | | |	
-| Inner City	 | | |	
-| Inou Tsukai	 | | |				
-| InSpectres	 | | |
-| Invisible Sun	 | | |
+| Incursion	 | TriTac |✔️ |
+| Infernum	 | d20 |✔️ |		
+| Infinity	 | | ❓|	
+| Inner City	 | |      🔼|	
+| Inou Tsukai	 | |❓ |				
+| InSpectres	 | |     🔼 |
+| Invisible Sun	 | Cypher|     🔼 |
 | Iron Kingdoms	 | d20 | ✔️ |		
-| Ironhedge	 | | |	
+| Ironhedge	 | |     🔼 |	
 | Iron Heroes | d20 | ✔️ |
 | Ironsworn | PbtA | ✔️ |		
-| It Came From The Late, Late, Late Show | | |	
-| It Was a Mutual Decision | | |	
+| It Came From The Late, Late, Late Show | |❓ |	
+| It Was a Mutual Decision | |     🔼 |	
 | Jadeclaw | | ❓ |		
 | James Bond 007 | d100 | ✔️ |		
 | Jeremiah | d20 | ✔️|
