@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEJQUXYZ`
+**Letters Done:** `0ABCDEFIJKOQUXYZ`
 
-**Remaining Letters:** `FGHIKLMNOPRSTVW`
+**Remaining Letters:** `GHLMNPRSTVW`
 
 ## Legend
 
@@ -281,6 +281,72 @@ This list is currently **Under Construction**.
 |Exodus	|  d20/OGL | ✔️ |		
 |Expendables		|    | ❓ |		
 |The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Fading Suns	| d20 | ✔️ |			
+| Fanhunter	| | ❓ |		
+| Fantasy Craft | | ✔️ |		
+| Fantasy Earth	| |✔️ |	
+| Fantasy Hero	| Hero | ✔️|		
+| The Fantasy Trip	| |✔️ |				
+| Fantasy Wargaming	| | ❓ |		
+| Farscape Roleplaying Game	| d20 |✔️ |				
+| F.A.T.A.L.	| | ✔️|
+| Fate Core	| | ✔️ |
+| Fate of the Norns	| | ✔️* |
+| Fates Worse than Death| | ❓ |	
+| Fear Itself	| |🔼 |	
+| Feng Shui| | ✔️|
+| Fiasco	| | ✔️|	
+| Field Guide to Encounters| | 🔼|				
+| Fifth Cycle	| | 🔼|			
+| Fighting Fantasy: The Introductory Role-Playing Game	| |✔️ |
+| Fireborn	| |     🔼|			
+| Firefly	| Cortex |     🔼|
+| Flash Gordon & the Warriors of Mongo	| |      🔼|				
+| Flashing Blades	| |      🔼|				
+| Forbidden Kingdoms	| d20 |✔️ |			
+| Forgotten Futures| 2d6 |    🔼 |
+| Freedom Fighters| |❓ |
+| Fringeworthy | TriTac/d20|✔️ |				
+| FTL:2448| TriTac|✔️ |				
+| FUDGE	| | ✔️ |
+| Furry Pirates	| HaloGen| ❓|	
+| Future Worlds	| | ❓|
+| Fuzion | | ✔️|	
+| A Game of Thrones	|TriStat dX, d20 |✔️ |	
+| Gamma World	| | ✔️|
+| Gangbusters	| | ✔️|
+| Gangster!	| d100 | ✔️|
+| Gatecrasher	| Fudge |✔️ |			
+| Gear Krieg	| | ✔️* |	
+| Geist: The Sin-Eaters	| Storyteller |	✔️ |
+| Ghost Dog: The Way of the Samurai	| TriStat|✔️ |		
+| Ghostbusters	| d6 | ✔️ |
+| Ghosts of Albion	| Unisystem | ✔️ |
+| Ghoulash: The Last Game on Earth	| | 〰️ |				
+| Godlike	| ORE | ✔️|				
+| Golden Heroes	| | ❓ |
+| Grey Ranks	| | ✔️|
+| Grimm	| Linear d6 | ✔️* |
+| GUMSHOE System | |✔️ |
+| Gunslingers and Gamblers | | ✔️ |	
+| GURPS	| | ✔️|
+| Immortal: The Invisible War	 | |✔️* |	
+| In Dark Alleys | ORC |✔️ |
+| In Nomine	 |d666 | ✔️*|		
+| In Nomine Satanis / Magna Veritas	 | d666|✔️* |
+| Incursion	 | TriTac |✔️ |
+| Infernum	 | d20 |✔️ |		
+| Infinity	 | | ❓|	
+| Inner City	 | |      🔼|	
+| Inou Tsukai	 | |❓ |				
+| InSpectres	 | |     🔼 |
+| Invisible Sun	 | Cypher|     🔼 |
+| Iron Kingdoms	 | d20 | ✔️ |		
+| Ironhedge	 | |     🔼 |	
+| Iron Heroes | d20 | ✔️ |
+| Ironsworn | PbtA | ✔️ |		
+| It Came From The Late, Late, Late Show | |❓ |	
+| It Was a Mutual Decision | |     🔼 |	
 | Jadeclaw | | ❓ |		
 | James Bond 007 | d100 | ✔️ |		
 | Jeremiah | d20 | ✔️|
@@ -292,6 +358,28 @@ This list is currently **Under Construction**.
 | The Judge Dredd Roleplaying Game	| Traveller | ✔️ |		
 | Justice, Inc.	| Hero |✔️ |
 | Justifiers	| |✔️ |	
+| KABAL	| |❓ |		
+| kill puppies for satan (sic)	| | ✔️ |		
+| Killer | LARP | 〰️ |
+| Kindred of the East	| Storyteller | ✔️ |
+| Kindred of the Ebony Kingdom	| Storyteller | ✔️ |
+| Knights and Magick	| | ❓ |		
+| Knights of the Round Table	| | ✔️ |
+| Kobolds Ate My Baby!	| | ✔️ |	
+| Krysztaly Czasu | d100 |✔️ |
+| Kult | PBtA | ✔️ |
+| Odysseus	| |❓ |		
+| The Official Superhero Adventure Game	| |❓ |	
+| Omnigon	| |❓ |	
+| The One Ring: Adventures over the Edge of the Wild	| |     🔼 |				
+| Only War	| |❓ |				
+| Ork! | | ✔️|	
+| Orkworld	| |❓ |	
+| Orpheus	| Storyteller |✔️ |
+| OSRIC		| | ✔️|			
+| Other Suns	| | ❓|	
+| Outime	| | ❓|
+| Over the Edge	| | ✔️ |
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
@@ -307,7 +395,7 @@ This list is currently **Under Construction**.
 | The Zorcerer of Zo                                                                                                          | PDQ                     | ✔️                                                          |
 | Zweihänder [[1]](https://1d4chan.org/wiki/Zweihander)                                                                       |                         | ✔️                                                          |
 
-* Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, etc)
+* Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, Difficulty Stepping etc)
 
 **Compatibility Percentage:** 96.875%
 
