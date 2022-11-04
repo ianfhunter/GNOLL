@@ -368,7 +368,7 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
-| Odysseus	| | |		
+| Odysseus	| |❓ |		
 | The Official Superhero Adventure Game	| | |	
 | Omnigon	| | |	
 | The One Ring: Adventures over the Edge of the Wild	| | |				
