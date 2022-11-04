@@ -373,13 +373,13 @@ This list is currently **Under Construction**.
 | Omnigon	| |❓ |	
 | The One Ring: Adventures over the Edge of the Wild	| |     🔼 |				
 | Only War	| |❓ |				
-| Ork! | | |	
-| Orkworld	| | |	
-| Orpheus	| | |
-| OSRIC		| | |			
-| Other Suns	| | |	
-| Outime	| | |
-| Over the Edge	| | |
+| Ork! | | ✔️|	
+| Orkworld	| |❓ |	
+| Orpheus	| Storyteller |✔️ |
+| OSRIC		| | ✔️|			
+| Other Suns	| | ❓|	
+| Outime	| | ❓|
+| Over the Edge	| | ✔️ |
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
