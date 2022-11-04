@@ -369,10 +369,10 @@ This list is currently **Under Construction**.
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
 | Odysseus	| |❓ |		
-| The Official Superhero Adventure Game	| | |	
-| Omnigon	| | |	
-| The One Ring: Adventures over the Edge of the Wild	| | |				
-| Only War	| | |				
+| The Official Superhero Adventure Game	| |❓ |	
+| Omnigon	| |❓ |	
+| The One Ring: Adventures over the Edge of the Wild	| |     🔼 |				
+| Only War	| |❓ |				
 | Ork! | | |	
 | Orkworld	| | |	
 | Orpheus	| | |
