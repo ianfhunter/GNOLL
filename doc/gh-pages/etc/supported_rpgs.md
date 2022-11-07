@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEFIJKOQUXYZ`
+**Letters Done:** `0ABCDEFGHIJKOQUXYZ`
 
-**Remaining Letters:** `GHLMNPRSTVW`
+**Remaining Letters:** `LMNPRSTVW`
 
 ## Legend
 
@@ -255,7 +255,7 @@ This list is currently **Under Construction**.
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
 | EABA | EABA | 🔼 |
 | Earth 2020	| Step System   |  🔼 |
-| Earthdawn		|    | ? |	
+| Earthdawn		|    | ❓ |	
 | Eclipse Phase		| d100   | ✔️ |	
 | El-Hazard 	| Tri-Stat   | ✔️ |		
 | Eldritch [[1]](https://www.therpgsite.com/pen-paper-roleplaying-games-rpgs-discussion/eldritch-role-playing-system/)	|    |  🔼 |		
@@ -330,6 +330,36 @@ This list is currently **Under Construction**.
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
+| HackMaster	| | |
+| Halcyon		| | |
+| Happy Birthday, Robot!		| | |
+| HârnMaster		| | |
+| Haven: City of Violence		| | |		
+| Hawkmoon		| Stormbringer |✔️ |
+| Heaven & Earth			| | |			
+| Heavy Gear		| | |
+| Hercules & Xena 	| d6 | ✔️| 
+| Hero System		| | |		
+| HeroQuest/Hero Wars		| | |				
+| Heroes		| | |		
+| Heroes of Olympus		| | |		
+| Heroes Unlimited		| | |	
+| Hidden Kingdom		| | |	
+| High Adventure Cliffhangers Buck Rogers 	| | |			
+| High Adventure Role Playing (HARP)		| | |				
+| High Colonies		| | |		
+| High Fantasy		| | |		
+| Hillfolk		| | |	
+| Hol		| | |			
+| Hollow Earth Expedition | | |
+| Hollyworld		| | |				
+| Hong Kong Action Theater			| | |			
+| Houses of the Blooded				| | |
+| How We Came To Live Here		| | |		
+| Hunter Planet	H-PAC			| | |
+| Hunter: The Reckoning		| WoD |✔️ |		
+| Hunter: The Vigil			|WoD | ✔️|			
+| Hyborian War		| | |
 | Immortal: The Invisible War	 | |✔️* |	
 | In Dark Alleys | ORC |✔️ |
 | In Nomine	 |d666 | ✔️*|		
