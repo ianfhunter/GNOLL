@@ -330,8 +330,8 @@ This list is currently **Under Construction**.
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
-| HackMaster	| | |
-| Halcyon		| | |
+| HackMaster	| |✔️ |
+| Halcyon		| | ❓|
 | Happy Birthday, Robot!		| | |
 | HârnMaster		| | |
 | Haven: City of Violence		| | |		
