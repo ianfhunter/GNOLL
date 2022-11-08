@@ -103,3 +103,4 @@ Currently there are not enough people using the project to warrant a chat system
 This will be appended as we add language support
 
   * **Python** - [PEP8](https://www.python.org/dev/peps/pep-0008/)
+  * **C/C++** - [Google](https://google.github.io/styleguide/cppguide.html)

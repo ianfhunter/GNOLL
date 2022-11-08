@@ -5,13 +5,15 @@
 %{
     #include <stdio.h>
     #include "shared_header.h"
-    #include "safe_functions.h"
-    #include "rolls/condition_checking.h"
+    #include "util/safe_functions.h"
+    #include "operations/condition_checking.h"
     #include "y.tab.h"
     #include <assert.h>
 
     extern int gnoll_errno;
     void yyerror(char *s); // From YACC Code
+
+    int fileno(FILE *stream);   // Bad practise, but solves warning in lex.yy.c for C99. It is unused in our application.
 %}
 
 %%
@@ -189,7 +191,14 @@ c {
     return(DO_COUNT);
 }
 u {
-    return (MAKE_UNIQUE);
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IS_UNIQUE;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return (UNIQUE);
 }
 
     /* Explosions */
@@ -267,10 +276,46 @@ o {
     yylval.values = vector;
     return(GE);
 }
+is_even {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_EVEN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(IS_EVEN);
+}
+is_odd {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_ODD;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(IS_ODD);
+}
     /* Macros*/
 [\=] {
     return(ASSIGNMENT);
 }
 [~] {
     return(IMPLOSION);
+}
+
+    /*         Builtin Functions        */
+    /* These should be limited in scope */
+
+max {
+    return (FN_MAX);
+}
+min {
+    return (FN_MIN);
+}
+abs {
+    return (FN_ABS);
+}
+pool {
+    return (FN_POOL);
 }

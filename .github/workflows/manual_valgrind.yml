@@ -1,0 +1,24 @@
+name: "Manual: Memory Leaks"
+
+on:
+#   workflow_dispatch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  valgrind:
+    runs-on: ubuntu-latest
+    name: Memory Leak detection
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Lib Install
+        run: |
+            sudo apt-get install valgrind
+            make all DEBUG=1
+
+      - name: Run Valgrind
+        run: valgrind --leak-check=full ./build/dice d20
