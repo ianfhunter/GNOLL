@@ -332,9 +332,9 @@ This list is currently **Under Construction**.
 | GURPS	| | ✔️|
 | HackMaster	| |✔️ |
 | Halcyon		| | ❓|
-| Happy Birthday, Robot!		| | |
-| HârnMaster		| | |
-| Haven: City of Violence		| | |		
+| Happy Birthday, Robot!		| |✔️ |
+| HârnMaster		| |     🔼|
+| Haven: City of Violence		| OGL/d20 | ✔️|		
 | Hawkmoon		| Stormbringer |✔️ |
 | Heaven & Earth			| | |			
 | Heavy Gear		| | |
