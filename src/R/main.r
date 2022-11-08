@@ -1,12 +1,6 @@
 print("Hello GNOLL")
 
-library.dynam(
-    "dice.so", 
-    "GNOLL", 
-    "",
-    "../../build/",
-    verbose = True
-)
+dyn.load("../../build/r/dice.so")
 
 return_code <- GNOLL.roll_and_write(
     "1d20",
