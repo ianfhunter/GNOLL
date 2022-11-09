@@ -4,7 +4,7 @@
 #include <jni.h>
 
 JNIEXPORT jint JNICALL Java_org_gnoll_DiceNotationParser_roll
-  (JNIEnv* env, jclass, jstring  js)
+  (JNIEnv* env, jclass jc, jstring  js)
 {
     char* dieString = (char *)(*env)->GetStringUTFChars(env, js, JNI_FALSE);
     int return_code = roll_and_write(dieString, "output.dice");
