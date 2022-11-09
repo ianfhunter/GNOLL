@@ -73,7 +73,7 @@ jobs:
     - name: make r
       run: make r
 
-  buildjava:
+  build_java:
     runs-on: ubuntu-latest
 
     steps:
