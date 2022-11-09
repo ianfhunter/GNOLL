@@ -1,4 +1,4 @@
-name: "Test: C/Python"
+name: "Core Tests"
 
 on:
   push:
@@ -64,6 +64,3 @@ jobs:
         run: make all
       - name: Test
         run: ./build/dice 20
-        #run: python3 -m pip install GNOLL
-      #- name: Run tests
-       # run: python3 -c "from gnoll.parser import roll;roll('1d20')"
