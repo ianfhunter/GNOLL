@@ -1,4 +1,4 @@
-name: "Bindin Tests"
+name: "Binding Tests"
 
 on:
   push:
