@@ -1249,7 +1249,7 @@ int roll(char * s){
     return gnoll_errno;
 }
 
-int roll_and_write(char * s, char * f){
+int roll_and_write(char* s, char* f){
     gnoll_errno = 0;
     write_to_file = 1;
     output_file = f;
@@ -1258,6 +1258,11 @@ int roll_and_write(char * s, char * f){
     /* free(macros); */
     return return_code;
 }
+
+void roll_and_write_R(int* return_code, char** s, char** f){
+    (*return_code) = roll_and_write(s[0], f[0]);
+}
+
 int mock_roll(char * s, char * f, int mock_value, int mock_const){
     gnoll_errno = 0;
     init_mocking((MOCK_METHOD)mock_value, mock_const);

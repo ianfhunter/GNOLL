@@ -18,6 +18,7 @@ typedef enum {
 
 int roll(char* s);
 int roll_and_write(char* s, char* f);
+void roll_and_write_R(int* return_code, char** s, char** f );
 int mock_roll(char* s, char* f, int mock_value, int mock_const);
 
 // #ifdef __cplusplus
