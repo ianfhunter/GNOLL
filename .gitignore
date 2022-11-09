@@ -157,3 +157,6 @@ src/go/main
 
 # TROLL
 test.t
+
+# GNOLL Outputs
+*.dice

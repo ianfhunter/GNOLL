@@ -1259,8 +1259,8 @@ int roll_and_write(char* s, char* f){
     return return_code;
 }
 
-int roll_and_write_2d_pointers(char** s, char** f){
-    return roll_and_write(s[0], f[0]);
+void roll_and_write_R(int* return_code, char** s, char** f){
+    (*return_code) = roll_and_write(s[0], f[0]);
 }
 
 int mock_roll(char * s, char * f, int mock_value, int mock_const){
