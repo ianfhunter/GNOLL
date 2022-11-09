@@ -12,5 +12,5 @@ java: clean yacc lex compile $(OBJECTS)
 	$(CC) $(SHAREDCFLAGS) -c src/java/src/org_gnoll_DiceNotationParser.c -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/linux
 	$(CC) -shared -o build/java/libdice.so $(OBJECTS) $(ARC4RANDOM) -Wl,-soname,gnoll
 	cp build/java/libdice.so  src/java/libdice.so
-	cd src/java/src/; LD_LIBRARY_PATH=$(PWD)/src/java/classes/ javac -cp .:$(PWD)/src/java/classes/ -d $(PWD)/src/java/classes/ Test.java
-	cd src/java; LD_LIBRARY_PATH=$(PWD)/src/java/classes/ java -cp .:$(PWD)/src/java/classes/ Test #test.java
+	cd src/java/src/; LD_LIBRARY_PATH=$(PWD)/build/java/ javac -cp .:$(PWD)/src/java/classes/ -d $(PWD)/src/java/classes/ Test.java
+	cd src/java; LD_LIBRARY_PATH=$(PWD)/build/java/ java -cp .:$(PWD)/src/java/classes/ Test #test.java
