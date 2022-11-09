@@ -15,9 +15,9 @@ if(return_code != 0){
 result <- read_lines("output.dice", skip = 0, n_max = -1)
 result <- strtol(result)
 
-if(result <= 0 | result > 20)
+if(result <= 0 | result > 20){
     print(paste("GNOLL rolled:", result))
     stop ("GNOLL rolled invalid value")
-)
+{
 
 
