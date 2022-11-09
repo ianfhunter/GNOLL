@@ -1,15 +1,8 @@
 # GNOLL
 
-![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
-![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
 
 [![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
 [![Binding Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_langs.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_langs.yml)
-
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
 
@@ -41,19 +34,17 @@ Many of our notation design decisions are explained in the documentation and com
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too:
+GNOLL was written to be the definitive solution to dice notation. The core has been written in C, but fear not! You can use GNOLL in many other programming languages too.
 
-- C / C++
-- Python
-- Perl
-- Go
-- JavaScript (Node.js)
-- Julia
-- R
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
+![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 
- We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
-
-Tested on Linux (Ubuntu) and Windows (10, WSL).
+Primarily tested on Linux (Ubuntu), but functional in various forms on Windows (10, WSL) and Mac.
 
 ### 🎲 Dice Notation
 - XdY notation
