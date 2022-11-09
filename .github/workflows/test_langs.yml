@@ -72,3 +72,15 @@ jobs:
     - uses: r-lib/actions/setup-r@v2
     - name: make r
       run: make r
+
+  buildjava:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make java
+      run: |
+        sudo apt-get install default-jdk -y
+        sudo apt-get install openjdk-8-jdk--headless -y
+        sudo apt-get install openjdk-8-jdk -y
+        make java
