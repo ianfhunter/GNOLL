@@ -1,8 +1,8 @@
 print("Hello GNOLL")
 
-dyn.load("../../build/r/dice.so")
+dyn.load("build/r/dice.so")
 
-return_code <- GNOLL.roll_and_write(
+return_code <- roll_and_write(
     "1d20",
     "output.dice"
 )
