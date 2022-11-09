@@ -4,6 +4,7 @@
 [![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml)
 [![Test: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml)
+[![Test: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
@@ -44,6 +45,7 @@ We wrote GNOLL to be the definitive solution to dice notation. We've written all
 - Go
 - JavaScript (Node.js)
 - Julia
+- R
 
  We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
 
