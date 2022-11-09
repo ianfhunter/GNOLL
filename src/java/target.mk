@@ -13,4 +13,4 @@ java: clean yacc lex compile $(OBJECTS)
 	$(CC) -shared -o build/java/libdice.so $(OBJECTS) $(ARC4RANDOM) -Wl,-soname,gnoll
 	cp build/java/libdice.so  src/java/libdice.so
 	cd src/java; LD_LIBRARY_PATH=build/java/ javac -cp ".:$(PWD)/src/java/" test.java
-        cd src/java; LD_LIBRARY_PATH=build/java/ java -cp ".:$(PWD)/src/java/" Test #test.java
+	cd src/java; LD_LIBRARY_PATH=build/java/ java -cp ".:$(PWD)/src/java/" Test #test.java
