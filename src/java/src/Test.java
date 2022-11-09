@@ -1,7 +1,7 @@
-import org.gnoll;
+import org.gnoll.DiceNotationParser;
 public class Test {
     public static void main(String[] args) {
-        int r = gnoll.roll("1d200");
+        int r = DiceNotationParser.roll("1d200");
 
         System.out.println("GNOLL RC:"+r);
     }
