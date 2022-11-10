@@ -17,8 +17,8 @@ public class Test {
         
         Path path = Paths.get(fn);
         List<String> lines = Files.readAllLines(path);
-        String[] arr = lines.toArray();
+        
+        System.out.println("GNOLL Rolled:", lines.get(0));
 
-        System.out.println("GNOLL Rolled:", lines[0]);
     }
 }
