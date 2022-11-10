@@ -17,11 +17,12 @@ public class Test {
         assert r == 0;
         
         Path path = Paths.get(fn);
+        List<String> lines;
         try{
-            List<String> lines = Files.readAllLines(path);
+            lines = Files.readAllLines(path);
         }
         catch(IOException e) {
-            List<String> lines = Collections.<String>emptyList();
+            lines = Collections.<String>emptyList();
             assert false;
         }
         System.out.println("GNOLL Rolled:" + lines.get(0));
