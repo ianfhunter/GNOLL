@@ -16,7 +16,7 @@ public class Test {
         System.out.println("GNOLL RC:"+r);
         assert r == 0;
         
-        Path path = Paths.get(fn);
+        Path path = Paths.get(path);
         List<String> lines;
         try{
             lines = Files.readAllLines(fn); //path);
