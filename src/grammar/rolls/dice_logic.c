@@ -155,7 +155,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
       // printf("Roll between %d and %d\n", start_value, end_value);
       single_die_roll = random_fn(start_value, end_value);
       if (dice_breakdown){
-        fp = safe_fopen(output_file, "a+");
+        FILE *fp = safe_fopen(output_file, "a+");
         fprintf(fp, "%i;", single_die_roll);
         fclose(fp);
       }
@@ -182,7 +182,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
            explosion_count < EXPLOSION_LIMIT);
 
   if (dice_breakdown){
-    fp = safe_fopen(output_file, "a+");
+    FILE *fp = safe_fopen(output_file, "a+");
     fprintf(fp, "\n", single_die_roll);
     fclose(fp);
   }
