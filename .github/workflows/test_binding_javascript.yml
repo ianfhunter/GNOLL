@@ -1,0 +1,31 @@
+name: "Binding Tests: JavaScript"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_javascript:
+    runs-on: ubuntu-22.0
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install LLVM and Clang
+      uses: KyleMayes/install-llvm-action@v1
+      with:
+        version: "10.0"
+    - name: python deps
+      run: python3 -m pip install -r reqs/requirements.txt
+    - name: javascript prerequisites
+      run: |
+        sudo apt install clang-14 lld-14 llvm-14 nodejs libjs-d3 python3-numpy
+        sudo apt install nodejs llvm -y
+        wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
+        sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb
+    - name: make js
+      run: |
+        emcc -v
+        make js
+        node ./build/js/a.out.js 1d20
+
