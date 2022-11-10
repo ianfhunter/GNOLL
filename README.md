@@ -1,6 +1,5 @@
 # GNOLL
 
-
 [![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
 
 [![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
