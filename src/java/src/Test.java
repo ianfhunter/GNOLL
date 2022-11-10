@@ -19,7 +19,7 @@ public class Test {
         Path path = Paths.get(fn);
         List<String> lines;
         try{
-            lines = Files.readAllLines(path);
+            lines = Files.readAllLines(fn); //path);
         }
         catch(IOException e) {
             lines = Collections.<String>emptyList();
