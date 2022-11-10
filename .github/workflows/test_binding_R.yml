@@ -1,4 +1,4 @@
-name: "Binding Tests"
+name: "Binding Tests: R"
 
 on:
   push:
