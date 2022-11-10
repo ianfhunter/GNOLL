@@ -183,7 +183,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
 
   if (dice_breakdown){
     FILE *fp = safe_fopen(output_file, "a+");
-    fprintf(fp, "\n", single_die_roll);
+    fprintf(fp, "\n");
     fclose(fp);
   }
 
