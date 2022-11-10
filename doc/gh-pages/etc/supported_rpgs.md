@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEFIJKOQUXYZ`
+**Letters Done:** `0ABCDEFGHIJKOQUXYZ`
 
-**Remaining Letters:** `GHLMNPRSTVW`
+**Remaining Letters:** `LMNPRSTVW`
 
 ## Legend
 
@@ -255,7 +255,7 @@ This list is currently **Under Construction**.
 | Dzikie Pola (Wild Fields)                                                                                                   |                         | ✔️                                                          |
 | EABA | EABA | 🔼 |
 | Earth 2020	| Step System   |  🔼 |
-| Earthdawn		|    | ? |	
+| Earthdawn		|    | ❓ |	
 | Eclipse Phase		| d100   | ✔️ |	
 | El-Hazard 	| Tri-Stat   | ✔️ |		
 | Eldritch [[1]](https://www.therpgsite.com/pen-paper-roleplaying-games-rpgs-discussion/eldritch-role-playing-system/)	|    |  🔼 |		
@@ -275,12 +275,12 @@ This list is currently **Under Construction**.
 | Etherscope		| d20   | ✔️ |
 | The Everlasting		|    | ❓ |				
 | EverQuest 	|  d20  | ✔️ |	
-|Everway			|  Diceless |  〰️ |			
-|Ex Machina		|  TriStat/d20  | ✔️ |	
-|Exalted		|  Storyteller  | ✔️ |	
-|Exodus	|  d20/OGL | ✔️ |		
-|Expendables		|    | ❓ |		
-|The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Everway			|  Diceless |  〰️ |			
+| Ex Machina		|  TriStat/d20  | ✔️ |	
+| Exalted		|  Storyteller  | ✔️ |	
+| Exodus	|  d20/OGL | ✔️ |		
+| Expendables		|    | ❓ |		
+| The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
 | Fading Suns	| d20 | ✔️ |			
 | Fanhunter	| | ❓ |		
 | Fantasy Craft | | ✔️ |		
@@ -330,6 +330,36 @@ This list is currently **Under Construction**.
 | GUMSHOE System | |✔️ |
 | Gunslingers and Gamblers | | ✔️ |	
 | GURPS	| | ✔️|
+| HackMaster	| |✔️ |
+| Halcyon		| | ❓|
+| Happy Birthday, Robot!		| |✔️ |
+| HârnMaster		| |     🔼|
+| Haven: City of Violence		| OGL/d20 | ✔️|		
+| Hawkmoon		| Stormbringer |✔️ |
+| Heaven & Earth			| Tri-Stat | ✔️|			
+| Heavy Gear		| | ✔️*|
+| Hercules & Xena 	| d6 | ✔️| 
+| Hero System		| |✔️ |		
+| HeroQuest/Hero Wars		| |✔️ |				
+| Heroes		| | ❓|		
+| Heroes of Olympus		| | ❓|		
+| Heroes Unlimited		| Megaversal | 🔼|	
+| Hidden Kingdom		| |❓|	
+| High Adventure Cliffhangers Buck Rogers [[1]](https://rpg.stackexchange.com/questions/8028/what-system-runs-high-adventure-cliffhangers-the-buck-rogers-adventure-game)	| |🔼|		
+| High Adventure Role Playing (HARP)		| d100 |✔️ |				
+| High Colonies		| | ❓ |		
+| High Fantasy		| d100 | ✔️ |		
+| Hillfolk		| | ❓|	
+| Hol		| |🔼 ([#376](https://github.com/ianfhunter/GNOLL/issues/376)) |			
+| Hollow Earth Expedition | Ubiquity | ✔️|
+| Hollyworld		| |🔼|		
+| Hong Kong Action Theater			| TriStat| ✔️|			
+| Houses of the Blooded				| |✔️ |
+| How We Came To Live Here		| |✔️* |		
+| Hunter Planet			| | ❓ |
+| Hunter: The Reckoning		| WoD |✔️ |		
+| Hunter: The Vigil			|WoD | ✔️|			
+| Hyborian War		| |❓ |
 | Immortal: The Invisible War	 | |✔️* |	
 | In Dark Alleys | ORC |✔️ |
 | In Nomine	 |d666 | ✔️*|		
