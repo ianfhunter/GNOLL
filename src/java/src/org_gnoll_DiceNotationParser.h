@@ -13,7 +13,7 @@ extern "C" {
  * Signature: (Ljava/lang/String;)I
  */
 JNIEXPORT jint JNICALL Java_org_gnoll_DiceNotationParser_roll
-  (JNIEnv *, jclass, jstring);
+  (JNIEnv *, jclass, jstring, jstring);
 
 #ifdef __cplusplus
 }
