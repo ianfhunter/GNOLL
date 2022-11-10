@@ -2,7 +2,14 @@
 
 
 [![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
-[![Binding Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_langs.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_langs.yml)
+
+[![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
+[![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
+[![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
+[![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
+[![Binding Tests: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml)
+[![Binding Tests: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml)
+
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
 
@@ -37,9 +44,10 @@ Many of our notation design decisions are explained in the documentation and com
 GNOLL was written to be the definitive solution to dice notation. The core has been written in C, but fear not! You can use GNOLL in many other programming languages too.
 
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
-![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 ![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
