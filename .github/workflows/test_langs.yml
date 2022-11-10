@@ -78,9 +78,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make java
+    - name: java dependencies 
       run: |
         sudo apt-get install default-jdk -y
-        #sudo apt-get install openjdk-8-jdk--headless -y
         sudo apt-get install openjdk-8-jdk -y
+        
+    - name: make java
+      run: |
         make java
+
+
+
