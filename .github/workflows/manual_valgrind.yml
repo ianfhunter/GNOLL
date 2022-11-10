@@ -1,11 +1,11 @@
 name: "Manual: Memory Leaks"
 
 on:
-#   workflow_dispatch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+   workflow_dispatch
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
 
 jobs:
   valgrind:
