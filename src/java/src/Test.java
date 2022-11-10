@@ -7,7 +7,7 @@ public class Test {
     public static void main(String[] args) {
         String fn = "tmp.dice";
         Path fp = Paths.get(fn);
-        File f =  new File(fn);;
+        File f =  new File(fn);
 
         f.delete();
         try{

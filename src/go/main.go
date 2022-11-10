@@ -1,3 +1,4 @@
+// Package main rolls a dice using GNOLL
 package main
 // #cgo CFLAGS: -I${SRCDIR}/c_includes/
 // #cgo LDFLAGS: -L${SRCDIR}/c_build/ -ldice
@@ -16,15 +17,15 @@ func check(e error){
 }
 
 func main(){
-    diceFile := "output.dice"
-    toRoll := C.CString("1d20")
-    outputFile := C.CString(diceFile)
-    os.Remove(diceFile)
-    C.roll_and_write(toRoll, outputFile);
-    dat, err := ioutil.ReadFile(diceFile)
-    check(err)
-    fmt.Print(string(dat))
-    C.free(unsafe.Pointer(toRoll))
-    C.free(unsafe.Pointer(outputFile))
-    os.Remove(diceFile)
+  diceFile := "output.dice"
+  toRoll := C.CString("1d20")
+  outputFile := C.CString(diceFile)
+  os.Remove(diceFile)
+  C.roll_and_write(toRoll, outputFile);
+  dat, err := ioutil.ReadFile(diceFile)
+  check(err)
+  fmt.Print(string(dat))
+  C.free(unsafe.Pointer(toRoll))
+  C.free(unsafe.Pointer(outputFile))
+  os.Remove(diceFile)
 }
