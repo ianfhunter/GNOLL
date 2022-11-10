@@ -275,12 +275,12 @@ This list is currently **Under Construction**.
 | Etherscope		| d20   | ✔️ |
 | The Everlasting		|    | ❓ |				
 | EverQuest 	|  d20  | ✔️ |	
-|Everway			|  Diceless |  〰️ |			
-|Ex Machina		|  TriStat/d20  | ✔️ |	
-|Exalted		|  Storyteller  | ✔️ |	
-|Exodus	|  d20/OGL | ✔️ |		
-|Expendables		|    | ❓ |		
-|The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
+| Everway			|  Diceless |  〰️ |			
+| Ex Machina		|  TriStat/d20  | ✔️ |	
+| Exalted		|  Storyteller  | ✔️ |	
+| Exodus	|  d20/OGL | ✔️ |		
+| Expendables		|    | ❓ |		
+| The Extraordinary Adventures of Baron Munchausen		|    | ❓ |
 | Fading Suns	| d20 | ✔️ |			
 | Fanhunter	| | ❓ |		
 | Fantasy Craft | | ✔️ |		
@@ -336,30 +336,30 @@ This list is currently **Under Construction**.
 | HârnMaster		| |     🔼|
 | Haven: City of Violence		| OGL/d20 | ✔️|		
 | Hawkmoon		| Stormbringer |✔️ |
-| Heaven & Earth			| | |			
-| Heavy Gear		| | |
+| Heaven & Earth			| Tri-Stat | ✔️|			
+| Heavy Gear		| | ✔️*|
 | Hercules & Xena 	| d6 | ✔️| 
-| Hero System		| | |		
-| HeroQuest/Hero Wars		| | |				
-| Heroes		| | |		
-| Heroes of Olympus		| | |		
-| Heroes Unlimited		| | |	
-| Hidden Kingdom		| | |	
-| High Adventure Cliffhangers Buck Rogers 	| | |			
-| High Adventure Role Playing (HARP)		| | |				
-| High Colonies		| | |		
-| High Fantasy		| | |		
-| Hillfolk		| | |	
-| Hol		| | |			
-| Hollow Earth Expedition | | |
-| Hollyworld		| | |				
-| Hong Kong Action Theater			| | |			
-| Houses of the Blooded				| | |
-| How We Came To Live Here		| | |		
-| Hunter Planet	H-PAC			| | |
+| Hero System		| |✔️ |		
+| HeroQuest/Hero Wars		| |✔️ |				
+| Heroes		| | ❓|		
+| Heroes of Olympus		| | ❓|		
+| Heroes Unlimited		| Megaversal | 🔼|	
+| Hidden Kingdom		| |❓|	
+| High Adventure Cliffhangers Buck Rogers [[1]](https://rpg.stackexchange.com/questions/8028/what-system-runs-high-adventure-cliffhangers-the-buck-rogers-adventure-game)	| |🔼|		
+| High Adventure Role Playing (HARP)		| d100 |✔️ |				
+| High Colonies		| | ❓ |		
+| High Fantasy		| d100 | ✔️ |		
+| Hillfolk		| | ❓|	
+| Hol		| |🔼 ([#376](https://github.com/ianfhunter/GNOLL/issues/376)) |			
+| Hollow Earth Expedition | Ubiquity | ✔️|
+| Hollyworld		| |🔼|		
+| Hong Kong Action Theater			| TriStat| ✔️|			
+| Houses of the Blooded				| |✔️ |
+| How We Came To Live Here		| |✔️* |		
+| Hunter Planet			| | ❓ |
 | Hunter: The Reckoning		| WoD |✔️ |		
 | Hunter: The Vigil			|WoD | ✔️|			
-| Hyborian War		| | |
+| Hyborian War		| |❓ |
 | Immortal: The Invisible War	 | |✔️* |	
 | In Dark Alleys | ORC |✔️ |
 | In Nomine	 |d666 | ✔️*|		
