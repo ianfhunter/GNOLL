@@ -427,6 +427,7 @@ This list is currently **Under Construction**.
 
 * Contains mechanics outside of GNOLL's scope (e.g. Degrees of Success, Card Decks, State Tracking, Difficulty Stepping etc)
 
-**Compatibility Percentage:** 96.875%
+**Compatibility Percentage:** 98.66%
 
-(Calculated 23/09/2022 via [tableconvert.com](https://tableconvert.com/markdown-to-excel)) + Excel math
+(Calculated 10/11/2022 via [tableconvert.com](https://tableconvert.com/markdown-to-excel)) + Excel math to do (pseudo) COUNT(🔼✔️)/COUNT(🔼✔️❌)*100
+
