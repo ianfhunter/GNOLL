@@ -25,6 +25,7 @@ public class Test {
             lines = Collections.<String>emptyList();
             assert false;
         }
+        assert lines.size() > 0 ;
         System.out.println("GNOLL Rolled:" + lines.get(0));
 
     }
