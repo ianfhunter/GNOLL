@@ -36,6 +36,7 @@ int yydebug=1;
 #endif
 
 int verbose = 1;
+int dice_breakdown = 0;
 int seeded = 0;
 int write_to_file = 0;
 char * output_file;
@@ -1249,6 +1250,18 @@ int roll(char * s){
     return gnoll_errno;
 }
 
+int roll_with_breakdown(char * s){
+    dice_breakdown=1;
+    if (verbose){
+        printf("Trying to roll '%s'\n", s);
+    }
+    initialize();
+    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    yyparse();
+    yy_delete_buffer(buffer);
+    return gnoll_errno;
+}
+
 int roll_and_write(char* s, char* f){
     gnoll_errno = 0;
     write_to_file = 1;
@@ -1300,7 +1313,7 @@ char * concat_strings(char ** s, int num_s){
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
     verbose = 1;
-    return roll(s);
+    return roll_with_breakdown(s);
 }
 
 int yyerror(s)
