@@ -1,6 +1,8 @@
 import org.gnoll.DiceNotationParser;
 import java.io.File;
+import java.io.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Test {
