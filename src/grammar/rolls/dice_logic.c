@@ -19,6 +19,7 @@
 
 extern pcg32_random_t rng;
 extern int dice_breakdown;
+extern char * output_file;
 
 int random_fn_run_count = 0;
 int global_mock_value = 0;
