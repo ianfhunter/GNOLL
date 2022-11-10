@@ -1313,7 +1313,11 @@ char * concat_strings(char ** s, int num_s){
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
     verbose = 1;
-    return roll_with_breakdown(s);
+    #ifdef BREAKDOWN
+        return roll_with_breakdown(s);
+    #else
+        return roll(s);
+    #endif
 }
 
 int yyerror(s)
