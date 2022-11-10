@@ -4,6 +4,8 @@
 [![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml)
 [![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml)
 [![Test: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml)
+[![Test: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml)
+
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
@@ -14,7 +16,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_halloween.png" height="200">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.

@@ -191,7 +191,14 @@ c {
     return(DO_COUNT);
 }
 u {
-    return (MAKE_UNIQUE);
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IS_UNIQUE;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return (UNIQUE);
 }
 
     /* Explosions */
@@ -268,6 +275,26 @@ o {
     vector.length = 1;
     yylval.values = vector;
     return(GE);
+}
+is_even {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_EVEN;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(IS_EVEN);
+}
+is_odd {
+    vec vector;
+    vector.content = safe_malloc(sizeof(int));
+    if(gnoll_errno){yyerror("Memory Err");}
+    vector.content[0] = IF_ODD;
+    vector.dtype = NUMERIC;
+    vector.length = 1;
+    yylval.values = vector;
+    return(IS_ODD);
 }
     /* Macros*/
 [\=] {

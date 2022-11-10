@@ -180,5 +180,12 @@ src/go/main
 *.html
 *.stackdump
 
+# Java Gen'd
+*.class
+org_gnoll_DiceNotationParser.h
+
 # TROLL
 test.t
+
+# GNOLL Outputs
+*.dice

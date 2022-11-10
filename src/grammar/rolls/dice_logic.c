@@ -18,6 +18,8 @@
 #define EXPLOSION_LIMIT 50
 
 extern pcg32_random_t rng;
+extern int dice_breakdown;
+extern char * output_file;
 
 int random_fn_run_count = 0;
 int global_mock_value = 0;
@@ -137,8 +139,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
   if (gnoll_errno) {
     return 0;
   }
-
-  int single_die_roll = 0;
+  int single_die_roll;
   int exploded_result = 0;
 
   for (unsigned int i = 0; i < number_of_dice; i++) {
@@ -153,6 +154,11 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
       }
       // printf("Roll between %d and %d\n", start_value, end_value);
       single_die_roll = random_fn(start_value, end_value);
+      if (dice_breakdown){
+        FILE *fp = safe_fopen(output_file, "a+");
+        fprintf(fp, "%i;", single_die_roll);
+        fclose(fp);
+      }
       all_dice_roll[i] += single_die_roll;
       exploded_result += single_die_roll;
     }
@@ -174,6 +180,12 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     }
   } while (explode && (exploded_result == explosion_condition_score) &&
            explosion_count < EXPLOSION_LIMIT);
+
+  if (dice_breakdown){
+    FILE *fp = safe_fopen(output_file, "a+");
+    fprintf(fp, "\n");
+    fclose(fp);
+  }
 
   return all_dice_roll;
 }

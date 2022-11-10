@@ -36,6 +36,7 @@ int yydebug=1;
 #endif
 
 int verbose = 1;
+int dice_breakdown = 0;
 int seeded = 0;
 int write_to_file = 0;
 char * output_file;
@@ -84,8 +85,7 @@ int sum(int * arr, unsigned int len){
 %token LBRACE RBRACE PLUS MINUS MULT MODULO DIVIDE_ROUND_UP DIVIDE_ROUND_DOWN
 %token REROLL
 %token SYMBOL_LBRACE SYMBOL_RBRACE STATEMENT_SEPERATOR CAPITAL_STRING
-%token DO_COUNT MAKE_UNIQUE
-%token NE EQ GT LT LE GE
+%token DO_COUNT UNIQUE IS_EVEN IS_ODD
 %token RANGE
 %token FN_MAX FN_MIN FN_ABS FN_POOL
 
@@ -96,6 +96,8 @@ int sum(int * arr, unsigned int len){
 %left KEEP_LOWEST KEEP_HIGHEST DROP_HIGHEST DROP_LOWEST
 %left UMINUS
 %left LBRACE RBRACE
+%left EXPLOSION
+%left NE EQ GT LT LE GE
 
 %union{
     vec values;
@@ -597,7 +599,26 @@ dice_operations:
 
     }
     |
-    dice_operations MAKE_UNIQUE{
+    dice_operations FILTER singular_condition{
+        vec new_vec;
+        vec dice = $<values>1;
+        int check = $<values>3.content[0];
+
+        if(dice.dtype == NUMERIC){
+            initialize_vector(&new_vec, NUMERIC, dice.length);
+            filter(&dice, NULL, check, &new_vec);
+
+            $<values>$ = new_vec;
+        }else{
+            printf("No support for Symbolic die rerolling yet!\n");
+            gnoll_errno = NOT_IMPLEMENTED;
+            YYABORT;
+            yyclearin;;
+        }
+
+    }
+    |
+    dice_operations UNIQUE{
         // TODO
         vec new_vec;
         vec dice = $<values>1;
@@ -1148,6 +1169,7 @@ csd:
     }
     ;
 
+singular_condition: UNIQUE | IS_ODD | IS_EVEN ;
 condition: EQ | LT | GT | LE | GE | NE ;
 
 die_symbol:
@@ -1228,7 +1250,19 @@ int roll(char * s){
     return gnoll_errno;
 }
 
-int roll_and_write(char * s, char * f){
+int roll_with_breakdown(char * s){
+    dice_breakdown=1;
+    if (verbose){
+        printf("Trying to roll '%s'\n", s);
+    }
+    initialize();
+    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    yyparse();
+    yy_delete_buffer(buffer);
+    return gnoll_errno;
+}
+
+int roll_and_write(char* s, char* f){
     gnoll_errno = 0;
     write_to_file = 1;
     output_file = f;
@@ -1237,6 +1271,11 @@ int roll_and_write(char * s, char * f){
     /* free(macros); */
     return return_code;
 }
+
+void roll_and_write_R(int* return_code, char** s, char** f){
+    (*return_code) = roll_and_write(s[0], f[0]);
+}
+
 int mock_roll(char * s, char * f, int mock_value, int mock_const){
     gnoll_errno = 0;
     init_mocking((MOCK_METHOD)mock_value, mock_const);
@@ -1274,7 +1313,11 @@ char * concat_strings(char ** s, int num_s){
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
     verbose = 1;
-    return roll(s);
+    #ifdef BREAKDOWN
+        return roll_with_breakdown(s);
+    #else
+        return roll(s);
+    #endif
 }
 
 int yyerror(s)

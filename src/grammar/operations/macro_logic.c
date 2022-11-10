@@ -42,7 +42,6 @@ void register_macro(vec *macro_name, roll_params *to_store) {
     return;
   }
 
-  unsigned int count = 0;
   char *skey = macro_name->symbols[0];
   unsigned long key = hash_function((unsigned char *)skey);
   int k = (int)key;
@@ -87,9 +86,7 @@ void search_macros(char *skey, roll_params *to_store) {
   if (gnoll_errno) {
     return;
   }
-  (void)(to_store);  // will be refactored later
-
-  // int key = safe_strtol(skey, NULL, 10);
+  
   unsigned long key = hash_function((unsigned char *)skey);
   int k = (int)key;
 

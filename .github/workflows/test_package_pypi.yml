@@ -1,11 +1,11 @@
-name: "Test: GNOLL from PyPi"
+name: "Test: Packaging"
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  verify:
+  verify_pypi:
     runs-on: ubuntu-latest
 
     steps:

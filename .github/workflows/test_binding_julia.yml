@@ -1,4 +1,4 @@
-name: "Test: Julia"
+name: "Binding Tests: Julia"
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+
+  build_julia:
 
     runs-on: ubuntu-latest
 

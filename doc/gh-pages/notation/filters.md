@@ -37,7 +37,7 @@ that requires the player to discard any 2s rolled in their roll. Conditional sta
 cases such as these.
 
 When applied to a vector of rolls, a conditional can act as a filter to remove rolls that do not satisfy the criteria.
-Conditionals in GNOLL operations take the same form as one might find in typical programming languages.
+Conditionals in GNOLL operations take the same form as one might find in typical programming languages as well as one or two more.
 
 | Symbol | Meaning      |
 | ------ | ------------ |
@@ -47,6 +47,9 @@ Conditionals in GNOLL operations take the same form as one might find in typical
 |   >    | Greater Than |
 |   <=   | Less Than OR Equal To     |
 |   >=   | Greater Than OR Equal To     |
+| is_odd | Is odd |
+| is_even | Is even |
+| u | Is unique |
 
 Filters use conditionals to remove dice rolls that do not match the conditional check. Equation 16 shows four dice
 being rolled and then two of them discarded for not matching the filter criteria.

@@ -1,4 +1,4 @@
-name: "Test: Javascript"
+name: "Binding Tests: JavaScript"
 
 on:
   push:
@@ -7,10 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-22.04
-
+  build_javascript:
+    runs-on: ubuntu-22.0
     steps:
     - uses: actions/checkout@v3
     - name: Install LLVM and Clang
@@ -30,3 +28,4 @@ jobs:
         emcc -v
         make js
         node ./build/js/a.out.js 1d20
+
