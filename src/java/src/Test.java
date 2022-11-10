@@ -16,8 +16,12 @@ public class Test {
         assert r == 0;
         
         Path path = Paths.get(fn);
-        List<String> lines = Files.readAllLines(path);
-        
+        try{
+            List<String> lines = Files.readAllLines(path);
+        }
+        catch(IOException e) {
+            assert 0;
+        }
         System.out.println("GNOLL Rolled:" + lines.get(0));
 
     }
