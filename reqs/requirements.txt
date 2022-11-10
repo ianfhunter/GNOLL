@@ -8,3 +8,4 @@ pytest
 build
 twine
 setuptools
+pygments>=2.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
