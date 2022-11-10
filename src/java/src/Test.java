@@ -17,9 +17,9 @@ public class Test {
             assert false;
         }
         
-        int r = DiceNotationParser.roll("1d200", fn);
-        System.out.println("GNOLL RC:"+r);
-        assert r == 0;
+        int gnoll_return_code = DiceNotationParser.roll("1d200", fn);
+        // System.out.println("GNOLL RC:"+r);
+        assert gnoll_return_code == 0;
 
         try{
             List<String> lines = Files.readAllLines(fp);
