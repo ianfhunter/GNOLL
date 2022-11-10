@@ -1,4 +1,8 @@
 import org.gnoll.DiceNotationParser;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.List;
+
 public class Test {
     public static void main(String[] args) {
         String fn = "tmp.dice";
