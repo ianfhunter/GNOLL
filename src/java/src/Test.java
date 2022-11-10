@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.io.IOException;
 
 public class Test {
     public static void main(String[] args) {
@@ -20,7 +21,7 @@ public class Test {
             List<String> lines = Files.readAllLines(path);
         }
         catch(IOException e) {
-            assert 0;
+            assert false;
         }
         System.out.println("GNOLL Rolled:" + lines.get(0));
 
