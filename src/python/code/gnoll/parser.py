@@ -77,10 +77,10 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
             s,
             out_file,
             False,  # enable_verbose
-            breakdown,   # enable_introspect
-            mock is not None,    # enable_mock
+            breakdown,  # enable_introspect
+            mock is not None,  # enable_mock
             mock,
-            mock_const
+            mock_const,
         )
 
     if verbose:
@@ -111,4 +111,3 @@ Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code}, 
 Dice Breakdown: {breakdown}""")
-
