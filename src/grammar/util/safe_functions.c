@@ -1,4 +1,5 @@
 #include "util/safe_functions.h"
+#include "yacc_header.h"
 
 #include <errno.h>
 #include <stdarg.h>
