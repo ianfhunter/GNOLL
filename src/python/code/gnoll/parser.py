@@ -58,7 +58,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
             return v
 
     def extract_from_dice_file(lines, seperator):
-        v = [l.split(seperator)[:-1] for l in lines if seperator in l]
+        v = [x.split(seperator)[:-1] for x in lines if seperator in x]
         v = [list(map(make_native_type, x)) for x in v]
         return v
 
@@ -76,11 +76,11 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
         return_code = libc.roll_full_options(
             s,
             out_file,
-            False,
-            True,
-            mock is not None,
+            False,  # enable_verbose
+            breakdown,   # enable_introspect
+            mock is not None,    # enable_mock
             mock,
-            breakdown,
+            mock_const
         )
 
     if verbose:
@@ -111,3 +111,4 @@ Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code}, 
 Dice Breakdown: {breakdown}""")
+
