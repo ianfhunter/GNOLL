@@ -170,6 +170,10 @@ dice_statement: functions{
             yyclearin;
         }
     }
+    
+    if (dice_breakdown){
+        fprintf(fp, "_____\n");
+    }
 
     // TODO: To Function
     for(unsigned int i = 0; i!= new_vec.length;i++){
@@ -1250,17 +1254,18 @@ int roll(char * s){
     return gnoll_errno;
 }
 
-int roll_with_breakdown(char * s){
+int roll_with_breakdown(char * s, char* f){
     dice_breakdown=1;
-    if (verbose){
-        printf("Trying to roll '%s'\n", s);
-    }
-    initialize();
-    YY_BUFFER_STATE buffer = yy_scan_string(s);
-    yyparse();
-    yy_delete_buffer(buffer);
-    return gnoll_errno;
+
+    gnoll_errno = 0;
+    write_to_file = 1;
+    output_file = f;
+    verbose = 0;
+    int return_code = roll(s);
+    /* free(macros); */
+    return return_code;
 }
+
 
 int roll_and_write(char* s, char* f){
     gnoll_errno = 0;
@@ -1312,9 +1317,11 @@ char * concat_strings(char ** s, int num_s){
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
+    remove("output.dice");
+
     verbose = 1;
     #ifdef BREAKDOWN
-        return roll_with_breakdown(s);
+        return roll_with_breakdown(s, "output.dice");
     #else
         return roll(s);
     #endif
