@@ -42,10 +42,28 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s, verbose=False, mock=None, mock_const=3):
+def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
+
+    def makeIntIfPossible(v):
+        if v == "0":
+            return 0
+        if v == "":
+            return "NULL"
+        try:
+            return int(v)
+        except ValueError:
+            return v
+        
+
+    def extract_from_dice_file(lines, seperator):
+        v = [l.split(seperator)[:-1] for l in lines if seperator in l]
+
+        v = [list(map(makeIntIfPossible, x)) for x in v]
+        # v = [[int(x) for x in y] for y in v]
+        return v
 
     die_file = temp.name
     os.remove(die_file)
@@ -57,10 +75,16 @@ def roll(s, verbose=False, mock=None, mock_const=3):
 
     with pipes() as (out, err):
         s = s.encode("ascii")
-        if mock is None:
-            return_code = libc.roll_and_write(s, out_file)
-        else:
-            return_code = libc.mock_roll(s, out_file, mock, mock_const)
+
+        return_code = libc.roll_full_options(
+            s, 
+            out_file, 
+            False,
+            True, # breakdown,
+            mock is not None,
+            mock, 
+            mock_const
+        )
 
     if verbose:
         print("---stdout---")
@@ -73,23 +97,21 @@ def roll(s, verbose=False, mock=None, mock_const=3):
 
     with open(out_file, encoding="utf-8") as f:
         lines = f.readlines()
-        results = lines[0].split(";")[:-1]
+    
+    dice_breakdown = extract_from_dice_file(lines, ",")
+    result = extract_from_dice_file(lines, ";")
 
-    if isinstance(results, list) and len(results) == 1:
-        results = results[0]
-
-    if isinstance(results, list):
-        if all(x.lstrip("-").isdigit() for x in results):
-            results = [int(o) for o in results]
-
-    elif results.lstrip("-").isdigit():
-        results = int(results)
-
-    return int(return_code), results
+    return int(return_code), result, dice_breakdown
 
 
 if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
-    code, r = roll(arg, verbose=True)
-    print(f"Result: {r}. Exit Code: {code}")
+    code, r, breakdown = roll(arg, verbose=False)
+    print(f"""
+[[GNOLL Results]]
+Dice Roll:      {arg}
+Result:         {r}
+Exit Code:      {code}, 
+Dice Breakdown: {breakdown}"""
+    )

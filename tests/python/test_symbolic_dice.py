@@ -12,14 +12,14 @@ from util import Mock, roll
     ],
 )
 def test_symbolic_dice(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
 @pytest.mark.parametrize("r,out,mock",
                          [("2d{A,B,C,D}", ["D", "D"], Mock.RETURN_CONSTANT)])
 def test_multiple_symbolic_dice(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -36,12 +36,12 @@ def test_multiple_symbolic_dice(r, out, mock):
     ],
 )
 def test_long_string(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
 @pytest.mark.parametrize("r,out,mock",
                          [("2d{2,2,2,2,3}", [2, 2], Mock.RETURN_CONSTANT)])
 def test_multiple_numeric_dice(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out

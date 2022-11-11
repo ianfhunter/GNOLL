@@ -8,10 +8,6 @@
 // extern "C" {
 // #endif
 
-// Mocking Util
-void reset_mocking();
-void init_mocking(MOCK_METHOD mock_style, int starting_value);
-void mocking_tick();
 
 // Random Functions
 int random_fn(int small, int big);

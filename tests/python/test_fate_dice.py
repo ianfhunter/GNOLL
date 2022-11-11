@@ -7,46 +7,46 @@ from util import Mock, error_handled_by_gnoll, roll
 @pytest.mark.parametrize("fd", ["df", "dF", "df.2", "dF.2"])
 def test_traditional_fate(fd):
     # Assure Symbols are correct
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == 0
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == "-"
 
 
 @pytest.mark.parametrize("fd", ["df.1", "dF.1"])
 def test_large_alt_fate_low(fd):
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == 0
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == 0
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 0
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=4)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=4)
     assert result == 0
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=5)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=5)
     assert result == "-"
 
 
 @pytest.mark.parametrize("fd", ["df.3", "dF.9"])
 def test_large_alt_fate_high(fd):
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == "+"
-    result = roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
+    result, _= roll(fd, mock_mode=Mock.RETURN_CONSTANT, mock_const=1)
     assert result == "-"
 
 
 def test_multidie():
-    result = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result, _ = roll("2dF", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == ["-", "-"]
 
 
 def test_fate_addition():
     # Addition for symbolic dice is Concatination
-    result = roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result, _= roll("df+df", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == ["-", "-"]
 
 

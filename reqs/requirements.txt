@@ -3,6 +3,7 @@ cppyy
 
 # tests
 pytest
+numpy
 
 # distribution
 build

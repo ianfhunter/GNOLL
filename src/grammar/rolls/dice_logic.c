@@ -7,6 +7,7 @@
 
 #include "external/pcg_basic.h"
 #include "rolls/dice_enums.h"
+#include "rolls/mocking.h"
 #include "shared_header.h"
 #include "util/safe_functions.h"
 #include "yacc_header.h"
@@ -21,61 +22,12 @@ extern pcg32_random_t rng;
 extern int dice_breakdown;
 extern char * output_file;
 
-int random_fn_run_count = 0;
-int global_mock_value = 0;
-int secondary_mock_value = 0;
-MOCK_METHOD global_mock_style = NO_MOCK;
+// Mocking Externs
+extern int random_fn_run_count;
+extern int global_mock_value;
+extern MOCK_METHOD global_mock_style;
+
 extern int gnoll_errno;
-
-void reset_mocking() {
-  /**
-   * @brief Resets various globals for test mocking
-   */
-  random_fn_run_count = 0;
-  global_mock_value = 0;
-  global_mock_style = NO_MOCK;
-}
-void init_mocking(MOCK_METHOD mock_style, int starting_value) {
-  /**
-   * @brief Initializes test mocking with given settings
-   * @param mock_style How to apply mocking
-   * @param starting_value Where mocking is applied, sets the value for the
-   * first roll on the system
-   */
-  random_fn_run_count = 0;
-  global_mock_value = starting_value;
-  global_mock_style = mock_style;
-}
-
-void mocking_tick() {
-  /**
-   * @brief Every time a dice is rolled, this function is called so that the
-   * mocking logic can update
-   */
-  switch (global_mock_style) {
-    case RETURN_INCREMENTING: {
-      global_mock_value = global_mock_value + 1;
-      break;
-    }
-    case RETURN_DECREMENTING: {
-      global_mock_value = global_mock_value - 1;
-      break;
-    }
-    case RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE: {
-      if (random_fn_run_count == 1) {
-        secondary_mock_value = global_mock_value;
-      }
-      if (random_fn_run_count < 2) {
-        global_mock_value = secondary_mock_value;
-      } else {
-        global_mock_value = 1;
-      }
-      break;
-    }
-    default:
-      break;
-  }
-}
 
 int random_fn(int small, int big) {
   /**
@@ -116,7 +68,6 @@ int random_fn(int small, int big) {
   return value;
 }
 
-// TODO: have min and max range rather than sides and start_offset
 
 int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
                   EXPLOSION_TYPE explode, int start_value) {
@@ -156,7 +107,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
       single_die_roll = random_fn(start_value, end_value);
       if (dice_breakdown){
         FILE *fp = safe_fopen(output_file, "a+");
-        fprintf(fp, "%i;", single_die_roll);
+        fprintf(fp, "%i,", single_die_roll);
         fclose(fp);
       }
       all_dice_roll[i] += single_die_roll;

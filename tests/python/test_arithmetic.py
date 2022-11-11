@@ -10,7 +10,7 @@ from util import Mock, roll
 ])
 def test_numbers(r, out):
     # Just Numbers
-    result = roll(r)
+    result, _ = roll(r)
     assert result == out
 
 
@@ -22,7 +22,7 @@ def test_numbers(r, out):
     ("d4+1d4", 6, Mock.RETURN_CONSTANT),
 ])
 def test_addition(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -37,7 +37,7 @@ def test_addition(r, out, mock):
     ("2d4-d4", 3, Mock.RETURN_CONSTANT),
 ])
 def test_subtraction(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -46,7 +46,7 @@ def test_subtraction(r, out, mock):
     ("(1d4+1d10)*2", 12, Mock.RETURN_CONSTANT),
 ])
 def test_multiplication(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -55,7 +55,7 @@ def test_multiplication(r, out, mock):
     ("1d4\\2", 2, Mock.RETURN_CONSTANT),   # Up
 ])
 def test_division(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -64,5 +64,5 @@ def test_division(r, out, mock):
     ("1d4%3", 0, Mock.RETURN_CONSTANT),
 ])
 def test_modulo(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _= roll(r, mock_mode=mock)
     assert result == out

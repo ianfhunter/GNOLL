@@ -10,7 +10,7 @@ from util import Mock, roll
     # ("2d20h",  2, Mock.RETURN_INCREMENTING, 1)
 ])
 def test_keepdrop_highest(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -20,7 +20,7 @@ def test_keepdrop_highest(r, out, mock, mock_const):
     # ("2d20l",  1, Mock.RETURN_INCREMENTING, 1),
 ])
 def test_keepdrop_lowest(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -31,7 +31,7 @@ def test_keepdrop_lowest(r, out, mock, mock_const):
     ("3d20dl2", 3, Mock.RETURN_INCREMENTING, 1),
 ])
 def test_keepdrop_multiple(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -39,5 +39,5 @@ def test_keepdrop_multiple(r, out, mock, mock_const):
     ("3d20dhdl", 2, Mock.RETURN_INCREMENTING, 1),
 ])
 def test_middle(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
