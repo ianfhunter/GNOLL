@@ -3,8 +3,6 @@ import os
 import sys
 from collections import Counter
 
-import numpy as np
-
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
 SRC_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))

@@ -1,8 +1,6 @@
 import importlib.util as iu
 import os
 import re
-import sys
-from collections import Counter
 
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
 SRC_DIR = os.path.abspath(
