@@ -1,5 +1,6 @@
 import importlib.util as iu
 import os
+import numpy as np
 import sys
 from collections import Counter
 
@@ -141,7 +142,8 @@ Total: {total}
 def yatzy_round(dice, first=False):
     """Roll Yatzy Dice and replace if nessicary"""
     if first:
-        _, dice = roll("d6;d6;d6;d6;d6")
+        _, dice, _ = roll("d6;d6;d6;d6;d6")
+        dice = [x[0] for x in dice]
     else:
         choice = ""
         while choice.upper() not in ["R", "K"]:
@@ -171,7 +173,9 @@ def yatzy_round(dice, first=False):
         print("Remaining Dice:", dice)
 
         new_dice_roll = "d6;" * len(choice)
-        _, second_roll = roll(new_dice_roll)
+        _, second_roll, _ = roll(new_dice_roll)
+        second_roll = [x[0] for x in second_roll]
+        
         print("New Dice Roll: ", second_roll)
 
         dice.extend(second_roll)
