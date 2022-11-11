@@ -3,7 +3,7 @@ cppyy
 
 # tests
 pytest
-numpy
+numpy>=1.22.2
 
 # distribution
 build
