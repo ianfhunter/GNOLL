@@ -8,7 +8,7 @@ def test_random_roll():
     # Prove Random roll Is Working
     a = b = c = d = False
     for _ in range(100):
-        result, _= roll("d4")
+        result, _ = roll("d4")
 
         assert result > 0
         assert result < 5
@@ -32,7 +32,7 @@ def test_random_roll_zeros():
     # Prove Random roll Is Working
     a = b = c = d = False
     for _ in range(100):
-        result, _= roll("z4")
+        result, _ = roll("z4")
 
         assert result > -1
         assert result < 4
@@ -53,25 +53,25 @@ def test_random_roll_zeros():
 
 
 def test_space_removal():
-    result, _= roll("   d    4   ")
+    result, _ = roll("   d    4   ")
     assert result > 0
     assert result < 5
 
 
 def test_negative_roll():
-    result, _= roll("-d4")
+    result, _ = roll("-d4")
     assert result > -5
     assert result < 0
 
 
 def test_non_rolling_roll():
-    result, _= roll("d0")
+    result, _ = roll("d0")
     assert result == 0
-    result, _= roll("d1")
+    result, _ = roll("d1")
     assert result == 1
-    result, _= roll("-d0")
+    result, _ = roll("-d0")
     assert result == 0
-    result, _= roll("0d4")
+    result, _ = roll("0d4")
     assert result == 0
 
 
@@ -85,10 +85,10 @@ def test_bad_simple_rolls(r):
 
 
 def test_dice_numbers():
-    result, _= roll("2d6", mock_mode=Mock.RETURN_CONSTANT)
+    result, _ = roll("2d6", mock_mode=Mock.RETURN_CONSTANT)
     assert result == 6
 
 
 def test_distinct_dice():
-    result, _= roll("d6;d6", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
+    result, _ = roll("d6;d6", mock_mode=Mock.RETURN_CONSTANT, mock_const=2)
     assert result == [2, 2]

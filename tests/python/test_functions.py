@@ -16,5 +16,5 @@ from util import Mock, roll
     ],
 )
 def test_functions(dice, expected_result):
-    result, _= roll(dice, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
+    result, _ = roll(dice, mock_mode=Mock.RETURN_CONSTANT, mock_const=0)
     assert result == expected_result

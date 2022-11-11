@@ -17,7 +17,7 @@ from util import Mock, roll
     ],
 )
 def test_rerolling(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -29,7 +29,7 @@ def test_rerolling(r, out, mock, mock_const):
     ],
 )
 def test_rerolling_multidice(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -40,7 +40,7 @@ def test_rerolling_multidice(r, out, mock, mock_const):
     ],
 )
 def test_rerolling_explosion(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -55,7 +55,7 @@ def test_rerolling_explosion(r, out, mock, mock_const):
     ],
 )
 def test_reroll_dropkeep_until(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -67,7 +67,7 @@ def test_reroll_dropkeep_until(r, out, mock, mock_const):
     ],
 )
 def test_rerolling_dropping(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -78,5 +78,5 @@ def test_rerolling_dropping(r, out, mock, mock_const):
     ],
 )
 def test_reroll_until(r, out, mock, mock_const):
-    result, _= roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
