@@ -47,7 +47,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
                                        suffix=".die",
                                        delete=False)
 
-    def makeIntIfPossible(v):
+    def make_native_type(v):
         if v == "0":
             return 0
         if v == "":
@@ -59,9 +59,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
 
     def extract_from_dice_file(lines, seperator):
         v = [l.split(seperator)[:-1] for l in lines if seperator in l]
-
-        v = [list(map(makeIntIfPossible, x)) for x in v]
-        # v = [[int(x) for x in y] for y in v]
+        v = [list(map(make_native_type, x)) for x in v]
         return v
 
     die_file = temp.name
@@ -82,7 +80,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
             True,
             mock is not None,
             mock,
-            mock_const  # breakdown,
+            breakdown,
         )
 
     if verbose:

@@ -22,8 +22,8 @@ ENDC = "\033[0m"
 def format_roll(s):
     _, dice, breakdown = roll(s)
     s_new = s
-    for x in range(2):
-        s_new = re.sub(r"[0-9]*d[0-9]+", str(breakdown[x][0]), s_new, count=1)
+    for _ in range(2):
+        s_new = re.sub(r"\d*d\d+", str(breakdown[x][0]), s_new, count=1)
     s_new = re.sub(r"(^|\+)1($|\+)", rf"\1{RED}1{ENDC}\2", s_new)
     s_new = re.sub(r"(^|\+)20($|\+)", rf"\1{GREEN}20{ENDC}\2", s_new)
     print(f"Roll Request: '{s}'")
