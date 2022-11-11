@@ -5,8 +5,7 @@ from collections import Counter
 
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
-)
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -27,15 +26,13 @@ def is_high_straight(dice):
 
 def show_individual_dice_score(top):
     """Print out pip scores"""
-    print(
-        f"""
+    print(f"""
 [1]: {top[0]}
 [2]: {top[1]}
 [3]: {top[2]}
 [4]: {top[3]}
 [5]: {top[4]}
-[6]: {top[5]}"""
-    )
+[6]: {top[5]}""")
 
 
 def tot_sides(y, dice):
@@ -99,26 +96,23 @@ def scorecard(dice):
     else:
         chance = sum(dice)
 
-    total = sum(
-        [
-            top_bonus,
-            one_pair_sum,
-            two_pair_sum,
-            three_oak_sum,
-            four_oak_sum,
-            low_straight,
-            high_straight,
-            full_house,
-            chance,
-            five_oak,
-        ]
-    )
+    total = sum([
+        top_bonus,
+        one_pair_sum,
+        two_pair_sum,
+        three_oak_sum,
+        four_oak_sum,
+        low_straight,
+        high_straight,
+        full_house,
+        chance,
+        five_oak,
+    ])
 
     print(f"Dice: {dice}")
     show_individual_dice_score(top)
 
-    print(
-        f"""
+    print(f"""
 
 Top Bonus: {top_bonus}
 
@@ -133,15 +127,15 @@ Chance: {chance}
 Yatzy: {five_oak}
 
 Total: {total}
-    """
-    )
+    """)
     return total
 
 
 def yatzy_round(dice, first=False):
     """Roll Yatzy Dice and replace if nessicary"""
     if first:
-        _, dice = roll("d6;d6;d6;d6;d6")
+        _, dice, _ = roll("d6;d6;d6;d6;d6")
+        dice = [x[0] for x in dice]
     else:
         choice = ""
         while choice.upper() not in ["R", "K"]:
@@ -152,15 +146,13 @@ def yatzy_round(dice, first=False):
             sys.exit(0)
 
         # Roll 2
-        print(
-            f"""
+        print(f"""
         1: {dice[0]}
         2: {dice[1]}
         3: {dice[2]}
         4: {dice[3]}
         5: {dice[4]}
-        """
-        )
+        """)
         # TODO: Check valid input
         choice = input(
             "Please enter the numbers you wish to swap (space seperated)")
@@ -171,7 +163,9 @@ def yatzy_round(dice, first=False):
         print("Remaining Dice:", dice)
 
         new_dice_roll = "d6;" * len(choice)
-        _, second_roll = roll(new_dice_roll)
+        _, second_roll, _ = roll(new_dice_roll)
+        second_roll = [x[0] for x in second_roll]
+
         print("New Dice Roll: ", second_roll)
 
         dice.extend(second_roll)

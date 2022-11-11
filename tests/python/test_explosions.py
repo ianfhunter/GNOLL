@@ -7,7 +7,7 @@ from util import Mock, roll
 @pytest.mark.parametrize("r,out", [("d3!", 7), ("d5!", 3),
                                    ("d5e", 3)])  # {3},{3},{1}
 def test_explosion(r, out):
-    result = roll(
+    result, _ = roll(
         r,
         mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
         mock_const=3,
@@ -19,9 +19,9 @@ def test_explosion(r, out):
 @pytest.mark.parametrize("r,out", [("2d3!", 8),
                                    ("2d5!", 6)])  # {3,3},{1,1}  # {3,3}
 def test_multi_dice_explosion(r, out):
-    result = roll(r,
-                  mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
-                  mock_const=3)
+    result, _ = roll(r,
+                     mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
+                     mock_const=3)
     assert result == out
 
 
@@ -32,9 +32,9 @@ def test_multi_dice_explosion(r, out):
     ],
 )
 def test_explosion_only_once(r, out):
-    result = roll(r,
-                  mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
-                  mock_const=3)
+    result, _ = roll(r,
+                     mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
+                     mock_const=3)
     assert result == out
 
 
@@ -45,7 +45,7 @@ def test_explosion_only_once(r, out):
     ],
 )
 def test_explosion_penetrate(r, out):
-    result = roll(r, mock_mode=Mock.RETURN_DECREMENTING, mock_const=4)
+    result, _ = roll(r, mock_mode=Mock.RETURN_DECREMENTING, mock_const=4)
     assert result == out
 
 
