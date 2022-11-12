@@ -12,7 +12,9 @@ libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
-
+    """A custom exception to capture
+    the specific types of errors raised by GNOLL
+    """
     def __init__(self, v):
         Exception.__init__(self, v)
 
