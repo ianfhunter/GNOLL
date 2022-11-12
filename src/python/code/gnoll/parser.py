@@ -46,11 +46,23 @@ def raise_gnoll_error(value):
 
 
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
+    """
+    Parse some dice notation with GNOLL.
+    @param s the string to parse
+    @param verbose whether to enable verbosity (primarily for debug)
+    @param mock override the internal random number generator (for testing). 
+    @param mock_const the seed value for overriding with mocks
+    @param breakdown get the details of each dice rolled, not just the final result
+    @return  return code, final result, dice breakdown (None if disabled)
+    """
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
 
     def make_native_type(v):
+        """
+        Change a string to a more appropriate type if possible 
+        """
         if v == "0":
             return 0
         if v == "":
@@ -61,6 +73,9 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
             return v
 
     def extract_from_dice_file(lines, seperator):
+        """
+        Parse GNOLL's file output
+        """
         v = [x.split(seperator)[:-1] for x in lines if seperator in x]
         v = [list(map(make_native_type, x)) for x in v]
         return v
