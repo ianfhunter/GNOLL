@@ -104,10 +104,10 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
 if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
-    code, r, breakdown = roll(arg, verbose=False)
+    code, r, detailed_r = roll(arg, verbose=False)
     print(f"""
 [[GNOLL Results]]
 Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code}, 
-Dice Breakdown: {breakdown}""")
+Dice Breakdown: {detailed_r}""")
