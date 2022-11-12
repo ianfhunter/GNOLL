@@ -12,6 +12,9 @@ libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+    """A custom exception to capture
+    the specific types of errors raised by GNOLL
+    """
 
     def __init__(self, v):
         Exception.__init__(self, v)
@@ -43,11 +46,25 @@ def raise_gnoll_error(value):
 
 
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
+    """
+    Parse some dice notation with GNOLL.
+    @param s the string to parse
+    @param verbose whether to enable verbosity (primarily for debug)
+    @param mock override the internal random number generator (for testing).
+    @param mock_const the seed value for overriding with mocks
+    @param breakdown get the details of each dice rolled, not just the final result
+    @return  return code, final result, dice breakdown (None if disabled)
+    """
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
 
     def make_native_type(v):
+        """
+        Change a string to a more appropriate type if possible.
+        Number -> int
+        Word -> String
+        """
         if v == "0":
             return 0
         if v == "":
@@ -58,6 +75,11 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
             return v
 
     def extract_from_dice_file(lines, seperator):
+        """
+        Parse GNOLL's file output
+        @param lines array of file readlines()
+        @param seperator value seperating terms in the file
+        """
         v = [x.split(seperator)[:-1] for x in lines if seperator in x]
         v = [list(map(make_native_type, x)) for x in v]
         return v
@@ -104,10 +126,10 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
 if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
-    code, r, breakdown = roll(arg, verbose=False)
+    code, r, detailed_r = roll(arg, verbose=False)
     print(f"""
 [[GNOLL Results]]
 Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code}, 
-Dice Breakdown: {breakdown}""")
+Dice Breakdown: {detailed_r}""")
