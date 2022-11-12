@@ -50,7 +50,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
     Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
-    @param mock override the internal random number generator (for testing). 
+    @param mock override the internal random number generator (for testing).
     @param mock_const the seed value for overriding with mocks
     @param breakdown get the details of each dice rolled, not just the final result
     @return  return code, final result, dice breakdown (None if disabled)
@@ -61,7 +61,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
 
     def make_native_type(v):
         """
-        Change a string to a more appropriate type if possible 
+        Change a string to a more appropriate type if possible
         """
         if v == "0":
             return 0
