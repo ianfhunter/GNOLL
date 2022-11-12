@@ -61,7 +61,9 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
 
     def make_native_type(v):
         """
-        Change a string to a more appropriate type if possible
+        Change a string to a more appropriate type if possible.
+        Number -> int
+        Word -> String
         """
         if v == "0":
             return 0
@@ -75,6 +77,8 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
     def extract_from_dice_file(lines, seperator):
         """
         Parse GNOLL's file output
+        @param lines array of file readlines()
+        @param seperator value seperating terms in the file
         """
         v = [x.split(seperator)[:-1] for x in lines if seperator in x]
         v = [list(map(make_native_type, x)) for x in v]
