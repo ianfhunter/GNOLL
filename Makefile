@@ -4,11 +4,11 @@ INCDIRS=./src/grammar
 CC=cc
 
 ifeq ($(CC),g++)
-   STANDARD -std=c++11
+   STANDARD= -std=c++11
 else ifeq ($(CC),clang++)
-   STANDARD -std=c++11
+   STANDARD= -std=c++11
 else
-   STANDARD -std=c99
+   STANDARD= -std=c99
 endif
 
 OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
