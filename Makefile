@@ -109,7 +109,7 @@ compile:
 # Shared Lib
 shared: $(OBJECTS)
 	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM)
-
+	cp build/dice.so build/libdice.so
 # Linux
 	mv ./a.out build/dice | true
 # Windows
