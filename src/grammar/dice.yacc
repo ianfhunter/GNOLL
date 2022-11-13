@@ -1250,6 +1250,7 @@ int roll_full_options(
     int enable_verbosity, 
     int enable_introspection,
     int enable_mocking,
+    int enable_builtins,
     int mocking_type,
     int mocking_seed
 ){
@@ -1260,6 +1261,7 @@ int roll_full_options(
     * @param enable_verbosity Adds extra prints to the program
     * @param enable_introspection Adds per-dice breakdown in the output file
     * @param enable_mocking Replaces random rolls with predictables values for testing
+    * @param enable_builtins Load in predefined macros for usage
     * @param mocking_type Type of mock values to generate
     * @param mocking_seed The first value of the mock generation to produce
     * @return GNOLL error code
@@ -1288,10 +1290,17 @@ int roll_full_options(
     }
 
     initialize();
+    if(enable_builtins){
+        load_builtins("builtins/");
+    }
     YY_BUFFER_STATE buffer = yy_scan_string(roll_request);
     yyparse();
     yy_delete_buffer(buffer);
     return gnoll_errno;
+}
+
+void load_builtins(char* root){
+    return;
 }
 
 // The following are legacy functions to be deprecated in the future
