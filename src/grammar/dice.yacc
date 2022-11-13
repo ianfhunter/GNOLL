@@ -1303,7 +1303,7 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
-    tinydir_dir dir = {};
+    tinydir_dir dir;
     tinydir_open(&dir, root);
 
     while (dir.has_next)
