@@ -4,14 +4,14 @@ INCDIRS=./src/grammar
 CC=cc
 
 ifeq ($(CC),g++)
-   C_FLAGS=
-else ifeq ($(CC),g++)
-   C_FLAGS=
+   STANDARD -std=c++11
+else ifeq ($(CC),clang++)
+   STANDARD -std=c++11
 else
-   C_FLAGS= -std=c99
+   STANDARD -std=c99
 endif
 
-OPT=-O3 $(C_FLAGS) -Wall -Wextra -Werror -pedantic -Wcast-align \
+OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
