@@ -1315,7 +1315,16 @@ void load_builtins(char* root){
 	if (file.is_dir)
 	{
 		printf("/");
-	}
+	}else{
+           FILE* fp =fopen(file.name, "r");
+           char stored_s[1000];
+           while (fgets(stored_str,1000, fp)!=NULL);
+           fclose(fp);
+           YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
+           yyparse();
+           yy_delete_buffer(buffer);
+      
+        }
 	printf("\n");
 
 	tinydir_next(&dir);
