@@ -10,6 +10,7 @@ int roll_full_options(
     int enable_verbosity, 
     int enable_introspection,
     int enable_mocking,
+    int enable_builtins,
     int mocking_type,
     int mocking_seed
 );
@@ -23,6 +24,7 @@ int main()
   int err_code = roll_full_options(
     strdup("1d20"),
     strdup(fn),
+    0,
     0,
     0,
     0,
