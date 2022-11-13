@@ -29,7 +29,7 @@ int main()
     0,
     0
   );
-  assert(err_code);
+  assert(err_code == 0);
 
   std::ifstream myfile; 
   myfile.open(fn);
