@@ -1304,10 +1304,9 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
-    tinydir_dir dir;
+    tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
     
-    assert(dir.has_next);
     while (dir.has_next)
     {
 	tinydir_file file;
