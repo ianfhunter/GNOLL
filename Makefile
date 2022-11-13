@@ -2,29 +2,37 @@ CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/oper
 INCDIRS=./src/grammar
 
 CC=cc
-OPT=-O3 -std=c99 -Wall -Wextra -Werror -pedantic -Wcast-align \
+
+ifeq ($(CC),g++)
+   STANDARD= -std=c++11
+else ifeq ($(CC),clang++)
+   STANDARD= -std=c++11
+else
+   STANDARD= -std=c99
+endif
+
+OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 
+	-Wundef -Wno-unused -Wformat=2
 
-        # -ffast-math # Problematic for Python 
-
-# === DEBUG OPTIONS ====
-DEBUG=0
-ifeq ($(DEBUG), 1)
-OPT=-O0 -g  # Valgrind info
-PARSER_DEBUG:=--debug --verbose
-PARSER_DEBUG:=
-else
-PARSER_DEBUG:=
-endif
+# -ffast-math # Problematic for Python 
 
 # YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
 
 # EMCC fails for the following, so disabled:
 # -Wlogical-op
+
+# === DEBUG OPTIONS ====
+DEBUG=0
+ifeq ($(DEBUG), 1)
+OPT=-O0 -g  # Valgrind info
+PARSER_DEBUG:=--debug --verbose
+else
+PARSER_DEBUG:=
+endif
 
 USE_SECURE_RANDOM=0
 ifeq ($(USE_SECURE_RANDOM), 1)
@@ -101,7 +109,7 @@ compile:
 # Shared Lib
 shared: $(OBJECTS)
 	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM)
-
+	cp build/dice.so build/libdice.so
 # Linux
 	mv ./a.out build/dice | true
 # Windows

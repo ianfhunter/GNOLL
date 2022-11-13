@@ -86,7 +86,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
   int explosion_condition_score = 0;
   int explosion_count = 0;
 
-  int* all_dice_roll = safe_calloc(number_of_dice, sizeof(int));
+  int* all_dice_roll = (int*)safe_calloc(number_of_dice, sizeof(int));
   if (gnoll_errno) {
     return 0;
   }

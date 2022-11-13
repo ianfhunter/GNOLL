@@ -25,10 +25,10 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
   vector->length = number_of_items;
 
   if (dt == NUMERIC) {
-    vector->content = safe_calloc(number_of_items, sizeof(int));
+    vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {
-    vector->symbols = safe_calloc(1, sizeof(char **));
+    vector->symbols = (char**)safe_calloc(1, sizeof(char **));
   }
 }
 void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
@@ -47,14 +47,14 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
   vector->length = number_of_items;
 
   if (dt == NUMERIC) {
-    vector->content = safe_calloc(number_of_items, sizeof(int));
+    vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {
-    vector->symbols = safe_calloc(number_of_items, sizeof(char *));
+    vector->symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
     for (unsigned int i = 0; i < number_of_items; i++) {
-      vector->symbols[i] = safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
+      vector->symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
       if (gnoll_errno) return;
     }
   }
@@ -218,7 +218,7 @@ void collapse_vector(vec *vector, vec *new_vector) {
       c += vector->content[i];
     }
 
-    new_vector->content = safe_calloc(sizeof(int), 1);
+    new_vector->content = (int*)safe_calloc(sizeof(int), 1);
     if (gnoll_errno) return;
     new_vector->content[0] = c;
     new_vector->length = 1;
@@ -248,7 +248,7 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
   }
   unsigned int available_amount = vector->length;
   if (available_amount > number_to_keep) {
-    new_vector->content = safe_calloc(sizeof(int), number_to_keep);
+    new_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
     if (gnoll_errno) {
       return;
     }
@@ -266,7 +266,7 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
         m = min_in_vec(arr, length);
       }
       new_vector->content[i] = m;
-      new_arr = safe_calloc(sizeof(int), length - 1);
+      new_arr = (int*)safe_calloc(sizeof(int), length - 1);
       if (gnoll_errno) {
         return;
       }

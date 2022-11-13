@@ -23,8 +23,8 @@
     /* TODO */
 [A-Z_]+ {
     vec vector;
-    vector.symbols = safe_malloc(sizeof(char **));
-    if(gnoll_errno){yyerror("Malloc Err");}
+    vector.symbols = (char**)safe_malloc(sizeof(char **));
+    if(gnoll_errno){yyerror("Memory Err");}
 
     vector.symbols[0] = safe_strdup(yytext);
     if(gnoll_errno){yyerror("String Err");}
@@ -38,7 +38,7 @@
 
 [0-9]+ {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
 
     vector.content[0] = fast_atoi(yytext);
@@ -71,7 +71,7 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = safe_malloc(sizeof(char **) * 6);
+    vector.symbols = (char**)safe_malloc(sizeof(char **) * 6);
     if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
@@ -95,7 +95,7 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = safe_malloc(sizeof(char **) * 2);
+    vector.symbols = (char**)safe_malloc(sizeof(char **) * 2);
     if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = minus;
@@ -118,7 +118,7 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = safe_malloc(sizeof(char **) * 3);
+    vector.symbols = (char**)safe_malloc(sizeof(char **) * 3);
     if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
@@ -192,7 +192,7 @@ c {
 }
 u {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = IS_UNIQUE;
     vector.dtype = NUMERIC;
@@ -218,7 +218,7 @@ o {
     /* Comparitors */
 \!\= {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = NOT_EQUAL;
     vector.dtype = NUMERIC;
@@ -228,7 +228,7 @@ o {
 }
 \=\= {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = EQUALS;
     vector.dtype = NUMERIC;
@@ -238,7 +238,7 @@ o {
 }
 \< {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = LESS_THAN;
     vector.dtype = NUMERIC;
@@ -248,7 +248,7 @@ o {
 }
 \> {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_THAN;
     vector.dtype = NUMERIC;
@@ -258,7 +258,7 @@ o {
 }
 \<\= {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = LESS_OR_EQUALS;
     vector.dtype = NUMERIC;
@@ -268,7 +268,7 @@ o {
 }
 \>\= {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_OR_EQUALS;
     vector.dtype = NUMERIC;
@@ -278,7 +278,7 @@ o {
 }
 is_even {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = IF_EVEN;
     vector.dtype = NUMERIC;
@@ -288,7 +288,7 @@ is_even {
 }
 is_odd {
     vec vector;
-    vector.content = safe_malloc(sizeof(int));
+    vector.content = (int*)safe_malloc(sizeof(int));
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = IF_ODD;
     vector.dtype = NUMERIC;
