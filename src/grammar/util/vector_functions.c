@@ -218,7 +218,7 @@ void collapse_vector(vec *vector, vec *new_vector) {
       c += vector->content[i];
     }
 
-    new_vector->content = safe_calloc(sizeof(int), 1);
+    new_vector->content = (int*)safe_calloc(sizeof(int), 1);
     if (gnoll_errno) return;
     new_vector->content[0] = c;
     new_vector->length = 1;
