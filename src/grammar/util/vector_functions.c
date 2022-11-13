@@ -54,7 +54,7 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
     if (gnoll_errno) return;
 
     for (unsigned int i = 0; i < number_of_items; i++) {
-      vector->symbols[i] = safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
+      vector->symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
       if (gnoll_errno) return;
     }
   }
