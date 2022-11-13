@@ -1,6 +1,11 @@
 #ifndef SHARED_YACC_HEADER
 #define SHARED_YACC_HEADER
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "rolls/sided_dice.h"
 #include "util/vector_functions.h"
 
@@ -19,5 +24,9 @@ int roll_with_breakdown(char * s, char* f);
 int roll_and_write(char* s, char* f);
 void roll_and_write_R(int* return_code, char** s, char** f );
 int mock_roll(char* s, char* f, int mock_value, int mock_const);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
