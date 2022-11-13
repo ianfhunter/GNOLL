@@ -15,13 +15,13 @@ int roll_full_options(
 
 int main()
 {
-  const char* fn = "out.dice";
+  const char* fn = strdup("out.dice");
   
   remove(fn);
 
   int err_code = roll_full_options(
-    "1d20",
-    "out.dice",
+    strdup("1d20"),
+    strdup("out.dice"),
     0,
     0,
     0,
