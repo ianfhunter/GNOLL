@@ -28,6 +28,8 @@ int main()
     0,
     0
   );
+  if(err_code){return err_code;}
+
   std::ifstream myfile; 
   myfile.open(fn);
   std::string mystring;
