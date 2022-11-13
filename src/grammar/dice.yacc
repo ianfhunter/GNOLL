@@ -1307,7 +1307,7 @@ void load_builtins(char* root){
     tinydir_dir dir;
     tinydir_open(&dir, root);
     
-    assert(&dir);
+    assert(dir.has_next);
     while (dir.has_next)
     {
 	tinydir_file file;
