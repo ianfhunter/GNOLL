@@ -22,7 +22,7 @@ int main()
 
   int err_code = roll_full_options(
     strdup("1d20"),
-    strdup("out.dice"),
+    strdup(fn),
     0,
     0,
     0,
