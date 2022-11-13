@@ -26,7 +26,6 @@ jobs:
       run: |
         make CC=clang all
         ./build/dice d20
- 
 
   build_cpp:
 
