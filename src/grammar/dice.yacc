@@ -1303,17 +1303,13 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
-    tinydir_dir dir;
+    tinydir_dir dir = NULL;
     tinydir_open(&dir, root);
 
     while (dir.has_next)
     {
 	tinydir_file file;
 	tinydir_readfile(&dir, &file);
-        if(dir == NULL){
-           gnoll_errno = 3; // TODO
-           return;
-        }
 	printf("%s", file.name);
 	if (file.is_dir)
 	{
