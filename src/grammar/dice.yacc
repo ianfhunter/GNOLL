@@ -1310,7 +1310,10 @@ void load_builtins(char* root){
     {
 	tinydir_file file;
 	tinydir_readfile(&dir, &file);
-
+        if(dir == NULL){
+           gnoll_errno = 3; // TODO
+           return;
+        }
 	printf("%s", file.name);
 	if (file.is_dir)
 	{
