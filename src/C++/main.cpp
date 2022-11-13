@@ -15,7 +15,7 @@ int roll_full_options(
 
 int main()
 {
-  const char* fn = strdup("out.dice");
+  const char* fn = "out.dice";
   
   remove(fn);
 
