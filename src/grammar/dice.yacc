@@ -1302,6 +1302,25 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
+    tinydir_dir dir;
+    tinydir_open(&dir, root);
+
+    while (dir.has_next)
+    {
+	tinydir_file file;
+	tinydir_readfile(&dir, &file);
+
+	printf("%s", file.name);
+	if (file.is_dir)
+	{
+		printf("/");
+	}
+	printf("\n");
+
+	tinydir_next(&dir);
+    }
+
+    tinydir_close(&dir);
     return;
 }
 
@@ -1309,23 +1328,23 @@ void load_builtins(char* root){
 // in favor of the general roll_full_options() fn.
 
 int roll(char * s){
-    return roll_full_options(s, NULL, 1, 0, 0, 0, 0);
+    return roll_full_options(s, NULL, 1, 0, 0, 0, 0, 0);
 }
 
 int roll_with_breakdown(char * s, char* f){
-    return roll_full_options(s, f, 0, 1, 0, 0, 0);
+    return roll_full_options(s, f, 0, 1, 0, 0, 0, 0);
 }
 
 int roll_and_write(char* s, char* f){
-    return roll_full_options(s, f, 0, 0, 0, 0, 0);
+    return roll_full_options(s, f, 0, 0, 0, 0, 0, 0);
 }
 
 void roll_and_write_R(int* return_code, char** s, char** f){    
-    (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0);
+    (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0, 0);
 }
 
 int mock_roll(char * s, char * f, int mock_value, int mock_const){
-    return roll_full_options(s, f, 0, 0, 1, mock_value, mock_const);
+    return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }
 
 char * concat_strings(char ** s, int num_s){
