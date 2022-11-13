@@ -52,7 +52,7 @@ def make_all():
         raise ValueError
 
 
-def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True):
+def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True, builtins=False):
     global first_run
 
     if first_run:
@@ -67,7 +67,9 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True):
                                 mock=mock_mode.value,
                                 mock_const=mock_const,
                                 verbose=verbose,
-                                breakdown=True)
+                                breakdown=True,
+                                builtins=builtins
+                                )
     exit_code = dt_return[0]
     result = dt_return[1]
     dice_breakdown = dt_return[2] if len(dt_return) > 2 else []
