@@ -54,9 +54,11 @@ def test_undefined_macro():
     except Exception as e:
         error_handled_by_gnoll(e)
 
+
 def test_undefined_macro():
     r = roll("@ORACLE", builtins=True)
-    assert(r in ["YES","YES_AND","YES_BUT","NO","NO_AND","NO_BUT"])
+    assert r in ["YES", "YES_AND", "YES_BUT", "NO", "NO_AND", "NO_BUT"]
+
 
 def test_builtins():
     # Check that builtins are valid calls
