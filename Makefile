@@ -15,7 +15,7 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 
+	-Wundef -Wno-unused -Wformat=2
 
 # -ffast-math # Problematic for Python 
 
