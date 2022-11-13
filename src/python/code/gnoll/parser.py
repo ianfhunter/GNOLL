@@ -45,7 +45,12 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
+def roll(s,
+         verbose=False,
+         mock=None,
+         mock_const=3,
+         breakdown=False,
+         builtins=False):
     """
     Parse some dice notation with GNOLL.
     @param s the string to parse
@@ -103,7 +108,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
             mock is not None,  # enable_mock
             mock,
             mock_const,
-            builtins
+            builtins,
         )
 
     if verbose:
