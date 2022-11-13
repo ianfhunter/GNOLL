@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <assert.h>
+#include <string.h>
 #include "shared_header.h"
 
 int roll_full_options(
@@ -28,7 +29,7 @@ int main()
     0,
     0
   );
-  if(err_code){return err_code;}
+  assert(err_code);
 
   std::ifstream myfile; 
   myfile.open(fn);
