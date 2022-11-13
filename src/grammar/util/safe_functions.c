@@ -57,13 +57,13 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    * @param item
    * @param max_size
    */
-  *dst = safe_calloc(items, sizeof(char **));
+  *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
   }
 
   for (unsigned int i = 0; i != items; i++) {
-    (*dst)[i] = safe_calloc(sizeof(char), max_size);
+    (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
       return;
     }
