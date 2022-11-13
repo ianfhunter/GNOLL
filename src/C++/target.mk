@@ -1,3 +1,3 @@
 CXX?=g++
-cpp:
+cpp: all
 	$(CXX) src/C++/main.cpp -I src/grammar/ -ldice -Lbuild/
