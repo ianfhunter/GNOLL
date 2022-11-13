@@ -56,7 +56,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   rp.dtype = SYMBOLIC;
   rp.number_of_dice = num_dice;
   rp.die_sides = y->length;
-  rp.explode = 0;
+  rp.explode = (EXPLOSION_TYPE)0;
   rp.symbol_pool = NULL;
 
   // Copy over memory to Symbol Pool for reloading
