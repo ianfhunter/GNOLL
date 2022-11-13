@@ -19,6 +19,7 @@
 #include "operations/condition_checking.h"
 #include <errno.h>
 #include "external/pcg_basic.h"
+#include "external/tinydir.h"
 
 #define UNUSED(x) (void)(x)
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
