@@ -8,6 +8,7 @@
 #include <string.h>
 #include <time.h>
 #include <limits.h>
+#include <assert.h>
 #include "yacc_header.h"
 #include "util/vector_functions.h"
 #include "shared_header.h"
@@ -1305,7 +1306,8 @@ int roll_full_options(
 void load_builtins(char* root){
     tinydir_dir dir;
     tinydir_open(&dir, root);
-
+    
+    assert(dir);
     while (dir.has_next)
     {
 	tinydir_file file;
