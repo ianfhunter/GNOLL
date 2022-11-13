@@ -24,7 +24,7 @@
 [A-Z_]+ {
     vec vector;
     vector.symbols = (char**)safe_malloc(sizeof(char **));
-    if(gnoll_errno){yyerror("Malloc Err");}
+    if(gnoll_errno){yyerror((char*)"Memory Err");}
 
     vector.symbols[0] = safe_strdup(yytext);
     if(gnoll_errno){yyerror("String Err");}
