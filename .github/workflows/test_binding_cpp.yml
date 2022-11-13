@@ -43,5 +43,4 @@ jobs:
         python -m pip install -r reqs/requirements.txt
     - name: make
       run:  |
-        make CC=g++ all
-        ./build/dice d20
+        make cpp
