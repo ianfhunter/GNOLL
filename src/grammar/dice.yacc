@@ -142,7 +142,7 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
-        //register_macro(&key, &value.source);
+        register_macro(&key, &value.source);
         
         if(gnoll_errno){
             YYABORT;
