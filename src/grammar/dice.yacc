@@ -23,9 +23,10 @@
 #include "external/tinydir.h"
 
 #define UNUSED(x) (void)(x)
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#define ABS(x) (((x) < 0) ? (-x) : (x))
+// Avoid conflicts with MacOs predefined macros
+#define MAXV(x, y) (((x) > (y)) ? (x) : (y))
+#define MINV(x, y) (((x) < (y)) ? (x) : (y))
+#define ABSV(x) (((x) < 0) ? (-x) : (x))
 
 int yylex(void);
 int yyerror(const char* s);
@@ -1199,7 +1200,7 @@ function:
     FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
-        int vmax = MAX(
+        int vmax = MAXV(
             $<values>3.content[0],
             $<values>5.content[0]
         );
@@ -1212,7 +1213,7 @@ function:
     FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = MIN(
+        new_vec.content[0] = MINV(
             $<values>3.content[0],
             $<values>5.content[0]
         );
@@ -1224,7 +1225,7 @@ function:
     FN_ABS LBRACE function RBRACE{
                 vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = ABS(
+        new_vec.content[0] = ABSV(
             $<values>3.content[0]
         );
         $<values>$ = new_vec;
