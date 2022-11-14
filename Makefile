@@ -28,7 +28,7 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 # === DEBUG OPTIONS ====
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O3 -g  # Valgrind info
+OPT=-O2 -g  # Valgrind info
 PARSER_DEBUG:=--debug --verbose
 else
 PARSER_DEBUG:=
