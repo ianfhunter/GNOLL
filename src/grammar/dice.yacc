@@ -1400,7 +1400,7 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        0,  // Verbose
+        1,  // Verbose
         1,  // Introspect
         0,  // Mocking
         1,  // Builtins
