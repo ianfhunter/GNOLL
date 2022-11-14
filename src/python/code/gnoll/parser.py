@@ -101,7 +101,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
             False,  # enable_verbose
             breakdown,  # enable_introspect
             mock is not None,  # enable_mock
-            builtins,   # enable_builtins
+            builtins,  # enable_builtins
             mock,
             mock_const,
         )
