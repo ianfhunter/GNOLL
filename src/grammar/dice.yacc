@@ -1339,7 +1339,7 @@ void load_builtins(char* root){
             fclose(fp);
             
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
-            yyparse();
+            //yyparse();
             yy_delete_buffer(buffer);
             
             free(path);
