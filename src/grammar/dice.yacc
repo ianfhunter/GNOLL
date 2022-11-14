@@ -1,4 +1,4 @@
-/* Uncomment for better errors! (non-POSIX compliant) */
+Pip p PPP/* Uncomment for better errors! (non-POSIX compliant) */
 /* %define parse.error verbose */
 
 %{
@@ -1396,9 +1396,10 @@ char * concat_strings(char ** s, int num_s){
 }
 
 int main(int argc, char **str){
+    printf("main\n");
     char * s = concat_strings(str, argc - 1);
     remove("output.dice");
-    printf("main\n");
+    printf("main 2\n");
     roll_full_options(
         s,
         "output.dice",
@@ -1409,12 +1410,6 @@ int main(int argc, char **str){
         0,
         0
     );
-
-    /* #ifdef BREAKDOWN
-        return roll_with_breakdown(s, "output.dice");
-    #else
-        return roll(s);
-    #endif */
 }
 
 int yyerror(s)
