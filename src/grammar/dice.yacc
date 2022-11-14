@@ -1326,10 +1326,11 @@ void load_builtins(char* root){
             if(verbose){
                printf("\n");
             }
-            /*
+            
             char* path = calloc(sizeof(char), 1000);
             strcat(path, "builtins/");
             strcat(path, file.name);
+            /*
             // TODO: Check filename for length
             FILE* fp = fopen(path, "r");
             char stored_str[1000];
@@ -1339,8 +1340,8 @@ void load_builtins(char* root){
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
             yyparse();
             yy_delete_buffer(buffer);
-            free(path);
             */
+            free(path);
         }
 
         tinydir_next(&dir);
