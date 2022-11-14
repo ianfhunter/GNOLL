@@ -52,7 +52,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   struct macro_struct *s;
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
-
+  /*
   HASH_FIND_INT(macros, &k, s); /* id already in the hash? */
   if (s == NULL) {
     s = (struct macro_struct *)safe_malloc(sizeof *s);
@@ -74,7 +74,9 @@ void register_macro(vec *macro_name, roll_params *to_store) {
         &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
         to_store->die_sides, MAX_SYMBOL_LENGTH);
   }
+  */
   free(s); //new
+  free(skey); //new
 }
 
 void search_macros(char *skey, roll_params *to_store) {
