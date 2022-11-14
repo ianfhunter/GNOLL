@@ -1,4 +1,4 @@
-Pip p PPP/* Uncomment for better errors! (non-POSIX compliant) */
+/* Uncomment for better errors! (non-POSIX compliant) */
 /* %define parse.error verbose */
 
 %{
