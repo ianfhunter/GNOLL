@@ -52,8 +52,8 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   struct macro_struct *s;
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
-  /*
   HASH_FIND_INT(macros, &k, s); // id already in the hash? 
+  /*
   if (s == NULL) {
     s = (struct macro_struct *)safe_malloc(sizeof *s);
 
