@@ -142,7 +142,7 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
-        register_macro(&key, &value.source);
+        //register_macro(&key, &value.source);
         
         if(gnoll_errno){
             YYABORT;
@@ -1339,7 +1339,7 @@ void load_builtins(char* root){
             fclose(fp);
             
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
-            //yyparse();
+            yyparse();
             yy_delete_buffer(buffer);
             
             free(path);
