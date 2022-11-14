@@ -53,7 +53,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
   /*
-  HASH_FIND_INT(macros, &k, s); /* id already in the hash? */
+  HASH_FIND_INT(macros, &k, s); // id already in the hash? 
   if (s == NULL) {
     s = (struct macro_struct *)safe_malloc(sizeof *s);
 
@@ -61,7 +61,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
       return;
     }
     s->id = (int)key;
-    HASH_ADD_INT(macros, id, s); /* id: name of key field */
+    HASH_ADD_INT(macros, id, s); // id: name of key field 
   }
 
   memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
