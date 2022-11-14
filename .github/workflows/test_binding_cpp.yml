@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: make
       run: |
-        make CC=clang all
+        make CC=clang DEBUG=1 all
         ./build/dice d20
 
   build_cpp:
