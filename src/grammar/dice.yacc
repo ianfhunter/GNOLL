@@ -1310,25 +1310,35 @@ void load_builtins(char* root){
     
     while (dir.has_next)
     {
-	tinydir_file file;
-	tinydir_readfile(&dir, &file);
-	printf("%s", file.name);
-	if (file.is_dir)
-	{
-		printf("/");
-	}else{
-           FILE* fp =fopen(file.name, "r");
-           char stored_str[1000];
-           while (fgets(stored_str,1000, fp)!=NULL);
-           fclose(fp);
-           YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
-           yyparse();
-           yy_delete_buffer(buffer);
-      
+        tinydir_file file;
+        tinydir_readfile(&dir, &file);
+        if(verbose){
+            printf("%s", file.name);
         }
-	printf("\n");
+        if (file.is_dir)
+        {
+            if(verbose){
+                printf("/\n");
+            }
+        }else{
+            if(verbose){
+               printf("\n");
+            }
+            char* path = calloc(sizeof(char), 1000);
+            strcat(path, "builtins/");
+            strcat(path, file.name);
+            // TODO: Check filename for length
+            FILE* fp = fopen(path, "r");
+            char stored_str[1000];
+            while (fgets(stored_str, 1000, fp)!=NULL);
+            /* printf("Contents: %s\n",stored_str); */
+            fclose(fp);
+            YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
+            yyparse();
+            yy_delete_buffer(buffer);
+        }
 
-	tinydir_next(&dir);
+        tinydir_next(&dir);
     }
 
     tinydir_close(&dir);
@@ -1386,12 +1396,22 @@ int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
     remove("output.dice");
 
-    verbose = 1;
-    #ifdef BREAKDOWN
+    roll_full_options(
+        s,
+        "output.dice",
+        0,  // Verbose
+        1,  // Introspect
+        0,  // Mocking
+        1,  // Builtins
+        0,
+        0
+    );
+
+    /* #ifdef BREAKDOWN
         return roll_with_breakdown(s, "output.dice");
     #else
         return roll(s);
-    #endif
+    #endif */
 }
 
 int yyerror(s)
