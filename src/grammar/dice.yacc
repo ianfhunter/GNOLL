@@ -1305,12 +1305,14 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
+    printf("load builtins\n");
     tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
     
     while (dir.has_next)
     {
         tinydir_file file;
+        printf("read nexts\n");
         tinydir_readfile(&dir, &file);
         if(verbose){
             printf("%s", file.name);
@@ -1396,7 +1398,7 @@ char * concat_strings(char ** s, int num_s){
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
     remove("output.dice");
-
+    printf("main\n");
     roll_full_options(
         s,
         "output.dice",
