@@ -4,6 +4,7 @@
 #include <string.h>
 #include "shared_header.h"
 
+/*
 int roll_full_options(
     char* roll_request, 
     char* log_file, 
@@ -14,6 +15,7 @@ int roll_full_options(
     int mocking_type,
     int mocking_seed
 );
+*/
 
 int main()
 {
