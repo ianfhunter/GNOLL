@@ -1312,7 +1312,7 @@ void load_builtins(char* root){
     
     while (dir.has_next)
     {
-        if(count == 1){
+        if(count == 10){
           break;
         }
         count++;
