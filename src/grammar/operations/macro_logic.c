@@ -62,7 +62,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
       return;
     }
     s->id = (int)key;
-    //HASH_ADD_INT(macros, id, s); // id: name of key field 
+    HASH_ADD_INT(macros, id, s); // id: name of key field 
   }
   
   /*
@@ -77,8 +77,8 @@ void register_macro(vec *macro_name, roll_params *to_store) {
         to_store->die_sides, MAX_SYMBOL_LENGTH);
   }
   */
-  free(s); //new
-  free(skey); //new
+  //free(s); //new
+  //free(skey); //new
 }
 
 void search_macros(char *skey, roll_params *to_store) {
