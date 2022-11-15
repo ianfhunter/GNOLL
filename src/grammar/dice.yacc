@@ -39,7 +39,7 @@ char * concat_strings(char ** s, int num_s);
 int yydebug=1;
 #endif
 
-int verbose = 1;
+int verbose = 0;
 int dice_breakdown = 0;
 int seeded = 0;
 int write_to_file = 0;
@@ -143,6 +143,9 @@ macro_statement:
         vec value = $<values>4;
 
         register_macro(&key, &value.source);
+
+        // We no longer need the setting key
+        free(key.symbols);
         
         if(gnoll_errno){
             YYABORT;
@@ -1305,19 +1308,12 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
-    printf("load builtins\n");
     tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
-    int count = 0;
     
     while (dir.has_next)
     {
-        if(count == 7){
-          break;
-        }
-        count++;
-        tinydir_file file;
-        printf("read nexts\n");
+    tinydir_file file;
         tinydir_readfile(&dir, &file);
         if(verbose){
             printf("%s", file.name);
@@ -1407,20 +1403,26 @@ char * concat_strings(char ** s, int num_s){
 }
 
 int main(int argc, char **str){
-    printf("main\n");
     char * s = concat_strings(str, argc - 1);
     remove("output.dice");
-    printf("main 2\n");
     roll_full_options(
         s,
         "output.dice",
-        1,  // Verbose
+        0,  // Verbose
         1,  // Introspect
         0,  // Mocking
         1,  // Builtins
         0,
         0
     );
+    FILE  *f = fopen("output.dice","r");
+    int c;
+    if (f){
+        while((c = getc(f)) !=  EOF){
+            putchar(c);
+        }
+        fclose(f);
+    }
 }
 
 int yyerror(s)

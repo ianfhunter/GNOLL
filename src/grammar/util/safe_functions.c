@@ -57,11 +57,13 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    * @param item
    * @param max_size
    */
-  printf("alloc: %u\n", items);
-  printf("*alloc: %u\n", max_size);
-  //(void)dst;
-  //(void)src;
+  // printf("alloc: %u\n", items);
+  // printf("*alloc: %u\n", max_size);
   
+  // printf("%p\n", (void *)*dst);
+  if(*dst != 0){
+    free(*dst);
+  }
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;

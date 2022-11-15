@@ -28,7 +28,7 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 # === DEBUG OPTIONS ====
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O0 -g  # Valgrind info
+OPT=-O0 -g -fsanitize=address  -gdwarf-4 # Valgrind info
 PARSER_DEBUG:=--debug --verbose
 else
 PARSER_DEBUG:=
@@ -62,7 +62,7 @@ LEXER:=flex -f -Ca -Ce -Cr
 endif
 
 # add flags and the include paths
-DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK} -DBREAKDOWN
+DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK}
 
 CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
 
