@@ -59,9 +59,9 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    */
   printf("alloc: %u\n", items);
   printf("*alloc: %u\n", max_size);
-  (void)dst;
-  (void)src;
-  /*
+  //(void)dst;
+  //(void)src;
+  
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
@@ -74,7 +74,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
     }
     memcpy((*dst)[i], src[i], max_size);
   }
-  */
+  
 }
 
 void *safe_calloc(size_t nitems, size_t size) {
