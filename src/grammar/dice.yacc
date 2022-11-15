@@ -1308,9 +1308,14 @@ void load_builtins(char* root){
     printf("load builtins\n");
     tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
+    int count = 0;
     
     while (dir.has_next)
     {
+        if(count == 1){
+          break;
+        }
+        count++;
         tinydir_file file;
         printf("read nexts\n");
         tinydir_readfile(&dir, &file);
