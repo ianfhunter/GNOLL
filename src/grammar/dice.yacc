@@ -1335,7 +1335,9 @@ void load_builtins(char* root){
             FILE* fp = fopen(path, "r");
             char stored_str[1000];
             while (fgets(stored_str, 1000, fp)!=NULL);
-            // printf("Contents: %s\n",stored_str); 
+            if(verbose){
+              printf("Contents: %s\n",stored_str); 
+            }
             fclose(fp);
             
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
