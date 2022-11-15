@@ -57,6 +57,8 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    * @param item
    * @param max_size
    */
+  printf("alloc: %d\n", items);
+  printf("*alloc: %d\n", max_size);
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
