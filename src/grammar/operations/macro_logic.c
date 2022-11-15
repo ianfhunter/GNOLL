@@ -68,7 +68,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   
   memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
   s->stored_dice_roll.symbol_pool = NULL;
-  /*
+  
   if (is_symbolic) {
     free_2d_array(&s->stored_dice_roll.symbol_pool,
                   s->stored_dice_roll.die_sides);
@@ -76,7 +76,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
         &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
         to_store->die_sides, MAX_SYMBOL_LENGTH);
   }
-  */
+  
   //free(s); //new
   //free(skey); //new
 }
