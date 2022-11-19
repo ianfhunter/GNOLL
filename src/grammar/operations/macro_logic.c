@@ -38,20 +38,19 @@ void register_macro(vec *macro_name, roll_params *to_store) {
    * referenced to by the key
    */
 
-  if (gnoll_errno) {
-    return;
-  }
-
-  char *skey = macro_name->symbols[0];
-  unsigned long key = hash_function((unsigned char *)skey);
-  int k = (int)key;
-  if (gnoll_errno) {
-    return;
-  }
+  if (gnoll_errno) {return;}
 
   struct macro_struct *s;
+  char *skey = macro_name->symbols[0];
+
+  printf("Macro:: Get ID\n");
+  unsigned long key = hash_function((unsigned char *)skey);
+  int k = (int)key;
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
+
+  
+  printf("Macro:: Check existancee\n");
   HASH_FIND_INT(macros, &k, s); // id already in the hash? 
   
   
@@ -67,14 +66,18 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   
   
   memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
-  s->stored_dice_roll.symbol_pool = NULL;
+  // s->stored_dice_roll.symbol_pool = NULL;
   
   if (is_symbolic) {
-    free_2d_array(&s->stored_dice_roll.symbol_pool,
-                  s->stored_dice_roll.die_sides);
-   safe_copy_2d_chararray_with_allocation(
+    // free symbols from roll in S 
+    // free_2d_array(&s->stored_dice_roll.symbol_pool,
+    //               s->stored_dice_roll.die_sides);
+    safe_copy_2d_chararray_with_allocation(
         &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
        to_store->die_sides, MAX_SYMBOL_LENGTH);
+
+    // free_roll_params(to_store);  //new
+    // free_2d_array(&to_store->symbol_pool, to_store->die_sides);
   }
   
   //free(s); //new

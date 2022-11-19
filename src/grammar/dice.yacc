@@ -142,10 +142,14 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
+        printf("Register\n");
         register_macro(&key, &value.source);
+        printf("Registered\n");
 
-        // We no longer need the setting key
-        free(key.symbols);
+
+        // Cleanup
+        free_vector(key);
+        free_vector(value);
         
         if(gnoll_errno){
             YYABORT;
@@ -493,8 +497,6 @@ collapsing_dice_operations:
         if (vector.dtype == SYMBOLIC){
             // Symbolic, Impossible to collapse
             $<values>$ = vector;
-            
-
         }
         else{
             // Collapse if Necessary
@@ -502,8 +504,8 @@ collapsing_dice_operations:
                 vec new_vector;
                 initialize_vector(&new_vector, NUMERIC, 1);
                 new_vector.content[0] = sum(vector.content, vector.length);
-
                 $<values>$ = new_vector;
+                free_vector(vector);
             }else{
                 $<values>$ = vector;
             }
@@ -735,8 +737,6 @@ dice_operations:
     }
     |
     die_roll
-    {
-    }
 ;
 
 die_roll:
@@ -987,10 +987,11 @@ die_roll:
     NUMBER
     ;
 
+
 custom_symbol_dice:
     NUMBER die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
-
+        // Nd{SYMB}
         vec left = $<values>1;
         vec right = $<values>4;
 
@@ -1009,12 +1010,12 @@ custom_symbol_dice:
     |
     die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
+        // d{SYM}
         vec csd = $<values>3;
         vec result_vec;
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
-
         
         if (csd.dtype == NUMERIC){
             vec dice_sides;
@@ -1039,6 +1040,7 @@ custom_symbol_dice:
 
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
+            printf("YO\n");
 
             roll_params rp = {
                 .number_of_dice=(unsigned int)number_of_dice.content[0],
@@ -1050,7 +1052,6 @@ custom_symbol_dice:
             for(unsigned int i = 0; i != csd.length; i++){
                 rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
                 memcpy(rp.symbol_pool[i], csd.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
-                // rp.symbol_pool[i] = csd.symbols[i];
             }
             result_vec.source = rp;
 
@@ -1060,6 +1061,7 @@ custom_symbol_dice:
                 &csd,
                 &result_vec
             );
+            printf("YO2\n");
         }
         $<values>$ = result_vec;
     }
@@ -1201,6 +1203,7 @@ die_symbol:
 
 function: 
     FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        // max(a,b)
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         int vmax = MAXV(
@@ -1209,11 +1212,12 @@ function:
         );
         new_vec.content[0] = vmax;
         $<values>$ = new_vec;
-        free($<values>3.content);
-        free($<values>5.content);
+        free_vector($<values>3);
+        free_vector($<values>5);
     }
     |
     FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        // min(a,b)
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = MINV(
@@ -1226,7 +1230,8 @@ function:
     }
     |
     FN_ABS LBRACE function RBRACE{
-                vec new_vec;
+        // abs(__)
+        vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = ABSV(
             $<values>3.content[0]
@@ -1311,9 +1316,10 @@ void load_builtins(char* root){
     tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
     
+    int count = 0;
     while (dir.has_next)
     {
-    tinydir_file file;
+        tinydir_file file;
         tinydir_readfile(&dir, &file);
         if(verbose){
             printf("%s", file.name);
@@ -1324,18 +1330,25 @@ void load_builtins(char* root){
                 printf("/\n");
             }
         }else{
+            count++;
             if(verbose){
                printf("\n");
             }
             
-            char* path = calloc(sizeof(char), 1000);
+            int max_file_path_length = 1000;
+            int max_macro_length = 1000;
+
+            char* path = calloc(sizeof(char), max_file_path_length);
+            char* stored_str = calloc(sizeof(char), max_macro_length);
+
+            // Get full path
             strcat(path, "builtins/");
             strcat(path, file.name);
             
             // TODO: Check filename for length
             FILE* fp = fopen(path, "r");
-            char stored_str[1000];
-            while (fgets(stored_str, 1000, fp)!=NULL);
+            while (fgets(stored_str, max_macro_length, fp)!=NULL);
+
             if(verbose){
               printf("Contents: %s\n",stored_str); 
             }
@@ -1344,10 +1357,13 @@ void load_builtins(char* root){
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
             yyparse();
             yy_delete_buffer(buffer);
-            
-            free(path);
-        }
 
+            free(path);
+            free(stored_str);
+        }
+        if(count >= 1){
+            break;
+        }
         tinydir_next(&dir);
     }
 
@@ -1408,10 +1424,10 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        0,  // Verbose
+        1,  // Verbose
         1,  // Introspect
         0,  // Mocking
-        1,  // Builtins
+        0,  // Builtins
         0,
         0
     );

@@ -33,6 +33,9 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
                                             unsigned int max_size);
 void free_2d_array(char ***arr, unsigned int items);
 
+void free_vector(vec v);
+void free_roll_params(roll_params* rp);
+
 int fast_atoi(const char *str);
 
 #endif

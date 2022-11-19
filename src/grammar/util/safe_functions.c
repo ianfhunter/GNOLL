@@ -30,6 +30,20 @@ void *safe_malloc(size_t size) {
   return malloc_result;
 }
 
+void free_vector(vec v){
+  if(v.dtype == NUMERIC){
+    printf("vec: %p\n", (void*)v.content);
+    free(v.content);
+  }else{
+    printf("vec: %p\n", (void*)v.symbols);
+    free_2d_array(&v.symbols, v.length);
+  }
+}
+void free_roll_params(roll_params* rp){
+  (void *)rp;
+  // free_2d_array(&rp->symbol_pool, rp->die_sides);
+}
+
 void free_2d_array(char ***arr, unsigned int items) {
   /**
    * @brief Free a 2d char array in a repeatable manner.
