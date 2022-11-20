@@ -21,8 +21,8 @@ jobs:
         #  cd ghc-8.10.7 && ./configure
         # cd ghc-8.10.7 && make install
         ghc --version
-        cabal update
-        stack init
-        stack --resolver lts-18 build
+        # cabal update
+        # stack init
+        # stack --resolver lts-18 build
     - name: make haskell
       run: make haskell
