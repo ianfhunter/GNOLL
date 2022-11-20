@@ -1335,11 +1335,12 @@ void load_builtins(char* root){
                printf("\n");
             }
             
-            int max_file_path_length = 1000;
+            unsigned long max_file_path_length = 1000;
             int max_macro_length = 1000;
 
-            char* path = calloc(sizeof(char), max_file_path_length);
-            char* stored_str = calloc(sizeof(char), max_macro_length);
+            char* path = safe_calloc(sizeof(char), max_file_path_length);
+            char* stored_str = safe_calloc(sizeof(char), (unsigned long)max_macro_length);
+            if(gnoll_errno){return;}
 
             // Get full path
             strcat(path, "builtins/");
