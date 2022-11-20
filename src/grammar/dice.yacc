@@ -1358,6 +1358,7 @@ void load_builtins(char* root){
             YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
             yyparse();
             yy_delete_buffer(buffer);
+            if(gnoll_errno){return;}
 
             free(path);
             free(stored_str);
