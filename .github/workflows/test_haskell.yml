@@ -15,11 +15,11 @@ jobs:
     - uses: actions/checkout@v3
     - name: dep install
       run: |
-        sudo apt install cabal-install haskell-stack
-        curl -O https://downloads.haskell.org/~ghc/8.10.7/ghc-8.10.7-x86_64-deb10-linux.tar.xz
-        tar xvf ghc-8.10.7-x86_64-deb10-linux.tar.xz
-        cd ghc-8.10.7 && ./configure
-        cd ghc-8.10.7 && make install
+        sudo apt install cabal-install haskell-stack ghc
+        # curl -O https://downloads.haskell.org/~ghc/8.10.7/ghc-8.10.7-x86_64-deb10-linux.tar.xz
+        #  tar xvf ghc-8.10.7-x86_64-deb10-linux.tar.xz
+        #  cd ghc-8.10.7 && ./configure
+        # cd ghc-8.10.7 && make install
         ghc --version
         cabal update
         stack init
