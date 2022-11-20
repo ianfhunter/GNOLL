@@ -34,4 +34,4 @@ executable src
     default-language: Haskell2010
     -- testing out relative directory
     -- extra-libraries: /home/anant/dev/repos/OCT/GNOLL/src/haskell/dice.so
-    extra-libraries: ../../build/dice.so
+    extra-libraries: dice.so
