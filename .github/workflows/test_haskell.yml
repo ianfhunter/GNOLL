@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
         #  cd ghc-8.10.7 && ./configure
         # cd ghc-8.10.7 && make install
         ghc --version
-        # cabal update
+        cabal update
         # stack init
         # stack --resolver lts-18 build
     - name: make haskell
