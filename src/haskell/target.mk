@@ -1,5 +1,5 @@
 
 .PHONY: haskell
 haskell: clean yacc lex compile shared
-	cp build/dice.so src/haskell/dice.so 
+	sudo cp build/dice.so /usr/lib/dice.so 
 	cd src/haskell/ && cabal build
