@@ -12,6 +12,9 @@ libc = cdll.LoadLibrary(C_SHARED_LIB)
 
 
 class GNOLLException(Exception):
+    """A custom exception to capture
+    the specific types of errors raised by GNOLL
+    """
 
     def __init__(self, v):
         Exception.__init__(self, v)
@@ -42,10 +45,44 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s, verbose=False, mock=None, mock_const=3):
+def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
+    """
+    Parse some dice notation with GNOLL.
+    @param s the string to parse
+    @param verbose whether to enable verbosity (primarily for debug)
+    @param mock override the internal random number generator (for testing).
+    @param mock_const the seed value for overriding with mocks
+    @param breakdown get the details of each dice rolled, not just the final result
+    @return  return code, final result, dice breakdown (None if disabled)
+    """
     temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                        suffix=".die",
                                        delete=False)
+
+    def make_native_type(v):
+        """
+        Change a string to a more appropriate type if possible.
+        Number -> int
+        Word -> String
+        """
+        if v == "0":
+            return 0
+        if v == "":
+            return "NULL"
+        try:
+            return int(v)
+        except ValueError:
+            return v
+
+    def extract_from_dice_file(lines, seperator):
+        """
+        Parse GNOLL's file output
+        @param lines array of file readlines()
+        @param seperator value seperating terms in the file
+        """
+        v = [x.split(seperator)[:-1] for x in lines if seperator in x]
+        v = [list(map(make_native_type, x)) for x in v]
+        return v
 
     die_file = temp.name
     os.remove(die_file)
@@ -57,10 +94,16 @@ def roll(s, verbose=False, mock=None, mock_const=3):
 
     with pipes() as (out, err):
         s = s.encode("ascii")
-        if mock is None:
-            return_code = libc.roll_and_write(s, out_file)
-        else:
-            return_code = libc.mock_roll(s, out_file, mock, mock_const)
+
+        return_code = libc.roll_full_options(
+            s,
+            out_file,
+            False,  # enable_verbose
+            breakdown,  # enable_introspect
+            mock is not None,  # enable_mock
+            mock,
+            mock_const,
+        )
 
     if verbose:
         print("---stdout---")
@@ -73,23 +116,20 @@ def roll(s, verbose=False, mock=None, mock_const=3):
 
     with open(out_file, encoding="utf-8") as f:
         lines = f.readlines()
-        results = lines[0].split(";")[:-1]
 
-    if isinstance(results, list) and len(results) == 1:
-        results = results[0]
+    dice_breakdown = extract_from_dice_file(lines, ",")
+    result = extract_from_dice_file(lines, ";")
 
-    if isinstance(results, list):
-        if all(x.lstrip("-").isdigit() for x in results):
-            results = [int(o) for o in results]
-
-    elif results.lstrip("-").isdigit():
-        results = int(results)
-
-    return int(return_code), results
+    return int(return_code), result, dice_breakdown
 
 
 if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
-    code, r = roll(arg, verbose=True)
-    print(f"Result: {r}. Exit Code: {code}")
+    code, r, detailed_r = roll(arg, verbose=False)
+    print(f"""
+[[GNOLL Results]]
+Dice Roll:      {arg}
+Result:         {r}
+Exit Code:      {code}, 
+Dice Breakdown: {detailed_r}""")

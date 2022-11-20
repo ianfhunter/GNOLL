@@ -15,14 +15,14 @@ from util import Mock, error_handled_by_gnoll, roll
     ],
 )
 def test_macro_storage(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _ = roll(r, mock_mode=mock)
     assert result == out
 
 
 @pytest.mark.parametrize("r,out,mock",
                          [("#MY_DIE=d{A};@MY_DIE", "A", Mock.NO_MOCK)])
 def test_macro_usage(r, out, mock):
-    result = roll(r, mock_mode=mock)
+    result, _ = roll(r, mock_mode=mock)
     assert result == out
 
 
@@ -30,13 +30,13 @@ def test_macro_usage(r, out, mock):
                   )
 def test_d66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
-    result = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
+    result, _ = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
 
 
 def test_multiple_internal_calls_macros():
     r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
-    result = roll(r)
+    result, _ = roll(r)
     assert not all(r == result[0] for r in result)
 
 

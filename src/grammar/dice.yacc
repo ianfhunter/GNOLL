@@ -15,6 +15,7 @@
 #include "util/safe_functions.h"
 #include "operations/macro_logic.h"
 #include "rolls/sided_dice.h"
+#include "rolls/mocking.h"
 #include "operations/condition_checking.h"
 #include <errno.h>
 #include "external/pcg_basic.h"
@@ -192,6 +193,10 @@ dice_statement: functions{
     }
     if(verbose){
        printf("\n");
+    }
+    
+    if (dice_breakdown){
+        fprintf(fp, "\n");
     }
 
     if(write_to_file){
@@ -1239,47 +1244,88 @@ typedef struct yy_buffer_state * YY_BUFFER_STATE;
 extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
-int roll(char * s){
-    if (verbose){
-        printf("Trying to roll '%s'\n", s);
+int roll_full_options(
+    char* roll_request, 
+    char* log_file, 
+    int enable_verbosity, 
+    int enable_introspection,
+    int enable_mocking,
+    // int enable_builtins,
+    int mocking_type,
+    int mocking_seed
+){
+    /**
+    * @brief the main GNOLL roll function
+    * @param roll_request the dice notation to parse
+    * @param log_file the file location to write results to
+    * @param enable_verbosity Adds extra prints to the program
+    * @param enable_introspection Adds per-dice breakdown in the output file
+    * @param enable_mocking Replaces random rolls with predictables values for testing
+    * @param enable_builtins Load in predefined macros for usage
+    * @param mocking_type Type of mock values to generate
+    * @param mocking_seed The first value of the mock generation to produce
+    * @return GNOLL error code
+    */
+    gnoll_errno = 0;
+
+    if (enable_verbosity){
+        verbose = 1;
+        printf("Trying to roll '%s'\n", roll_request);
     }
+    if (enable_mocking){
+        init_mocking((MOCK_METHOD)mocking_type, mocking_seed);
+    }
+    if (log_file != NULL){
+        write_to_file = 1;
+        output_file = log_file;
+        if (enable_introspection){
+            dice_breakdown = 1;
+        }
+    }else{
+        if (enable_introspection){
+            // Introspection is only implemented on a file-basis
+            gnoll_errno = NOT_IMPLEMENTED;
+            return gnoll_errno;
+        }
+    }
+
     initialize();
-    YY_BUFFER_STATE buffer = yy_scan_string(s);
+    /*
+    if(enable_builtins){
+        load_builtins("builtins/");
+    }
+    */
+    YY_BUFFER_STATE buffer = yy_scan_string(roll_request);
     yyparse();
     yy_delete_buffer(buffer);
     return gnoll_errno;
 }
 
-int roll_with_breakdown(char * s){
-    dice_breakdown=1;
-    if (verbose){
-        printf("Trying to roll '%s'\n", s);
-    }
-    initialize();
-    YY_BUFFER_STATE buffer = yy_scan_string(s);
-    yyparse();
-    yy_delete_buffer(buffer);
-    return gnoll_errno;
+/*void load_builtins(char* root){
+    return;
+}*/
+
+// The following are legacy functions to be deprecated in the future
+// in favor of the general roll_full_options() fn.
+
+int roll(char * s){
+    return roll_full_options(s, NULL, 1, 0, 0, 0, 0);
+}
+
+int roll_with_breakdown(char * s, char* f){
+    return roll_full_options(s, f, 0, 1, 0, 0, 0);
 }
 
 int roll_and_write(char* s, char* f){
-    gnoll_errno = 0;
-    write_to_file = 1;
-    output_file = f;
-    verbose = 0;
-    int return_code = roll(s);
-    /* free(macros); */
-    return return_code;
+    return roll_full_options(s, f, 0, 0, 0, 0, 0);
 }
 
-void roll_and_write_R(int* return_code, char** s, char** f){
-    (*return_code) = roll_and_write(s[0], f[0]);
+void roll_and_write_R(int* return_code, char** s, char** f){    
+    (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0);
 }
 
 int mock_roll(char * s, char * f, int mock_value, int mock_const){
-    gnoll_errno = 0;
-    init_mocking((MOCK_METHOD)mock_value, mock_const);
-    return roll_and_write(s, f);
+    return roll_full_options(s, f, 0, 0, 1, mock_value, mock_const);
 }
 
 char * concat_strings(char ** s, int num_s){
@@ -1297,24 +1343,22 @@ char * concat_strings(char ** s, int num_s){
     result = (char *)safe_calloc(sizeof(char), (size_total+1));
     if(gnoll_errno){return NULL;}
 
-
-
     for(int i = 1; i != num_s + 1; i++){
         strcat(result, s[i]);
         if (spaces && i < num_s){
             strcat(result, " ");    // Add spaces
         }
     }
-
     return result;
-
 }
 
 int main(int argc, char **str){
     char * s = concat_strings(str, argc - 1);
+    remove("output.dice");
+
     verbose = 1;
     #ifdef BREAKDOWN
-        return roll_with_breakdown(s);
+        return roll_with_breakdown(s, "output.dice");
     #else
         return roll(s);
     #endif

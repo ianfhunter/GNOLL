@@ -5,13 +5,13 @@ from util import roll
 
 
 def test_ranges():
-    result = roll("d{10..40}")
+    result, _ = roll("d{10..40}")
     assert result >= 10
     assert result <= 40
 
 
 @pytest.mark.skip("not implemented")
 def test_multiple_ranges():
-    result = roll("2d{10..15}")
+    result, _ = roll("2d{10..15}")
     assert result >= 20
     assert result <= 30

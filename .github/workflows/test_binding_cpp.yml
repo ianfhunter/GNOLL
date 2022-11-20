@@ -1,0 +1,30 @@
+name: "Binding Tests: C++"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build_clang:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make
+      run: |
+        make CC=clang all
+        ./build/dice d20
+
+  build_cpp:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make
+      run:  |
+        make cpp

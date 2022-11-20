@@ -12,7 +12,7 @@ from util import Mock, roll
     ],
 )
 def test_count(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
 
 
@@ -23,5 +23,5 @@ def test_count(r, out, mock, mock_const):
     ],
 )
 def test_count_unique(r, out, mock, mock_const):
-    result = roll(r, mock_mode=mock, mock_const=mock_const)
+    result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out

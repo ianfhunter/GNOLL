@@ -3,8 +3,9 @@ cppyy
 
 # tests
 pytest
+numpy>=1.22.2
 
 # distribution
 build
 twine
-setuptools
+setuptools>=65.5.1

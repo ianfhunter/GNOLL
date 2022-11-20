@@ -23,3 +23,8 @@ GNOLL does not support tracking the state of internal counters between execution
 > GNOLL uses a slightly different syntax than what I would like
 
 While we have put a lot of thought into GNOLL's choices of characters, You may change which characters are used for operations in the 'dice.lex' file.
+
+{: .question }
+> GNOLL produces an overall result, but I need to know what each dice value was!
+
+This is possible! Just enable introspection or "dice breakdown" and you'll get the individual results as well as the final ones.

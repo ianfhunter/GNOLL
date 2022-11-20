@@ -18,15 +18,17 @@ troll_exec = os.path.join(os.path.expanduser("~"), "troll")
 diceparser_exec = os.path.join(os.path.expanduser("~"), "diceparser")
 
 
-def troll_roll(s):
-
-    v = subprocess.run([troll_exec, "0", "test.t"], capture_output=True)
+def troll_roll(_):
+    # test.t is generated inside the benchmark core
+    v = subprocess.run([troll_exec, "0", "test.t"],
+                       capture_output=True,
+                       check=True)
     if v.returncode:
         raise ValueError
 
 
 def dp_roll(s):
-    subprocess.run([diceparser_exec, s])
+    subprocess.run([diceparser_exec, s], check=True)
 
 
 # ======= Benchmark Begins ==========
