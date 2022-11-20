@@ -25,7 +25,7 @@ executable src
     -- other-extensions:
     build-depends:
         -- base ^>=4.16.1.0,
-        base ^>= 4.16.4.0,
+        base ^>= 4.16.3.0,
         directory
 
     allow-newer: true
