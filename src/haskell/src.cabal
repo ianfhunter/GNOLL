@@ -24,7 +24,7 @@ executable src
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:
-        base ^>=4.16.1.0,
+        base >=4.16.1.0,
         directory
 
     hs-source-dirs:   app
