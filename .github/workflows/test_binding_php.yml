@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  buildphp:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
