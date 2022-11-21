@@ -1,0 +1,19 @@
+name: "Binding Tests: GoLang"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_go:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP with no coverage driver
+        uses: shivammathur/setup-php@v2
+        with:
+           php-version: '8.1'
+           coverage: none
+       - name: make php
+         run: make php
