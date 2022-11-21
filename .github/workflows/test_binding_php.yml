@@ -8,7 +8,6 @@ on:
 
 jobs:
   build_php:
-    name: php binding test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
