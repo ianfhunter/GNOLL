@@ -3,7 +3,7 @@
 [![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
 
 [![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
-[![Test: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_haskell.yml)
+[![Binding Tests: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml)
 [![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
 [![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
 [![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
