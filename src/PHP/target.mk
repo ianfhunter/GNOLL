@@ -1,5 +1,6 @@
 
-PHP_FOLDER=$(php -i | grep extension_dir  | cut -d " " -f 5)
+PHP_FOLDER=$(php -i | grep extension_dir)
+# | cut -d " " -f 5)
 
 .PHONY: php
 php: clean yacc lex compile shared
