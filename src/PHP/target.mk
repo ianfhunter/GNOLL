@@ -8,5 +8,5 @@ php: clean yacc lex compile shared
 	echo ${PHP_FOLDER}
 	echo $(whereis php)
 	echo $(php -i)
-	cp build/dice.so ${PHP_FOLDER}/dice.so
+	#cp build/dice.so ${PHP_FOLDER}/dice.so
 	cd src/PHP/ && php index.php
