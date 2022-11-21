@@ -28,4 +28,4 @@ jobs:
     - name: make haskell
       run: |
           make haskell
-          cd src/haskell/ && cabal run d20
+          cd src/haskell/ && cabal run src d20
