@@ -11,13 +11,13 @@ jobs:
     name: php binding test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          coverage: none
-          ini-values: enable_dl=True
-       - name: make php
-         run: make php
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        coverage: none
+        ini-values: enable_dl=True
+     - name: make php
+       run: make php
