@@ -1,4 +1,4 @@
-name: "Binding Tests: PHP"
+name: "Binding Tests: Perl"
 
 on:
   push:
@@ -9,10 +9,19 @@ on:
 jobs:
 
 
-  build_php:
+  build_perl:
 
     runs-on: ubuntu-latest
+
     steps:
+    - uses: actions/checkout@v3
+    - name: perl install
+      run: sudo apt install perl
+    - name: make perl
+      run: make perl
+    - name: test perl
+      run: perl src/perl/example_application.pl
+
     - name: Checkout
       uses: actions/checkout@v3
     - name: Setup PHP
