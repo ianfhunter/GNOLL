@@ -9,4 +9,4 @@ wurlitzer
 # distribution
 build
 twine
-setuptools
+setuptools>=65.5.1

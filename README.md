@@ -2,7 +2,9 @@
 
 [![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
 
+[![Binding Tests: C++](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml)
 [![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
+[![Binding Tests: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml)
 [![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
 [![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
 [![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
@@ -45,6 +47,7 @@ GNOLL was written to be the definitive solution to dice notation. The core has b
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
