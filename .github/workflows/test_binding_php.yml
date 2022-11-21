@@ -15,5 +15,6 @@ jobs:
         with:
            php-version: '8.1'
            coverage: none
+           ini-values: enable_dl=True
        - name: make php
          run: make php
