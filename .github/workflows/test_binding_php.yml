@@ -17,5 +17,8 @@ jobs:
         php-version: '8.1'
         coverage: none
         ini-values: enable_dl=True
+        extensions: dice
+      env:
+        DICE_PATH: src/PHP/
     - name: make php
       run: make php
