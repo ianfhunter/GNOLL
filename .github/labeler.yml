@@ -15,3 +15,12 @@ javascript:
 
 macros:
 - builtins/*
+
+haskell:
+- src/haskell/*
+
+java:
+- src/java/*
+
+R:
+- src/R/*
