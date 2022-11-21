@@ -1,0 +1,31 @@
+name: "Test: Haskell"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: dep install
+      run: |
+        sudo apt update 
+        sudo apt install cabal-install haskell-stack ghc
+        # curl -O https://downloads.haskell.org/~ghc/8.10.7/ghc-8.10.7-x86_64-deb10-linux.tar.xz
+        #  tar xvf ghc-8.10.7-x86_64-deb10-linux.tar.xz
+        #  cd ghc-8.10.7 && ./configure
+        # cd ghc-8.10.7 && make install
+        ghc --version
+        cabal update
+        # stack init
+        # stack --resolver lts-18 build
+    - name: make haskell
+      run: |
+          make haskell
+          cd src/haskell/ && cabal run src d20
