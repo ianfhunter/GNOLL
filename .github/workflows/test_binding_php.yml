@@ -14,8 +14,8 @@ jobs:
       - name: Setup PHP with no coverage driver
         uses: shivammathur/setup-php@v2
         with:
-           php-version: '8.1'
-           coverage: none
-           ini-values: enable_dl=True
+          php-version: '8.1'
+          coverage: none
+          ini-values: enable_dl=True
        - name: make php
          run: make php
