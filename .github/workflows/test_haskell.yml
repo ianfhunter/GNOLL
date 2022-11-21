@@ -26,4 +26,6 @@ jobs:
         # stack init
         # stack --resolver lts-18 build
     - name: make haskell
-      run: make haskell
+      run: |
+          make haskell
+          cd src/haskell/ && cabal run d20
