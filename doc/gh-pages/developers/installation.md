@@ -29,6 +29,11 @@ make all
 make go
 ```
 
+## Haskell
+```
+make haskell
+```
+
 ## Python
 Available from [PyPi](https://pypi.org/project/gnoll/)
 ```bash
@@ -64,6 +69,11 @@ make javascript
 ### Run
 ```bash
 node a.out.js
+```
+
+## R
+```baag
+make r
 ```
 
 ## Something Else?
