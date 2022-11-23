@@ -15,7 +15,7 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2
+	-Wundef -Wno-unused -Wformat=2 -fsanitize=address 
 
 # -ffast-math # Problematic for Python 
 
@@ -28,7 +28,7 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 # === DEBUG OPTIONS ====
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O0 -g -fsanitize=address  -gdwarf-4 # Valgrind info
+OPT=-O0 -g -gdwarf-4 # Valgrind info
 PARSER_DEBUG:=--debug --verbose
 else
 PARSER_DEBUG:=
