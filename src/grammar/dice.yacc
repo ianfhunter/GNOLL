@@ -217,6 +217,7 @@ dice_statement: math{
         fclose(fp);
     }
     // free_vector(new_vec);
+
     free_vector(vector);
     $<values>$ = new_vec;
 };
@@ -595,7 +596,6 @@ collapsing_dice_operations:
 
 
 dice_operations:
-
     die_roll REROLL REROLL condition NUMBER{
 
         vec dice = $<values>1;
@@ -636,7 +636,8 @@ dice_operations:
             yyclearin;
         }
     }
-    |die_roll REROLL condition NUMBER{
+    |
+    die_roll REROLL condition NUMBER{
 
         vec dice = $<values>1;
         int check = $<values>3.content[0];
@@ -728,8 +729,7 @@ dice_operations:
         }
     }
     |
-    dice_operations KEEP_HIGHEST NUMBER
-    {
+    dice_operations KEEP_HIGHEST NUMBER{
         vec keep_vector = $<values>3;
         vec new_vec;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
@@ -739,8 +739,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations DROP_HIGHEST NUMBER
-    {
+    dice_operations DROP_HIGHEST NUMBER{
         vec keep_vector = $<values>3;
         vec new_vec;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
@@ -750,8 +749,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations KEEP_LOWEST NUMBER
-    {
+    dice_operations KEEP_LOWEST NUMBER{
         vec keep_vector;
         keep_vector = $<values>3;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
@@ -762,8 +760,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations DROP_LOWEST NUMBER
-    {
+    dice_operations DROP_LOWEST NUMBER{
         vec keep_vector;
         keep_vector = $<values>3;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
@@ -774,8 +771,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations KEEP_HIGHEST
-    {
+    dice_operations KEEP_HIGHEST{
         unsigned int num_to_hold = 1;
         vec new_vec;
         keep_highest_values(&$<values>1, &new_vec, num_to_hold);
@@ -783,8 +779,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations DROP_HIGHEST
-    {
+    dice_operations DROP_HIGHEST{
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
 
@@ -794,8 +789,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations KEEP_LOWEST
-    {
+    dice_operations KEEP_LOWEST{
         unsigned int num_to_hold = 1;
 
         vec new_vec;
@@ -804,8 +798,7 @@ dice_operations:
         $<values>$ = new_vec;
     }
     |
-    dice_operations DROP_LOWEST
-    {
+    dice_operations DROP_LOWEST{
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
 
@@ -819,7 +812,7 @@ dice_operations:
 ;
 
 die_roll:
-   NUMBER die_symbol NUMBER EXPLOSION ONCE{
+    NUMBER die_symbol NUMBER EXPLOSION ONCE{
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
@@ -865,7 +858,7 @@ die_roll:
         free_vector(numB);
     }
     |
-   NUMBER die_symbol NUMBER EXPLOSION PENETRATE{
+    NUMBER die_symbol NUMBER EXPLOSION PENETRATE{
 
         vec numA = $<values>1;
         vec ds = $<values>2;
@@ -889,8 +882,7 @@ die_roll:
         free_vector(numB);
     }
     |
-    die_symbol NUMBER EXPLOSION PENETRATE
-    {
+    die_symbol NUMBER EXPLOSION PENETRATE{
         vec ds = $<values>1;
         vec numB = $<values>2;
         
@@ -912,8 +904,7 @@ die_roll:
         free_vector(numB);
     }
     |
-   NUMBER die_symbol NUMBER EXPLOSION
-    {
+    NUMBER die_symbol NUMBER EXPLOSION{
 
         vec numA = $<values>1;
         vec ds = $<values>2;
@@ -936,8 +927,7 @@ die_roll:
         free_vector(numB);
     }
     |
-    die_symbol NUMBER EXPLOSION
-    {
+    die_symbol NUMBER EXPLOSION{
 
         vec ds = $<values>1;
         vec numB = $<values>2;
@@ -959,8 +949,7 @@ die_roll:
         free_vector(number_of_dice);
     }
     |
-    NUMBER die_symbol NUMBER
-    {
+    NUMBER die_symbol NUMBER{
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
@@ -978,10 +967,10 @@ die_roll:
         free_vector(numA);
     }
     |
-    die_symbol NUMBER
-    {
+    die_symbol NUMBER{
         vec ds = $<values>1;
         vec numB = $<values>2;
+        vec new_vec;
 
         int start_from = ds.content[0];
 
@@ -992,17 +981,18 @@ die_roll:
         roll_plain_sided_dice(
             &number_of_dice,
             &numB,
-            &$<values>$,
+            &new_vec,
             NO_EXPLOSION,
             start_from
         );
+        $<values>$ = new_vec;
         free_vector(number_of_dice);
         free_vector(ds);
         free_vector(numB);
+
     }
     |
-    NUMBER die_symbol MODULO
-    {
+    NUMBER die_symbol MODULO{
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 100;
@@ -1016,8 +1006,7 @@ die_roll:
         );
     }
     |
-    die_symbol MODULO
-    {
+    die_symbol MODULO{
 
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
@@ -1035,8 +1024,7 @@ die_roll:
         );
     }
     |
-    NUMBER die_symbol DO_COUNT
-    {
+    NUMBER die_symbol DO_COUNT{
 
         int start_from = $<values>2.content[0];
 
@@ -1053,8 +1041,7 @@ die_roll:
         );
     }
     |
-    die_symbol DO_COUNT
-    {
+    die_symbol DO_COUNT{
         int start_from = $<values>1.content[0];
 
         vec num_dice;
@@ -1073,8 +1060,7 @@ die_roll:
         );
     }
     |
-    NUMBER FATE_DIE
-    {
+    NUMBER FATE_DIE{
         vec result_vec;
         initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
 
@@ -1086,8 +1072,7 @@ die_roll:
         $<values>$ = result_vec;
     }
     |
-    FATE_DIE
-    {
+    FATE_DIE{
         vec result_vec;
         vec number_of_dice;
         initialize_vector(&result_vec, SYMBOLIC, 1);
@@ -1197,14 +1182,6 @@ custom_symbol_dice:
                     MAX_SYMBOL_LENGTH*sizeof(char)
                 );
             }
-            printf("custom_symbol_dice\n");
-        
-            // for(unsigned int i = 0; i != csd_vec.length; i++){
-            //     rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
-            //     memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
-            // }
-            // result_vec.source = rp;
-            // result_vec.has_source = true;
 
             // Custom Symbol
             roll_symbolic_dice(

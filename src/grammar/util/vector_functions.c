@@ -51,7 +51,9 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
   if (dt == NUMERIC) {
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
-  } else if (dt == SYMBOLIC) {
+  } 
+  else if (dt == SYMBOLIC) 
+  {
     vector->symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
@@ -223,7 +225,6 @@ void collapse_vector(vec *vector, vec *new_vector) {
     new_vector->content = (int*)safe_calloc(sizeof(int), 1);
     if (gnoll_errno) return;
     new_vector->content[0] = c;
-    printf("Value: %i\n", new_vector->content[0]);
     new_vector->length = 1;
     new_vector->dtype = NUMERIC;
   }
