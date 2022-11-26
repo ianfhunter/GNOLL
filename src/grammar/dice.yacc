@@ -150,7 +150,7 @@ macro_statement:
     }
 ;
 
-dice_statement: functions{
+dice_statement: math{
     /**
     * functions a vector
     * return NULL
@@ -213,12 +213,9 @@ dice_statement: functions{
     $<values>$ = new_vec;
 };
 
-functions: 
-    function
-;
 
-function: 
-    FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
+math:
+    FN_MAX LBRACE math SYMBOL_SEPERATOR math RBRACE{
         /** @brief performs the min(__, __) function
         * @FN_MAX the symbol "max"
         * @LBRACE the symbol "("
@@ -240,7 +237,7 @@ function:
         free_vector($<values>5);
     }
     |
-    FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
+    FN_MIN LBRACE math SYMBOL_SEPERATOR math RBRACE{
         /** @brief performs the min(__, __) function
         * @FN_MIN the symbol "min"
         * @LBRACE the symbol "("
@@ -261,7 +258,7 @@ function:
         free_vector($<values>5);
     }
     |
-    FN_ABS LBRACE function RBRACE{
+    FN_ABS LBRACE math RBRACE{
         /** @brief performs the abs(__) function
         * @FN_ABS the symbol "abs"
         * @LBRACE the symbol "("
@@ -278,14 +275,6 @@ function:
         free_vector($<values>3);
     }
     |
-    /* FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
-        make_pool($<values>2, $<values>4);
-    } */
-    |
-    math
-;
-
-math:
     LBRACE math RBRACE{
         $<values>$ = $<values>2;
     }
