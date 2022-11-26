@@ -398,6 +398,85 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
+|Labyrinth Lord					
+Lace and Steel	published originally by TAGG and re-released by Pharos Press				an Australian RPG set in a world of civilised Centaurs and Harpies with a musketeers/swashbuckling feel
+Land of the Rising Sun	Fantasy Games Unlimited	Chivalry & Sorcery			Samurai and Ninjas
+Lands of Adventure					
+The Laundry					
+Legacy					
+Legend of the Five Rings Role-Playing Game	Alderac Entertainment Group				Asian-themed RPG
+Legends of Anglerre					
+Legionnaire	FASA			standalone role-playing game for the Renegade Legion universe	
+Lejendary Adventure	Hekaforge Productions				created by Gary Gygax
+Leverage		Cortex+ System		based on the Leverage TV series	game written by Cam Banks and Rob Donahuge
+Little Fears - The Role-playing Game of Childhood Terror	Key 20 Publishing				
+Living Steel	Leading Edge Games			futuristic game on the world of Rhand	
+Lone Wolf	Mongoose Publishing	d20			a series of gamebooks and Lone Wolf: The Roleplaying Game; also a second game by Mongoose, the Lone Wolf Multiplayer Game Book
+Lord of the Rings Adventure Game	Iron Crown Enterprises		1991-1999	based on the fantasy works of J. R. R. Tolkien	
+The Lord of the Rings Roleplaying Game	Decipher, Inc.		2002-2006	based on the fantasy works of J. R. R. Tolkien	
+Lords of Creation	Avalon Hill
+Mach: The First Colony	Alliance Publications				
+Macho Women with Guns	Blacksburg Tactical Research Center				
+Macross II: The Role-Playing Game	Palladium				
+Maelstrom	Puffin Books				
+Mage: The Ascension	White Wolf Publishing (1st, 2nd and revised editions)
+Mage: The Awakening	White Wolf Publishing			set in the new World of Darkness 2.0	
+Mage: The Sorcerer's Crusade					
+Malefices	Jeux Descartes				French
+Man, Myth & Magic	Yaquinto			RPG drawing on 4000 B.C. to 1000 A.D. Earth legends	
+Manhunter	Kingslayer Productions		1988		
+Marvel Heroic Roleplaying	Margaret Weis Productions	Cortex+ system			
+Marvel Super Heroes Adventure Game	TSR				
+Marvel Super Heroes Role-Playing Game	TSR, Inc.				
+Marvel Universe Roleplaying Game	Marvel Publishing Group				
+Masterbook	West End Games				
+The Masters of the Universe Role Playing Game	FASA				
+Mechamorphosis	Fantasy Flight Games				
+Mechanical Dream	SteamLogic				
+The Mechanoid Invasion	Palladium				
+MechWarrior					
+MEGA Role-Playing System					
+Megaverse	Palladium Books				
+Mekton	R. Talsorian Games			based on Anime Mecha science fiction	
+Melanda: Land of Mystery	Wilmark Dynasty		1980		
+Men In Black: The Roleplaying Game					
+MERC	Fantasy Games Unlimited				A Modern Role Playing Game of Counter Insurgency
+Merc 2000				Twilight 2000 updated for the post-Cold War '90s	
+Mercenaries, Spies and Private Eyes	Flying Buffalo				
+The Metabarons Roleplaying Game	West End Games			
+Metamorphosis Alpha			1976		
+Michtim: Fluffy Adventures			2012		
+Middle Earth Role Play	Iron Crown Enterprises			based on the fantasy works of J. R. R. Tolkien	
+Midgard					The oldest German fantasy RPG[citation needed]
+Midnight				A fantasy world were the bad guys have won	
+Midnight at the Well of Souls Role-Playing System					
+Millennium's End	Chameleon Eclectic Entertainment				
+M.I.S.S.I.O.N.					by Deiron e Yangsmoth
+Mistborn Adventure Game					
+Mojo	Polymancer Studios, Inc.				
+Monastyr	Portal				Polish, Monastery
+Monsterhearts		Powered by the Apocalypse system			a game about the messy lives of teenage monsters by Joe Mcdaldno
+Monsters! Monsters!					
+Monsters and Other Childish Things					
+Mordheim	Games Workshop				
+Morpheus					
+The Morrow Project	Timeline Ltd			Post apocalypse USA 150 years after WW III.	
+Morton's List					
+Mouse Guard	Archaia Entertainment	a version of the Burning Wheel engine	2008		by Luke Crane
+Multiverser	Valdron, Inc.				by E.R. Jones and M. Joseph Young
+Mummy: The Resurrection		original World of Darkness			
+Murphy's World	Peregrine Creative Services				
+Mutant	Target Games				
+Mutant Chronicles	Modiphius				
+Mutant City Blues	Pelgrane Press	Robin Laws GUMSHOE System			superhero detectives
+Mutant Future					
+Mutant RYMD					
+Mutant: Undergångens Arvtagare					by Järnringen Förlag AB
+Mutants & Masterminds	Green Ronin Publishing				
+Mutazoids					
+My Life with Master					Half Meme Press
+Myrskyn aika					by Mike Pohjola
+Mythworld	
 | Odysseus	| |❓ |		
 | The Official Superhero Adventure Game	| |❓ |	
 | Omnigon	| |❓ |	
