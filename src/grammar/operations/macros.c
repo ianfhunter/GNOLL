@@ -128,5 +128,10 @@ void search_macros(char *skey, roll_params *to_store) {
       MAX_SYMBOL_LENGTH
     );
   }
+  /* DO NOT UNCOMMENT. 
+     We need to keep 's'
+     Otherwise macros are lost after usage
+ 
   free(s);
+  */
 }
