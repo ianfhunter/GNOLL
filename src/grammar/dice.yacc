@@ -1162,10 +1162,14 @@ custom_symbol_dice:
     ;
 csd:
     csd SYMBOL_SEPERATOR csd{
-        vec l;
-        vec r;
-        l = $<values>1;
-        r = $<values>3;
+        /**
+        * csd a vector containing custom symbols
+        * SYMBOL_SEPERATOR the symbol ','
+        * csd a vector containing custom symbols
+        * return A vector with all the symbols
+        */
+        vec l = $<values>1;
+        vec r = $<values>3;
 
         vec new_vector;
         initialize_vector(&new_vector, SYMBOLIC, l.length + r.length);
@@ -1181,6 +1185,12 @@ csd:
     }
     |
     NUMBER RANGE NUMBER{
+        /**
+        * NUMBER The symbol 0-9+
+        * RANGE The symbol '..'
+        * NUMBER The symbol 0-9+
+        * return A vector containing the numeric values as symbols 
+        */
         vec start = $<values>1;
         vec end = $<values>3;
 
@@ -1213,8 +1223,12 @@ csd:
     CAPITAL_STRING
     | 
     NUMBER{
+        /**
+        * NUMBER The symbol 0-9+
+        * return A vector containing the numeric values as symbols 
+        */
         vec in = $<values>1;
-        // Max/Min int has 10 characters
+        // INT_MAX/INT_MIN has 10 characters
         in.symbols = safe_calloc(1, sizeof(char *));  
         in.symbols[0] = safe_calloc(10, sizeof(char));  
         sprintf(in.symbols[0], "%d", in.content[0]);
@@ -1227,6 +1241,10 @@ condition: EQ | LT | GT | LE | GE | NE ;
 
 die_symbol:
     SIDED_DIE{
+        /**
+        * SIDED_DIE The symbol 'd'
+        * return A vector containing '1', the start index
+        */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = 1;
@@ -1234,6 +1252,10 @@ die_symbol:
     }
     |
     SIDED_DIE_ZERO{
+        /**
+        * SIDED_DIE The symbol 'z'
+        * return A vector containing '0', the start index
+        */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = 0;
@@ -1243,7 +1265,15 @@ die_symbol:
 
 function: 
     FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
-        // max(a,b)
+        /** @brief performs the min(__, __) function
+        * @FN_MAX the symbol "max"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * SYMBOL_SEPERATOR the symbol ","
+        * function The target vector
+        * @RBRACE the symbol ")"
+        * return vector
+        */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         int vmax = MAXV(
@@ -1257,7 +1287,15 @@ function:
     }
     |
     FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
-        // min(a,b)
+        /** @brief performs the min(__, __) function
+        * @FN_MIN the symbol "min"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * SYMBOL_SEPERATOR the symbol ","
+        * function The target vector
+        * @RBRACE the symbol ")"
+        * return vector
+        */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = MINV(
@@ -1265,8 +1303,8 @@ function:
             $<values>5.content[0]
         );
         $<values>$ = new_vec;
-        free($<values>3.content);
-        free($<values>5.content);
+        free_vector($<values>3);
+        free_vector($<values>5);
     }
     |
     FN_ABS LBRACE function RBRACE{
@@ -1275,6 +1313,7 @@ function:
         * @LBRACE the symbol "("
         * function The target vector
         * @RBRACE the symbol ")"
+        * return vector
         */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
