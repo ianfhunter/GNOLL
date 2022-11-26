@@ -69,7 +69,8 @@ int initialize(){
 %}
 
 
-%start gnoll_statement
+%start gnoll_entry
+/* %start gnoll_statement */
 
 %token NUMBER SIDED_DIE FATE_DIE REPEAT SIDED_DIE_ZERO
 %token EXPLOSION IMPLOSION PENETRATE ONCE
@@ -102,6 +103,12 @@ int initialize(){
 %%
 /* Rules Section */
 
+gnoll_entry:
+    gnoll_statement{
+        // printf("A: %i\n", new_vector->content[0]);
+        free_vector($<values>1);
+    }
+;
 
 gnoll_statement:
     gnoll_statement STATEMENT_SEPERATOR gnoll_statement
@@ -157,8 +164,9 @@ dice_statement: math{
     */
 
     vec vector = $<values>1;
-    vec new_vec = vector;       // Code Smell.
-                                // Target Vector should be empty
+    vec new_vec;
+    // vec new_vec = vector;       // Code Smell.
+    //                             // Target Vector should be empty
 
     //  Step 1: Collapse pool to a single value if nessicary
     collapse_vector(&vector, &new_vec);
@@ -811,8 +819,7 @@ dice_operations:
 ;
 
 die_roll:
-   NUMBER die_symbol NUMBER EXPLOSION ONCE
-    {
+   NUMBER die_symbol NUMBER EXPLOSION ONCE{
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
@@ -835,8 +842,7 @@ die_roll:
         free_vector(numB);
     }
     |
-    die_symbol NUMBER EXPLOSION ONCE
-    {
+    die_symbol NUMBER EXPLOSION ONCE{
         
         vec ds = $<values>1;
         vec numB = $<values>2;
@@ -859,8 +865,7 @@ die_roll:
         free_vector(numB);
     }
     |
-   NUMBER die_symbol NUMBER EXPLOSION PENETRATE
-    {
+   NUMBER die_symbol NUMBER EXPLOSION PENETRATE{
 
         vec numA = $<values>1;
         vec ds = $<values>2;
@@ -1182,12 +1187,24 @@ custom_symbol_dice:
                 .start_value=0,
                 .symbol_pool=(char **)safe_calloc(csd_vec.length , sizeof(char *))
             };
-            for(unsigned int i = 0; i != csd_vec.length; i++){
-                rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
-                memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
-            }
             result_vec.source = rp;
             result_vec.has_source = true;
+            for(unsigned int i = 0; i != csd_vec.length; i++){
+                result_vec.source.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
+                memcpy(
+                    result_vec.source.symbol_pool[i], 
+                    csd_vec.symbols[i], 
+                    MAX_SYMBOL_LENGTH*sizeof(char)
+                );
+            }
+            printf("custom_symbol_dice\n");
+        
+            // for(unsigned int i = 0; i != csd_vec.length; i++){
+            //     rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
+            //     memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
+            // }
+            // result_vec.source = rp;
+            // result_vec.has_source = true;
 
             // Custom Symbol
             roll_symbolic_dice(
@@ -1427,6 +1444,8 @@ int roll_full_options(
 
     initialize();
     
+    enable_builtins = 0;
+
     if(enable_builtins){
         load_builtins("builtins/");
     }
@@ -1492,9 +1511,9 @@ void load_builtins(char* root){
             free(path);
             free(stored_str);
         }
-        /* if(count >= 1){
+        if(count >= 1){
             break;
-        } */
+        }
         tinydir_next(&dir);
     }
 
@@ -1551,6 +1570,8 @@ int main(int argc, char **str){
         }
         fclose(f);
     }
+    // Final Freeing
+    free(macros);
 }
 
 int yyerror(s)

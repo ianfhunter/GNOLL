@@ -213,8 +213,8 @@ void collapse_vector(vec *vector, vec *new_vector) {
 
   if (vector->dtype == SYMBOLIC) {
     new_vector = vector;
-    return;
-  } else {
+  } 
+  else {
     int c = 0;
     for (unsigned int i = 0; i != vector->length; i++) {
       c += vector->content[i];
@@ -223,9 +223,11 @@ void collapse_vector(vec *vector, vec *new_vector) {
     new_vector->content = (int*)safe_calloc(sizeof(int), 1);
     if (gnoll_errno) return;
     new_vector->content[0] = c;
+    printf("Value: %i\n", new_vector->content[0]);
     new_vector->length = 1;
-    new_vector->dtype = vector->dtype;
+    new_vector->dtype = NUMERIC;
   }
+  return;
 }
 
 void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,

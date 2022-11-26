@@ -32,17 +32,20 @@ def test_d66():
     assert result == 33
 
 
+# @pytest.mark.skip("TEMP")
 def test_multiple_internal_calls_macros():
     r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
     result, _ = roll(r)
     assert not all(r == result[0] for r in result)
 
-
+# @pytest.mark.skip("TEMP")
 def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
     for _ in range(20):
-        result.append(roll(r))
+        x= roll(r)
+        result.append(x)
+        print(x)
     assert not all(r == result[0] for r in result)
 
 

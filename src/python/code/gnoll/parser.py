@@ -88,11 +88,13 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     os.remove(die_file)
 
     out_file = str(die_file).encode("ascii")
+    verbose = 1
     if verbose:
         print("Rolling: ", s)
         print("Output in:", out_file)
 
-    with pipes() as (out, err):
+    # with pipes() as (out, err):
+    if True:
         s = s.encode("ascii")
 
         return_code = libc.roll_full_options(
@@ -106,11 +108,11 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
             mock_const,
         )
 
-    if verbose:
-        print("---stdout---")
-        print(out.read())
-        print("---stderr---")
-        print(err.read())
+    # if verbose:
+    #     print("---stdout---")
+    #     print(out.read())
+    #     print("---stderr---")
+    #     print(err.read())
 
     if return_code != 0:
         raise_gnoll_error(return_code)
