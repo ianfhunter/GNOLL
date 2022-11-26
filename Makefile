@@ -20,7 +20,7 @@ OPT=-O3 \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
 	-Wundef -Wno-unused -Wformat=2 
-# $(ADDRESS_SANITIZER)
+
 
 # -ffast-math # Problematic for Python 
 
@@ -31,12 +31,21 @@ OPT=-O3 \
 # -Wlogical-op
 
 # === DEBUG OPTIONS ====
+
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O0 -g -gdwarf-4  $(ADDRESS_SANITIZER) # Valgrind info
+# Valgrind
+OPT=-O0 -g -gdwarf-4 
 PARSER_DEBUG:=--debug --verbose
 else
+ifeq ($(DEBUG), 2)
+# ASAN
+OPT=-O0 $(ADDRESS_SANITIZER)
 PARSER_DEBUG:=
+else
+# USUAL
+PARSER_DEBUG:=
+endif
 endif
 
 USE_SECURE_RANDOM=0
