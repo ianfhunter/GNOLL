@@ -115,13 +115,18 @@ void search_macros(char *skey, roll_params *to_store) {
 
   *to_store = s->stored_dice_roll;
   to_store->symbol_pool = NULL;
+  // free_2d_array(&to_store->symbol_pool, to_store->die_sides);
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
 
   if (is_symbolic) {
     free_2d_array(&to_store->symbol_pool, to_store->die_sides);
     safe_copy_2d_chararray_with_allocation(
-        &to_store->symbol_pool, s->stored_dice_roll.symbol_pool,
-        to_store->die_sides, MAX_SYMBOL_LENGTH);
+      &to_store->symbol_pool, 
+      s->stored_dice_roll.symbol_pool,
+      to_store->die_sides, 
+      MAX_SYMBOL_LENGTH
+    );
   }
+  free(s);
 }

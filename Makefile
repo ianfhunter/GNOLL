@@ -43,10 +43,17 @@ ifeq ($(DEBUG), 2)
 OPT=-O0 $(ADDRESS_SANITIZER)
 PARSER_DEBUG:=
 else
+ifeq ($(DEBUG), 3)
+# ASAN
+OPT=-O0 -lefence -g
+PARSER_DEBUG:=
+else
 # USUAL
 PARSER_DEBUG:=
 endif
 endif
+endif
+
 
 USE_SECURE_RANDOM=0
 ifeq ($(USE_SECURE_RANDOM), 1)

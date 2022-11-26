@@ -547,12 +547,17 @@ math:
 
 collapsing_dice_operations:
     dice_operations DO_COUNT{
+        /**
+        * dice_operations - a vector
+        * DO_COUNT - a symbol 'c'
+        */
 
         vec new_vec;
         vec dice = $<values>1;
         initialize_vector(&new_vec, NUMERIC, 1);
 
         new_vec.content[0] = (int)dice.length;
+        free_vector(dice);
         $<values>$ = new_vec;
     }
     |
@@ -1104,8 +1109,16 @@ die_roll:
 custom_symbol_dice:
     NUMBER die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
+        /**
+        * NUMBER - vector
+        * die_symbol - vector
+        * SYMBOL_LBRACE - the symbol {
+        * csd - vector
+        * SYMBOL_RBRACE - the symbol }
+        */
         // Nd{SYMB}
         vec left = $<values>1;
+        vec dsymb = $<values>2;
         vec right = $<values>4;
 
         // TODO: Multiple ranges
@@ -1121,15 +1134,22 @@ custom_symbol_dice:
         
         free_vector(left);
         free_vector(right);
+        free_vector(dsymb);
         $<values>$ = result_vec;
     }
     |
     die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
-        // d{SYM}
+        /** @brief 
+        * @param die_symbol a vector
+        * @param SYMBOL_LBRACE the symbol "{"
+        * @param csd a vector
+        * @param SYMBOL_LBRACE the symbol "}"
+        * returns a vector
+        */
         vec csd_vec = $<values>3;
-        vec result_vec;
         vec number_of_dice;
+        vec result_vec;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
         
@@ -1153,7 +1173,8 @@ custom_symbol_dice:
                 NO_EXPLOSION,
                 start_value
             );
-
+            free_vector(dice_sides);
+            free_vector(num_dice);
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
 
@@ -1169,6 +1190,8 @@ custom_symbol_dice:
                 memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
             }
             result_vec.source = rp;
+            printf("--%p\n", (void *)&result_vec.source.symbol_pool);
+            printf("--%p\n", (void *)&result_vec.source.symbol_pool[0]);
             result_vec.has_source = true;
 
             // Custom Symbol
@@ -1183,6 +1206,7 @@ custom_symbol_dice:
 
         free_vector(number_of_dice);
         free_vector(csd_vec);
+        free_vector($<values>1);
         $<values>$ = result_vec;
     }
     |
@@ -1517,7 +1541,7 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        0,  // Verbose
+        1,  // Verbose
         1,  // Introspect
         0,  // Mocking
         1,  // Builtins

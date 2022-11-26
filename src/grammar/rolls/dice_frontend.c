@@ -62,8 +62,12 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   // Copy over memory to Symbol Pool for reloading
 
   free_2d_array(&rp.symbol_pool, rp.die_sides);
-  safe_copy_2d_chararray_with_allocation(&rp.symbol_pool, y->symbols, y->length,
-                                         MAX_SYMBOL_LENGTH);
+  safe_copy_2d_chararray_with_allocation(
+    &rp.symbol_pool, 
+    y->symbols, 
+    y->length,
+    MAX_SYMBOL_LENGTH
+  );
   rp.start_value = 0;  // First index of array
 
   int* indexes = do_roll(rp);

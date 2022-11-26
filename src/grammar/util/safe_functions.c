@@ -109,7 +109,6 @@ void free_vector(vec v){
     free(v.content);
   }else{
     free_2d_array(&v.symbols, v.length);
-
     if (v.has_source){
       // Should be always the same as length (But not sure that's true!)
       free_2d_array(&v.source.symbol_pool, v.length);
@@ -124,8 +123,9 @@ void free_2d_array(char ***arr, unsigned int items) {
    * @param items
    */
   if (*arr) {
+    printf("Arr: %p\n", (void *)arr);
     for (unsigned int i = 0; i != items; i++) {
-      // printf("[%u] Try to free: %p\n",i, (*arr)[i]);
+      printf("[%u] Try to free: %p\n",i, (*arr)[i]);
       if ((*arr)[i]) {
         free((*arr)[i]);
       }

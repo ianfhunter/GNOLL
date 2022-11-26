@@ -31,6 +31,7 @@
 
     vector.dtype = SYMBOLIC;
     vector.length = 1;
+    vector.has_source = false;
 
     yylval.values = vector;
     return CAPITAL_STRING;
@@ -43,6 +44,7 @@
 
     vector.content[0] = fast_atoi(yytext);
 
+    vector.has_source = false;
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
@@ -80,6 +82,7 @@ d {
     vector.symbols[4] = zero;
     vector.symbols[5] = minus;
     vector.length = 6;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);
@@ -100,6 +103,7 @@ d {
     vector.symbols[0] = plus;
     vector.symbols[1] = minus;
     vector.length = 2;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);
@@ -123,6 +127,7 @@ d {
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
     vector.symbols[2] = minus;
+    vector.has_source = false;
     vector.length = 3;
     yylval.values = vector;
 
@@ -197,6 +202,7 @@ u {
     vector.content[0] = IS_UNIQUE;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return (UNIQUE);
 }
@@ -223,6 +229,7 @@ o {
     vector.content[0] = NOT_EQUAL;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return NE;
 }
@@ -233,6 +240,7 @@ o {
     vector.content[0] = EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return EQ;
 }
@@ -243,6 +251,7 @@ o {
     vector.content[0] = LESS_THAN;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return LT;
 }
@@ -252,6 +261,7 @@ o {
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_THAN;
     vector.dtype = NUMERIC;
+    vector.has_source = false;
     vector.length = 1;
     yylval.values = vector;
     return GT;
@@ -263,6 +273,7 @@ o {
     vector.content[0] = LESS_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(LE);
 }
@@ -273,6 +284,7 @@ o {
     vector.content[0] = GREATER_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(GE);
 }
@@ -283,6 +295,7 @@ is_even {
     vector.content[0] = IF_EVEN;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(IS_EVEN);
 }
@@ -293,6 +306,7 @@ is_odd {
     vector.content[0] = IF_ODD;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(IS_ODD);
 }
