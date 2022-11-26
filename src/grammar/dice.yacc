@@ -1105,8 +1105,12 @@ custom_symbol_dice:
     }
     |
     MACRO_ACCESSOR CAPITAL_STRING{
-        vec vector;
-        vector = $<values>2;
+        /**
+        * MACRO_ACCESSOR the symbol '@'
+        * CAPITAL_STRING A vector containing a macro identifier
+        * return A vector containing rollparams for the selected  macro
+        */
+        vec vector = $<values>2;
         char * name = vector.symbols[0];
 
         vec new_vector;
@@ -1115,19 +1119,21 @@ custom_symbol_dice:
         // Resolve Roll
 
         vec number_of_dice;
+        vec die_sides;
+
+        // Set Num Dice
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = (int)new_vector.source.number_of_dice;
-
-        vec die_sides;
-        // TODO: Extract to function.
+        
+        // Set Die Sides
         light_initialize_vector(&die_sides, NUMERIC, 1);
         die_sides.content[0] = (int)new_vector.source.die_sides;
         die_sides.length = new_vector.source.die_sides;
         die_sides.symbols = NULL;
 
+        // Roll according to the stored values
+        // Careful: Newvector used already
         if (new_vector.source.dtype == NUMERIC){
-            // Careful, Newvector used already
-
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
             roll_plain_sided_dice(
                 &number_of_dice,
@@ -1145,9 +1151,7 @@ custom_symbol_dice:
                 MAX_SYMBOL_LENGTH
             );
 
-            // Careful, Newvector used already
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
-
             roll_symbolic_dice(
                 &number_of_dice,
                 &die_sides,
@@ -1157,6 +1161,9 @@ custom_symbol_dice:
             printf("Complex Dice Equation. Only dice definitions supported. No operations\n");
             gnoll_errno = NOT_IMPLEMENTED;
         }
+        free_vector(vector);
+        free_vector(number_of_dice);
+        free_vector(die_sides);
         $<values>$ = new_vector;
     }
     ;
