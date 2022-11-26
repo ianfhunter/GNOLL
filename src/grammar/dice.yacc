@@ -21,6 +21,7 @@
 #include <errno.h>
 #include "external/pcg_basic.h"
 #include "external/tinydir.h"
+#include "util/string_functions.h"
 
 #define UNUSED(x) (void)(x)
 // Avoid conflicts with MacOs predefined macros
@@ -33,7 +34,6 @@ int yyerror(const char* s);
 int yywrap();
 
 //TODO: move to external file 
-char * concat_strings(char ** s, int num_s);
 
 #ifdef JUST_YACC
 int yydebug=1;
@@ -742,25 +742,36 @@ dice_operations:
 die_roll:
    NUMBER die_symbol NUMBER EXPLOSION ONCE
     {
-        int start_from = $<values>2.content[0];
+        vec numA = $<values>1;
+        vec ds = $<values>2;
+        vec numB = $<values>3;
+
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
         roll_plain_sided_dice(
-            &$<values>1,
-            &$<values>3,
+            &numA,
+            &numB,
             &$<values>$,
             ONLY_ONCE_EXPLOSION,
             start_from
         );
+        free_vector(numA);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
     die_symbol NUMBER EXPLOSION ONCE
     {
+        
+        vec numA = $<values>1;
+        vec ds = $<values>2;
+        vec numB = $<values>3;
 
-        int start_from = $<values>1.content[0];
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -768,34 +779,47 @@ die_roll:
 
         roll_plain_sided_dice(
             &number_of_dice,
-            &$<values>2,
-            &$<values>$,
+            &ds,
+            &numB,
             ONLY_ONCE_EXPLOSION,
             start_from
         );
+        free_vector(numA);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
    NUMBER die_symbol NUMBER EXPLOSION PENETRATE
     {
 
-        int start_from = $<values>2.content[0];
+        vec numA = $<values>1;
+        vec ds = $<values>2;
+        vec numB = $<values>3;
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
         roll_plain_sided_dice(
-            &$<values>1,
-            &$<values>3,
+            &numA,
+            &numB,
             &$<values>$,
             PENETRATING_EXPLOSION,
             start_from
         );
+        
+        free_vector(numA);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
     die_symbol NUMBER EXPLOSION PENETRATE
     {
-        int start_from = $<values>1.content[0];
+        vec ds = $<values>1;
+        vec numB = $<values>2;
+        
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -803,35 +827,46 @@ die_roll:
 
         roll_plain_sided_dice(
             &number_of_dice,
-            &$<values>2,
+            &numB,
             &$<values>$,
             PENETRATING_EXPLOSION,
             start_from
         );
+        free_vector(number_of_dice);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
    NUMBER die_symbol NUMBER EXPLOSION
     {
 
-        int start_from = $<values>2.content[0];
+        vec numA = $<values>1;
+        vec ds = $<values>2;
+        vec numB = $<values>3;
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
 
         roll_plain_sided_dice(
-            &$<values>1,
-            &$<values>3,
+            &numA,
+            &numB,
             &$<values>$,
             PENETRATING_EXPLOSION,
             start_from
         );
+        free_vector(numA);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
     die_symbol NUMBER EXPLOSION
     {
 
-        int start_from = $<values>1.content[0];
+        vec ds = $<values>1;
+        vec numB = $<values>2;
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -839,34 +874,21 @@ die_roll:
         
         roll_plain_sided_dice(
             &number_of_dice,
-            &$<values>2,
+            &numB,
             &$<values>$,
             STANDARD_EXPLOSION,
             start_from
         );
+        free_vector(numB);
+        free_vector(ds);
+        free_vector(number_of_dice);
     }
     |
     NUMBER die_symbol NUMBER
     {
-        int start_from = $<values>2.content[0];
-
-        vec number_of_dice;
-        initialize_vector(&number_of_dice, NUMERIC, 1);
-        number_of_dice.content[0] = 1;
-
-        roll_plain_sided_dice(
-            &$<values>1,
-            &$<values>3,
-            &$<values>$,
-            NO_EXPLOSION,
-            start_from
-        );
-    }
-    |
-    die_symbol NUMBER
-    {
-
-        int start_from = $<values>1.content[0];
+        vec ds = $<values>2;
+        vec numB = $<values>3;
+        int start_from = ds.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -874,11 +896,37 @@ die_roll:
 
         roll_plain_sided_dice(
             &number_of_dice,
-            &$<values>2,
+            &numB,
             &$<values>$,
             NO_EXPLOSION,
             start_from
         );
+        free_vector(numB);
+        free_vector(ds);
+        free_vector(number_of_dice);
+    }
+    |
+    die_symbol NUMBER
+    {
+        vec ds = $<values>1;
+        vec numB = $<values>2;
+
+        int start_from = ds.content[0];
+
+        vec number_of_dice;
+        initialize_vector(&number_of_dice, NUMERIC, 1);
+        number_of_dice.content[0] = 1;
+
+        roll_plain_sided_dice(
+            &number_of_dice,
+            &numB,
+            &$<values>$,
+            NO_EXPLOSION,
+            start_from
+        );
+        free_vector(number_of_dice);
+        free_vector(ds);
+        free_vector(numB);
     }
     |
     NUMBER die_symbol MODULO
@@ -1005,19 +1053,22 @@ custom_symbol_dice:
             &right,
             &result_vec
         );
+        
+        free_vector(left);
+        free_vector(right);
         $<values>$ = result_vec;
     }
     |
     die_symbol SYMBOL_LBRACE csd SYMBOL_RBRACE
     {
         // d{SYM}
-        vec csd = $<values>3;
+        vec csd_vec = $<values>3;
         vec result_vec;
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
         number_of_dice.content[0] = 1;
         
-        if (csd.dtype == NUMERIC){
+        if (csd_vec.dtype == NUMERIC){
             vec dice_sides;
             vec num_dice;
             initialize_vector(&dice_sides, NUMERIC, 1);
@@ -1025,8 +1076,8 @@ custom_symbol_dice:
             initialize_vector(&result_vec, NUMERIC, 1);
             num_dice.content[0] = 1;
 
-            int start_value = csd.content[0];
-            int end_value = csd.content[csd.length-1];
+            int start_value = csd_vec.content[0];
+            int end_value = csd_vec.content[csd_vec.length-1];
             dice_sides.content[0] = end_value - start_value + 1;
 
             // Range
@@ -1040,29 +1091,35 @@ custom_symbol_dice:
 
         }else{
             initialize_vector(&result_vec, SYMBOLIC, 1);
-            printf("YO\n");
 
             roll_params rp = {
                 .number_of_dice=(unsigned int)number_of_dice.content[0],
-                .die_sides=csd.length,
+                .die_sides=csd_vec.length,
                 .dtype=SYMBOLIC,
                 .start_value=0,
-                .symbol_pool=(char **)safe_calloc(csd.length , sizeof(char *))
+                .symbol_pool=(char **)safe_calloc(csd_vec.length , sizeof(char *))
             };
-            for(unsigned int i = 0; i != csd.length; i++){
+            for(unsigned int i = 0; i != csd_vec.length; i++){
                 rp.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
-                memcpy(rp.symbol_pool[i], csd.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
+                memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
             }
             result_vec.source = rp;
+            result_vec.has_source = true;
 
             // Custom Symbol
             roll_symbolic_dice(
                 &number_of_dice,
-                &csd,
+                &csd_vec,
                 &result_vec
             );
             printf("YO2\n");
         }
+
+        print_vec(csd_vec);
+        // printf("CSD IS SYMBOLIC? %i\n", (int)csd_vec.dtype);
+
+        free_vector(number_of_dice);
+        free_vector(csd_vec);
         $<values>$ = result_vec;
     }
     |
@@ -1137,6 +1194,8 @@ csd:
             r.symbols, r.length,
             new_vector.symbols
         );
+        free_vector(l);
+        free_vector(r);
         $<values>$ = new_vector;
     }
     |
@@ -1313,6 +1372,10 @@ int roll_full_options(
 }
 
 void load_builtins(char* root){
+
+    int db_setting = dice_breakdown;
+    dice_breakdown = 0; // Dont want dice breakdown for all the macro loading
+
     tinydir_dir dir = (tinydir_dir){0};
     tinydir_open(&dir, root);
     
@@ -1363,13 +1426,14 @@ void load_builtins(char* root){
             free(path);
             free(stored_str);
         }
-        if(count >= 1){
+        /* if(count >= 1){
             break;
-        }
+        } */
         tinydir_next(&dir);
     }
 
     tinydir_close(&dir);
+    dice_breakdown = db_setting;
     return;
 }
 
@@ -1396,32 +1460,10 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
     return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }
 
-char * concat_strings(char ** s, int num_s){
-    unsigned int size_total = 0;
-    int spaces = 0;
-    for(int i = 1; i != num_s + 1; i++){
-        size_total += strlen(s[i]) + 1;
-    }
-    if (num_s > 1){
-        spaces = 1;
-        size_total -= 1;  // no need for trailing space
-    }
-    
-    char * result;
-    result = (char *)safe_calloc(sizeof(char), (size_total+1));
-    if(gnoll_errno){return NULL;}
-
-    for(int i = 1; i != num_s + 1; i++){
-        strcat(result, s[i]);
-        if (spaces && i < num_s){
-            strcat(result, " ");    // Add spaces
-        }
-    }
-    return result;
-}
-
 int main(int argc, char **str){
-    char * s = concat_strings(str, argc - 1);
+    // Join arguments if they came in as seperate strings
+    char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
+
     remove("output.dice");
     roll_full_options(
         s,
@@ -1429,12 +1471,14 @@ int main(int argc, char **str){
         1,  // Verbose
         1,  // Introspect
         0,  // Mocking
-        0,  // Builtins
+        1,  // Builtins
         0,
         0
     );
+    print_gnoll_errors();
     FILE  *f = fopen("output.dice","r");
     int c;
+    printf("Result:\n");
     if (f){
         while((c = getc(f)) !=  EOF){
             putchar(c);

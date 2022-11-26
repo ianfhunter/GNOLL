@@ -50,7 +50,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
 
   
-  printf("Macro:: Check existancee\n");
+  printf("Macro:: Check existance\n");
   HASH_FIND_INT(macros, &k, s); // id already in the hash? 
   
   

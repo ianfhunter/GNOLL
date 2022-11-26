@@ -9,6 +9,80 @@
 #include "shared_header.h"
 
 int gnoll_errno = 0;
+extern int verbose;
+
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+
+void print_gnoll_errors(){
+  /**
+   * @brief A human-readable translation of the gnoll error codes
+   * 
+   */
+  if(verbose){
+    switch(gnoll_errno){
+      case SUCCESS:{
+        printf("%sErrorCheck: No Errors.%s\n",ANSI_COLOR_GREEN, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_ALLOC:{
+        printf("%sErrorCheck: Bad Allocation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_FILE:{
+        printf("%sErrorCheck: Bad File.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case NOT_IMPLEMENTED:{
+        printf("%sErrorCheck: Not Implemented.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case INTERNAL_ASSERT:{
+        printf("%sErrorCheck: Internal Assertion.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case UNDEFINED_BEHAVIOUR:{
+        printf("%sErrorCheck: Undefined Behaviour.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_STRING:{
+        printf("%sErrorCheck: Bad String.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case OUT_OF_RANGE:{
+        printf("%sErrorCheck: Out of Range.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case IO_ERROR:{
+        printf("%sErrorCheck: I/O Error.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case MAX_LOOP_LIMIT_HIT:{
+        printf("%sErrorCheck: Max Loop Limit Reached.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case SYNTAX_ERROR:{
+        printf("%sErrorCheck: Syntax Error.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case DIVIDE_BY_ZERO:{
+        printf("%sErrorCheck: Divide by Zero.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case UNDEFINED_MACRO:{
+        printf("%sErrorCheck: Undefined Macro.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      default:{
+        printf("%sErrorCheck: Error (Undetermined. Code %i).%s\n",ANSI_COLOR_RED, gnoll_errno, ANSI_COLOR_RESET);
+        break;
+      }
+    }
+  }
+}
 
 void *safe_malloc(size_t size) {
   /**
@@ -37,11 +111,12 @@ void free_vector(vec v){
   }else{
     printf("vec: %p\n", (void*)v.symbols);
     free_2d_array(&v.symbols, v.length);
+
+    if (v.has_source){
+      // Should be always the same as length (But not sure that's true!)
+      free_2d_array(&v.source.symbol_pool, v.length);
+    }
   }
-}
-void free_roll_params(roll_params* rp){
-  (void *)rp;
-  // free_2d_array(&rp->symbol_pool, rp->die_sides);
 }
 
 void free_2d_array(char ***arr, unsigned int items) {
@@ -74,26 +149,35 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
   // printf("alloc: %u\n", items);
   // printf("*alloc: %u\n", max_size);
   
-  // printf("%p\n", (void *)*dst);
-  if(*dst != 0){
-    free(*dst);
-  }
+  printf("dst: %p (%i)\n", (void *)*dst, *dst != 0);
+  // if(*dst != 0){
+  //   free(*dst);
+  // }
+  printf("Allocate New Base Pointer...\n");
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
   }
 
+
+  printf("Allocate 2nd Dimension... (%u times)\n", items);
   for (unsigned int i = 0; i != items; i++) {
+    
+    printf("Allocate 2nd Dimension...\n");
+    printf("Old Address: %p\n", (void *)(*dst));
+    printf("Old Address: %p\n", (void *)(*dst)[i]);
     (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
       return;
     }
+    
+    printf("Copy from Src... %p %p (size: %u)\n", (*dst)[i], src[i], max_size);
     memcpy((*dst)[i], src[i], max_size);
   }
   
 }
 
-void *safe_calloc(size_t nitems, size_t size) {
+void * safe_calloc(size_t nitems, size_t size) {
   /**
    * @brief Safe version of calloc. Populates gnoll_errno on error
    * @param size

@@ -11,11 +11,15 @@ else
    STANDARD= -std=c99
 endif
 
-OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
+
+ADDRESS_SANITIZER= -fsanitize=address -fno-omit-frame-pointer -static-libasan -g
+
+OPT=-O0 \
+    $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 -fsanitize=address 
+	-Wundef -Wno-unused -Wformat=2 $(ADDRESS_SANITIZER)
 
 # -ffast-math # Problematic for Python 
 

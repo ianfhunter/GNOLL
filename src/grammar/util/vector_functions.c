@@ -23,6 +23,7 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
    */
   vector->dtype = dt;
   vector->length = number_of_items;
+  vector->has_source = false;
 
   if (dt == NUMERIC) {
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
@@ -45,8 +46,10 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
 
   vector->dtype = dt;
   vector->length = number_of_items;
+  vector->has_source = false;
 
   if (dt == NUMERIC) {
+    printf("Valid Already? %p\n", (void *)vector->content);
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {

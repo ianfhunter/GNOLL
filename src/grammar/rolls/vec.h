@@ -3,6 +3,7 @@
 
 #include "dice_enums.h"
 #include "dice_roll_structs.h"
+#include <stdbool.h>
 
 typedef struct vec {
   DIE_TYPE dtype;
@@ -12,6 +13,7 @@ typedef struct vec {
   //  maybe use union? If it exists in c
   char** symbols;
   roll_params source;
+  bool has_source;
 } vec;
 
 #endif
