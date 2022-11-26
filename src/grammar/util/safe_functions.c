@@ -106,10 +106,8 @@ void *safe_malloc(size_t size) {
 
 void free_vector(vec v){
   if(v.dtype == NUMERIC){
-    printf("vec: %p\n", (void*)v.content);
     free(v.content);
   }else{
-    printf("vec: %p\n", (void*)v.symbols);
     free_2d_array(&v.symbols, v.length);
 
     if (v.has_source){
@@ -146,32 +144,23 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    * @param item
    * @param max_size
    */
-  // printf("alloc: %u\n", items);
-  // printf("*alloc: %u\n", max_size);
-  
-  printf("dst: %p (%i)\n", (void *)*dst, *dst != 0);
+  // TODO: Maybe Re-Add?
+
   // if(*dst != 0){
   //   free(*dst);
   // }
-  printf("Allocate New Base Pointer...\n");
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
   }
 
-
-  printf("Allocate 2nd Dimension... (%u times)\n", items);
   for (unsigned int i = 0; i != items; i++) {
     
-    printf("Allocate 2nd Dimension...\n");
-    printf("Old Address: %p\n", (void *)(*dst));
-    printf("Old Address: %p\n", (void *)(*dst)[i]);
     (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
       return;
     }
     
-    printf("Copy from Src... %p %p (size: %u)\n", (*dst)[i], src[i], max_size);
     memcpy((*dst)[i], src[i], max_size);
   }
   

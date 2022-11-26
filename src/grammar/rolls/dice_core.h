@@ -1,7 +1,7 @@
 #ifndef __DIE_LOGIC_H__
 #define __DIE_LOGIC_H__
 
-#include "rolls/dice_enums.h"
+#include "constructs/dice_enums.h"
 #include "shared_header.h"
 
 // #ifdef __cplusplus

@@ -1,4 +1,4 @@
-#include "rolls/dice_logic.h"
+#include "rolls/dice_core.h"
 
 #include <limits.h>
 #include <stddef.h>
@@ -6,11 +6,11 @@
 #include <stdlib.h>
 
 #include "external/pcg_basic.h"
-#include "rolls/dice_enums.h"
-#include "rolls/mocking.h"
+#include "constructs/dice_enums.h"
+#include "util/mocking.h"
 #include "shared_header.h"
 #include "util/safe_functions.h"
-#include "yacc_header.h"
+#include "shared_header.h"
 
 #if USE_SECURE_RANDOM == 1
 #include <bsd/stdlib.h>

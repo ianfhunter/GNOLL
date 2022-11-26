@@ -6,7 +6,7 @@
     #include <stdio.h>
     #include "shared_header.h"
     #include "util/safe_functions.h"
-    #include "operations/condition_checking.h"
+    #include "operations/conditionals.h"
     #include "y.tab.h"
     #include <assert.h>
 

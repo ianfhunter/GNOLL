@@ -6,8 +6,12 @@ extern "C"
 {
 #endif
 
-#include "rolls/sided_dice.h"
+#include "rolls/dice_frontend.h"
 #include "util/vector_functions.h"
+
+
+#define MAX_SYMBOL_LENGTH 256
+#define MAX_ITERATION 20
 
 int roll_full_options(
     char* roll_request, 

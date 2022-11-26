@@ -14,12 +14,13 @@ endif
 
 ADDRESS_SANITIZER= -fsanitize=address -fno-omit-frame-pointer -static-libasan -g
 
-OPT=-O0 \
+OPT=-O3 \
     $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 $(ADDRESS_SANITIZER)
+	-Wundef -Wno-unused -Wformat=2 
+# $(ADDRESS_SANITIZER)
 
 # -ffast-math # Problematic for Python 
 
@@ -32,7 +33,7 @@ OPT=-O0 \
 # === DEBUG OPTIONS ====
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O0 -g -gdwarf-4 # Valgrind info
+OPT=-O0 -g -gdwarf-4  $(ADDRESS_SANITIZER) # Valgrind info
 PARSER_DEBUG:=--debug --verbose
 else
 PARSER_DEBUG:=

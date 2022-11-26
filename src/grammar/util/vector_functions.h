@@ -1,8 +1,8 @@
 #ifndef VECFN_HEADER
 #define VECFN_HEADER
 
-#include "rolls/dice_enums.h"
-#include "rolls/vec.h"
+#include "constructs/dice_enums.h"
+#include "constructs/vec.h"
 #include "shared_header.h"
 
 void initialize_vector(vec* vector, DIE_TYPE dt, unsigned int number_of_items);

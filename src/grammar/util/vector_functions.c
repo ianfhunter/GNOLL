@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "operations/condition_checking.h"
+#include "operations/conditionals.h"
 #include "shared_header.h"
 #include "util/safe_functions.h"
-#include "yacc_header.h"
+#include "shared_header.h"
 
 extern int gnoll_errno;
 
@@ -49,7 +49,6 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
   vector->has_source = false;
 
   if (dt == NUMERIC) {
-    printf("Valid Already? %p\n", (void *)vector->content);
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {

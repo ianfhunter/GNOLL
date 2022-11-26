@@ -9,18 +9,18 @@
 #include <time.h>
 #include <limits.h>
 #include <assert.h>
-#include "yacc_header.h"
-#include "util/vector_functions.h"
-#include "shared_header.h"
-#include "rolls/dice_logic.h"
-#include "util/safe_functions.h"
-#include "operations/macro_logic.h"
-#include "rolls/sided_dice.h"
-#include "rolls/mocking.h"
-#include "operations/condition_checking.h"
 #include <errno.h>
+#include "shared_header.h"
 #include "external/pcg_basic.h"
 #include "external/tinydir.h"
+#include "operations/macros.h"
+#include "operations/conditionals.h"
+#include "rolls/dice_core.h"
+#include "rolls/dice_frontend.h"
+#include "util/mocking.h"
+#include "util/safe_functions.h"
+#include "util/array_functions.h"
+#include "util/vector_functions.h"
 #include "util/string_functions.h"
 
 #define UNUSED(x) (void)(x)
@@ -49,10 +49,10 @@ extern int gnoll_errno;
 extern struct macro_struct *macros;
 pcg32_random_t rng;
 
-// Registers
+// Function Signatures for this file
+int initialize();
 
-// TODO: It would be better to fit arbitrary length strings.
-
+// Functions
 int initialize(){
     if (!seeded){
         unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
@@ -64,16 +64,6 @@ int initialize(){
         seeded = 1;
     }
     return 0;
-}
-
-int collapse(int * arr, unsigned int len){
-    return sum(arr, len);
-}
-
-int sum(int * arr, unsigned int len){
-    int result = 0;
-    for(unsigned int i = 0; i != len; i++) result += arr[i];
-    return result;
 }
 
 %}
@@ -142,10 +132,7 @@ macro_statement:
         vec key = $<values>2;
         vec value = $<values>4;
 
-        printf("Register\n");
         register_macro(&key, &value.source);
-        printf("Registered\n");
-
 
         // Cleanup
         free_vector(key);
@@ -1112,10 +1099,8 @@ custom_symbol_dice:
                 &csd_vec,
                 &result_vec
             );
-            printf("YO2\n");
         }
 
-        print_vec(csd_vec);
         // printf("CSD IS SYMBOLIC? %i\n", (int)csd_vec.dtype);
 
         free_vector(number_of_dice);
@@ -1468,7 +1453,7 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        1,  // Verbose
+        0,  // Verbose
         1,  // Introspect
         0,  // Mocking
         1,  // Builtins
