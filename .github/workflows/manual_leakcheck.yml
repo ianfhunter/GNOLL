@@ -18,7 +18,12 @@ jobs:
       - name: Lib Install
         run: |
             sudo apt-get install valgrind
-            make all DEBUG=1
 
+      - name: Run Asan
+        run: |
+            make all DEBUG=2
+            ./build/dice d20
       - name: Run Valgrind
-        run: valgrind --leak-check=full ./build/dice d20
+        run: |
+            make all DEBUG=1
+            valgrind --leak-check=full ./build/dice d20
