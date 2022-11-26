@@ -38,12 +38,13 @@ def test_multiple_internal_calls_macros():
     result, _ = roll(r)
     assert not all(r == result[0] for r in result)
 
+
 # @pytest.mark.skip("TEMP")
 def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
     for _ in range(20):
-        x= roll(r)
+        x = roll(r)
         result.append(x)
         print(x)
     assert not all(r == result[0] for r in result)
