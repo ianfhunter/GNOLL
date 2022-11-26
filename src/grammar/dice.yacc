@@ -128,6 +128,10 @@ sub_statement:
 
 macro_statement:
     MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
+        /**
+        *
+        * returns - 0
+        */
                 
         vec key = $<values>2;
         vec value = $<values>4;
@@ -142,10 +146,15 @@ macro_statement:
             YYABORT;
             yyclearin;
         }
+        // &$<values>$ = NULL;
     }
 ;
 
 dice_statement: functions{
+    /**
+    * functions a vector
+    * return NULL
+    */
 
     vec vector = $<values>1;
     vec new_vec = vector;       // Code Smell.
@@ -199,10 +208,81 @@ dice_statement: functions{
     if(write_to_file){
         fclose(fp);
     }
+    // free_vector(new_vec);
+    free_vector(vector);
+    $<values>$ = new_vec;
 };
 
 functions: 
     function
+;
+
+function: 
+    FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        /** @brief performs the min(__, __) function
+        * @FN_MAX the symbol "max"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * SYMBOL_SEPERATOR the symbol ","
+        * function The target vector
+        * @RBRACE the symbol ")"
+        * return vector
+        */
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        int vmax = MAXV(
+            $<values>3.content[0],
+            $<values>5.content[0]
+        );
+        new_vec.content[0] = vmax;
+        $<values>$ = new_vec;
+        free_vector($<values>3);
+        free_vector($<values>5);
+    }
+    |
+    FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
+        /** @brief performs the min(__, __) function
+        * @FN_MIN the symbol "min"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * SYMBOL_SEPERATOR the symbol ","
+        * function The target vector
+        * @RBRACE the symbol ")"
+        * return vector
+        */
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        new_vec.content[0] = MINV(
+            $<values>3.content[0],
+            $<values>5.content[0]
+        );
+        $<values>$ = new_vec;
+        free_vector($<values>3);
+        free_vector($<values>5);
+    }
+    |
+    FN_ABS LBRACE function RBRACE{
+        /** @brief performs the abs(__) function
+        * @FN_ABS the symbol "abs"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * @RBRACE the symbol ")"
+        * return vector
+        */
+        vec new_vec;
+        initialize_vector(&new_vec, NUMERIC, 1);
+        new_vec.content[0] = ABSV(
+            $<values>3.content[0]
+        );
+        $<values>$ = new_vec;
+        free_vector($<values>3);
+    }
+    |
+    /* FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
+        make_pool($<values>2, $<values>4);
+    } */
+    |
+    math
 ;
 
 math:
@@ -477,9 +557,12 @@ collapsing_dice_operations:
     }
     |
     dice_operations{
+        /** 
+        * dice_operations a vector
+        * returns a vector
+        */
 
-        vec vector;
-        vector = $<values>1;
+        vec vector = $<values>1;
 
         if (vector.dtype == SYMBOLIC){
             // Symbolic, Impossible to collapse
@@ -496,7 +579,6 @@ collapsing_dice_operations:
             }else{
                 $<values>$ = vector;
             }
-
         }
     }
 ;
@@ -1239,6 +1321,8 @@ csd:
         in.symbols = safe_calloc(1, sizeof(char *));  
         in.symbols[0] = safe_calloc(10, sizeof(char));  
         sprintf(in.symbols[0], "%d", in.content[0]);
+        free(in.content);
+        in.dtype = SYMBOLIC;
         $<values>$ = in;
     }
     ;
@@ -1249,8 +1333,8 @@ condition: EQ | LT | GT | LE | GE | NE ;
 die_symbol:
     SIDED_DIE{
         /**
-        * SIDED_DIE The symbol 'd'
-        * return A vector containing '1', the start index
+        * @brief SIDED_DIE The symbol 'd'
+        * @param return A vector containing '1', the start index
         */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
@@ -1270,73 +1354,6 @@ die_symbol:
     }
 ;
 
-function: 
-    FN_MAX LBRACE function SYMBOL_SEPERATOR function RBRACE{
-        /** @brief performs the min(__, __) function
-        * @FN_MAX the symbol "max"
-        * @LBRACE the symbol "("
-        * function The target vector
-        * SYMBOL_SEPERATOR the symbol ","
-        * function The target vector
-        * @RBRACE the symbol ")"
-        * return vector
-        */
-        vec new_vec;
-        initialize_vector(&new_vec, NUMERIC, 1);
-        int vmax = MAXV(
-            $<values>3.content[0],
-            $<values>5.content[0]
-        );
-        new_vec.content[0] = vmax;
-        $<values>$ = new_vec;
-        free_vector($<values>3);
-        free_vector($<values>5);
-    }
-    |
-    FN_MIN LBRACE function SYMBOL_SEPERATOR function RBRACE{
-        /** @brief performs the min(__, __) function
-        * @FN_MIN the symbol "min"
-        * @LBRACE the symbol "("
-        * function The target vector
-        * SYMBOL_SEPERATOR the symbol ","
-        * function The target vector
-        * @RBRACE the symbol ")"
-        * return vector
-        */
-        vec new_vec;
-        initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = MINV(
-            $<values>3.content[0],
-            $<values>5.content[0]
-        );
-        $<values>$ = new_vec;
-        free_vector($<values>3);
-        free_vector($<values>5);
-    }
-    |
-    FN_ABS LBRACE function RBRACE{
-        /** @brief performs the abs(__) function
-        * @FN_ABS the symbol "abs"
-        * @LBRACE the symbol "("
-        * function The target vector
-        * @RBRACE the symbol ")"
-        * return vector
-        */
-        vec new_vec;
-        initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = ABSV(
-            $<values>3.content[0]
-        );
-        $<values>$ = new_vec;
-        free_vector($<values>3);
-    }
-    |
-    /* FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
-        make_pool($<values>2, $<values>4);
-    } */
-    |
-    math
-;
 
 
 %%
