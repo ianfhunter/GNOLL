@@ -770,7 +770,7 @@ die_roll:
             ONLY_ONCE_EXPLOSION,
             start_from
         );
-        free_vector(numA);
+        free_vector(number_of_dice);
         free_vector(ds);
         free_vector(numB);
     }
