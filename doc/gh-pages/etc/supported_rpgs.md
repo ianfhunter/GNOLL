@@ -398,18 +398,18 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
-|Labyrinth Lord					
-Lace and Steel	published originally by TAGG and re-released by Pharos Press				an Australian RPG set in a world of civilised Centaurs and Harpies with a musketeers/swashbuckling feel
-Land of the Rising Sun	Fantasy Games Unlimited	Chivalry & Sorcery			Samurai and Ninjas
-Lands of Adventure					
-The Laundry					
-Legacy					
-Legend of the Five Rings Role-Playing Game	Alderac Entertainment Group				Asian-themed RPG
-Legends of Anglerre					
-Legionnaire	FASA			standalone role-playing game for the Renegade Legion universe	
-Lejendary Adventure	Hekaforge Productions				created by Gary Gygax
-Leverage		Cortex+ System		based on the Leverage TV series	game written by Cam Banks and Rob Donahuge
-Little Fears - The Role-playing Game of Childhood Terror	Key 20 Publishing				
+|Labyrinth Lord	| | |			
+|Lace and Steel		| | |	
+|Land of the Rising Sun	| Chivalry & Sorcery	| | 
+|Lands of Adventure		| | |				
+|The Laundry				| | |		
+|Legacy						| | |
+|Legend of the Five Rings Role-Playing Game		| | |
+|Legends of Anglerre			| | |			
+|Legionnaire		| | |
+|Lejendary Adventure		| | |
+|Leverage		| 	Cortex+ System			| |
+|Little Fears - The Role-playing Game of Childhood Terror	| | |				
 Living Steel	Leading Edge Games			futuristic game on the world of Rhand	
 Lone Wolf	Mongoose Publishing	d20			a series of gamebooks and Lone Wolf: The Roleplaying Game; also a second game by Mongoose, the Lone Wolf Multiplayer Game Book
 Lord of the Rings Adventure Game	Iron Crown Enterprises		1991-1999	based on the fantasy works of J. R. R. Tolkien	
@@ -474,9 +474,9 @@ Mutant RYMD
 Mutant: Undergångens Arvtagare					by Järnringen Förlag AB
 Mutants & Masterminds	Green Ronin Publishing				
 Mutazoids					
-My Life with Master					Half Meme Press
-Myrskyn aika					by Mike Pohjola
-Mythworld	
+|My Life with Master			| | |			
+|Myrskyn aika		| | |
+|Mythworld		| | |
 | Odysseus	| |❓ |		
 | The Official Superhero Adventure Game	| |❓ |	
 | Omnigon	| |❓ |	
