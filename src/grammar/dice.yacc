@@ -872,16 +872,13 @@ die_roll:
     |
     NUMBER die_symbol NUMBER
     {
+        vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
         int start_from = ds.content[0];
 
-        vec number_of_dice;
-        initialize_vector(&number_of_dice, NUMERIC, 1);
-        number_of_dice.content[0] = 1;
-
         roll_plain_sided_dice(
-            &number_of_dice,
+            &numA,
             &numB,
             &$<values>$,
             NO_EXPLOSION,
@@ -889,7 +886,7 @@ die_roll:
         );
         free_vector(numB);
         free_vector(ds);
-        free_vector(number_of_dice);
+        free_vector(numA);
     }
     |
     die_symbol NUMBER
