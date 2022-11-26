@@ -9,7 +9,7 @@ import "C"
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"unsafe"
 )
