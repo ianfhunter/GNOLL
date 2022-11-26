@@ -281,10 +281,8 @@ math:
     |
     math MULT math{
         // Collapse both sides and subtract
-        vec vector1;
-        vec vector2;
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             printf("Multiplication not implemented for symbolic dice.\n");
@@ -303,14 +301,15 @@ math:
 
             $<values>$ = new_vec;
         }
+        
+        free_vector(vector1);
+        free_vector(vector2);
     }
     |
     math DIVIDE_ROUND_UP math{
         // Collapse both sides and subtract
-        vec vector1;
-        vec vector2;
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             printf("Division unsupported for symbolic dice.\n");
@@ -336,14 +335,15 @@ math:
 
             $<values>$ = new_vec;
         }
+        
+        free_vector(vector1);
+        free_vector(vector2);
     }
     |
     math DIVIDE_ROUND_DOWN math{
         // Collapse both sides and subtract
-        vec vector1;
-        vec vector2;
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             printf("Division unsupported for symbolic dice.\n");
@@ -371,15 +371,15 @@ math:
 
             $<values>$ = new_vec;
         }
+        
+        free_vector(vector1);
+        free_vector(vector2);
     }
     |
     math MODULO math{
         // Collapse both sides and subtract
-        vec vector1;
-        vec vector2;
-
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
 
         if (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC){
             printf("Modulo unsupported for symbolic dice.\n");
@@ -403,14 +403,20 @@ math:
 
             $<values>$ = new_vec;
         }
+        
+        free_vector(vector1);
+        free_vector(vector2);
     }
     |
     math PLUS math{
+        /** @brief
+        * math vector
+        * PLUS symbol "+"
+        * math vector
+        */
         // Collapse both sides and subtract
-        vec vector1;
-        vec vector2;
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
 
         if (
             (vector1.dtype == SYMBOLIC && vector2.dtype == NUMERIC) ||
@@ -443,11 +449,7 @@ math:
                 vector2.symbols, vector2.length,
                 new_vec.symbols
             );
-            // free(vector1.symbols);
-            // free(vector2.symbols);
-
             $<values>$ = new_vec;
-
         }else{
             int v1 = collapse(vector1.content, vector1.length);
             int v2 = collapse(vector2.content, vector2.length);
@@ -464,14 +466,14 @@ math:
 
             $<values>$ = new_vec;
         }
+        free_vector(vector1);
+        free_vector(vector2);
 
     }
     |
     math MINUS math{
-        vec vector1;
-        vec vector2;
-        vector1 = $<values>1;
-        vector2 = $<values>3;
+        vec vector1 = $<values>1;
+        vec vector2 = $<values>3;
         if (
             (vector1.dtype == SYMBOLIC || vector2.dtype == SYMBOLIC)
         ){
@@ -499,13 +501,18 @@ math:
 
             $<values>$ = new_vec;
         }
+        free_vector(vector1);
+        free_vector(vector2);
 
     }
     |
     MINUS math %prec UMINUS{
+        /**
+        * MINUS a symbol '-'
+        * math a vector
+        */
         // Eltwise Negation
-        vec vector;
-        vector = $<values>2;
+        vec vector = $<values>2;
 
         if (vector.dtype == SYMBOLIC){
             printf("Symbolic Dice, Cannot negate. Consider using Numeric dice or post-processing.\n");
@@ -529,6 +536,7 @@ math:
             $<values>$ = new_vec;
 
         }
+        free_vector(vector);
     }
     |
     collapsing_dice_operations
