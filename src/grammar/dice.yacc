@@ -1270,14 +1270,19 @@ function:
     }
     |
     FN_ABS LBRACE function RBRACE{
-        // abs(__)
+        /** @brief performs the abs(__) function
+        * @FN_ABS the symbol "abs"
+        * @LBRACE the symbol "("
+        * function The target vector
+        * @RBRACE the symbol ")"
+        */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
         new_vec.content[0] = ABSV(
             $<values>3.content[0]
         );
         $<values>$ = new_vec;
-        free($<values>3.content);
+        free_vector($<values>3);
     }
     |
     /* FN_POOL LBRACE dice_statement SYMBOL_SEPERATOR dice_statement RBRACE{
