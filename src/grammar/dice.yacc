@@ -754,9 +754,8 @@ die_roll:
     die_symbol NUMBER EXPLOSION ONCE
     {
         
-        vec numA = $<values>1;
-        vec ds = $<values>2;
-        vec numB = $<values>3;
+        vec ds = $<values>1;
+        vec numB = $<values>2;
 
         int start_from = ds.content[0];
 
@@ -766,8 +765,8 @@ die_roll:
 
         roll_plain_sided_dice(
             &number_of_dice,
-            &ds,
             &numB,
+            &$<values>$,
             ONLY_ONCE_EXPLOSION,
             start_from
         );
