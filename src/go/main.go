@@ -9,9 +9,8 @@ import "C"
 
 import (
 	"fmt"
-	"io"
-	"os"
-	"unsafe"
+	"io/ioutil". // Use just 'io' in Go >
+        "os"
 )
 
 func check(e error) {
