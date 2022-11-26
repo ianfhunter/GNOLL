@@ -12,7 +12,6 @@ else
 endif
 
 
-ADDRESS_SANITIZER= -fsanitize=address -fno-omit-frame-pointer -static-libasan -g
 
 OPT=-O3 \
     $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
@@ -32,20 +31,26 @@ OPT=-O3 \
 
 # === DEBUG OPTIONS ====
 
+ASAN_FLAGS= -fsanitize=address \
+	-fsanitize-recover=address \
+	-fsanitize-address-use-after-scope \
+	-fno-omit-frame-pointer -static-libasan -g
+GDB_FLAGS= -g -gdwarf-5
+
 DEBUG=0
 ifeq ($(DEBUG), 1)
 # Valgrind
-OPT=-O0 -g -gdwarf-4 
+OPT=-O0 $(GDB_FLAGS)
 PARSER_DEBUG:=--debug --verbose
 else
 ifeq ($(DEBUG), 2)
 # ASAN
-OPT=-O0 $(ADDRESS_SANITIZER)
+OPT=-O0 $(ASAN_FLAGS)
 PARSER_DEBUG:=
 else
 ifeq ($(DEBUG), 3)
 # ASAN
-OPT=-O0 -lefence -g
+OPT=-O0 $(GDB_FLAGS) -lefence
 PARSER_DEBUG:=
 else
 # USUAL

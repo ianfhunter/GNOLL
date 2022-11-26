@@ -16,8 +16,8 @@ char * concat_strings(char ** s, unsigned int num_s){
         return s[0];
     }
     unsigned int size_total = 0;
-    int spaces = 0;
-    for(int i = 1; i != num_s + 1; i++){
+    unsigned int spaces = 0;
+    for(unsigned int i = 1; i != num_s + 1; i++){
         size_total += strlen(s[i]) + 1;
     }
     if (num_s > 1){
@@ -30,7 +30,7 @@ char * concat_strings(char ** s, unsigned int num_s){
     char * result = (char *)safe_calloc((size_total+1), sizeof(char));
     if(gnoll_errno){return NULL;}
 
-    for(int i = 1; i != num_s + 1; i++){
+    for(unsigned int i = 1; i != num_s + 1; i++){
         // printf()
         strcat(result, s[i]);
         if (spaces && i < num_s){

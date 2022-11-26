@@ -1190,8 +1190,6 @@ custom_symbol_dice:
                 memcpy(rp.symbol_pool[i], csd_vec.symbols[i], MAX_SYMBOL_LENGTH*sizeof(char));
             }
             result_vec.source = rp;
-            printf("--%p\n", (void *)&result_vec.source.symbol_pool);
-            printf("--%p\n", (void *)&result_vec.source.symbol_pool[0]);
             result_vec.has_source = true;
 
             // Custom Symbol
@@ -1201,8 +1199,6 @@ custom_symbol_dice:
                 &result_vec
             );
         }
-
-        // printf("CSD IS SYMBOLIC? %i\n", (int)csd_vec.dtype);
 
         free_vector(number_of_dice);
         free_vector(csd_vec);
