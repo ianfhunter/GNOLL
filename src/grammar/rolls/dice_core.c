@@ -137,7 +137,6 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     fprintf(fp, "\n");
     fclose(fp);
   }
-
   return all_dice_roll;
 }
 

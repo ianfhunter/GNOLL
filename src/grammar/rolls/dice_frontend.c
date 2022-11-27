@@ -35,6 +35,7 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   rp.explode = explode;
   rp.start_value = start_offset;
   int* roll_result = do_roll(rp);
+
   initialize_vector(result, NUMERIC, num_dice);
   free(result->content);
   result->content = roll_result;
