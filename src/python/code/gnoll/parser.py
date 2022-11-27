@@ -3,8 +3,6 @@ import sys
 import tempfile
 from ctypes import cdll
 
-from wurlitzer import pipes
-
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
@@ -88,32 +86,22 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     os.remove(die_file)
 
     out_file = str(die_file).encode("ascii")
-    verbose = 1
     if verbose:
         print("Rolling: ", s)
         print("Output in:", out_file)
 
-    # with pipes() as (out, err):
-    if True:
-        s = s.encode("ascii")
+    s = s.encode("ascii")
 
-        return_code = libc.roll_full_options(
-            s,
-            out_file,
-            False,  # enable_verbose
-            breakdown,  # enable_introspect
-            mock is not None,  # enable_mock
-            builtins,  # enable_builtins
-            mock,
-            mock_const,
-        )
-
-    # if verbose:
-    #     print("---stdout---")
-    #     print(out.read())
-    #     print("---stderr---")
-    #     print(err.read())
-
+    return_code = libc.roll_full_options(
+        s,
+        out_file,
+        True,  # enable_verbose
+        breakdown,  # enable_introspect
+        mock is not None,  # enable_mock
+        builtins,  # enable_builtins
+        mock,
+        mock_const,
+    )
     if return_code != 0:
         raise_gnoll_error(return_code)
 

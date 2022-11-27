@@ -64,12 +64,9 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   int k = (int)key;
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
-
   
   if (verbose) printf("Macro:: Check existance\n");
   HASH_FIND_INT(macros, &k, s); // id already in the hash? 
-  
-  
   if (s == NULL) {
     s = (struct macro_struct *)safe_malloc(sizeof *s);
 
@@ -80,7 +77,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
     HASH_ADD_INT(macros, id, s); // id: name of key field 
   }
   
-  
+
   memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
   // s->stored_dice_roll.symbol_pool = NULL;
   
@@ -95,7 +92,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
     // free_roll_params(to_store);  //new
     // free_2d_array(&to_store->symbol_pool, to_store->die_sides);
   }
-  
+
   //free(s); //new
   //free(skey); //new
 }
@@ -122,7 +119,9 @@ void search_macros(char *skey, roll_params *to_store) {
 
   HASH_FIND_INT(macros, &k, s); /* s: output pointer */
 
+
   if (s == NULL) {
+    if (verbose) printf("Macro:: UNDEFINED (macros.c)\n");
     gnoll_errno = UNDEFINED_MACRO;
     return;
   }
