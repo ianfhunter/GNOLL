@@ -70,9 +70,13 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
     y->length,
     MAX_SYMBOL_LENGTH
   );
+
   rp.start_value = 0;  // First index of array
 
   int* indexes = do_roll(rp);
 
+  free_2d_array(&rp.symbol_pool, y->length);
+
   extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
+  free(indexes);
 }
