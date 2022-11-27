@@ -86,6 +86,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     os.remove(die_file)
 
     out_file = str(die_file).encode("ascii")
+    verbose = 1
     if verbose:
         print("Rolling: ", s)
         print("Output in:", out_file)

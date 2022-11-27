@@ -872,7 +872,7 @@ dice_operations:
         drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free(roll_vec);
+        free_vector(roll_vec);
     }
     |
     die_roll
@@ -880,6 +880,13 @@ dice_operations:
 
 die_roll:
     NUMBER die_symbol NUMBER EXPLOSION ONCE{
+        /**
+        * NUMBER vector
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        * ONCE symbol 'o'
+        */
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
@@ -903,6 +910,12 @@ die_roll:
     }
     |
     die_symbol NUMBER EXPLOSION ONCE{
+        /**
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        * ONCE symbol 'o'
+        */
         
         vec ds = $<values>1;
         vec numB = $<values>2;
@@ -950,6 +963,12 @@ die_roll:
     }
     |
     die_symbol NUMBER EXPLOSION PENETRATE{
+        /**
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        * PENETRATE symbol 'p'
+        */
         vec ds = $<values>1;
         vec numB = $<values>2;
         
@@ -972,15 +991,17 @@ die_roll:
     }
     |
     NUMBER die_symbol NUMBER EXPLOSION{
+        /**
+        * NUMBER vector
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        */
 
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
         int start_from = ds.content[0];
-
-        vec number_of_dice;
-        initialize_vector(&number_of_dice, NUMERIC, 1);
-        number_of_dice.content[0] = 1;
 
         roll_plain_sided_dice(
             &numA,
@@ -995,6 +1016,11 @@ die_roll:
     }
     |
     die_symbol NUMBER EXPLOSION{
+        /**
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        */
 
         vec ds = $<values>1;
         vec numB = $<values>2;
@@ -1017,6 +1043,11 @@ die_roll:
     }
     |
     NUMBER die_symbol NUMBER{
+        /**
+        * NUMBER vector
+        * die_symbol vector 
+        * NUMBER vector
+        */
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
@@ -1035,6 +1066,10 @@ die_roll:
     }
     |
     die_symbol NUMBER{
+        /**
+        * die_symbol vector 
+        * NUMBER vector
+        */
         vec ds = $<values>1;
         vec numB = $<values>2;
         vec new_vec;
@@ -1056,25 +1091,39 @@ die_roll:
         free_vector(number_of_dice);
         free_vector(ds);
         free_vector(numB);
-
     }
     |
-    NUMBER die_symbol MODULO{
+    NUMBER die_symbol MODULO{   
+        /**
+        * NUMBER vector
+        * die_symbol vector - d or z 
+        * MODULE symbol %
+        */
+
+        // TODO: z% is not functional!
+
+        vec num_dice = $<values>1;
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 100;
 
         roll_plain_sided_dice(
-            &$<values>1,
+            &num_dice,
             &dice_sides,
             &$<values>$,
             NO_EXPLOSION,
             1
         );
+        free_vector(num_dice);
+        free_vector(dice_sides);
     }
     |
     die_symbol MODULO{
-
+        /**
+        * die_symbol vector 
+        * NUMBER vector
+        */
+        // TODO: z% is not possible yet.
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
         num_dice.content[0] = 1;
@@ -1089,23 +1138,33 @@ die_roll:
             NO_EXPLOSION,
             1
         );
+        free_vector(num_dice);
+        free_vector(dice_sides);
     }
     |
     NUMBER die_symbol DO_COUNT{
-
-        int start_from = $<values>2.content[0];
+        /**
+        * NUMBER vector
+        * die_symbol vector 
+        * DO_COUNT symbol 'c'
+        */
+        vec num = $<values>1;
+        vec die_sym = $<values>2;
+        int start_from = die_sym.content[0];
 
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
         dice_sides.content[0] = 2;
 
         roll_plain_sided_dice(
-            &$<values>1,
+            &num,
             &dice_sides,
             &$<values>$,
             NO_EXPLOSION,
             start_from
         );
+        free_vector(num);
+        free_vector(die_sym);
     }
     |
     die_symbol DO_COUNT{
