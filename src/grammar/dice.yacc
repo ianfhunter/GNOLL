@@ -1256,6 +1256,8 @@ custom_symbol_dice:
                 new_vector.source.explode,
                 1
             );
+            free_vector(die_sides);
+
         }else if (new_vector.source.dtype == SYMBOLIC){
             light_initialize_vector(&die_sides, SYMBOLIC, 1);
             die_sides.length = new_vector.source.die_sides;
@@ -1275,14 +1277,14 @@ custom_symbol_dice:
                 &die_sides,
                 &new_vector
             );
-            
+            free_vector(die_sides);
+
         }else{
             printf("Complex Dice Equation. Only dice definitions supported. No operations\n");
             gnoll_errno = NOT_IMPLEMENTED;
         }
         free_vector(vector);
         free_vector(number_of_dice);
-        free_vector(die_sides);
         $<values>$ = new_vector;
     }
     ;
