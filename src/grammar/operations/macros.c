@@ -36,7 +36,11 @@ void delete_all_macros() {
 
   HASH_ITER(hh, macros, current_macro, tmp) {
     HASH_DEL(macros, current_macro);  /* delete; users advances to next */
-    // free_2d_array(current_macro.stored_dice_roll.symbol_pool);
+    
+    free_2d_array(
+      &current_macro->stored_dice_roll.symbol_pool,
+      current_macro->stored_dice_roll.die_sides
+    );
     free(current_macro);             /* optional- if you want to free  */
   }
 }
