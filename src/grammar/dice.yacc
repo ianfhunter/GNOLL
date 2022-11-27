@@ -676,10 +676,18 @@ dice_operations:
     }
     |
     dice_operations FILTER condition NUMBER{
+        /*
+        * dice_operations vector
+        * Filter symbol 'f'
+        * condition vector
+        * Number vector
+        */
         vec new_vec;
         vec dice = $<values>1;
         vec condition = $<values>4;
-        int check = $<values>3.content[0];
+        vec cv = $<value>3;
+
+        int check = cv.content[0];
 
         if(dice.dtype == NUMERIC){
             initialize_vector(&new_vec, NUMERIC, dice.length);
@@ -690,9 +698,11 @@ dice_operations:
             printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
-            yyclearin;;
+            yyclearin;
         }
-
+        free_vector(dice);
+        free_vector(condition);
+        free_vector(cv);
     }
     |
     dice_operations FILTER singular_condition{
@@ -1168,7 +1178,12 @@ die_roll:
     }
     |
     die_symbol DO_COUNT{
-        int start_from = $<values>1.content[0];
+        /**
+        * die_symbol vector
+        * DO_COUNT symbol 'c'
+        */
+        vec ds= $<values>1;
+        int start_from = ds.content[0];
 
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
@@ -1184,6 +1199,9 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
+        free_vector(ds);
+        free_vector(num_dice);
+        free_vector(dice_sides);
     }
     |
     NUMBER FATE_DIE{
