@@ -14,6 +14,8 @@ struct macro_struct {
   UT_hash_handle hh; /* makes this structure hashable */
 };
 
+void delete_all_macros();
+
 void register_macro(vec *macro_name, roll_params *to_store);
 
 void search_macros(char *skey, roll_params *to_store);

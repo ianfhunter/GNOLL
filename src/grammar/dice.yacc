@@ -1431,6 +1431,9 @@ int roll_full_options(
     YY_BUFFER_STATE buffer = yy_scan_string(roll_request);
     yyparse();
     yy_delete_buffer(buffer);
+
+    delete_all_macros();
+
     return gnoll_errno;
 }
 

@@ -31,6 +31,15 @@ unsigned long hash_function(unsigned char *str) {
   return hash;
 }
 
+void delete_all_macros() {
+  struct macro_struct *current_macro, *tmp;
+
+  HASH_ITER(hh, macros, current_macro, tmp) {
+    HASH_DEL(macros, current_macro);  /* delete; users advances to next */
+    free(current_macro);             /* optional- if you want to free  */
+  }
+}
+
 void register_macro(vec *macro_name, roll_params *to_store) {
   /**
    * @brief Register a Macro in GNOLL
