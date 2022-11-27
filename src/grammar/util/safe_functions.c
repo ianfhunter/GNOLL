@@ -146,7 +146,6 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    */
 
   *dst = (char**)safe_calloc(items, sizeof(char **));
-  printf("Dst: %p\n", *dst);
   if (gnoll_errno) {
     return;
   }

@@ -105,8 +105,6 @@ int initialize(){
 
 gnoll_entry:
     gnoll_statement{
-        printf("end: %p\n", $<values>1.symbols);
-
         free_vector($<values>1);
     }
 ;
@@ -175,7 +173,6 @@ dice_statement: math{
 
     //  Step 1: Collapse pool to a single value if nessicary
     collapse_vector(&vector, &new_vec);
-    printf("yacc: %p\n", new_vec.symbols);
     if(gnoll_errno){
         YYABORT;
         yyclearin;
@@ -225,7 +222,6 @@ dice_statement: math{
 
     free_vector(vector);
     
-    printf("end of yacc: %p\n", new_vec.symbols);
     $<values>$ = new_vec;
 };
 
@@ -1270,7 +1266,6 @@ custom_symbol_dice:
                 die_sides.length,
                 MAX_SYMBOL_LENGTH
             );
-            printf("die_sides.symbols: %p\n", die_sides.symbols);
 
             free_2d_array(&new_vector.source.symbol_pool, new_vector.source.die_sides);
 
