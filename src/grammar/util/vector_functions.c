@@ -220,9 +220,10 @@ void collapse_vector(vec *vector, vec *new_vector) {
        vector->length,
        MAX_SYMBOL_LENGTH
     );
+    printf("vf %p\n", new_vector->symbols);
     
     new_vector->length = vector->length;
-    new_vector->dtype = vector->dtype;
+    new_vector->dtype = SYMBOLIC;
     new_vector->has_source = false;
   } 
   else {

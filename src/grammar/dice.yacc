@@ -105,12 +105,17 @@ int initialize(){
 
 gnoll_entry:
     gnoll_statement{
+        printf("end: %p\n", $<values>1.symbols);
+
         free_vector($<values>1);
     }
 ;
 
 gnoll_statement:
-    gnoll_statement STATEMENT_SEPERATOR gnoll_statement
+    gnoll_statement STATEMENT_SEPERATOR gnoll_statement{
+        free_vector($<values>3);
+        // vec1 freed at root.
+    }
     |
     /* Allow ending with ; */
     gnoll_statement STATEMENT_SEPERATOR
@@ -170,6 +175,7 @@ dice_statement: math{
 
     //  Step 1: Collapse pool to a single value if nessicary
     collapse_vector(&vector, &new_vec);
+    printf("yacc: %p\n", new_vec.symbols);
     if(gnoll_errno){
         YYABORT;
         yyclearin;
@@ -218,8 +224,9 @@ dice_statement: math{
     }
 
     free_vector(vector);
+    
+    printf("end of yacc: %p\n", new_vec.symbols);
     $<values>$ = new_vec;
-
 };
 
 
