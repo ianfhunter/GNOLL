@@ -4,7 +4,6 @@ cppyy
 # tests
 pytest
 numpy>=1.22.2
-wurlitzer
 
 # distribution
 build
