@@ -60,13 +60,25 @@ d {
 }
 
 (dF|df)\.1 {
-    char * plus, *minus, *zero;
+    char *plus, *minus;
+    char *zeroA, *zeroB, *zeroC, *zeroD;
     plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
     plus[0] = '+';
-    zero = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+
+    zeroA = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    zero[0] = '0';
+    zeroA[0] = '0';
+    zeroB = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    zeroB[0] = '0';
+    zeroC = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    zeroC[0] = '0';
+    zeroD = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    zeroD[0] = '0';
+
     minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
     minus[0] = '-';
@@ -76,10 +88,10 @@ d {
     vector.symbols = (char**)safe_malloc(sizeof(char **) * 6);
     if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
-    vector.symbols[1] = zero;
-    vector.symbols[2] = zero;
-    vector.symbols[3] = zero;
-    vector.symbols[4] = zero;
+    vector.symbols[1] = zeroA;
+    vector.symbols[2] = zeroB;
+    vector.symbols[3] = zeroC;
+    vector.symbols[4] = zeroD;
     vector.symbols[5] = minus;
     vector.length = 6;
     vector.has_source = false;
@@ -109,7 +121,7 @@ d {
     return(FATE_DIE);
 }
 (dF|df)(\.2)? {
-    char * plus, *minus, *zero;
+    char *plus, *minus, *zero;
     plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
     plus[0] = '+';
@@ -129,6 +141,7 @@ d {
     vector.symbols[2] = minus;
     vector.has_source = false;
     vector.length = 3;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);

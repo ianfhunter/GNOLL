@@ -123,9 +123,7 @@ void free_2d_array(char ***arr, unsigned int items) {
    * @param items
    */
   if (*arr) {
-    // printf("Arr: %p\n", (void *)arr);
     for (unsigned int i = 0; i != items; i++) {
-      // printf("[%u] Try to free: %p\n",i, (*arr)[i]);
       if ((*arr)[i]) {
         free((*arr)[i]);
       }

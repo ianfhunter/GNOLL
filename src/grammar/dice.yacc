@@ -1103,7 +1103,6 @@ die_roll:
         free_vector(symb);
         free_vector(number_of_dice);
 
-        print_vec(result_vec);
     }
     |
     custom_symbol_dice
@@ -1564,7 +1563,7 @@ int main(int argc, char **str){
         1,  // Verbose
         1,  // Introspect
         0,  // Mocking
-        1,  // Builtins
+        0,  // Builtins
         0,
         0
     );
