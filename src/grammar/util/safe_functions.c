@@ -111,7 +111,7 @@ void free_vector(vec v){
     free_2d_array(&v.symbols, v.length);
     if (v.has_source){
       // Should be always the same as length (But not sure that's true!)
-      free_2d_array(&v.source.symbol_pool, v.length);
+      free_2d_array(&v.source.symbol_pool, v.source.die_sides);
     }
   }
 }
@@ -146,6 +146,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    */
 
   *dst = (char**)safe_calloc(items, sizeof(char **));
+  printf("Dst: %p\n", *dst);
   if (gnoll_errno) {
     return;
   }

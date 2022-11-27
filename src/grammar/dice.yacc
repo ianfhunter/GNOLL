@@ -105,7 +105,6 @@ int initialize(){
 
 gnoll_entry:
     gnoll_statement{
-        // printf("A: %i\n", new_vector->content[0]);
         free_vector($<values>1);
     }
 ;
@@ -136,8 +135,11 @@ sub_statement:
 macro_statement:
     MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
         /**
-        *
-        * returns - ??
+        * MACRO_STORAGE - the symbol '#''
+        * CAPITAL_STRING - vector 
+        * ASSIGNMENT - the symbol '='
+        * math - vector dice roll assignment
+        * returns - nothing.
         */
                 
         vec key = $<values>2;
@@ -153,6 +155,7 @@ macro_statement:
             YYABORT;
             yyclearin;
         }
+        // $<values>$ = 
     }
 ;
 
@@ -1188,7 +1191,7 @@ custom_symbol_dice:
             result_vec.source = rp;
             result_vec.has_source = true;
             for(unsigned int i = 0; i != csd_vec.length; i++){
-                result_vec.source.symbol_pool[i] = malloc(MAX_SYMBOL_LENGTH);
+                result_vec.source.symbol_pool[i] = (char*)safe_calloc(sizeof(char),MAX_SYMBOL_LENGTH);
                 memcpy(
                     result_vec.source.symbol_pool[i], 
                     csd_vec.symbols[i], 
@@ -1221,6 +1224,7 @@ custom_symbol_dice:
 
         vec new_vector;
         search_macros(name, &new_vector.source);
+
         if(gnoll_errno){YYABORT;yyclearin;}
         // Resolve Roll
 
@@ -1240,6 +1244,7 @@ custom_symbol_dice:
         // Roll according to the stored values
         // Careful: Newvector used already
         if (new_vector.source.dtype == NUMERIC){
+            die_sides.dtype = NUMERIC;
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
             roll_plain_sided_dice(
                 &number_of_dice,
@@ -1249,6 +1254,7 @@ custom_symbol_dice:
                 1
             );
         }else if (new_vector.source.dtype == SYMBOLIC){
+            die_sides.dtype = SYMBOLIC;
             free_2d_array(&die_sides.symbols, die_sides.length);
             safe_copy_2d_chararray_with_allocation(
                 &die_sides.symbols,
@@ -1256,6 +1262,9 @@ custom_symbol_dice:
                 die_sides.length,
                 MAX_SYMBOL_LENGTH
             );
+            printf("die_sides.symbols: %p\n", die_sides.symbols);
+
+            free_2d_array(&new_vector.source.symbol_pool, new_vector.source.die_sides);
 
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
             roll_symbolic_dice(
@@ -1269,6 +1278,7 @@ custom_symbol_dice:
         }
         free_vector(vector);
         free_vector(number_of_dice);
+        print_vec(die_sides);
         free_vector(die_sides);
         $<values>$ = new_vector;
     }
