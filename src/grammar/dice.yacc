@@ -1243,15 +1243,15 @@ custom_symbol_dice:
         number_of_dice.content[0] = (int)new_vector.source.number_of_dice;
         
         // Set Die Sides
-        light_initialize_vector(&die_sides, NUMERIC, 1);
-        die_sides.content[0] = (int)new_vector.source.die_sides;
-        die_sides.length = new_vector.source.die_sides;
-        die_sides.symbols = NULL;
+        // die_sides.content[0] = (int)new_vector.source.die_sides;
+        // die_sides.symbols = NULL;
 
         // Roll according to the stored values
         // Careful: Newvector used already
         if (new_vector.source.dtype == NUMERIC){
-            die_sides.dtype = NUMERIC;
+            light_initialize_vector(&die_sides, NUMERIC, 1);
+            die_sides.length = new_vector.source.die_sides;
+            die_sides.content[0] = (int)new_vector.source.die_sides;
             initialize_vector(&new_vector, new_vector.source.dtype, 1);
             roll_plain_sided_dice(
                 &number_of_dice,
@@ -1261,8 +1261,9 @@ custom_symbol_dice:
                 1
             );
         }else if (new_vector.source.dtype == SYMBOLIC){
-            die_sides.dtype = SYMBOLIC;
-            free_2d_array(&die_sides.symbols, die_sides.length);
+            light_initialize_vector(&die_sides, SYMBOLIC, 1);
+            die_sides.length = new_vector.source.die_sides;
+            free(die_sides.symbols);  
             safe_copy_2d_chararray_with_allocation(
                 &die_sides.symbols,
                 new_vector.source.symbol_pool,
