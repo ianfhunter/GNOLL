@@ -137,7 +137,7 @@ macro_statement:
     MACRO_STORAGE CAPITAL_STRING ASSIGNMENT math{
         /**
         *
-        * returns - 0
+        * returns - ??
         */
                 
         vec key = $<values>2;
@@ -153,7 +153,6 @@ macro_statement:
             YYABORT;
             yyclearin;
         }
-        // &$<values>$ = NULL;
     }
 ;
 
@@ -165,8 +164,6 @@ dice_statement: math{
 
     vec vector = $<values>1;
     vec new_vec;
-    // vec new_vec = vector;       // Code Smell.
-    //                             // Target Vector should be empty
 
     //  Step 1: Collapse pool to a single value if nessicary
     collapse_vector(&vector, &new_vec);
@@ -216,10 +213,10 @@ dice_statement: math{
     if(write_to_file){
         fclose(fp);
     }
-    // free_vector(new_vec);
 
     free_vector(vector);
     $<values>$ = new_vec;
+
 };
 
 
@@ -1061,18 +1058,30 @@ die_roll:
     }
     |
     NUMBER FATE_DIE{
+        /**
+        * NUMBER - 
+        */
+        vec number_of_dice = $<values>1;
+        vec symb = $<values>2;
         vec result_vec;
-        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
+        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)number_of_dice.content[0]);
 
         roll_symbolic_dice(
-            &$<values>1,
-            &$<values>2,
+            &number_of_dice,
+            &symb,
             &result_vec
         );
         $<values>$ = result_vec;
+        free_vector(symb);
+        free_vector(number_of_dice);
+
     }
     |
     FATE_DIE{
+        /** 
+        * FATE_DIE - Vector
+        */
+        vec symb = $<values>1;
         vec result_vec;
         vec number_of_dice;
         initialize_vector(&result_vec, SYMBOLIC, 1);
@@ -1081,10 +1090,14 @@ die_roll:
 
         roll_symbolic_dice(
             &number_of_dice,
-            &$<values>1,
+            &symb,
             &result_vec
         );
         $<values>$ = result_vec;
+        free_vector(symb);
+        free_vector(number_of_dice);
+
+        print_vec(result_vec);
     }
     |
     custom_symbol_dice
@@ -1111,7 +1124,7 @@ custom_symbol_dice:
         // TODO: Multiple ranges
 
         vec result_vec;
-        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)$<values>1.content[0]);
+        initialize_vector(&result_vec, SYMBOLIC, (unsigned int)left.content[0]);
 
         roll_symbolic_dice(
             &left,
@@ -1180,7 +1193,6 @@ custom_symbol_dice:
                     result_vec.source.symbol_pool[i], 
                     csd_vec.symbols[i], 
                     MAX_SYMBOL_LENGTH*sizeof(char)
-                    // MAX_SYMBOL_LENGTH*sizeof(char)
                 );
             }
 

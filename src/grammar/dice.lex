@@ -61,15 +61,15 @@ d {
 
 (dF|df)\.1 {
     char * plus, *minus, *zero;
-    plus = (char *)safe_malloc(sizeof(char *));
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    zero = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+    zero = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    zero = "0";
-    minus = (char *)safe_malloc(sizeof(char *));
+    zero[0] = '0';
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;
@@ -89,12 +89,12 @@ d {
 }
 (dF|df)\.[3-9] {
     char * plus, *minus;
-    plus = (char *)safe_malloc(sizeof(char *));
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    minus = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;
@@ -110,15 +110,15 @@ d {
 }
 (dF|df)(\.2)? {
     char * plus, *minus, *zero;
-    plus = (char *)safe_malloc(sizeof(char *));
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    zero = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+    zero = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    zero = "0";
-    minus = (char *)safe_malloc(sizeof(char *));
+    zero[0] = '0';
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;

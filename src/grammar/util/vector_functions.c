@@ -214,7 +214,16 @@ void collapse_vector(vec *vector, vec *new_vector) {
   }
 
   if (vector->dtype == SYMBOLIC) {
-    new_vector = vector;
+    safe_copy_2d_chararray_with_allocation(
+       &new_vector->symbols,
+       vector->symbols,
+       vector->length,
+       MAX_SYMBOL_LENGTH
+    );
+    
+    new_vector->length = vector->length;
+    new_vector->dtype = vector->dtype;
+    new_vector->has_source = false;
   } 
   else {
     int c = 0;
@@ -227,6 +236,7 @@ void collapse_vector(vec *vector, vec *new_vector) {
     new_vector->content[0] = c;
     new_vector->length = 1;
     new_vector->dtype = NUMERIC;
+    new_vector->has_source = false;
   }
   return;
 }

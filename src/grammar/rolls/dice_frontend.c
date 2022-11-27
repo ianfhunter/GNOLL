@@ -62,8 +62,10 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   rp.symbol_pool = NULL;
 
   // Copy over memory to Symbol Pool for reloading
-
-  free_2d_array(&rp.symbol_pool, rp.die_sides);
+  printf("dst %p\n", (void*)&rp.symbol_pool);
+  printf("src %p , %p\n", (void*)y->symbols, (void *) y->symbols[0]);
+  printf("len %u\n", y->length);
+  printf("MAX_SYMBOL_LENGTH %u\n", MAX_SYMBOL_LENGTH);
   safe_copy_2d_chararray_with_allocation(
     &rp.symbol_pool, 
     y->symbols, 
