@@ -1180,6 +1180,7 @@ custom_symbol_dice:
                     result_vec.source.symbol_pool[i], 
                     csd_vec.symbols[i], 
                     MAX_SYMBOL_LENGTH*sizeof(char)
+                    // MAX_SYMBOL_LENGTH*sizeof(char)
                 );
             }
 
