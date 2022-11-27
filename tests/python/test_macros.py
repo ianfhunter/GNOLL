@@ -31,10 +31,12 @@ def test_d66():
     result, _ = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
     assert result == 33
 
+
 def test_multiple_internal_calls_macros():
     r = "#TEST=d{A,B,C,D,E,F,G,H};@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;@TEST;"
     result, _ = roll(r)
     assert not all(r == result[0] for r in result)
+
 
 def test_multiple_external_calls_macros():
     result = []
