@@ -1275,13 +1275,13 @@ custom_symbol_dice:
                 &die_sides,
                 &new_vector
             );
+            
         }else{
             printf("Complex Dice Equation. Only dice definitions supported. No operations\n");
             gnoll_errno = NOT_IMPLEMENTED;
         }
         free_vector(vector);
         free_vector(number_of_dice);
-        print_vec(die_sides);
         free_vector(die_sides);
         $<values>$ = new_vector;
     }
