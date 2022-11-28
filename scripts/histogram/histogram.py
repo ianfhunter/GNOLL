@@ -1,14 +1,15 @@
 import importlib.util as iu
 import os
 
-import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
-from scipy import stats
+import matplotlib.pyplot as plt
 import numpy as np
+from scipy import stats
 
 # Copy-Pasted from test/util.py
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
+)
 m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -35,7 +36,7 @@ def main():
     print("Min:", np.min(results))
     print("Max:", np.max(results))
 
-    num_bins = min(num*sides, 200)
+    num_bins = min(num * sides, 200)
     n, bins, patches = plt.hist(results, bins=num_bins)
 
     # (mu, sigma) = stats.norm.fit(results)
@@ -45,10 +46,11 @@ def main():
     avg = np.mean(results)
     var = np.var(results)
     # From that, we know the shape of the fitted Gaussian.
-    pdf_x = np.linspace(np.min(results),np.max(results),100)
-    pdf_y = 1.0/np.sqrt(2*np.pi*var)*np.exp(-0.5*(pdf_x-avg)**2/var)
-    
-    plt.plot(pdf_x,pdf_y,'k--')
+    pdf_x = np.linspace(np.min(results), np.max(results), 100)
+    pdf_y = 1.0 / np.sqrt(2 * np.pi * var) * \
+        np.exp(-0.5 * (pdf_x - avg) ** 2 / var)
+
+    plt.plot(pdf_x, pdf_y, "k--")
     # l = plt.plot(bins, y, 'r--', linewidth=2)
 
     plt.title(f"GNOLL Histogram: {die}")

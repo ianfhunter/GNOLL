@@ -1,7 +1,7 @@
+import ctypes
 import os
 import sys
 import tempfile
-import ctypes
 from ctypes import cdll
 from importlib import reload
 
@@ -43,6 +43,7 @@ def raise_gnoll_error(value):
     err = d[value]
     if err is not None:
         raise err
+
 
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
     """
