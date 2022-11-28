@@ -158,7 +158,9 @@ macro_statement:
             YYABORT;
             yyclearin;
         }
-        // $<values>$ = 
+        vec null_vec;
+        light_initialize_vector(&null_vec, NUMERIC, 0);
+        $<values>$ = null_vec;
     }
 ;
 
@@ -1151,10 +1153,10 @@ die_roll:
             NO_EXPLOSION,
             start_from
         );
-        $<values>$ = new_vec;
         free_vector(number_of_dice);
         free_vector(ds);
         free_vector(numB);
+        $<values>$ = new_vec;
     }
     |
     NUMBER die_symbol MODULO{   
@@ -1759,8 +1761,8 @@ int main(int argc, char **str){
         1,  // Introspect
         0,  // Mocking
         0,  // Builtins
-        0,
-        0
+        1,  // Mocking
+        3   // Mocking Seed
     );
     print_gnoll_errors();
     FILE  *f = fopen("output.dice","r");

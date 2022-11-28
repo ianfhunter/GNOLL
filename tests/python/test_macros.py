@@ -42,6 +42,7 @@ def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
     for _ in range(20):
+        print("~~~~ ROLL~~~~")
         x = roll(r)
         result.append(x)
         print(x)

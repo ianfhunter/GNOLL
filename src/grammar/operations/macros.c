@@ -75,26 +75,19 @@ void register_macro(vec *macro_name, roll_params *to_store) {
     }
     s->id = (int)key;
     HASH_ADD_INT(macros, id, s); // id: name of key field 
+
+    memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
+    
+    if (is_symbolic) {
+      safe_copy_2d_chararray_with_allocation(
+          &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
+        to_store->die_sides, MAX_SYMBOL_LENGTH);
+    }
+
   }
   
 
-  memcpy(&s->stored_dice_roll, to_store, sizeof(*to_store));
-  // s->stored_dice_roll.symbol_pool = NULL;
-  
-  if (is_symbolic) {
-    // free symbols from roll in S 
-    // free_2d_array(&s->stored_dice_roll.symbol_pool,
-    //               s->stored_dice_roll.die_sides);
-    safe_copy_2d_chararray_with_allocation(
-        &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
-       to_store->die_sides, MAX_SYMBOL_LENGTH);
 
-    // free_roll_params(to_store);  //new
-    // free_2d_array(&to_store->symbol_pool, to_store->die_sides);
-  }
-
-  //free(s); //new
-  //free(skey); //new
 }
 
 void search_macros(char *skey, roll_params *to_store) {
