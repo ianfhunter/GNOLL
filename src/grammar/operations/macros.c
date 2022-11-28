@@ -86,7 +86,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
         to_store->die_sides, MAX_SYMBOL_LENGTH);
     }
   }else{
-    if(verbose){printf("Already Exists\n")};
+    if(verbose){printf("Already Exists\n");}
   }
 }
 
