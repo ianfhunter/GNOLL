@@ -1652,7 +1652,6 @@ int roll_full_options(
     YY_BUFFER_STATE buffer = yy_scan_string(roll_request);
     yyparse();
     yy_delete_buffer(buffer);
-
     delete_all_macros();
 
     return gnoll_errno;
@@ -1752,8 +1751,8 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        1,  // Verbose
-        1,  // Introspect
+        0,  // Verbose
+        0,  // Introspect
         0,  // Mocking
         1,  // Builtins
         0,  // Mocking

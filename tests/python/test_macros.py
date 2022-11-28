@@ -56,6 +56,7 @@ def test_undefined_macro():
         error_handled_by_gnoll(e)
 
 
+# @pytest.mark.skip("Temporary Failure")
 def test_predefined_macro():
     r = roll("@ORACLE", builtins=True)[0]
     assert r in ["YES", "YES_AND", "YES_BUT", "NO", "NO_AND", "NO_BUT"]

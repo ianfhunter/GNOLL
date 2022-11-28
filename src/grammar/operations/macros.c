@@ -37,10 +37,12 @@ void delete_all_macros() {
   HASH_ITER(hh, macros, current_macro, tmp) {
     HASH_DEL(macros, current_macro);  /* delete; users advances to next */
     
-    free_2d_array(
-      &current_macro->stored_dice_roll.symbol_pool,
-      current_macro->stored_dice_roll.die_sides
-    );
+    if (current_macro->stored_dice_roll.dtype == SYMBOLIC){
+      free_2d_array(
+        &current_macro->stored_dice_roll.symbol_pool,
+        current_macro->stored_dice_roll.die_sides
+      );
+    }
     free(current_macro);             /* optional- if you want to free  */
   }
 }
@@ -65,7 +67,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
 
   unsigned short int is_symbolic = to_store->dtype == SYMBOLIC;
   
-  if (verbose) printf("Macro:: Check existance\n");
+  if (verbose) printf("Macro:: Check existance of %i\n", k);
   HASH_FIND_INT(macros, &k, s); // id already in the hash? 
   if (s == NULL) {
     s = (struct macro_struct *)safe_malloc(sizeof *s);
@@ -83,11 +85,9 @@ void register_macro(vec *macro_name, roll_params *to_store) {
           &s->stored_dice_roll.symbol_pool, to_store->symbol_pool,
         to_store->die_sides, MAX_SYMBOL_LENGTH);
     }
-
+  }else{
+    if(verbose){printf("Already Exists\n")};
   }
-  
-
-
 }
 
 void search_macros(char *skey, roll_params *to_store) {
