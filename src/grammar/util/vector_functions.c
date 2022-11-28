@@ -241,18 +241,20 @@ void collapse_vector(vec *vector, vec *new_vector) {
   return;
 }
 
-void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
+void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
                 int keep_high) {
   /**
    * @brief Collapses multiple Numeric dice to one value by summing
-   * @param vector source
-   * @param new_vector dest
+   * @param vector source (Freed at end)
+   * @param output_vector dest
    * @param number_to_keep how many values to keep or drop
    * @param keep_high Whether to keep the highest (1) or Lowest (0) values
    */
   if (gnoll_errno) {
     return;
   }
+
+  unsigned int available_amount = vector->length;
 
   if (vector->dtype == SYMBOLIC) {
     printf(
@@ -261,18 +263,23 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return;
   }
-  unsigned int available_amount = vector->length;
+  
   if (available_amount > number_to_keep) {
-    new_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
-    if (gnoll_errno) {
-      return;
-    }
-    new_vector->length = number_to_keep;
+    initialize_vector(output_vector, vector->dtype, number_to_keep);
+
+    // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
+    // if (gnoll_errno) {
+    //   return;
+    // }
+    // output_vector->length = number_to_keep;
 
     int *arr = vector->content;
     int *new_arr;
     unsigned int length = vector->length;
 
+    // while (number needed)
+    //     Get Max/Min from vector
+    //     Store in output
     for (unsigned int i = 0; i != number_to_keep; i++) {
       int m;
       if (keep_high) {
@@ -280,22 +287,25 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
       } else {
         m = min_in_vec(arr, length);
       }
-      new_vector->content[i] = m;
+      output_vector->content[i] = m;
       new_arr = (int*)safe_calloc(sizeof(int), length - 1);
       if (gnoll_errno) {
         return;
       }
 
+      // Take 'm' out of the array (put in new_array)
       pop(arr, length, m, new_arr);
       free(arr);
       arr = new_arr;
       length -= 1;
     }
-    new_vector->dtype = vector->dtype;
+    free(arr);
+    // output_vector->content = arr;
+    output_vector->dtype = vector->dtype;
   } else {
     // e.g. 2d20k4 / 2d20kh2
     printf("Warning: KeepHighest: Keeping <= produced amount");
-    new_vector = vector;
+    output_vector = vector;
   }
 }
 

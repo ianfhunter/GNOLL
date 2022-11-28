@@ -665,11 +665,11 @@ dice_operations:
                     1
                 );
                 count ++;
+                free_vector(die_sides);
+                free_vector(number_of_dice);
             }
             $<values>$ = dice;
 
-            free_vector(die_sides);
-            free_vector(number_of_dice);
         }else{
             printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
@@ -737,7 +737,7 @@ dice_operations:
         vec new_vec;
         vec dice = $<values>1;
         vec condition = $<values>4;
-        vec cv = $<value>3;
+        vec cv = $<values>3;
 
         int check = cv.content[0];
 
@@ -818,7 +818,7 @@ dice_operations:
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(do_vec);
+        // free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -836,7 +836,7 @@ dice_operations:
         drop_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(do_vec);
+        // free_vector(do_vec);
         free_vector(keep_vector);
 
     }
@@ -853,10 +853,10 @@ dice_operations:
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         vec new_vec;
-        keep_lowest_values(&$<values>1, &new_vec, num_to_hold);
+        keep_lowest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(do_vec);
+        // free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -874,7 +874,7 @@ dice_operations:
         drop_lowest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(do_vec);
+        // free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -889,7 +889,7 @@ dice_operations:
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(do_vec);
+        // free_vector(do_vec);
     }
     |
     dice_operations DROP_HIGHEST{
@@ -904,7 +904,7 @@ dice_operations:
         drop_highest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(roll_vec);
+        // free_vector(roll_vec);
     }
     |
     dice_operations KEEP_LOWEST{
@@ -919,7 +919,7 @@ dice_operations:
         keep_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(roll_vec);
+        // free_vector(roll_vec);
     }
     |
     dice_operations DROP_LOWEST{
@@ -934,7 +934,7 @@ dice_operations:
         drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = new_vec;
-        free_vector(roll_vec);
+        // free_vector(roll_vec);
     }
     |
     die_roll
