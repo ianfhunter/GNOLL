@@ -136,7 +136,7 @@ compile:
 
 # Shared Lib
 shared: $(OBJECTS)
-	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM)
+	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM) -lm
 	cp build/dice.so build/libdice.so
 # Linux
 	mv ./a.out build/dice | true
