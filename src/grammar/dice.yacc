@@ -1645,8 +1645,6 @@ int roll_full_options(
 
     initialize();
     
-    enable_builtins = 0;
-
     if(enable_builtins){
         load_builtins("builtins/");
     }
@@ -1715,9 +1713,6 @@ void load_builtins(char* root){
             free(path);
             free(stored_str);
         }
-        if(count >= 1){
-            break;
-        }
         tinydir_next(&dir);
     }
 
@@ -1760,9 +1755,9 @@ int main(int argc, char **str){
         1,  // Verbose
         1,  // Introspect
         0,  // Mocking
-        0,  // Builtins
-        1,  // Mocking
-        3   // Mocking Seed
+        1,  // Builtins
+        0,  // Mocking
+        0   // Mocking Seed
     );
     print_gnoll_errors();
     FILE  *f = fopen("output.dice","r");
