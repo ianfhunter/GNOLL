@@ -410,15 +410,15 @@ This list is currently **Under Construction**.
 |Lejendary Adventure		| | |
 |Leverage		| 	Cortex+ System			| |
 |Little Fears - The Role-playing Game of Childhood Terror	| | |				
-Living Steel	Leading Edge Games			futuristic game on the world of Rhand	
-Lone Wolf	Mongoose Publishing	d20			a series of gamebooks and Lone Wolf: The Roleplaying Game; also a second game by Mongoose, the Lone Wolf Multiplayer Game Book
-Lord of the Rings Adventure Game	Iron Crown Enterprises		1991-1999	based on the fantasy works of J. R. R. Tolkien	
-The Lord of the Rings Roleplaying Game	Decipher, Inc.		2002-2006	based on the fantasy works of J. R. R. Tolkien	
-Lords of Creation	Avalon Hill
-Mach: The First Colony	Alliance Publications				
-Macho Women with Guns	Blacksburg Tactical Research Center				
-Macross II: The Role-Playing Game	Palladium				
-Maelstrom	Puffin Books				
+| Living Steel		| | |
+| Lone Wolf		| d20 | 🔼 |
+| Lord of the Rings Adventure Game		| | |	
+| The Lord of the Rings Roleplaying Game	| | |	
+| Lords of Creation	| | |
+| Mach: The First Colony	| | |			
+| Macho Women with Guns	| |  🔼|	
+| Macross II: The Role-Playing Game	| | |	
+| Maelstrom	| | |	
 Mage: The Ascension	White Wolf Publishing (1st, 2nd and revised editions)
 Mage: The Awakening	White Wolf Publishing			set in the new World of Darkness 2.0	
 Mage: The Sorcerer's Crusade					
