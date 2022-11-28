@@ -37,7 +37,7 @@ def stored_measurements():
     # Perhaps we can load from file that a previous cmdline generates
     # or - use cmdline interface instead
 
-    global stored_count
+    global stored_count  # skipcq: PYL-W0603
 
     val = stored[stored_count]
     stored_count += 1
