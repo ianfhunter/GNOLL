@@ -14,6 +14,6 @@ jobs:
     - name: ruby install
       run: |
         sudo apt install ruby-full
-        gem install ffi
+        sudo gem install ffi
     - name: make ruby
       run: make ruby
