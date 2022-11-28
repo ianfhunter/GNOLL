@@ -18,8 +18,7 @@ OPT=-O3 \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2 
-
+	-Wundef -Wno-unused -Wformat=2  
 
 # -ffast-math # Problematic for Python 
 
@@ -69,6 +68,8 @@ else
 ARC4RANDOM:=
 endif
 
+USE_CLT=0
+
 YACC_FALLBACK=0
 ifeq ($(YACC_FALLBACK), 1)
 #$(shell echo USING YACC)
@@ -88,12 +89,12 @@ LEXER:=flex -f -Ca -Ce -Cr
 endif
 
 # add flags and the include paths
-DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK}
+DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK} -DUSE_CLT=${USE_CLT}
 
-CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
+CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS) 
 
 # add flags to build for shared library and add include paths
-SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS)
+SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS) 
 
 # generate list of c files and remove y.tab.c from src/grammar directory
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c)) build/lex.yy.c build/y.tab.c
@@ -130,7 +131,8 @@ compile:
         # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
-           -Wno-sign-conversion -Wno-sign-compare
+           -Wno-sign-conversion -Wno-sign-compare -lm
+
 
 # Shared Lib
 shared: $(OBJECTS)

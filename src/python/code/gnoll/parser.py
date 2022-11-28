@@ -1,7 +1,9 @@
 import os
 import sys
 import tempfile
+import ctypes
 from ctypes import cdll
+from importlib import reload
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
@@ -42,7 +44,6 @@ def raise_gnoll_error(value):
     if err is not None:
         raise err
 
-
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
     """
     Parse some dice notation with GNOLL.
@@ -51,8 +52,10 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     @param mock override the internal random number generator (for testing).
     @param mock_const the seed value for overriding with mocks
     @param breakdown get the details of each dice rolled, not just the final result
+    @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
+
     temp = tempfile.NamedTemporaryFile(
         prefix="gnoll_roll_", suffix=".die", delete=False
     )
@@ -95,7 +98,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     return_code = libc.roll_full_options(
         s,
         out_file,
-        True,  # enable_verbose
+        verbose,  # enable_verbose
         breakdown,  # enable_introspect
         mock is not None,  # enable_mock
         builtins,  # enable_builtins
