@@ -46,8 +46,7 @@ def raise_gnoll_error(value):
 
 
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
-    """
-    Parse some dice notation with GNOLL.
+    """ Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
     @param mock override the internal random number generator (for testing).
