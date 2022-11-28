@@ -1,5 +1,10 @@
 version = 1
 
+exclude_patterns = [
+  "tests/*",
+  "scripts/*"
+]
+
 [[analyzers]]
 name = "go"
 enabled = true
