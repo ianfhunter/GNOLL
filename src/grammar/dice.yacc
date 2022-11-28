@@ -292,7 +292,11 @@ math:
     }
     |
     math MULT math{
-        // Collapse both sides and subtract
+        /** @brief Collapse both sides and multiply
+        * Math vector
+        * MULT symbol '*'
+        * Math vector
+        */
         vec vector1 = $<values>1;
         vec vector2 = $<values>3;
 
@@ -319,6 +323,11 @@ math:
     }
     |
     math DIVIDE_ROUND_UP math{
+        /** @brief Collapse both sides and divide
+        * Math vector
+        * Divide symbol '/'
+        * Math vector
+        */
         // Collapse both sides and subtract
         vec vector1 = $<values>1;
         vec vector2 = $<values>3;
@@ -353,6 +362,11 @@ math:
     }
     |
     math DIVIDE_ROUND_DOWN math{
+        /** @brief Collapse both sides and divide
+        * Math vector
+        * Divide symbol '\'
+        * Math vector
+        */
         // Collapse both sides and subtract
         vec vector1 = $<values>1;
         vec vector2 = $<values>3;
@@ -389,6 +403,11 @@ math:
     }
     |
     math MODULO math{
+        /** @brief Collapse both sides and modulo
+        * Math vector
+        * MULT symbol '%'
+        * Math vector
+        */
         // Collapse both sides and subtract
         vec vector1 = $<values>1;
         vec vector2 = $<values>3;
@@ -484,6 +503,11 @@ math:
     }
     |
     math MINUS math{
+        /** @brief Collapse both sides and subtract
+        * Math vector
+        * MINUS symbol '-'
+        * Math vector
+        */
         vec vector1 = $<values>1;
         vec vector2 = $<values>3;
         if (
