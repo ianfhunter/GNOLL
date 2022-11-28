@@ -1,7 +1,5 @@
 import importlib.util as iu
 import os
-
-import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
@@ -39,8 +37,6 @@ def main():
     num_bins = min(num * sides, 200)
     n, bins, patches = plt.hist(results, bins=num_bins)
 
-    # (mu, sigma) = stats.norm.fit(results)
-    # y = stats.norm.pdf( bins, mu, sigma)
 
     # Empirical average and variance are computed
     avg = np.mean(results)
@@ -51,7 +47,6 @@ def main():
         np.exp(-0.5 * (pdf_x - avg) ** 2 / var)
 
     plt.plot(pdf_x, pdf_y, "k--")
-    # l = plt.plot(bins, y, 'r--', linewidth=2)
 
     plt.title(f"GNOLL Histogram: {die}")
     plt.show()

@@ -1,9 +1,7 @@
-import ctypes
 import os
 import sys
 import tempfile
 from ctypes import cdll
-from importlib import reload
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
@@ -55,7 +53,6 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
-
     temp = tempfile.NamedTemporaryFile(
         prefix="gnoll_roll_", suffix=".die", delete=False
     )
