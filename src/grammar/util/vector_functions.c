@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "operations/condition_checking.h"
+#include "operations/conditionals.h"
 #include "shared_header.h"
 #include "util/safe_functions.h"
-#include "yacc_header.h"
+#include "shared_header.h"
 
 extern int gnoll_errno;
 
@@ -23,6 +23,7 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
    */
   vector->dtype = dt;
   vector->length = number_of_items;
+  vector->has_source = false;
 
   if (dt == NUMERIC) {
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
@@ -45,11 +46,14 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
 
   vector->dtype = dt;
   vector->length = number_of_items;
+  vector->has_source = false;
 
   if (dt == NUMERIC) {
     vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
-  } else if (dt == SYMBOLIC) {
+  } 
+  else if (dt == SYMBOLIC) 
+  {
     vector->symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
@@ -210,9 +214,18 @@ void collapse_vector(vec *vector, vec *new_vector) {
   }
 
   if (vector->dtype == SYMBOLIC) {
-    new_vector = vector;
-    return;
-  } else {
+    safe_copy_2d_chararray_with_allocation(
+       &new_vector->symbols,
+       vector->symbols,
+       vector->length,
+       MAX_SYMBOL_LENGTH
+    );
+    
+    new_vector->length = vector->length;
+    new_vector->dtype = SYMBOLIC;
+    new_vector->has_source = false;
+  } 
+  else {
     int c = 0;
     for (unsigned int i = 0; i != vector->length; i++) {
       c += vector->content[i];
@@ -222,22 +235,26 @@ void collapse_vector(vec *vector, vec *new_vector) {
     if (gnoll_errno) return;
     new_vector->content[0] = c;
     new_vector->length = 1;
-    new_vector->dtype = vector->dtype;
+    new_vector->dtype = NUMERIC;
+    new_vector->has_source = false;
   }
+  return;
 }
 
-void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
+void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
                 int keep_high) {
   /**
    * @brief Collapses multiple Numeric dice to one value by summing
-   * @param vector source
-   * @param new_vector dest
+   * @param vector source (Freed at end)
+   * @param output_vector dest
    * @param number_to_keep how many values to keep or drop
    * @param keep_high Whether to keep the highest (1) or Lowest (0) values
    */
   if (gnoll_errno) {
     return;
   }
+
+  unsigned int available_amount = vector->length;
 
   if (vector->dtype == SYMBOLIC) {
     printf(
@@ -246,18 +263,23 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return;
   }
-  unsigned int available_amount = vector->length;
+  
   if (available_amount > number_to_keep) {
-    new_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
-    if (gnoll_errno) {
-      return;
-    }
-    new_vector->length = number_to_keep;
+    initialize_vector(output_vector, vector->dtype, number_to_keep);
+
+    // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
+    // if (gnoll_errno) {
+    //   return;
+    // }
+    // output_vector->length = number_to_keep;
 
     int *arr = vector->content;
     int *new_arr;
     unsigned int length = vector->length;
 
+    // while (number needed)
+    //     Get Max/Min from vector
+    //     Store in output
     for (unsigned int i = 0; i != number_to_keep; i++) {
       int m;
       if (keep_high) {
@@ -265,22 +287,25 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
       } else {
         m = min_in_vec(arr, length);
       }
-      new_vector->content[i] = m;
+      output_vector->content[i] = m;
       new_arr = (int*)safe_calloc(sizeof(int), length - 1);
       if (gnoll_errno) {
         return;
       }
 
+      // Take 'm' out of the array (put in new_array)
       pop(arr, length, m, new_arr);
       free(arr);
       arr = new_arr;
       length -= 1;
     }
-    new_vector->dtype = vector->dtype;
+    free(arr);
+    // output_vector->content = arr;
+    output_vector->dtype = vector->dtype;
   } else {
     // e.g. 2d20k4 / 2d20kh2
     printf("Warning: KeepHighest: Keeping <= produced amount");
-    new_vector = vector;
+    output_vector = vector;
   }
 }
 
