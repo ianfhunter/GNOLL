@@ -67,7 +67,7 @@ class BenchMarker:
                 count = 0
                 errored = False
 
-                for run_count in range(self.AVERAGING_RUNS):
+                for _ in range(self.AVERAGING_RUNS):
                     if errored:
                         break
 
