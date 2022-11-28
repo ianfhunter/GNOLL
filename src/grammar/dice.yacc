@@ -624,13 +624,24 @@ collapsing_dice_operations:
 
 dice_operations:
     die_roll REROLL REROLL condition NUMBER{
+        /** 
+        * dice_roll a vector
+        * REROLL symbol 'r'
+        * REROLL symbol 'r'
+        * condition vector
+        * Number vector
+        * returns a vector
+        */
 
         vec dice = $<values>1;
-        int check = $<values>4.content[0];
+        vec cv = $<values>4;
+        vec cvno = $<values>5;
+
+        int check = cv.content[0];
 
         if(dice.dtype == NUMERIC){
             int count = 0;
-            while (! check_condition(&dice, &$<values>5, (COMPARATOR)check)){
+            while (! check_condition(&dice, &cvno, (COMPARATOR)check)){
                 if (count > MAX_ITERATION){
                     printf("MAX ITERATION LIMIT EXCEEDED: REROLL\n");
                     gnoll_errno = MAX_LOOP_LIMIT_HIT;
@@ -656,12 +667,17 @@ dice_operations:
                 count ++;
             }
             $<values>$ = dice;
+
+            free_vector(die_sides);
+            free_vector(number_of_dice);
         }else{
             printf("No support for Symbolic die rerolling yet!\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
             yyclearin;
         }
+        free_vector(cv);
+        free_vector(cvno);
     }
     |
     die_roll REROLL condition NUMBER{
