@@ -665,12 +665,20 @@ dice_operations:
     }
     |
     die_roll REROLL condition NUMBER{
+        /*
+        * die_roll vector
+        * Reroll symbol
+        * condition vector
+        * Number vector
+        */
 
         vec dice = $<values>1;
-        int check = $<values>3.content[0];
+        vec comp = $<values>3;
+        int check = comp.content[0];
+        vec numv = $<values>4;
 
         if(dice.dtype == NUMERIC){
-            if (check_condition(&dice, &$<values>4, (COMPARATOR)check)){
+            if (check_condition(&dice, &numv, (COMPARATOR)check)){
 
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -687,9 +695,11 @@ dice_operations:
                     dice.source.explode,
                     1
                 );
+                free_vector(dice);
+                free_vector(number_of_dice);
             }else{
                 // No need to reroll
-                $<values>$ = $<values>1;
+                $<values>$ = dice;
             }
         }else{
             printf("No support for Symbolic die rerolling yet!");
@@ -697,6 +707,8 @@ dice_operations:
             YYABORT;
             yyclearin;;
         }
+        free_vector(numv);
+        free_vector(comp);
     }
     |
     dice_operations FILTER condition NUMBER{
@@ -973,15 +985,17 @@ die_roll:
     }
     |
     NUMBER die_symbol NUMBER EXPLOSION PENETRATE{
-
+        /**
+        * NUMBER vector
+        * die_symbol vector 
+        * NUMBER vector
+        * EXPLOSION symbol 'e' or similar
+        * PENETRATE symbol 'p'
+        */
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
         int start_from = ds.content[0];
-
-        vec number_of_dice;
-        initialize_vector(&number_of_dice, NUMERIC, 1);
-        number_of_dice.content[0] = 1;
 
         roll_plain_sided_dice(
             &numA,
