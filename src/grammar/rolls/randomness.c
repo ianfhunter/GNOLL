@@ -1,5 +1,3 @@
-
-
 #include "external/pcg_basic.h"
 #include "rolls/randomness.h"
 #include <limits.h>
@@ -24,13 +22,13 @@ int get_random_uniformly(){
 }
 
 
-double get_random_normally(double mean, double std) { /* Box-Muller. */
+double get_random_normally(double mean, double std) { 
+    /* Box-Muller. */
     // Not Cryptographically Secure yet.
     static double cached = 0.0;
-    double x, y, r, res;
-
-    // printf("Mean: %f, std: %f\n", mean, std);
+    double res;
     if (cached == 0.0) {
+        double x, y, r;
         do {
             x = 2.0 * (int)pcg32_boundedrand_r(&rng, INT_MAX) / UINT32_MAX - 1;
             y = 2.0 * (int)pcg32_boundedrand_r(&rng, INT_MAX) / UINT32_MAX - 1;
@@ -49,9 +47,6 @@ double get_random_normally(double mean, double std) { /* Box-Muller. */
         res = cached * std + mean;
         cached = 0.0;
     }
-    // -3 to 0
-    // now -6 to 0
-    // res -= 3;
 
     if(res < -3 || res > 0){
         // If outlier beyond bounds, reroll.
