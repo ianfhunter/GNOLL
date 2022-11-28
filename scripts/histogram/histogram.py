@@ -36,7 +36,7 @@ def main():
     print("Max:", np.max(results))
 
     num_bins = min(num * sides, 200)
-    n, bins, patches = plt.hist(results, bins=num_bins)
+    plt.hist(results, bins=num_bins)
 
     # Empirical average and variance are computed
     avg = np.mean(results)
