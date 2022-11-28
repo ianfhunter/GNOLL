@@ -1,22 +1,26 @@
 # GNOLL
-[![Build + Test](https://github.com/ianfhunter/GNOLL/actions/workflows/test_C_and_Python.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_C_and_Python.yml)
-[![Test: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Perl.yml)
-[![Test: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_JavaScript.yml)
-[![Test: Go](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_Go.yml)
-[![Test: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_julia.yml)
-[![Test: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_R.yml)
 
+[![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
+
+[![Binding Tests: C++](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml)
+[![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
+[![Binding Tests: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml)
+[![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
+[![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
+[![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
+[![Binding Tests: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml)
+[![Binding Tests: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
 
 [![status](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1/status.svg)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
-[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
+[![TTRPG compatibility rate](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-98.66%25-green)](https://img.shields.io/badge/Popular%20TTRPG%20compatibility-96.875%25-green)
 [![GitHub license](https://img.shields.io/github/license/ianfhunter/GNOLL.svg)](https://github.com/ianfhunter/GNOLL/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_xmas.png" height="200">
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
@@ -38,18 +42,20 @@ Many of our notation design decisions are explained in the documentation and com
 ## Current Status
 ### 🧑‍💻 Language Support
 
-We wrote GNOLL to be the definitive solution to dice notation. We've written all the code in C, but fear not! You can use GNOLL in the following languages too:
+GNOLL was written to be the definitive solution to dice notation. The core has been written in C, but fear not! You can use GNOLL in many other programming languages too.
 
-- C / C++
-- Python
-- Perl
-- Go
-- JavaScript (Node.js)
-- Julia
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
+![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
 
- We have plans to add more example integrations of GNOLL's through different languages in the near future. Let us know if you have any particular wants!
-
-Tested on Linux (Ubuntu) and Windows (10, WSL).
+Primarily tested on Linux (Ubuntu), but functional in various forms on Windows (10, WSL) and Mac.
 
 ### 🎲 Dice Notation
 - XdY notation
