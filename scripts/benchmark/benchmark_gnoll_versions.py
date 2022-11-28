@@ -34,7 +34,7 @@ stored = [
 def stored_measurements():
     # Horrible, but gives at least a rough indication of performance comparisons
     # Cannot reload .so effectively in Python
-    # TODO: Load from file that a previous cmdline generates
+    # Perhaps we can load from file that a previous cmdline generates
     # or - use cmdline interface instead
 
     global stored_count
