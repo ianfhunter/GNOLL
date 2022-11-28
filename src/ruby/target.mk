@@ -1,4 +1,4 @@
 
-.PHONY: haskell
-haskell: all
+.PHONY: ruby
+ruby: all
 	ruby src/ruby/main.rb
