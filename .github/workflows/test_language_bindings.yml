@@ -8,6 +8,13 @@ on:
 
 jobs:
 
+  test_all_langs:
+    name: "All Language Tests Complete"
+    needs: 
+      - test_Cpp
+      - test_csharp
+      - test_go
+
   test_Cpp:
     name: "Test: C++"
     runs-on: ubuntu-latest
