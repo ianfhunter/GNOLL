@@ -1,0 +1,19 @@
+name: "Binding Tests: Ruby"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_ruby:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: ruby install
+      run: |
+        sudo apt install ruby-full
+        sudo gem install ffi
+    - name: make ruby
+      run: make ruby

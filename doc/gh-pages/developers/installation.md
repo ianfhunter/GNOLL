@@ -72,8 +72,13 @@ node a.out.js
 ```
 
 ## R
-```baag
+```bash
 make r
+```
+
+## Ruby
+```bash
+make ruby
 ```
 
 ## Something Else?
