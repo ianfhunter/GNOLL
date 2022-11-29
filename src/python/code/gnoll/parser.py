@@ -44,13 +44,13 @@ def raise_gnoll_error(value):
 
 
 def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
-    """
-    Parse some dice notation with GNOLL.
+    """Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
     @param mock override the internal random number generator (for testing).
     @param mock_const the seed value for overriding with mocks
     @param breakdown get the details of each dice rolled, not just the final result
+    @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
     temp = tempfile.NamedTemporaryFile(
@@ -95,7 +95,7 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=Fa
     return_code = libc.roll_full_options(
         s,
         out_file,
-        True,  # enable_verbose
+        verbose,  # enable_verbose
         breakdown,  # enable_introspect
         mock is not None,  # enable_mock
         builtins,  # enable_builtins

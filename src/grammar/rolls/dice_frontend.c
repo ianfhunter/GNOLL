@@ -36,7 +36,12 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   rp.start_value = start_offset;
   int* roll_result = do_roll(rp);
 
+#if USE_CLT
+  // Must Accumulate. Loses details of per-item values
+  initialize_vector(result, NUMERIC, 1);
+#else
   initialize_vector(result, NUMERIC, num_dice);
+#endif
   free(result->content);
   result->content = roll_result;
   result->source = rp;
@@ -51,6 +56,12 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
    * @param result - Where to store the dice roll result
    */
   if (gnoll_errno) return;
+
+#if USE_CLT
+    printf("Cannot use Central Limit Therom Optimization with Symbolic Dice\n");
+    gnoll_errno = NOT_IMPLEMENTED;
+    return;
+#endif
 
   unsigned int num_dice = (unsigned int)x->content[0];
 

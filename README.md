@@ -10,6 +10,7 @@
 [![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
 [![Binding Tests: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml)
 [![Binding Tests: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml)
+[![Binding Tests: Ruby](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_ruby.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_ruby.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
@@ -54,6 +55,7 @@ GNOLL was written to be the definitive solution to dice notation. The core has b
 ![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
 Primarily tested on Linux (Ubuntu), but functional in various forms on Windows (10, WSL) and Mac.
 
