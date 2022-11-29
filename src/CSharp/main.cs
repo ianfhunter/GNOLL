@@ -32,11 +32,4 @@ static void RollWithGNOLL (string s)
     }
 }
 
-
-class Example
-{
-    public static void Main()
-    {
-        RollWithGNOLL("1d20");
-    }
-}
+RollWithGNOLL("1d20");
