@@ -15,8 +15,8 @@ jobs:
       - test_go
     runs-on: ubuntu-latest
     steps:
-      name: NoOp
-      run: echo 'Done'
+      - name: NoOp
+        run: echo 'Done'
 
   test_Cpp:
     name: "Test: C++"
