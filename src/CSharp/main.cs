@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-[DllImport ("libdice.so", CharSet = CharSet.Ansi))]
+[DllImport ("libdice.so", CharSet = CharSet.Ansi)]
 static extern int roll_and_write (
     [MarshalAs(UnmanagedType.LPStr)] string dice_string, 
     [MarshalAs(UnmanagedType.LPStr)] string filepath
