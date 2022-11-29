@@ -12,7 +12,7 @@ GNOLL has the following experimental features:
 
 ## Central Limit Therom + Box-Muller
 
-Providing `USE_CLT` to make will enable an optimization for huge dice rolls.
+Providing `USE_CLT=1` to make will enable an optimization for huge dice rolls.
 
 | Regular Roll Distribution | CLT Roll Distribution |
 | ------------------------- | --------------------- |
