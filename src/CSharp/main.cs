@@ -1,6 +1,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 [DllImport ("libdice.so", CharSet = CharSet.Ansi)]
 static extern int roll_and_write (
@@ -8,9 +9,9 @@ static extern int roll_and_write (
     [MarshalAs(UnmanagedType.LPStr)] string filepath
 );
  
-static void RollWithGNOLL (string s)
+static void RollWithGNOLL (string roll_request)
 {
-    string roll = s;
+    string roll = roll_request;
     string fn = "output.dice";
 
     // Delete if exist
