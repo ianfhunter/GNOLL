@@ -18,10 +18,7 @@ module DiceNotation
      err_code = GNOLL.roll_and_write(roll_str, filename)
 
      # Read output
-     df = File.open(filename, "r") do |f|
-       data = df.read
-       puts data
-     end
+     puts File.read(filename)
   end
 end
 
