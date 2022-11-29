@@ -8,8 +8,8 @@ private static extern int roll_and_write (char * string, char * filepath);
  
 private static void RollWithGNOLL ()
 {
-    string roll = "1d20"
-    string fn = "output.dice"
+    string roll = "1d20";
+    string fn = "output.dice";
 
     // Delete if exist
     if(File.Exists(fn)){
