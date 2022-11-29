@@ -1,6 +1,6 @@
 
-using System
-using System.IO
+using System;
+using System.IO;
 
 [DllImport ("libdice.so")]
 private static extern int roll_and_write (char * string, char * filepath);
