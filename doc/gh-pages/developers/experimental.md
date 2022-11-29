@@ -16,11 +16,11 @@ Providing `USE_CLT` to make will enable an optimization for huge dice rolls.
 
 | Regular Roll Distribution | CLT Roll Distribution |
 | ------------------------- | --------------------- |
-| ![CLT_data/Regular_Distribution.png] | ![CLT_data/CRT_Distribution.png] | 
+| ![Distribution of GNOLL before this feature is enabled](CLT_data/Regular_Distribution.png) | ![Distribution of GNOLL before this feature is enabled. It is a similar graph](CLT_data/CRT_Distribution.png) | 
 
 We can roll on a normalized random distribution once, rather than a scaling amount of times on a uniform  random distribution. This makes GNOLL perform at a near constant time for large dice pools.
 
-![CLT_data/Regular_Distribution.png]
+![Performance Diagram - CLT is a constant speed, Previously performance scaled with number of dice](CLT_data/Performance_Delta.png)
 
 **Warning:** There are slight differences in data distribution. The CLT method tends slightly less to the center of the graph than the regular algorithm.
 
