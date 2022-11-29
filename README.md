@@ -1,17 +1,8 @@
 # GNOLL
 
-[![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
-
-[![Binding Tests: C++](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml)
-[![Binding Tests: C#](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_csharp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_csharp.yml)
-[![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
-[![Binding Tests: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml)
-[![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
-[![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
-[![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
-[![Binding Tests: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml)
-[![Binding Tests: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml)
-[![Binding Tests: Ruby](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_ruby.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_ruby.yml)
+[![Test: Functionality](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
+[![Test: Language Bindings](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml)
+[![Test: OS Support](https://github.com/ianfhunter/GNOLL/actions/workflows/test_OS.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_OS.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
