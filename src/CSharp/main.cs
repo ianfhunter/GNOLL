@@ -3,12 +3,12 @@ using System;
 using System.IO;
 
 [DllImport ("libdice.so")]
-private static extern int roll_and_write (char * string, char * filepath);
+public static extern int roll_and_write (char* string, char* filepath);
 
  
-private static void RollWithGNOLL ()
+public static void RollWithGNOLL (string s)
 {
-    string roll = "1d20";
+    string roll = s;
     string fn = "output.dice";
 
     // Delete if exist
