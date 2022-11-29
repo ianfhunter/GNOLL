@@ -3,7 +3,7 @@ require 'ffi'
 module GNOLL
   extend FFI::Library
 
-  ffi_lib '../../build/dice.so'
+  ffi_lib 'build/dice.so'
   attach_function :roll_and_write, [:string, :string], :void
 end
 
