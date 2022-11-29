@@ -2,11 +2,13 @@
 using System;
 using System.IO;
 
-[DllImport ("libdice.so")]
-public static extern int roll_and_write (char* string, char* filepath);
-
+[DllImport ("libdice.so", CharSet = CharSet.Ansi))]
+static extern int roll_and_write (
+    [MarshalAs(UnmanagedType.LPStr)] string dice_string, 
+    [MarshalAs(UnmanagedType.LPStr)] string filepath
+);
  
-public static void RollWithGNOLL (string s)
+static void RollWithGNOLL (string s)
 {
     string roll = s;
     string fn = "output.dice";
