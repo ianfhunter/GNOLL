@@ -1,0 +1,28 @@
+name: "Binding Tests: C#"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build_csharp:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: prereqs
+      # https://linuxize.com/post/how-to-install-mono-on-ubuntu-20-04/
+      run:  |
+        sudo apt-get update
+        sudo apt-get install gnupg apt-transport-https ca-certificates software-properties-common -y
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        sudo apt-add-repository 'deb https://download.mono-project.com/repo/ubuntu stable-focal main'
+        sudo apt install mono-complete 
+        mono --version
+    - name: execute
+      run:  |
+        make cs
