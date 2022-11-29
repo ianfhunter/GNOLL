@@ -7,13 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
-
   test_all_langs:
     name: "All Language Tests Complete"
-    needs: 
+    needs:
       - test_Cpp
       - test_csharp
       - test_go
+    runs-on: ubuntu-latest
+    steps:
+      name: NoOp
+      run: echo 'Done'
 
   test_Cpp:
     name: "Test: C++"
