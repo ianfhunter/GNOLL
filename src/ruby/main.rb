@@ -15,7 +15,7 @@ module DiceNotation
      File.delete(filename) if File.exist?(filename)
 
      # GNOLL
-     err_code = GNOLL.roll_and_write(roll_str, filename)
+     GNOLL.roll_and_write(roll_str, filename)
 
      # Read output
      puts File.read(filename)
