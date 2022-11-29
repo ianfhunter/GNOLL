@@ -30,7 +30,7 @@ While we have put a lot of thought into GNOLL's choices of characters, You may c
 This is possible! Just enable introspection or "dice breakdown" and you'll get the individual results as well as the final ones.
 
 {: .question }
-> I wish to cite GNOLL
+> I wish to cite GNOLL. What is the most appropriate item to use?
 
 Please cite one of our publications.
 - [GNOLL: Efficient Multi-Lingual Software for Real-World Dice Notation and Extensions](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
