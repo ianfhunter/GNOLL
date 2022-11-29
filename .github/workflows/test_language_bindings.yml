@@ -1,5 +1,9 @@
 name: "Test: Language Bindings"
 
+# To add a new language binding test
+# - Add a new job with your test
+# - Add the new job to the list of 'needs' in `test_all_langs`
+
 on:
   push:
     branches: [ main ]
@@ -7,6 +11,23 @@ on:
     branches: [ main ]
 
 jobs:
+  test_all_langs:
+    name: "All Language Tests Complete"
+    needs:
+      - test_Cpp
+      - test_csharp
+      - test_go
+      - test_haskell
+      - test_java
+      - test_javascript
+      - test_julia
+      - test_perl
+      - test_R
+      - test_ruby
+    runs-on: ubuntu-latest
+    steps:
+      - name: NoOp
+        run: echo 'Done'
 
   test_Cpp:
     name: "Test: C++"
