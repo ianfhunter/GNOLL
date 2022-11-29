@@ -1,4 +1,4 @@
-name: "Core Tests"
+name: "Test: Functionality"
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build_linux:
+  functionality_tests:
 
     runs-on: ubuntu-latest
 
@@ -30,37 +30,3 @@ jobs:
         make test USE_SECURE_RANDOM=1
     - name: Lex/Yacc Fallback
       run: make test LEX_FALLBACK=1 YACC_FALLBACK=1
-
-  build_win:
-
-    runs-on: windows-2022
-
-    steps:
-    - uses: Vampire/setup-wsl@v1
-      with:
-        distribution: Ubuntu-22.04
-        update: 'true'
-        additional-packages:
-          python3-dev
-          bison
-          flex
-          python3-pip
-          build-essential
-          libssl-dev
-          libffi-dev
-          python3.10-venv
-
-    - uses: actions/checkout@v3
-    - name: test
-      shell: wsl-bash {0}
-      run: |
-        make all
-        ./build/dice d100
-  build_mac:
-    runs-on: macos-12
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        run: make all
-      - name: Test
-        run: ./build/dice 20
