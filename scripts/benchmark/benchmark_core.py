@@ -103,7 +103,6 @@ class BenchMarker:
             if y:
                 plt.plot(shared_x[0: len(y)], y,
                          color=c["color"], marker=c["marker"])
-
                 print("Result:", y)
 
         # Configuration and Output

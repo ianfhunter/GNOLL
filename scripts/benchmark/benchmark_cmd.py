@@ -7,7 +7,8 @@ from benchmark_core import BenchMarker
 # ======= Benchmark Imports ==========
 
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
+)
 m = os.path.join(SRC_DIR, "parser.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -21,8 +22,7 @@ diceparser_exec = os.path.join(os.path.expanduser("~"), "diceparser")
 def troll_roll(_):
     # test.t is generated inside the benchmark core
     v = subprocess.run([troll_exec, "0", "test.t"],
-                       capture_output=True,
-                       check=True)
+                       capture_output=True, check=True)
     if v.returncode:
         raise ValueError
 
