@@ -74,7 +74,7 @@ jobs:
           cd src/haskell/ && cabal run src d20
 
   test_java:
-  
+
     name: "Test: Java"
     runs-on: ubuntu-latest
 
