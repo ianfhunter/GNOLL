@@ -4,7 +4,7 @@ import pytest
 from util import Mock, roll
 
 
-# {3},{3},{1}
+# Should roll like: {3},{3},{1}
 @pytest.mark.parametrize("r,out", [("d3!", 7), ("d5!", 3), ("d5e", 3)])
 def test_explosion(r, out):
     result, _ = roll(
@@ -16,7 +16,7 @@ def test_explosion(r, out):
     assert result == out
 
 
-# {3,3},{1,1}  # {3,3}
+# Should roll like: {3,3},{1,1}  # {3,3}
 @pytest.mark.parametrize("r,out", [("2d3!", 8), ("2d5!", 6)])
 def test_multi_dice_explosion(r, out):
     result, _ = roll(
