@@ -1,15 +1,8 @@
 # GNOLL
 
-[![Core Tests](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
-
-[![Binding Tests: C++](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_cpp.yml)
-[![Binding Tests: GoLang](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_go.yml)
-[![Binding Tests: Haskell](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_haskell.yml)
-[![Binding Tests: Java](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_java.yml)
-[![Binding Tests: JavaScript](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_javascript.yml)
-[![Binding Tests: Julia](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_julia.yml)
-[![Binding Tests: Perl](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_perl.yml)
-[![Binding Tests: R](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_binding_R.yml)
+[![Test: Functionality](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
+[![Test: Language Bindings](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml)
+[![Test: OS Support](https://github.com/ianfhunter/GNOLL/actions/workflows/test_OS.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_OS.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/ianfhunter/gnoll/badge)](https://www.codefactor.io/repository/github/ianfhunter/gnoll)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/90add1388135474a928b715ddbb071b4)](https://www.codacy.com/gh/ianfhunter/GNOLL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianfhunter/GNOLL&amp;utm_campaign=Badge_Grade)
@@ -20,7 +13,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_xmas.png" height="200">
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
@@ -46,14 +39,17 @@ GNOLL was written to be the definitive solution to dice notation. The core has b
 
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 ![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Julia](https://img.shields.io/badge/-Julia-9558B2?style=for-the-badge&logo=julia&logoColor=white)
 ![Perl](https://img.shields.io/badge/perl-%2339457E.svg?style=for-the-badge&logo=perl&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 
 Primarily tested on Linux (Ubuntu), but functional in various forms on Windows (10, WSL) and Mac.
 

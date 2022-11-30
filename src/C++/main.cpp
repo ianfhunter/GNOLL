@@ -4,16 +4,6 @@
 #include <string.h>
 #include "shared_header.h"
 
-int roll_full_options(
-    char* roll_request, 
-    char* log_file, 
-    int enable_verbosity, 
-    int enable_introspection,
-    int enable_mocking,
-    int mocking_type,
-    int mocking_seed
-);
-
 int main()
 {
   const char* fn = "out.dice";
@@ -23,6 +13,7 @@ int main()
   int err_code = roll_full_options(
     strdup("1d20"),
     strdup(fn),
+    0,
     0,
     0,
     0,

@@ -6,9 +6,11 @@ from enum import Enum
 import numpy as np
 
 GRAMMAR_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/grammar"))
+    os.path.join(os.path.dirname(__file__), "../../src/grammar")
+)
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
+)
 MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 first_run = True
@@ -52,7 +54,9 @@ def make_all():
         raise ValueError
 
 
-def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True):
+def roll(
+    s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True, builtins=False
+):
     global first_run
 
     if first_run:
@@ -63,11 +67,14 @@ def roll(s, mock_mode=Mock.NO_MOCK, mock_const=3, verbose=False, squeeze=True):
 
     # Get module now - post make
     dice_tower_roll = get_roll()
-    dt_return = dice_tower_roll(s,
-                                mock=mock_mode.value,
-                                mock_const=mock_const,
-                                verbose=verbose,
-                                breakdown=True)
+    dt_return = dice_tower_roll(
+        s,
+        mock=mock_mode.value,
+        mock_const=mock_const,
+        verbose=verbose,
+        breakdown=True,
+        builtins=builtins,
+    )
     exit_code = dt_return[0]
     result = dt_return[1]
     dice_breakdown = dt_return[2] if len(dt_return) > 2 else []

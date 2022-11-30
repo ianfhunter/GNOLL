@@ -75,8 +75,9 @@ def test_non_rolling_roll():
     assert result == 0
 
 
-@pytest.mark.parametrize("r", [("d"), ("d2d"), ("2d2d2"), ("2d2d2d"), ("1d"),
-                               ("d-1"), ("-1d-1")])
+@pytest.mark.parametrize(
+    "r", [("d"), ("d2d"), ("2d2d2"), ("2d2d2d"), ("1d"), ("d-1"), ("-1d-1")]
+)
 def test_bad_simple_rolls(r):
     try:
         roll(r)

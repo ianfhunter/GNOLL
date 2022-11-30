@@ -6,7 +6,7 @@
     #include <stdio.h>
     #include "shared_header.h"
     #include "util/safe_functions.h"
-    #include "operations/condition_checking.h"
+    #include "operations/conditionals.h"
     #include "y.tab.h"
     #include <assert.h>
 
@@ -31,6 +31,7 @@
 
     vector.dtype = SYMBOLIC;
     vector.length = 1;
+    vector.has_source = false;
 
     yylval.values = vector;
     return CAPITAL_STRING;
@@ -43,6 +44,7 @@
 
     vector.content[0] = fast_atoi(yytext);
 
+    vector.has_source = false;
     vector.dtype = NUMERIC;
     vector.length = 1;
     yylval.values = vector;
@@ -58,40 +60,53 @@ d {
 }
 
 (dF|df)\.1 {
-    char * plus, *minus, *zero;
-    plus = (char *)safe_malloc(sizeof(char *));
+    char *plus, *minus;
+    char *zeroA, *zeroB, *zeroC, *zeroD;
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    zero = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+
+    zeroA = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    zero = "0";
-    minus = (char *)safe_malloc(sizeof(char *));
+    zeroA[0] = '0';
+    zeroB = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    zeroB[0] = '0';
+    zeroC = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    zeroC[0] = '0';
+    zeroD = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    zeroD[0] = '0';
+
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
+    if(gnoll_errno){yyerror("Memory Err");}
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;
     vector.symbols = (char**)safe_malloc(sizeof(char **) * 6);
     if(gnoll_errno){yyerror("Memory Err");}
     vector.symbols[0] = plus;
-    vector.symbols[1] = zero;
-    vector.symbols[2] = zero;
-    vector.symbols[3] = zero;
-    vector.symbols[4] = zero;
+    vector.symbols[1] = zeroA;
+    vector.symbols[2] = zeroB;
+    vector.symbols[3] = zeroC;
+    vector.symbols[4] = zeroD;
     vector.symbols[5] = minus;
     vector.length = 6;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);
 }
 (dF|df)\.[3-9] {
     char * plus, *minus;
-    plus = (char *)safe_malloc(sizeof(char *));
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    minus = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;
@@ -100,21 +115,22 @@ d {
     vector.symbols[0] = plus;
     vector.symbols[1] = minus;
     vector.length = 2;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);
 }
 (dF|df)(\.2)? {
-    char * plus, *minus, *zero;
-    plus = (char *)safe_malloc(sizeof(char *));
+    char *plus, *minus, *zero;
+    plus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    plus = "+";
-    zero = (char *)safe_malloc(sizeof(char *));
+    plus[0] = '+';
+    zero = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    zero = "0";
-    minus = (char *)safe_malloc(sizeof(char *));
+    zero[0] = '0';
+    minus = (char *)safe_calloc(sizeof(char *),MAX_SYMBOL_LENGTH);
     if(gnoll_errno){yyerror("Memory Err");}
-    minus = "-";
+    minus[0] = '-';
 
     vec vector;
     vector.dtype = SYMBOLIC;
@@ -123,7 +139,9 @@ d {
     vector.symbols[0] = plus;
     vector.symbols[1] = zero;
     vector.symbols[2] = minus;
+    vector.has_source = false;
     vector.length = 3;
+    vector.has_source = false;
     yylval.values = vector;
 
     return(FATE_DIE);
@@ -197,6 +215,7 @@ u {
     vector.content[0] = IS_UNIQUE;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return (UNIQUE);
 }
@@ -223,6 +242,7 @@ o {
     vector.content[0] = NOT_EQUAL;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return NE;
 }
@@ -233,6 +253,7 @@ o {
     vector.content[0] = EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return EQ;
 }
@@ -243,6 +264,7 @@ o {
     vector.content[0] = LESS_THAN;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return LT;
 }
@@ -252,6 +274,7 @@ o {
     if(gnoll_errno){yyerror("Memory Err");}
     vector.content[0] = GREATER_THAN;
     vector.dtype = NUMERIC;
+    vector.has_source = false;
     vector.length = 1;
     yylval.values = vector;
     return GT;
@@ -263,6 +286,7 @@ o {
     vector.content[0] = LESS_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(LE);
 }
@@ -273,6 +297,7 @@ o {
     vector.content[0] = GREATER_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(GE);
 }
@@ -283,6 +308,7 @@ is_even {
     vector.content[0] = IF_EVEN;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(IS_EVEN);
 }
@@ -293,6 +319,7 @@ is_odd {
     vector.content[0] = IF_ODD;
     vector.dtype = NUMERIC;
     vector.length = 1;
+    vector.has_source = false;
     yylval.values = vector;
     return(IS_ODD);
 }
