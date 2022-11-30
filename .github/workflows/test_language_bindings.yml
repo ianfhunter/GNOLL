@@ -182,6 +182,7 @@ jobs:
     - name: make ruby
       run: make ruby
   test_php:
+    name: "Test: PHP"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
