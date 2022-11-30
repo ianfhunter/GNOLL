@@ -398,8 +398,8 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
-|Labyrinth Lord	| | |			
-|Lace and Steel		| | |	
+|Labyrinth Lord	| d20 | ✔️|			
+|Lace and Steel		|Cards | 〰️|	
 |Land of the Rising Sun	| Chivalry & Sorcery	| | 
 |Lands of Adventure		| | |				
 |The Laundry				| | |		
