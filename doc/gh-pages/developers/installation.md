@@ -23,7 +23,7 @@ sudo apt-get install bison flex make python3-pip -y
 
 ### C
 This is the default build target.
-Tested with GCC and Clang Compilers.
+Tested with GCC and Clang Compilers and is C99 compliant.
 
 ```bash
 make all
@@ -89,6 +89,11 @@ make javascript
 #### Run
 ```bash
 node a.out.js
+```
+
+### PHP
+```bash
+make php
 ```
 
 ### R
