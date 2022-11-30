@@ -28,7 +28,7 @@ bibliography: paper.bib
 
 Dice Notation is a system for describing how to roll collections of dice. It is often used to assist understanding of rules of games - particularly tabletop roleplaying games (TTRPGs). Existing research software in this space has been primarily designed for other researchers and statisticians despite the fact that a large population of those actually playing these games are young [@DNDDemographics2019] or not involved in statistical research.
 
-`GNOLL` is an open-source library for parsing commonly used dice notations - for use in gaming system research and/or software development. `GNOLL` is performant, supports most popular and obscure notations, has permissive licensing and is integratable into many other systems due to it being written in C. At present, the repository has working examples of integration into Go, Java, Julia, Python, Perl and R.
+`GNOLL` is an open-source library for parsing commonly used dice notations - for use in gaming system research and/or software development. `GNOLL` is performant, supports most popular and obscure notations, has permissive licensing and is integratable into many other systems due to it being written in C. At present, the repository has working examples of integration into 13 different programming languages such as Go, Java, Julia, Python, Perl and R.
 
 # Statement of Need
 Whilst there are several dice rolling utilities on the market for research/commercial use there is no current solution which:
