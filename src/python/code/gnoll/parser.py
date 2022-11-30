@@ -3,8 +3,6 @@ import sys
 import tempfile
 from ctypes import cdll
 
-from wurlitzer import pipes
-
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
@@ -45,19 +43,19 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
-    """
-    Parse some dice notation with GNOLL.
+def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False, builtins=False):
+    """Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
     @param mock override the internal random number generator (for testing).
     @param mock_const the seed value for overriding with mocks
     @param breakdown get the details of each dice rolled, not just the final result
+    @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
-    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
-                                       suffix=".die",
-                                       delete=False)
+    temp = tempfile.NamedTemporaryFile(
+        prefix="gnoll_roll_", suffix=".die", delete=False
+    )
 
     def make_native_type(v):
         """
@@ -92,25 +90,18 @@ def roll(s, verbose=False, mock=None, mock_const=3, breakdown=False):
         print("Rolling: ", s)
         print("Output in:", out_file)
 
-    with pipes() as (out, err):
-        s = s.encode("ascii")
+    s = s.encode("ascii")
 
-        return_code = libc.roll_full_options(
-            s,
-            out_file,
-            False,  # enable_verbose
-            breakdown,  # enable_introspect
-            mock is not None,  # enable_mock
-            mock,
-            mock_const,
-        )
-
-    if verbose:
-        print("---stdout---")
-        print(out.read())
-        print("---stderr---")
-        print(err.read())
-
+    return_code = libc.roll_full_options(
+        s,
+        out_file,
+        verbose,  # enable_verbose
+        breakdown,  # enable_introspect
+        mock is not None,  # enable_mock
+        builtins,  # enable_builtins
+        mock,
+        mock_const,
+    )
     if return_code != 0:
         raise_gnoll_error(return_code)
 
@@ -127,9 +118,11 @@ if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
     code, r, detailed_r = roll(arg, verbose=False)
-    print(f"""
+    print(
+        f"""
 [[GNOLL Results]]
 Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code}, 
-Dice Breakdown: {detailed_r}""")
+Dice Breakdown: {detailed_r}"""
+    )

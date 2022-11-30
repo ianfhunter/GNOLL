@@ -11,11 +11,14 @@ else
    STANDARD= -std=c99
 endif
 
-OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
+
+
+OPT=-O3 \
+    $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2
+	-Wundef -Wno-unused -Wformat=2  
 
 # -ffast-math # Problematic for Python 
 
@@ -26,13 +29,35 @@ OPT=-O3 $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
 # -Wlogical-op
 
 # === DEBUG OPTIONS ====
+
+ASAN_FLAGS= -fsanitize=address \
+	-fsanitize-recover=address \
+	-fsanitize-address-use-after-scope \
+	-fno-omit-frame-pointer -static-libasan -g
+GDB_FLAGS= -g -gdwarf-5
+
 DEBUG=0
 ifeq ($(DEBUG), 1)
-OPT=-O0 -g  # Valgrind info
+# Valgrind
+OPT=-O0 $(GDB_FLAGS)
 PARSER_DEBUG:=--debug --verbose
 else
+ifeq ($(DEBUG), 2)
+# ASAN
+OPT=-O0 $(ASAN_FLAGS)
+PARSER_DEBUG:=
+else
+ifeq ($(DEBUG), 3)
+# ASAN
+OPT=-O0 $(GDB_FLAGS) -lefence
+PARSER_DEBUG:=
+else
+# USUAL
 PARSER_DEBUG:=
 endif
+endif
+endif
+
 
 USE_SECURE_RANDOM=0
 ifeq ($(USE_SECURE_RANDOM), 1)
@@ -42,6 +67,8 @@ else
 #$(shell echo abc) "Using Cryptographically Secure, but slow random fn")
 ARC4RANDOM:=
 endif
+
+USE_CLT=0
 
 YACC_FALLBACK=0
 ifeq ($(YACC_FALLBACK), 1)
@@ -62,12 +89,12 @@ LEXER:=flex -f -Ca -Ce -Cr
 endif
 
 # add flags and the include paths
-DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK} -DBREAKDOWN
+DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK} -DUSE_CLT=${USE_CLT}
 
-CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
+CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS) 
 
 # add flags to build for shared library and add include paths
-SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS)
+SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS) 
 
 # generate list of c files and remove y.tab.c from src/grammar directory
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c)) build/lex.yy.c build/y.tab.c
@@ -104,11 +131,12 @@ compile:
         # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
-           -Wno-sign-conversion -Wno-sign-compare
+           -Wno-sign-conversion -Wno-sign-compare -lm
+
 
 # Shared Lib
 shared: $(OBJECTS)
-	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM)
+	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM) -lm
 	cp build/dice.so build/libdice.so
 # Linux
 	mv ./a.out build/dice | true

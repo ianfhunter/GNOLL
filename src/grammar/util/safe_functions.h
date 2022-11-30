@@ -22,6 +22,7 @@ typedef enum {
   UNDEFINED_MACRO = 12
 } ERROR_CODES;
 
+void print_gnoll_errors();
 void *safe_malloc(size_t size);
 void *safe_calloc(size_t nitems, size_t size);
 FILE *safe_fopen(const char *filename, const char *mode);
@@ -32,6 +33,8 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
                                             unsigned int items,
                                             unsigned int max_size);
 void free_2d_array(char ***arr, unsigned int items);
+
+void free_vector(vec v);
 
 int fast_atoi(const char *str);
 

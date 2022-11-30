@@ -9,6 +9,80 @@
 #include "shared_header.h"
 
 int gnoll_errno = 0;
+extern int verbose;
+
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+
+void print_gnoll_errors(){
+  /**
+   * @brief A human-readable translation of the gnoll error codes
+   * 
+   */
+  if(verbose){
+    switch(gnoll_errno){
+      case SUCCESS:{
+        printf("%sErrorCheck: No Errors.%s\n",ANSI_COLOR_GREEN, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_ALLOC:{
+        printf("%sErrorCheck: Bad Allocation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_FILE:{
+        printf("%sErrorCheck: Bad File.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case NOT_IMPLEMENTED:{
+        printf("%sErrorCheck: Not Implemented.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case INTERNAL_ASSERT:{
+        printf("%sErrorCheck: Internal Assertion.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case UNDEFINED_BEHAVIOUR:{
+        printf("%sErrorCheck: Undefined Behaviour.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case BAD_STRING:{
+        printf("%sErrorCheck: Bad String.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case OUT_OF_RANGE:{
+        printf("%sErrorCheck: Out of Range.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case IO_ERROR:{
+        printf("%sErrorCheck: I/O Error.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case MAX_LOOP_LIMIT_HIT:{
+        printf("%sErrorCheck: Max Loop Limit Reached.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case SYNTAX_ERROR:{
+        printf("%sErrorCheck: Syntax Error.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case DIVIDE_BY_ZERO:{
+        printf("%sErrorCheck: Divide by Zero.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case UNDEFINED_MACRO:{
+        printf("%sErrorCheck: Undefined Macro.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      default:{
+        printf("%sErrorCheck: Error (Undetermined. Code %i).%s\n",ANSI_COLOR_RED, gnoll_errno, ANSI_COLOR_RESET);
+        break;
+      }
+    }
+  }
+}
 
 void *safe_malloc(size_t size) {
   /**
@@ -30,6 +104,18 @@ void *safe_malloc(size_t size) {
   return malloc_result;
 }
 
+void free_vector(vec v){
+  if(v.dtype == NUMERIC){
+    free(v.content);
+  }else{
+    free_2d_array(&v.symbols, v.length);
+    if (v.has_source){
+      // Should be always the same as length (But not sure that's true!)
+      free_2d_array(&v.source.symbol_pool, v.source.die_sides);
+    }
+  }
+}
+
 void free_2d_array(char ***arr, unsigned int items) {
   /**
    * @brief Free a 2d char array in a repeatable manner.
@@ -38,7 +124,6 @@ void free_2d_array(char ***arr, unsigned int items) {
    */
   if (*arr) {
     for (unsigned int i = 0; i != items; i++) {
-      // printf("[%u] Try to free: %p\n",i, (*arr)[i]);
       if ((*arr)[i]) {
         free((*arr)[i]);
       }
@@ -57,21 +142,25 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
    * @param item
    * @param max_size
    */
+
   *dst = (char**)safe_calloc(items, sizeof(char **));
   if (gnoll_errno) {
     return;
   }
 
   for (unsigned int i = 0; i != items; i++) {
+    
     (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
       return;
     }
+    
     memcpy((*dst)[i], src[i], max_size);
   }
+  
 }
 
-void *safe_calloc(size_t nitems, size_t size) {
+void * safe_calloc(size_t nitems, size_t size) {
   /**
    * @brief Safe version of calloc. Populates gnoll_errno on error
    * @param size
@@ -125,7 +214,8 @@ char *safe_strdup(const char *str1) {
   }
   char *result;
   unsigned int l = strlen(str1) + 1;  //+1 for \0
-  result = (char*) safe_calloc(sizeof(char), l);
+  result = (char*) safe_calloc(sizeof(char), MAX_SYMBOL_LENGTH);
+  // result = (char*) safe_calloc(sizeof(char), l);
   result = strcpy(result, str1);
   if (result == 0) {
     gnoll_errno = BAD_STRING;

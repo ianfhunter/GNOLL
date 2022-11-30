@@ -19,15 +19,13 @@ def test_macro_storage(r, out, mock):
     assert result == out
 
 
-@pytest.mark.parametrize("r,out,mock",
-                         [("#MY_DIE=d{A};@MY_DIE", "A", Mock.NO_MOCK)])
+@pytest.mark.parametrize("r,out,mock", [("#MY_DIE=d{A};@MY_DIE", "A", Mock.NO_MOCK)])
 def test_macro_usage(r, out, mock):
     result, _ = roll(r, mock_mode=mock)
     assert result == out
 
 
-@pytest.mark.skip("Currently no support for rerolling operations like Addition"
-                  )
+@pytest.mark.skip("Currently no support for rerolling operations like Addition")
 def test_d66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result, _ = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
@@ -44,7 +42,10 @@ def test_multiple_external_calls_macros():
     result = []
     r = "#TEST=d{A,B,C,D};@TEST;"
     for _ in range(20):
-        result.append(roll(r))
+        print("~~~~ ROLL~~~~")
+        x = roll(r)
+        result.append(x)
+        print(x)
     assert not all(r == result[0] for r in result)
 
 
@@ -53,6 +54,12 @@ def test_undefined_macro():
         roll("@SOME_MACRO")
     except Exception as e:
         error_handled_by_gnoll(e)
+
+
+# @pytest.mark.skip("Temporary Failure")
+def test_predefined_macro():
+    r = roll("@ORACLE", builtins=True)[0]
+    assert r in ["YES", "YES_AND", "YES_BUT", "NO", "NO_AND", "NO_BUT"]
 
 
 def test_builtins():

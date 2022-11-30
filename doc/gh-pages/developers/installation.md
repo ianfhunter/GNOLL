@@ -19,17 +19,41 @@ nav_order: 0
 sudo apt-get install bison flex make python3-pip -y
 ```
 
-## C/C++
+## Language Bindings 
+
+### C
+This is the default build target.
+Tested with GCC and Clang Compilers.
+
 ```bash
 make all
+./a.out "1d20
 ```
 
-## Go
+### C++
+Tested with Clang Compiler.
+
+```bash
+make cpp
+```
+
+### CSharp
+Tested with Mono Compiler
+```bash
+make cs
+```
+
+### Go
 ```bash
 make go
 ```
 
-## Python
+### Haskell
+```
+make haskell
+```
+
+### Python
 Available from [PyPi](https://pypi.org/project/gnoll/)
 ```bash
 pip install gnoll
@@ -39,31 +63,42 @@ If you are running from sourcecode:
 make python
 ```
 
-## Perl
+### Perl
 ```bash
 make perl
 ```
 
-## Julia
+### Julia
+Available from [JuliaHub](https://juliahub.com/ui/Packages/GnollDiceNotation/WetJc/)
 ```
 make julia
 ```
 
-## JavaScript Setup
+### JavaScript Setup
 
-### Pre-Requisites
+#### Pre-Requisites
 ```bash
 sudo apt-get install emscripten nodejs
 ```
 
-### Build
+#### Build
 ```bash
 make javascript
 ```
 
-### Run
+#### Run
 ```bash
 node a.out.js
+```
+
+### R
+```bash
+make r
+```
+
+### Ruby
+```bash
+make ruby
 ```
 
 ## Something Else?
