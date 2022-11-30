@@ -17,9 +17,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 
 This list is currently **Under Construction**.
 
-**Letters Done:** `0ABCDEFGHIJKOQUXYZ`
+**Letters Done:** `0ABCDEFGHIJKLMOQUXYZ`
 
-**Remaining Letters:** `LMNPRSTVW`
+**Remaining Letters:** `NPRSTVW`
 
 ## Legend
 
