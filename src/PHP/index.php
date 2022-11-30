@@ -1,7 +1,5 @@
 <?php
 
-echo 'Hello, GNOLL!';
-
 //if (!extension_loaded('dice')) {
 //  dl('dice');
 //}
@@ -19,8 +17,7 @@ $fn = "output.dice";
 
 unlink($fn);
 
-$gnoll->roll_and_write("3d6", $fn);
+$err = $gnoll->roll_and_write("3d6", $fn);
 
 $info = file_get_contents($fn);
 echo $info;
-
