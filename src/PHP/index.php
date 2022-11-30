@@ -15,5 +15,12 @@ $gnoll = FFI::cdef(
     "libdice.so"
 );
 
-$gnoll->roll_and_write("3d6", "output.dice");
+$fn = "output.dice";
+
+unlink($fn);
+
+$gnoll->roll_and_write("3d6", $fn);
+
+$info = file_get_contents($fn);
+echo $info;
 
