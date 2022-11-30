@@ -1,15 +1,8 @@
 <?php
 
-//if (!extension_loaded('dice')) {
-//  dl('dice');
-//}
-//roll_and_write('d300', 'output.die');
-
-
-
 // create FFI object
 $gnoll = FFI::cdef(
-    "int roll_and_write(char * roll, char *fn );", 
+    "int roll_and_write(char * roll, char *fn );",
     "libdice.so"
 );
 
