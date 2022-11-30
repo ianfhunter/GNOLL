@@ -22,6 +22,7 @@ jobs:
       - test_javascript
       - test_julia
       - test_perl
+      - test_php
       - test_R
       - test_ruby
     runs-on: ubuntu-latest
@@ -180,3 +181,18 @@ jobs:
         sudo gem install ffi
     - name: make ruby
       run: make ruby
+  test_php:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        coverage: none
+        ini-values: enable_dl=True
+        extensions: dice
+      env:
+        DICE_PATH: src/PHP/
+    - name: make php
+      run: make php
