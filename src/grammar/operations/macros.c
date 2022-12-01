@@ -112,7 +112,6 @@ void search_macros(char *skey, roll_params *to_store) {
 
   HASH_FIND_INT(macros, &k, s); /* s: output pointer */
 
-
   if (s == NULL) {
     if (verbose) printf("Macro:: UNDEFINED (macros.c)\n");
     gnoll_errno = UNDEFINED_MACRO;
