@@ -22,10 +22,11 @@ void print_gnoll_errors(){
    * @brief A human-readable translation of the gnoll error codes
    * 
    */
-  if(verbose){
     switch(gnoll_errno){
       case SUCCESS:{
-        printf("%sErrorCheck: No Errors.%s\n",ANSI_COLOR_GREEN, ANSI_COLOR_RESET);
+        if(verbose){
+          printf("%sErrorCheck: No Errors.%s\n",ANSI_COLOR_GREEN, ANSI_COLOR_RESET);
+        }
         break;
       }
       case BAD_ALLOC:{
@@ -80,7 +81,6 @@ void print_gnoll_errors(){
         printf("%sErrorCheck: Error (Undetermined. Code %i).%s\n",ANSI_COLOR_RED, gnoll_errno, ANSI_COLOR_RESET);
         break;
       }
-    }
   }
 }
 

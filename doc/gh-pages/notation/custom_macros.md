@@ -43,3 +43,5 @@ You can use ranges
 You can also use words
 
 `$FRIENDS={JOHN,MARY,TAI}`
+
+**Note:** Currently, if you wish to roll stored dice multiple times, you must do this in seperate statements e.g. `@FRIENDS;@FRIENDS;@FRIENDS`
