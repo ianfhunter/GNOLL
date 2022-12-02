@@ -393,9 +393,9 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Kult | PBtA | ✔️ |
 |Labyrinth Lord	| d20 | ✔️|			
 |Lace and Steel		|Cards | 〰️|	
-|Land of the Rising Sun	| Chivalry & Sorcery	| | 
-|Lands of Adventure		| | |				
-|The Laundry				| | |		
+|Land of the Rising Sun	| Chivalry & Sorcery	|  🔼 | 
+|Lands of Adventure		| |   🔼|				
+|The Laundry				| Basic Roleplaying| ✔️|		
 |Legacy						| | |
 |Legend of the Five Rings Role-Playing Game		| | |
 |Legends of Anglerre			| | |			
