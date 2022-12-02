@@ -3,7 +3,9 @@ name: "Test: Packages"
 on:
   push:
     branches: [ main ]
-
+  pull_request:
+    branches: [ main ]
+    
 jobs:
   pypi_linux:
     name: "PyPi: Linux"
