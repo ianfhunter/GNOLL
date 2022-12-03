@@ -7,5 +7,6 @@ numpy>=1.22.2
 
 # distribution
 wheel
+build
 twine
 setuptools>=65.5.1
