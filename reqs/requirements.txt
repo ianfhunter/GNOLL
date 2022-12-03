@@ -6,6 +6,6 @@ pytest
 numpy>=1.22.2
 
 # distribution
-build
+wheel
 twine
 setuptools>=65.5.1
