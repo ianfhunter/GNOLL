@@ -1,5 +1,11 @@
 from setuptools import setup
-import sys
+from setuptools.dist import Distribution
 
-sys.argv.extend(['--plat-name', 'manylinux2014'])
-setup()
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+    def has_ext_modules(foo):
+        return True
+
+setup(
+    distclass=BinaryDistribution
+)
