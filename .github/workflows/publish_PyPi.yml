@@ -111,10 +111,5 @@ jobs:
         python setup.py bdist_wheel --plat-name=mac
         #  python -m build
     - name: Publish package
-      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-      with:
-        packages_dir: ./src/python/dist
-        user: __token__
-        # password: ${{ secrets.PYPI_API_TOKEN_2022 }}
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+      run: |
+        echo "twine"
