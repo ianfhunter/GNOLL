@@ -77,7 +77,7 @@ jobs:
       run: |
         touch ~/.pypirc
         python3 setup.py bdist_wheel
-        twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/  deploy_mac:
+        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/  deploy_mac:
 
   deploy_mac:
     runs-on: macos-12
