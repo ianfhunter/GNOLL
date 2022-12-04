@@ -102,5 +102,5 @@ jobs:
       working-directory: ./src/python/
       run: |
         touch ~/.pypirc
-        python setup.py bdist_wheel --plat-name=mac12
+        python setup.py bdist_wheel
         twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
