@@ -109,7 +109,4 @@ jobs:
       working-directory: ./src/python/
       run: |
         python setup.py bdist_wheel --plat-name=mac
-        #  python -m build
-    - name: Publish package
-      run: |
-        echo "twine"
+        twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
