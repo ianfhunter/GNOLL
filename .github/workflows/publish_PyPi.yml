@@ -103,4 +103,4 @@ jobs:
       run: |
         touch ~/.pypirc
         python setup.py bdist_wheel --plat-name=mac
-        twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
+        twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
