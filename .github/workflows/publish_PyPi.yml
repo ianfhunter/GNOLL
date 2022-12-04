@@ -77,7 +77,7 @@ jobs:
       run: |
         python setup.py bdist_wheel --plat-name=win64
         twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/  deploy_mac:
-
+  deploy_mac:
     runs-on: macos-12
     env:
       working-directory: ./src/python/
