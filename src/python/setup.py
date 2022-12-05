@@ -1,6 +1,7 @@
 from setuptools import setup
 
-#setup()
+def in_wsl() -> bool:
+    return 'microsoft-standard' in uname().release
 
 try:
     from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
@@ -10,8 +11,10 @@ try:
             self.root_is_pure = False
 except ImportError:
     bdist_wheel = None
-
-setup(
-    # ...
-    cmdclass={'bdist_wheel': bdist_wheel},
-)
+    
+if in_wsl():
+    setup()
+else:
+    setup(
+        cmdclass={'bdist_wheel': bdist_wheel},
+    )
