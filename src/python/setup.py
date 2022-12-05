@@ -1,5 +1,7 @@
-from setuptools import setup
 from platform import uname
+
+from setuptools import setup
+
 
 def in_wsl() -> bool:
     return "microsoft-standard" in uname().release
