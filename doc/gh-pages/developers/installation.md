@@ -11,8 +11,9 @@ nav_order: 0
 | OS | Version | Tested (From Source) | Tested (PyPi) |
 | -- | ------- | -------------------- | ------------- |
 | Linux | Ubuntu 18.04 | Yes | Yes |
-| Windows | WSL1 | Yes | No |
-| MacOS | 12 | Yes | Error |
+| Windows | WSL1 | Yes | ? |
+| Windows | Win11 | No | No |
+| MacOS | 12 | Yes | Yes |
 
 ## Common Pre-requisites
 ```bash
