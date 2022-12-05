@@ -42,9 +42,9 @@ jobs:
       with:
         packages_dir: ./src/python/dist
         user: __token__
-        # password: ${{ secrets.PYPI_API_TOKEN_2022 }}
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+        password: ${{ secrets.PYPI_API_TOKEN_2022 }}
+#         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+#         repository_url: https://test.pypi.org/legacy/
         
 #   deploy_windows:
 #     runs-on: windows-2022
@@ -105,4 +105,5 @@ jobs:
       run: |
         touch ~/.pypirc
         python setup.py bdist_wheel
-        twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
+        twine upload --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }} dist/*
+        # twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
