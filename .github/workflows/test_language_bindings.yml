@@ -142,7 +142,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: go install
+    - name: julia install
       run: sudo apt install julia
     - name: make julia
       run: make julia
