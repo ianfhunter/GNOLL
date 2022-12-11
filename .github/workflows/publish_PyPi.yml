@@ -68,6 +68,7 @@ jobs:
     - name: test
       shell: wsl-bash {0}
       run: |
+        export PATH="/root/.local/bin:$PATH"
         python3 -m pip install --upgrade pip
         python3 -m pip install wheel twine
         make python
@@ -78,6 +79,7 @@ jobs:
       working-directory: ./src/python/
       run: |
         touch ~/.pypirc
+        export PATH="/root/.local/bin:$PATH"
         python3 setup.py bdist_wheel
         python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/  deploy_mac:
 
