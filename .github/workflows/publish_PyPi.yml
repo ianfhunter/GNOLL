@@ -69,7 +69,7 @@ jobs:
       shell: wsl-bash {0}
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install wheel twine --user
+        python3 -m pip install wheel twine
         make python
         ls src/python
         echo "-------"
