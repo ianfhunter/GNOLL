@@ -40,8 +40,6 @@ jobs:
           libssl-dev
           libffi-dev
           python3.10-venv
-    - uses: actions/checkout@v2
-    - name: Test PyPi
       run: |
         python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
         python3 -c "from gnoll.parser import roll; roll('d34')"
