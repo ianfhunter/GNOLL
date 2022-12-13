@@ -293,7 +293,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Fifth Cycle	| | 🔼|			
 | Fighting Fantasy: The Introductory Role-Playing Game	| |✔️ |
 | Fireborn	| |     🔼|			
-| Firefly	| Cortex |     🔼|
+| Firefly	| Cortex | ✔️ |
 | Flash Gordon & the Warriors of Mongo	| |      🔼|				
 | Flashing Blades	| |      🔼|				
 | Forbidden Kingdoms	| d20 |✔️ |			
@@ -396,19 +396,19 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |Land of the Rising Sun	| Chivalry & Sorcery	|  🔼 | 
 |Lands of Adventure		| |   🔼|				
 |The Laundry				| Basic Roleplaying| ✔️|		
-|Legacy						| | |
-|Legend of the Five Rings Role-Playing Game		| | |
-|Legends of Anglerre			| | |			
-|Legionnaire		| | |
-|Lejendary Adventure		| | |
-|Leverage		| 	Cortex+ System			| |
-|Little Fears - The Role-playing Game of Childhood Terror	| | |				
-| Living Steel		| | |
+|Legacy						| | ❓ |
+|Legend of the Five Rings 		| AD&D | ✔️ |
+|Legends of Anglerre			| FATE | ✔️ |			
+|Legionnaire		| |❓ |
+|Lejendary Adventure		| | 🔼 |
+|Leverage		| 	Cortex+ System			|✔️ |
+|Little Fears	| d6 |✔️ |				
+| Living Steel		| 	Phoenix Command |✔️ |
 | Lone Wolf		| d20 | 🔼 |
-| Lord of the Rings Adventure Game		| | |	
-| The Lord of the Rings Roleplaying Game	| | |	
-| Lords of Creation	| | |
-| Mach: The First Colony	| | |			
+| Lord of the Rings Adventure Game		| 2d6 | ✔️|	
+| The Lord of the Rings Roleplaying Game	| Coda | ✔️ |	
+| Lords of Creation	| |✔️ |
+| Mach: The First Colony	| | ❓|			
 | Macho Women with Guns	| |  🔼|	
 | Macross II: The Role-Playing Game	| | |	
 | Maelstrom	| | |	
@@ -418,7 +418,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |Malefices	| | |		
 |Man, Myth & Magic	| | |			
 |Manhunter	| | |		
-|Marvel Heroic Roleplaying |Cortex+ | |
+|Marvel Heroic Roleplaying |Cortex+ | ✔️|
 |Marvel Super Heroes Adventure Game	| | |				
 |Marvel Super Heroes Role-Playing Game	| | |		
 |Marvel Universe Roleplaying Game	| | |			
@@ -511,7 +511,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Phantasia			| | |	
 | Phantasy Conclave			| | |			
 | Phase VII				| | |	
-| Phoenix Command		| | |					
+| Phoenix Command		| | ✔️ |					
 | Pirates and Plunder		| | |			
 | Polaris (1997)	| | |	
 | Polaris			| | |		
@@ -622,7 +622,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Super Squadron | | |
 | Supergame			| | |		
 | Superhero 2044		| | |			
-| Supernatural	| Cortex Classic | |
+| Supernatural	| Cortex Classic | ✔️ |
 | Supervillains | | |
 | Superworld	| | |				
 | Swashbucklers of the 7 Skies | | |					
