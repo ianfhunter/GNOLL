@@ -143,9 +143,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: julia install
-      run: sudo apt install julia
+      run: |
+        wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.2-linux-x86_64.tar.gz
+        tar zxvf julia-1.8.2-linux-x86_64.tar.gz
+        export PATH="$PATH:$PWD/julia-1.8.2/bin"
+
+
     - name: make julia
-      run: make julia
+      run: | 
+        PATH="$PATH:$PWD/julia-1.8.2/bin" make julia
 
   test_perl:
     name: "Test: Perl"
