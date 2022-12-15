@@ -150,7 +150,7 @@ jobs:
 
 
     - name: make julia
-      run: | 
+      run: |
         PATH="$PATH:$PWD/julia-1.8.2/bin" make julia
 
   test_perl:
@@ -160,7 +160,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: perl install
-      run: sudo apt install perl
+      run: |
+        sudo apt install perl
+        sudo apt-get install libperl5.30
     - name: make perl
       run: make perl
     - name: test perl
