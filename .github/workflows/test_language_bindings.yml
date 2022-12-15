@@ -162,7 +162,7 @@ jobs:
     - name: perl install
       run: |
         sudo apt install perl
-        sudo apt-get install libperl5.30
+        sudo apt-get install libperl5.28
     - name: make perl
       run: make perl
     - name: test perl
