@@ -131,6 +131,7 @@ Individual licensing arrangements can be made if this is an issue for your proje
 ## 👏 Acknowledgments
 
   - **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+  - [Markdown Badges](https://github.com/Ileriayo/markdown-badges)
 
 ## 🏗️ Built With
 

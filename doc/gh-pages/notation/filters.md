@@ -47,8 +47,8 @@ Conditionals in GNOLL operations take the same form as one might find in typical
 |   >    | Greater Than |
 |   <=   | Less Than OR Equal To     |
 |   >=   | Greater Than OR Equal To     |
-| is_odd | Is odd |
-| is_even | Is even |
+| is_odd | Is odd (experimental) |
+| is_even | Is even (Experimental) |
 | u | Is unique |
 
 Filters use conditionals to remove dice rolls that do not match the conditional check. Equation 16 shows four dice

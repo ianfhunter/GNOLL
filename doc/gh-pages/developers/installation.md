@@ -11,8 +11,9 @@ nav_order: 0
 | OS | Version | Tested (From Source) | Tested (PyPi) |
 | -- | ------- | -------------------- | ------------- |
 | Linux | Ubuntu 18.04 | Yes | Yes |
-| Windows | WSL1 | Yes | No |
-| MacOS | 12 | Yes | Error |
+| Windows | WSL1 | Yes | Yes |
+| Windows | Win11 | No | No |
+| MacOS | 12 | Yes | Yes |
 
 ## Common Pre-requisites
 ```bash
@@ -20,6 +21,9 @@ sudo apt-get install bison flex make python3-pip -y
 ```
 
 ## Language Bindings 
+
+We have tested several language bindings to GNOLL. 
+The intention is not to be exhaustively compatible with every version, but a useful reference to help you set up GNOLL for your own software.
 
 ### C
 This is the default build target.
@@ -38,23 +42,26 @@ make cpp
 ```
 
 ### CSharp
-Tested with Mono Compiler
+Tested with Mono Compiler, Ubuntu 22.04
 ```bash
 make cs
 ```
 
 ### Go
+Tested with Golang 1.18, Ubuntu 22.04
 ```bash
 make go
 ```
 
 ### Haskell
+Tested with ghc 9.4.3, cabal 3.0.0.0-3build1.1, Ubuntu 22.04
 ```
 make haskell
 ```
 
 ### Python
 Available from [PyPi](https://pypi.org/project/gnoll/)
+Tested with Python3.10, Ubuntu 22.04
 ```bash
 pip install gnoll
 ```
@@ -64,11 +71,21 @@ make python
 ```
 
 ### Perl
+Tested on Perl 5.30, Ubuntu 20.04
 ```bash
 make perl
 ```
+To make for another version, $PERL_VERSION must be set (default: 5.30)
+
+### Java
+Tested with openjdk-8, Ubuntu 22.04
+```bash
+make java
+```
 
 ### Julia
+Tested on Ubuntu 20.04, Julia 1.4.1
+
 Available from [JuliaHub](https://juliahub.com/ui/Packages/GnollDiceNotation/WetJc/)
 ```
 make julia
@@ -76,17 +93,21 @@ make julia
 
 ### JavaScript Setup
 
+Tested as an executable, untested in the browser.
+
+Tested with emscripten 3.1.6, Ubuntu 22.04
+
 #### Pre-Requisites
 ```bash
 sudo apt-get install emscripten nodejs
 ```
 
-#### Build
+##### Build
 ```bash
 make javascript
 ```
 
-#### Run
+##### Run
 ```bash
 node a.out.js
 ```

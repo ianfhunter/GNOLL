@@ -1679,6 +1679,16 @@ void load_builtins(char* root){
                 printf("/\n");
             }
         }else{
+            char *ext = strrchr(file.name, '.');
+
+            if(strcmp(".dice", ext) != 0){
+                if(verbose){
+                    printf("Skip %s\n", file.name);
+                }        
+                tinydir_next(&dir);
+                continue;
+            }
+
             count++;
             if(verbose){
                printf("\n");
@@ -1697,18 +1707,16 @@ void load_builtins(char* root){
             
             // TODO: Check filename for length
             FILE* fp = fopen(path, "r");
-            while (fgets(stored_str, max_macro_length, fp)!=NULL);
-
-            if(verbose){
-              printf("Contents: %s\n",stored_str); 
+            while (fgets(stored_str, max_macro_length, fp)!=NULL){
+                if(verbose){
+                    printf("Contents: %s\n",stored_str); 
+                }
+                YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
+                yyparse();
+                yy_delete_buffer(buffer);
+                if(gnoll_errno){return;}
             }
             fclose(fp);
-            
-            YY_BUFFER_STATE buffer = yy_scan_string(stored_str);
-            yyparse();
-            yy_delete_buffer(buffer);
-            if(gnoll_errno){return;}
-
             free(path);
             free(stored_str);
         }
@@ -1754,7 +1762,7 @@ int main(int argc, char **str){
         0,  // Verbose
         0,  // Introspect
         0,  // Mocking
-        0,  // Builtins
+        1,  // Builtins
         0,  // Mocking
         0   // Mocking Seed
     );
