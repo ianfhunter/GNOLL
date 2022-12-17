@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll, error_handled_by_gnoll(e)
+from util import Mock, roll, error_handled_by_gnoll
 
 
 # Should roll like: {3},{3},{1}
