@@ -11,7 +11,7 @@ nav_order: 0
 | OS | Version | Tested (From Source) | Tested (PyPi) |
 | -- | ------- | -------------------- | ------------- |
 | Linux | Ubuntu 18.04 | Yes | Yes |
-| Windows | WSL1 | Yes | Error |
+| Windows | WSL1 | Yes | Yes |
 | Windows | Win11 | No | No |
 | MacOS | 12 | Yes | Yes |
 
@@ -71,9 +71,11 @@ make python
 ```
 
 ### Perl
+Tested on Perl 5.30, Ubuntu 20.04
 ```bash
 make perl
 ```
+To make for another version, $PERL_VERSION must be set (default: 5.30)
 
 ### Java
 Tested with openjdk-8, Ubuntu 22.04
