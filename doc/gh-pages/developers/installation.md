@@ -35,7 +35,7 @@ make all
 ```
 
 ### C++
-Tested with Clang Compiler.
+Tested with Clang Compiler, Ubuntu 22.04
 
 ```bash
 make cpp
@@ -113,16 +113,19 @@ node a.out.js
 ```
 
 ### PHP
+Tested on PHP 8.1.13, Ubuntu 22.04
 ```bash
 make php
 ```
 
 ### R
+Tested on R 4.2.2, Ubuntu 22.04
 ```bash
 make r
 ```
 
 ### Ruby
+Tetsed on Ruby 3.0, Ubuntu 22.04
 ```bash
 make ruby
 ```
