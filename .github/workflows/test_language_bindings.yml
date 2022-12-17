@@ -138,7 +138,7 @@ jobs:
 
   test_julia:
     name: "Test: Julia"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
@@ -155,7 +155,7 @@ jobs:
 
   test_perl:
     name: "Test: Perl"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
