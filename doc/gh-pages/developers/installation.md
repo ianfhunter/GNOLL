@@ -11,7 +11,7 @@ nav_order: 0
 | OS | Version | Tested (From Source) | Tested (PyPi) |
 | -- | ------- | -------------------- | ------------- |
 | Linux | Ubuntu 18.04 | Yes | Yes |
-| Windows | WSL1 | Yes | ? |
+| Windows | WSL1 | Yes | Error |
 | Windows | Win11 | No | No |
 | MacOS | 12 | Yes | Yes |
 
@@ -39,17 +39,19 @@ make cpp
 ```
 
 ### CSharp
-Tested with Mono Compiler
+Tested with Mono Compiler, Ubuntu 22.04
 ```bash
 make cs
 ```
 
 ### Go
+Tested with Golang 1.18, Ubuntu 22.04
 ```bash
 make go
 ```
 
 ### Haskell
+Tested with ghc 9.4.3, Ubuntu 22.04
 ```
 make haskell
 ```
