@@ -419,13 +419,13 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |Man, Myth & Magic	| | ❓ |			
 |Manhunter	| Megaversal | ✔️ |		
 |Marvel Heroic Roleplaying |Cortex+ | ✔️|
-|Marvel Super Heroes Adventure Game	| | |				
-|Marvel Super Heroes Role-Playing Game	| | |		
-|Marvel Universe Roleplaying Game	| | |			
-|Masterbook	| | |				
-|The Masters of the Universe Role Playing Game	| | |				
-|Mechamorphosis	| | |				
-|Mechanical Dream	| | |				
+|Marvel Super Heroes Adventure Game	| SAGA | 〰️ |				
+|Marvel Super Heroes 	| | ❓ |		
+|Marvel Universe Roleplaying Game	| | 🔼* |			
+|Masterbook	| | 🔼*  |
+|The Masters of the Universe 	| | ❓  |				
+|Mechamorphosis	| d20 | ✔️ |				
+|Mechanical Dream	| | ❓ |
 |The Mechanoid Invasion	| | |				
 |MechWarrior			| | |		
 |MEGA Role-Playing System	| | |				
@@ -546,7 +546,7 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Rune		| | |			
 | RuneQuest| | |			
 | RuneSlayers	| | |	
-| SAGA System		| | |			
+| SAGA System		| SAGA | 〰️ |			
 | Sandman: Map of Halaal| | |					
 | Savage Worlds				| | |	
 | Scion: Hero	| | |	
