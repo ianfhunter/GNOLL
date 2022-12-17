@@ -80,8 +80,8 @@ jobs:
         touch ~/.pypirc
         export PATH="/root/.local/bin:$PATH"
         python3 setup.py bdist_wheel
-        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }} 
-#        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/ 
+        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
+#        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
 
   deploy_mac:
     runs-on: macos-12
