@@ -41,6 +41,7 @@ jobs:
           libffi-dev
           python3.10-venv
     - name: Test Windows
+      shell: wsl-bash {0}
       run: |
         python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
         python3 -c "from gnoll.parser import roll; roll('d34')"
