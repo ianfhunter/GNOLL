@@ -410,14 +410,14 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Lords of Creation	| |✔️ |
 | Mach: The First Colony	| | ❓|			
 | Macho Women with Guns	| |  🔼|	
-| Macross II: The Role-Playing Game	| | |	
-| Maelstrom	| | |	
-|Mage: The Ascension | | |
-|Mage: The Awakening	| | |	
-|Mage: The Sorcerer's Crusade		| | |			
-|Malefices	| | |		
-|Man, Myth & Magic	| | |			
-|Manhunter	| | |		
+| Macross II	| Megaversal | ✔️ |	
+| Maelstrom	| Maelstrom  | ❓ |	
+|Mage: The Ascension | Storyteller | ✔️ |
+|Mage: The Awakening	| Storyteller | ✔️ |	
+|Mage: The Sorcerer's Crusade		| Storyteller | ✔️ |			
+|Malefices	| | 🔽 |		
+|Man, Myth & Magic	| | ❓ |			
+|Manhunter	| Megaversal | ✔️ |		
 |Marvel Heroic Roleplaying |Cortex+ | ✔️|
 |Marvel Super Heroes Adventure Game	| | |				
 |Marvel Super Heroes Role-Playing Game	| | |		
@@ -717,13 +717,13 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Wizards' World				| | |	
 | Woof meow | | |	
 | World Action And Adventure | | |					
-| World of Darkness | WoD | |
+| World of Darkness | WoD | ✔️ |
 | The World of Indiana Jones| | |
 | World of Synnibarr	| | |		
 | World Tree		| | |
 | Worlds Beyond			| | |		
-| Worlds of Wonder	| | |				
-| Wraith: The Great War | | |					
+| Worlds of Wonder	| Basic Roleplaying | ✔️ |				
+| Wraith: The Great War | WoD | ✔️ |					
 | Wraith: The Oblivion	| WoD | ✔️ |
 | Year of the Phoenix                                                                                                         |                         | 🔼                                                          |
 | Ysgarth                                                                                                                     |                         | 🔼                                                          |
