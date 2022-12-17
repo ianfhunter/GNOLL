@@ -23,28 +23,28 @@ jobs:
         # --index-url https://test.pypi.org/simple/
         python3 -c "from gnoll.parser import roll; roll('d34')"
 
-#   pypi_windows:
-#     name: "PyPi: Windows"
-#     runs-on: windows-2022
-#     steps:
-#     - uses: Vampire/setup-wsl@v1
-#       with:
-#         distribution: Ubuntu-22.04
-#         update: 'true'
-#         additional-packages:
-#           python3-dev
-#           bison
-#           flex
-#           python3-pip
-#           build-essential
-#           libssl-dev
-#           libffi-dev
-#           python3.10-venv
-#     - uses: actions/checkout@v2
-#     - name: Test PyPi
-#       run: |
-#         python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
-#         python3 -c "from gnoll.parser import roll; roll('d34')"
+  pypi_windows:
+    name: "PyPi: Windows"
+    runs-on: windows-2022
+    steps:
+    - uses: Vampire/setup-wsl@v1
+      with:
+        distribution: Ubuntu-22.04
+        update: 'true'
+        additional-packages:
+          python3-dev
+          bison
+          flex
+          python3-pip
+          build-essential
+          libssl-dev
+          libffi-dev
+          python3.10-venv
+    - name: Test Windows
+      shell: wsl-bash {0}
+      run: |
+        python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
+        python3 -c "from gnoll.parser import roll; roll('d34')"
 
   pypi_mac:
     name: "PyPi: MacOS"

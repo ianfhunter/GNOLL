@@ -138,23 +138,30 @@ jobs:
 
   test_julia:
     name: "Test: Julia"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
-    - name: go install
-      run: sudo apt install julia
+    - name: julia install
+      run: |
+        wget https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.2-linux-x86_64.tar.gz
+        tar zxvf julia-1.8.2-linux-x86_64.tar.gz
+        export PATH="$PATH:$PWD/julia-1.8.2/bin"
+
+
     - name: make julia
-      run: make julia
+      run: |
+        PATH="$PATH:$PWD/julia-1.8.2/bin" make julia
 
   test_perl:
     name: "Test: Perl"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
     - name: perl install
-      run: sudo apt install perl
+      run: |
+        sudo apt install perl
     - name: make perl
       run: make perl
     - name: test perl
