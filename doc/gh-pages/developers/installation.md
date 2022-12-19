@@ -136,4 +136,4 @@ The swig bindings are already generated for you in `src/swig/gnoll.i`. Follow th
 Note: The current bindings do not return a result directly - You should read from the file that is generated.
 
 ### Shared Library
-Many languages allow importing of code via shared object. You can find this .o file in the build folder after running `make all`
+Many languages allow importing of code via shared object. You can find this .so file in the build folder after running `make all`
