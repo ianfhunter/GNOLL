@@ -115,6 +115,7 @@ all: clean yacc lex compile shared
 	echo "== Build Complete =="
 
 install: all
+	mkdir -p /opt/GNOLL
 	cp build/dice /opt/GNOLL/dice
 
 yacc:
