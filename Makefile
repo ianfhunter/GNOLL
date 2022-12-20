@@ -114,6 +114,9 @@ CFILE_SUBDIRS=rolls util operations external
 all: clean yacc lex compile shared
 	echo "== Build Complete =="
 
+install: all
+	cp build/dice /opt/GNOLL/dice
+
 yacc:
 	mkdir -p build
 	$(foreach BD,$(CFILE_SUBDIRS),mkdir -p build/$(BD))
