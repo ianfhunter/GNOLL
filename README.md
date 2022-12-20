@@ -97,9 +97,10 @@ make test
 Or, just try some commands yourself!
 
 ```bash
-$ ./dice 1d20
+$ ./build/dice 1d20
 20
 ```
+If you would like to run the 'dice' command from anywhere, use 'make install' to add the executable to your path.
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
 For languages other than Python/C/C++ call the corresponding make target after the commands above.
