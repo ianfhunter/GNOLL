@@ -123,6 +123,6 @@ if __name__ == "__main__":
 [[GNOLL Results]]
 Dice Roll:      {arg}
 Result:         {r}
-Exit Code:      {code}, 
+Exit Code:      {code},
 Dice Breakdown: {detailed_r}"""
     )
