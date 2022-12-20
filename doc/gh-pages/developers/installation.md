@@ -31,7 +31,14 @@ Tested with GCC and Clang Compilers and is C99 compliant.
 
 ```bash
 make all
-./a.out "1d20
+./build/dice "1d20
+```
+
+Or, more conveniently;
+
+```bash
+make install
+dice "1d20"
 ```
 
 ### C++
