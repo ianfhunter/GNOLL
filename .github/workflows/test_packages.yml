@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test PyPi
       run: |
-        python3 -m pip install gnoll 
+        python3 -m pip install gnoll
         # --index-url https://test.pypi.org/simple/
         python3 -c "from gnoll.parser import roll; roll('d34')"
 
@@ -54,7 +54,7 @@ jobs:
       - name: Build
         run: make all
       - name: Test
-        run: |       
-          python3 -m pip install gnoll 
+        run: |
+          python3 -m pip install gnoll
           # --index-url https://test.pypi.org/simple/
           python3 -c "from gnoll.parser import roll; roll('d34')"
