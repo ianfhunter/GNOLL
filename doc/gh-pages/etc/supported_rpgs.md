@@ -427,8 +427,8 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |Mechamorphosis	| d20 | ✔️ |				
 |Mechanical Dream	| | ❓ |
 |The Mechanoid Invasion	| | ❓ |				
-|MechWarrior			| | |		
-|MEGA Role-Playing System	| | |				
+|MechWarrior			| |❓ |		
+|MEGA Role-Playing System	| |❓ |				
 |Megaverse	| | |				
 |Mekton	| | |	
 |Melanda: Land of Mystery	| | |		
