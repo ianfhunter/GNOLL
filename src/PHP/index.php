@@ -12,5 +12,5 @@ unlink($fn);
 
 $err = $gnoll->roll_and_write("3d6", $fn);
 
-$info = file_get_contents($fn);
-print_r($info);
+echo file_get_contents($fn);
+
