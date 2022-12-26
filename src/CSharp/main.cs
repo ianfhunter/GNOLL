@@ -20,7 +20,9 @@ static void RollWithGNOLL (string roll_request)
     }
 
     // Create
-    roll_and_write(roll, fn);
+    int err_code = roll_and_write(roll, fn);
+
+    Debug.Assert(err_code == 0);
 
     // Read
     using (StreamReader sr = File.OpenText(fn))
