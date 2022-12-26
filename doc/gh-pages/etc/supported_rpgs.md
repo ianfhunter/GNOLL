@@ -679,16 +679,16 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 | Unknown Armies                                                                                                              |                         | ❌ [#202](https://github.com/ianfhunter/GNOLL/issues/202)   |
 | Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml)                                                     | Modified Ironclaw       | ✔️                                                          |
 | Uuhraah!                                                                                                                    |                         | 🔼                                                          |
-|Valley of the Pharaohs	| | |
+|Valley of the Pharaohs	| |❓ |
 |Vampire: The Dark Ages	| StoryTeller | ✔️|	
 |Vampire: The Masquerade | WoD | ✔️ |
 |Vampire: The Requiem	| Storyteller | ✔️ |
-|Victorian Adventure	| | |		
+|Victorian Adventure	| |❓ |		
 |Victorian Age: Vampire	| Storyteller |	✔️	|
-|Victoriana | | |	
-|Victorian Gothic	|	Epic Dice | |
-|Villains and Vigilantes	| | |	
-|Violence	| | |
+|Victoriana | | ❓|	
+|Victorian Gothic	|	Epic Dice | 🔼 |
+|Villains and Vigilantes	| | 🔼 |	
+|Violence	| |❓ |
 | QAGS                                                                                                                        |                         | ✔️                                                          |
 | Qin                                                                                                                         |                         | ✔️                                                          |
 | Quest of the Ancients                                                                                                       |                         | 🔼                                                          |
