@@ -12,5 +12,7 @@ unlink($fn);
 
 $err = $gnoll->roll_and_write("3d6", $fn);
 
-echo file_get_contents($fn);
+$myfile = fopen($fn, "r") or die("Unable to open file!");
+echo fread($myfile,filesize($fn));
+fclose($myfile);
 
