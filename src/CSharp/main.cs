@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 [DllImport ("libdice.so", CharSet = CharSet.Ansi)]
 static extern int roll_and_write (
@@ -20,7 +21,9 @@ static void RollWithGNOLL (string roll_request)
     }
 
     // Create
-    roll_and_write(roll, fn);
+    int err_code = roll_and_write(roll, fn);
+
+    Debug.Assert(err_code == 0, "GNOLL errored. Check error code");
 
     // Read
     using (StreamReader sr = File.OpenText(fn))
