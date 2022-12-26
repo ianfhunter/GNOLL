@@ -431,14 +431,14 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |MEGA Role-Playing System	| |❓ |				
 |Megaverse	| | ❓ |				
 |Mekton	| | 🔼 |	
-|Melanda: Land of Mystery	| | 🔼 |		
-|Men In Black: The Roleplaying Game| | |					
-|MERC	| | |
-|Merc 2000	| | |	
-|Mercenaries, Spies and Private Eyes	| | |				
-|The Metabarons Roleplaying Game	| | |			
-|Metamorphosis Alpha			| | |		
-|Michtim: Fluffy Adventures			| | |		
+|MelandMystery	| | 🔼 |		
+|Mena: Land of  In Black | d6 | ✔️ |					
+|MERC	| | ❓ |
+|Merc 2000	| Twilight 2000 | ❓ |	
+|Mercenaries, Spies and Private Eyes	| Tunnels & Trolls|🔼 |				
+|The Metabarons Roleplaying Game	| d6 | ✔️ |			
+|Metamorphosis Alpha			| Amazing Engine, 3d6 | ✔️ |		
+|Michtim: Fluffy Adventures			| | ✔️|		
 |Middle Earth Role Play	| | |
 |Midgard		| | |
 |Midnight		| | |	
