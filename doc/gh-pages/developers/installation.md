@@ -31,7 +31,8 @@ Tested with GCC and Clang Compilers and is C99 compliant.
 
 ```bash
 make all
-./build/dice "1d20
+./build/dice "1d20"
+> Result: 14;
 ```
 
 Or, more conveniently;
