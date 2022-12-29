@@ -19,8 +19,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test PyPi
       run: |
-        python3 -m pip install gnoll
-        # --index-url https://test.pypi.org/simple/
+        python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
         python3 -c "from gnoll import roll; roll('d34')"
 
   pypi_windows:
@@ -55,6 +54,5 @@ jobs:
         run: make all
       - name: Test
         run: |
-          python3 -m pip install gnoll
-          # --index-url https://test.pypi.org/simple/
+          python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
           python3 -c "from gnoll import roll; roll('d34')"
