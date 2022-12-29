@@ -77,7 +77,7 @@ pip3 install GNOLL
 
 Then, in your code:
 ```python
-from gnoll.parser import roll
+from gnoll import roll
 roll("1d20")
 >> (0, [[12]], None)
 # (return code, final result, dice breakdown (if enabled))
