@@ -21,7 +21,7 @@ jobs:
       run: |
         python3 -m pip install gnoll
         # --index-url https://test.pypi.org/simple/
-        python3 -c "from gnoll.parser import roll; roll('d34')"
+        python3 -c "from gnoll import roll; roll('d34')"
 
   pypi_windows:
     name: "PyPi: Windows"
@@ -44,7 +44,7 @@ jobs:
       shell: wsl-bash {0}
       run: |
         python3 -m pip install gnoll --index-url https://test.pypi.org/simple/
-        python3 -c "from gnoll.parser import roll; roll('d34')"
+        python3 -c "from gnoll import roll; roll('d34')"
 
   pypi_mac:
     name: "PyPi: MacOS"
@@ -57,4 +57,4 @@ jobs:
         run: |
           python3 -m pip install gnoll
           # --index-url https://test.pypi.org/simple/
-          python3 -c "from gnoll.parser import roll; roll('d34')"
+          python3 -c "from gnoll import roll; roll('d34')"
