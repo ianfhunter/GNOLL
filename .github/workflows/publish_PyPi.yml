@@ -79,6 +79,7 @@ jobs:
       shell: wsl-bash {0}
       working-directory: ./src/python/
       run: |
+        touch ~/.pypirc
         python3 setup.py bdist_wheel
         # python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
         python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
