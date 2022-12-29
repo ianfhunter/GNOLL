@@ -17,7 +17,14 @@ GNOLL does not support special characters natively, due to limitations of depend
 {: .question }
 > How can I use GNOLL to draw cards out of a deck?
 
-GNOLL does not support tracking the state of internal counters between executions and/or statements, so cannot remove cards from a pool. We recommend doing passing reduced options to GNOLL from your script as cards/dice sides are revealed.
+GNOLL does not support tracking the state of internal counters between executions and/or statements, so cannot remove cards from a pool. We recommend passing reduced options to GNOLL from your script as cards/dice sides are revealed.
+
+e.g.
+> roll("d{TEN, JACK, QUEEN, KING, ACE}")
+> result: JACK
+>
+> roll("d{TEN, QUEEN, KING, ACE}")
+> result: QUEEN
 
 {: .question }
 > GNOLL uses a slightly different syntax than what I would like
@@ -43,11 +50,13 @@ For more complicated statements you will need to become familiar with [Regular E
 > GNOLL produces an overall result, but I need to know what each dice value was!
 
 This is possible! Just enable introspection or "dice breakdown" and you'll get the individual results as well as the final ones.
-This can be enabled either via a command line switch (where available) or as a parameter to the [main GNOLL roll function](https://www.ianhunter.ie/GNOLL/developers/installation.html).
+This can be enabled via a parameter to the [main GNOLL roll function](https://www.ianhunter.ie/GNOLL/developers/installation.html).
+
+<!-- either via a command line switch (where available) or as -->
 
 {: .question }
 > I wish to cite GNOLL. What is the most appropriate item to use?
 
-Please cite one of our publications.
+Please cite one of our publications. Feel free to [raise an issue](https://github.com/ianfhunter/GNOLL/issues) if you are not sure.
 - [GNOLL: Efficient Multi-Lingual Software for Real-World Dice Notation and Extensions (Not yet Published)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
 - [Application of the Central Limit Theorem to dice notation parsing (Not yet Published)](https://beta.briefideas.org/ideas/fc25de499b44d47685188df4d09e144f)
