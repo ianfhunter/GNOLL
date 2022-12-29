@@ -45,43 +45,43 @@ jobs:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
 
-  deploy_windows:
-    runs-on: windows-2022
-
-    steps:
-    - uses: Vampire/setup-wsl@v1
-      with:
-        distribution: Ubuntu-22.04
-        update: 'true'
-        additional-packages:
-          python3-dev
-          bison
-          flex
-          python3-pip
-          build-essential
-          libssl-dev
-          libffi-dev
-          python3.10-venv
-
-    - uses: actions/checkout@v3
-    - name: test
-      shell: wsl-bash {0}
-      run: |
-        export PATH="/root/.local/bin:$PATH"
-        python3 -m pip install --upgrade pip
-        python3 -m pip install wheel twine
-        make python
-        ls src/python
-        echo "-------"
-        ls src/python/code/gnoll/
-    - name: Build package
-      working-directory: ./src/python/
-      run: |
-        touch ~/.pypirc
-        export PATH="/root/.local/bin:$PATH"
-        python3 setup.py bdist_wheel
-        # python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
-        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
+#  deploy_windows:
+#    runs-on: windows-2022
+#
+#    steps:
+#    - uses: Vampire/setup-wsl@v1
+#      with:
+#        distribution: Ubuntu-22.04
+#        update: 'true'
+#        additional-packages:
+#          python3-dev
+#          bison
+#          flex
+#          python3-pip
+#          build-essential
+#          libssl-dev
+#          libffi-dev
+#          python3.10-venv
+#
+#    - uses: actions/checkout@v3
+#    - name: test
+#      shell: wsl-bash {0}
+#      run: |
+#        export PATH="/root/.local/bin:$PATH"
+#        python3 -m pip install --upgrade pip
+#       python3 -m pip install wheel twine
+#        make python
+#        ls src/python
+#        echo "-------"
+#        ls src/python/code/gnoll/
+#    - name: Build package
+#      working-directory: ./src/python/
+#      run: |
+#        touch ~/.pypirc
+#        export PATH="/root/.local/bin:$PATH"
+#        python3 setup.py bdist_wheel
+#        # python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
+#        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} -r https://test.pypi.org/legacy/
 
   deploy_mac:
     runs-on: macos-12
