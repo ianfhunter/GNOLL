@@ -70,7 +70,7 @@ jobs:
         export PATH="/root/.local/bin:$PATH"
         python3 -m pip install --upgrade pip
         python3 -m pip install wheel twine
-        python -m pip install --upgrade setuptools
+        python3 -m pip install --upgrade setuptools
         make python
         ls src/python
         echo "-------"
