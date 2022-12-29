@@ -9,7 +9,7 @@ print("======= Roll Wrappers ==========")
 SRC_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
 )
-m = os.path.join(SRC_DIR, "parser.py")
+m = os.path.join(SRC_DIR, "__init__.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
 spec.loader.exec_module(dt)
