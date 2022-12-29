@@ -43,7 +43,7 @@ For more complicated statements you will need to become familiar with [Regular E
 > GNOLL produces an overall result, but I need to know what each dice value was!
 
 This is possible! Just enable introspection or "dice breakdown" and you'll get the individual results as well as the final ones.
-This can be enabled either via a command line switch (where available) or as a parameter to the [main GNOLL roll function](broken link).
+This can be enabled either via a command line switch (where available) or as a parameter to the [main GNOLL roll function](https://www.ianhunter.ie/GNOLL/developers/installation.html).
 
 {: .question }
 > I wish to cite GNOLL. What is the most appropriate item to use?
