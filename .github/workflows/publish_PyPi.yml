@@ -76,6 +76,7 @@ jobs:
         echo "-------"
         ls src/python/code/gnoll/
     - name: Build package
+      shell: wsl-bash {0}
       working-directory: ./src/python/
       run: |
         python3 setup.py bdist_wheel
