@@ -102,9 +102,11 @@ Tested with Clang Compiler, Ubuntu 22.04.
 - Your application's build scripts should be modified to link against the shared object created with `make all` and to include the path to the folder containing `shared_header.h`
 - In your C++ code, include the "shared_header.h" file and the `roll_full_options` function will be available to use as described above.
 
-[An example application](https://github.com/ianfhunter/GNOLL/tree/main/src/C%2B%2B) is available:
+[An example application](https://github.com/ianfhunter/GNOLL/tree/main/src/C%2B%2B) is available (hardcoded to roll a d20):
 ```bash
 make cpp
+...
+> 19 
 ```
 
 ### CSharp
@@ -115,18 +117,36 @@ The `build/` directory may need to be added to the environment variable `LD_LIBR
 
 The library is imported and the `char *`s of the C function are managed to consume C# Strings ([via marshalling Unmanaged LPStrs](https://github.com/ianfhunter/GNOLL/blob/22b2f9248417cb756818cb5850dc20c4f77fde0e/src/CSharp/main.cs#L7))
 
+The example application creates a RollWithGNOLL function which handles all the file parsing. The application calls this function with a hardcoded '1d20'.
+
 ```bash
 make cs
+...
+> 4
+```
+
+Function example:
+```cs
+RollWithGNOLL("1d20")
 ```
 
 ### Go
 Tested with Golang 1.18, Ubuntu 22.04
+
+The Go setup is very similar to the C# example, in that we must ensure the build directory has the libdice.so file and that the build directory is in `LD_LIBRARY_PATH`.
+Apart from this, the steps to execute your go application (e.g. `go build` and `go run`) should remain unchanged.
 ```bash
 make go
 ```
 
+The code itself creates "CStrings" which the developer must be careful to free after use. 
+
 ### Haskell
 Tested with ghc 9.4.3, cabal 3.0.0.0-3build1.1, Ubuntu 22.04
+
+In [this example](https://github.com/ianfhunter/GNOLL/tree/main/src/haskell), libdice.so is installed to /usr/lib/ and the cabal build configuration points to it's location via the 'extra-libraries' field.
+In the main application, GNOLL is imported via the Foreign Function Interface (`foreign import`). You must use the CStrings structures rather than native haskell strings.
+
 ```
 make haskell
 ```
@@ -134,13 +154,36 @@ make haskell
 ### Python
 Available from [PyPi](https://pypi.org/project/gnoll/)
 Tested with Python3.10, Ubuntu 22.04
+
+Install via Pip:
 ```bash
 pip install gnoll
 ```
+Then you can import the `roll` function and the custom Exceptions `GNOLLExceptions` which the function can raise.
+```python
+from gnoll import roll
+roll("2d100")
+> (0, [[108]] ,None)
+```
+The roll function takes the form:
+```python
+def roll(s,
+         verbose=False,
+         mock=None,
+         mock_const=3,
+         breakdown=False,
+         builtins=False):
+```
+Where `s` is the string containing the dice notation and the other optional fields correspond with the optional features as mentioned above.
+File management is handled internally and is hidden from the caller.
+
+Exceptions are all of the Exception type `GNOLLException` and follow the [list of errors](developers/errors.html)
+
 If you are running from sourcecode:
 ```bash
 make python
 ```
+Will build the application to expose the same interface.
 
 ### Perl
 Tested on Perl 5.30, Ubuntu 20.04
