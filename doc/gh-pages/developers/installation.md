@@ -61,36 +61,60 @@ The file consists of two parts:
 sudo apt-get install bison flex make python3-pip -y
 ```
 
-## Language Bindings 
+## Commandline Installation 
 
-We have tested several language bindings to GNOLL. 
-The intention is not to be exhaustively compatible with every version, but a useful reference to help you set up GNOLL for your own software.
-### C
-This is the default build target.
-Tested with GCC and Clang Compilers and is C99 compliant.
-
-```bash
-make all
-./build/dice "1d20"
-> Result: 14;
-```
-
-Or, more conveniently;
+GNOLL can be installed into your user path for convenience. 
+This will allow parsing of dice notation from the command line.
 
 ```bash
 make install
 dice "1d20"
 ```
 
-### C++
-Tested with Clang Compiler, Ubuntu 22.04
+**Note:** Some command line syntax may conflict with tokens used in Dice Notation (e.g. >). Please escape or quote your notation to avoid this issue.
 
+## Language Bindings 
+
+We have tested binding GNOLL for use in several programming languages.
+
+The following documentation intention is not to be exhaustively compatible with every revision of a programming language (as that is a large overhead to maintain), but to be used as a helpful reference for setting up GNOLL for your own software.
+
+### C
+C is the default build target and what GNOLL is written in.
+
+Tested with GCC and Clang Compilers and C99 compliant.
+
+- Your application's build scripts should be modified to link against the shared object created with `make all` and to include the path to the folder containing `shared_header.h`
+- In your C code, include the "shared_header.h" file and the `roll_full_options` function will be available to use as described above.
+
+To make the example C application:
+```bash
+make all
+./build/dice "1d20"
+> Result: 14;
+```
+
+The sourcecode for the C application is in the [grammar folder under src](https://github.com/ianfhunter/GNOLL/tree/main/src/grammar). It contains the core GNOLL logic as well as the application logic.
+
+### C++
+Tested with Clang Compiler, Ubuntu 22.04.
+
+- Your application's build scripts should be modified to link against the shared object created with `make all` and to include the path to the folder containing `shared_header.h`
+- In your C++ code, include the "shared_header.h" file and the `roll_full_options` function will be available to use as described above.
+
+[An example application](https://github.com/ianfhunter/GNOLL/tree/main/src/C%2B%2B) is available:
 ```bash
 make cpp
 ```
 
 ### CSharp
 Tested with Mono Compiler, Ubuntu 22.04
+
+The [C# example](https://github.com/ianfhunter/GNOLL/tree/main/src/CSharp) expects that the shared object libdice.so is generated under `build/`.
+The `build/` directory may need to be added to the environment variable `LD_LIBRARY_PATH`.
+
+The library is imported and the `char *`s of the C function are managed to consume C# Strings ([via marshalling Unmanaged LPStrs](https://github.com/ianfhunter/GNOLL/blob/22b2f9248417cb756818cb5850dc20c4f77fde0e/src/CSharp/main.cs#L7))
+
 ```bash
 make cs
 ```
