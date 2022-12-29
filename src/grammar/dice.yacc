@@ -1753,7 +1753,7 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
 
 int main(int argc, char **str){
 
-    for(unsigned int a = 1; a != argc; a++){
+    for(int a = 1; a != argc; a++){
         if(strcmp(str[a], "--help")==0){
             printf("GNOLL Dice Notation Parser\n");
             printf("Usage: ./executable [dice notation]\n");
