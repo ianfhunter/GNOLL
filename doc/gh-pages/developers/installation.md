@@ -189,14 +189,21 @@ If you are running from sourcecode:
 ```bash
 make python
 ```
-Will build the application to expose the same interface.
+will build the application to expose the same interface.
 
 ### Perl
 Tested on Perl 5.30, Ubuntu 20.04
+
+The [Perl example](https://github.com/ianfhunter/GNOLL/tree/main/src/perl) uses the SWIG framework to create its bindings.
+The Perl libraries must be linked at build time ($PERL_VERSION can be set to configure this (default: 5.30)).
+GNOLL's notation parsing is then exposed via a `gnoll::roll_and_write` function (a wrapper around roll_full_options which has all options set to False).
+
 ```bash
 make perl
+...
+> 20
 ```
-To make for another version, $PERL_VERSION must be set (default: 5.30)
+
 
 ### Java
 Tested with openjdk-8, Ubuntu 22.04
