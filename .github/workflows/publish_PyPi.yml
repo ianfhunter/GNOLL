@@ -35,7 +35,7 @@ jobs:
     - name: Build package
       working-directory: ./src/python/
       run: |
-        python setup.py bdist_wheel --plat-name=manylinux1_x86_64
+        python setup.py bdist_wheel --plat-name=manylinux_2_17_x86_64
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:
