@@ -7,8 +7,7 @@ from scipy import stats
 
 # Copy-Pasted from test/util.py
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
-)
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 m = os.path.join(SRC_DIR, "__init__.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -43,8 +42,8 @@ def main():
     var = np.var(results)
     # From that, we know the shape of the fitted Gaussian.
     pdf_x = np.linspace(np.min(results), np.max(results), 100)
-    pdf_y = 1.0 / np.sqrt(2 * np.pi * var) * \
-        np.exp(-0.5 * (pdf_x - avg) ** 2 / var)
+    pdf_y = 1.0 / np.sqrt(2 * np.pi * var) * np.exp(-0.5 *
+                                                    (pdf_x - avg)**2 / var)
 
     plt.plot(pdf_x, pdf_y, "k--")
 
