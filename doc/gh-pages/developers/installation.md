@@ -73,7 +73,7 @@ dice "1d20"
 
 **Note:** Some command line syntax may conflict with tokens used in Dice Notation (e.g. >). Please escape or quote your notation to avoid this issue.
 
-There is at present no capacity for enabling or disabling optional features via the command line app. See Issue [#431](https://github.com/ianfhunter/GNOLL/issues/431)
+There is at present no capacity for enabling or disabling optional features via the command line app. See Issue [#431](https://github.com/ianfhunter/GNOLL/issues/431). All options are disabled apart from builtins which are available for use.
 
 ## Language Bindings 
 
