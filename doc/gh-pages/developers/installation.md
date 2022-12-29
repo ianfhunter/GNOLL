@@ -207,17 +207,24 @@ make perl
 
 ### Java
 Tested with openjdk-8, Ubuntu 22.04
+
+Java, like Perl, must have GNOLL compiled with its language headers.
+
+This can be done with the make command:
 ```bash
 make java
 ```
 
+Afterwards, GNOLL'S functionality is available via a `DiceNotationParser.roll` function which takes a dice notation string and a filename and performs as usual.
+
 ### Julia
 Tested on Ubuntu 20.04, Julia 1.4.1
 
-Available from [JuliaHub](https://juliahub.com/ui/Packages/GnollDiceNotation/WetJc/)
+Whether installing from [JuliaHub](https://juliahub.com/ui/Packages/GnollDiceNotation/WetJc/) or from source with 
 ```
 make julia
 ```
+The function `GnollDiceNotation.roll` is available to use, which simply takes in a dice notation string.
 
 ### JavaScript Setup
 
@@ -240,20 +247,50 @@ make javascript
 node a.out.js
 ```
 
+As the c code is being compiled to JavaScript, it operates in the same way
+
 ### PHP
 Tested on PHP 8.1.13, Ubuntu 22.04
+
+As long as the shared object is in LD_LIBRARY_PATH, you can use the functions from c with PHP's cdef
+```
+FFI::cdef(
+    "int roll_and_write(char * roll, char *fn );",
+    "libdice.so"
+);
+```
+
+The [PHP Example] (https://github.com/ianfhunter/GNOLL/blob/main/src/PHP/index.php) parses a hardcoded 3d6 roll.
 ```bash
 make php
 ```
 
 ### R
 Tested on R 4.2.2, Ubuntu 22.04
+
+
+#### Setup 
+Generate the shared object file that R can consume.
 ```bash
 make r
 ```
 
+Inside `main.r` we show an example of GNOLL usage.
+
+- Load in the shared object
+- Delete the temporary file that contains GNOLL output
+- Call GNOLL
+- Parse result
+
+#### Notes
+This example uses the .C function which is usually not recommended. The recommended way to call C code in R is through the .Call() function. See [#368](https://github.com/ianfhunter/GNOLL/issues/368)
+
+
 ### Ruby
-Tetsed on Ruby 3.0, Ubuntu 22.04
+Tested on Ruby 3.0, Ubuntu 22.04
+
+Using Ruby's native FFI code, the [demo application](https://github.com/ianfhunter/GNOLL/blob/main/src/ruby/main.rb) creates a namespaces function for usage. `DiceNotation.roll([dice notation string])`
+
 ```bash
 make ruby
 ```
