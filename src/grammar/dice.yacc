@@ -1752,6 +1752,17 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
 }
 
 int main(int argc, char **str){
+
+    if(argc == 2 && strcmp(str[1], "--help")==0){
+        printf("GNOLL Dice Notation Parser\n");
+        printf("Usage: ./executable [dice notation]\n");
+        printf("Executable is non configurable. Use functions directly for advanced features.\n");
+        return 0;
+    }
+    if(argc == 2 && strcmp(str[1], "--version")==0){
+        printf("GNOLL 4.3.0\n");
+    }
+    
     // Join arguments if they came in as seperate strings
     char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
 
