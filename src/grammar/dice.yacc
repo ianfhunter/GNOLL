@@ -1761,6 +1761,7 @@ int main(int argc, char **str){
     }
     if(argc == 2 && strcmp(str[1], "--version")==0){
         printf("GNOLL 4.3.0\n");
+        return 0;
     }
     
     // Join arguments if they came in as seperate strings
