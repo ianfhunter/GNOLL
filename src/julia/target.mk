@@ -1,3 +1,3 @@
 .PHONY: julia
-julia: clean yacc lex compile shared
+julia: all
 	julia src/julia/GNOLL/test/runtests.jl
