@@ -128,6 +128,8 @@ make cs
 Function example:
 ```cs
 RollWithGNOLL("1d20")
+...
+5
 ```
 
 ### Go
@@ -135,8 +137,11 @@ Tested with Golang 1.18, Ubuntu 22.04
 
 The Go setup is very similar to the C# example, in that we must ensure the build directory has the libdice.so file and that the build directory is in `LD_LIBRARY_PATH`.
 Apart from this, the steps to execute your go application (e.g. `go build` and `go run`) should remain unchanged.
+The application is hardcoded to parse a d20 roll.
 ```bash
 make go
+...
+> 17
 ```
 
 The code itself creates "CStrings" which the developer must be careful to free after use. 
@@ -149,6 +154,7 @@ In the main application, GNOLL is imported via the Foreign Function Interface (`
 
 ```
 make haskell
+cabal run src [dice roll e.g. d20]
 ```
 
 ### Python
