@@ -7,8 +7,7 @@ MK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 print("======= Roll Wrappers ==========")
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
-)
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
 m = os.path.join(SRC_DIR, "__init__.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
@@ -47,9 +46,11 @@ def stored_measurements():
 print("======= Benchmark Begins ==========")
 bm = BenchMarker(end_range=11)
 
-bm.add_function(
-    "GNOLL Before", None, override=stored_measurements, color="r", marker="x"
-)
+bm.add_function("GNOLL Before",
+                None,
+                override=stored_measurements,
+                color="r",
+                marker="x")
 bm.add_function("GNOLL After", gnoll_roll, color="b", marker="s")
 
 bm.benchmark("Feature comparison")
