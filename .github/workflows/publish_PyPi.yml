@@ -41,9 +41,9 @@ jobs:
       with:
         packages_dir: ./src/python/dist
         user: __token__
-        # password: ${{ secrets.PYPI_API_TOKEN_2022 }}
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+        password: ${{ secrets.PYPI_API_TOKEN_2022 }}
+        #password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        #repository_url: https://test.pypi.org/legacy/
 
   deploy_wsl:
     runs-on: windows-2022
@@ -81,8 +81,8 @@ jobs:
       run: |
         # touch ~/.pypirc
         python3 setup.py bdist_wheel  --plat-name=manylinux1_x86_64
-        # python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
-        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/
+        python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }}
+        # python3 -m twine upload dist/* --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/
 
   deploy_mac:
     runs-on: macos-12
@@ -108,5 +108,5 @@ jobs:
       run: |
         touch ~/.pypirc
         python setup.py bdist_wheel
-        # twine upload --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }} dist/*
-        twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
+        twine upload --non-interactive -u __token__ -p ${{ secrets.PYPI_API_TOKEN_2022 }} dist/*
+        # twine upload --non-interactive -u __token__ -p ${{ secrets.TEST_PYPI_API_TOKEN }} --repository-url https://test.pypi.org/legacy/ dist/*
