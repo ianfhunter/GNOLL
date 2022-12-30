@@ -67,7 +67,7 @@ Comparison of `GNOLL`'s performance against other C/C++/SmallTalk dice notation 
 
 ## Figure 2 - GNOLL Performance (Python)
 
-Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pypi] - ["Dice"](https://pypi.org/project/dice/), ["RPG Dice"](https://pypi.org/project/rpg-dice/), ["Python Dice"](https://pypi.org/project/python-dice/), ["d20"](https://pypi.org/project/d20/)). Unplotted points either were non-functional or exceeded a set timeout.
+Comparison of `GNOLL`'s performance against other Python dice notation parsers. (Chosen from popular dice rollers on PyPi[@pep301] - ["Dice"](https://pypi.org/project/dice/), ["RPG Dice"](https://pypi.org/project/rpg-dice/), ["Python Dice"](https://pypi.org/project/python-dice/), ["d20"](https://pypi.org/project/d20/)). Unplotted points either were non-functional or exceeded a set timeout.
 
 ![A graph showing GNOLL's performance (via Python binding) on different sizes of dice rolls. It slightly underperforms for small sizes, but is faster than other python libraries for large sizes.](py.PNG)
 
