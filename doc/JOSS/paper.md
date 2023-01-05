@@ -50,11 +50,10 @@ Few publications specifically discuss dice notation. The most prominent papers a
 
 There are too many different operations and combinations of dice notation to describe within the space constraints of this paper but are discussed at length in the project's [documentation](https://ianhunter.ie/GNOLL/), including the rationale for each of the notation choices. We describe a sample of the base dice notation below.
 
-
 The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ where\ x,y\ \in{} \mathbb{Z}^{+}. $$ `x` dice are rolled with values from 1 to `y`. Where `x` is not specified, it is assumed that its value is 1. the exclusion of `y` produces an error (It is ambiguous to have a dice with no sides).
 
 # Performance
-`GNOLL` performs well against other dice rolling libraries available online both in terms of performance and functional coverage. In the Figures section below we show some simple benchmarking results against the `TROLL` system and a C++ parser and also test `GNOLL`'s Python interface against popular python packages and find that `GNOLL` is generally more performant. 
+`GNOLL` performs well against other dice-rolling libraries available online both in terms of performance and functional coverage. In the Figures section below, we show some simple benchmarking results against the `TROLL` system and a C++ parser and also test `GNOLL`'s Python interface against popular python packages and find that `GNOLL` is generally more performant. 
 
 # Citations
 
