@@ -55,8 +55,6 @@ The most basic dice roll in dice notation can be expressed as $$ x\textbf{d}y,\ 
 # Performance
 `GNOLL` performs well against other dice-rolling libraries available online both in terms of performance and functional coverage. In the Figures section below, we show some simple benchmarking results against the `TROLL` system and a C++ parser and also test `GNOLL`'s Python interface against popular python packages and find that `GNOLL` is generally more performant. 
 
-# Citations
-
 # Figures
 ## Figure 1 - GNOLL Performance (C)
 
