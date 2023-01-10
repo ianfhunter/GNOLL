@@ -30,3 +30,8 @@ jobs:
         make test USE_SECURE_RANDOM=1
     - name: Lex/Yacc Fallback
       run: make test LEX_FALLBACK=1 YACC_FALLBACK=1
+    - name: Test installation
+      run: |
+        make install
+        dice --version
+        dice --help

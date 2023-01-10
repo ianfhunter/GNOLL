@@ -213,7 +213,7 @@ char *safe_strdup(const char *str1) {
     return NULL;
   }
   char *result;
-  unsigned int l = strlen(str1) + 1;  //+1 for \0
+  // unsigned int l = strlen(str1) + 1;  //+1 for \0
   result = (char*) safe_calloc(sizeof(char), MAX_SYMBOL_LENGTH);
   // result = (char*) safe_calloc(sizeof(char), l);
   result = strcpy(result, str1);

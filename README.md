@@ -13,7 +13,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ianfhunter/GNOLL.svg)  [![Donate](https://img.shields.io/badge/Donate-Paypal-yellow.svg)](https://paypal.me/ianfhunter)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll_xmas.png" height="200">
+ <img src="https://raw.githubusercontent.com/ianfhunter/GNOLL/main/media/gnoll.png" height="200">
 </p>
 
 An easy to integrate [dice notation](https://en.wikipedia.org/wiki/Dice_notation) library for multiple programming languages.
@@ -77,9 +77,10 @@ pip3 install GNOLL
 
 Then, in your code:
 ```python
-from gnoll.parser import roll
+from gnoll import roll
 roll("1d20")
->> 7
+>> (0, [[12]], None)
+# (return code, final result, dice breakdown (if enabled))
 ```
 
 ### 🛠️ Installing From Source
@@ -97,9 +98,11 @@ make test
 Or, just try some commands yourself!
 
 ```bash
-$ ./dice 1d20
+$ ./build/dice 1d20
 20
 ```
+If you would like to run the 'dice' command from anywhere, use `make install` to add the executable to your path.
+
 (Note that not all commands may not be able to be used this way as some symbols are reserved for use by different terminal interfaces (e.g. bash uses ! and #))
 
 For languages other than Python/C/C++ call the corresponding make target after the commands above.
@@ -131,6 +134,7 @@ Individual licensing arrangements can be made if this is an issue for your proje
 ## 👏 Acknowledgments
 
   - **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
+  - [Markdown Badges](https://github.com/Ileriayo/markdown-badges)
 
 ## 🏗️ Built With
 

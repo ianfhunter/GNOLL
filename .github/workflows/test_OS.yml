@@ -26,6 +26,8 @@ jobs:
       run: |
         make all
         ./build/dice d20
+        make install
+        dice d100
 
   build_win:
 
