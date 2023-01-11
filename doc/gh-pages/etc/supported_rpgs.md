@@ -439,13 +439,13 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |The Metabarons Roleplaying Game	| d6 | ✔️ |			
 |Metamorphosis Alpha			| Amazing Engine, 3d6 | ✔️ |		
 |Michtim: Fluffy Adventures			| | ✔️|		
-|Middle Earth Role Play	| | |
-|Midgard		| | |
-|Midnight		| | |	
-|Midnight at the Well of Souls Role-Playing System		| | |			
-|Millennium's End	| | |				
-|M.I.S.S.I.O.N.		| | |
-|Mistborn Adventure Game	| | |				
+|Middle Earth Role Play	| Rolemaster |✔️|
+|Midgard		|  |✔️|
+|Midnight		| D&D | ✔️|	
+|Midnight at the Well of Souls 		| | ❓|			
+|Millennium's End	| | ❓ |				
+|M.I.S.S.I.O.N.		| | ❓ |
+|Mistborn Adventure Game	| d6 | ✔️ |				
 |Mojo	| | |			
 |Monastyr	| | |
 |Monsterhearts	| PbtA| ✔️ |
