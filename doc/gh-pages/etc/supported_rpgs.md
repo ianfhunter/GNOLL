@@ -446,18 +446,18 @@ There are a lot of systems here, we cannot guarantee this list is free of error.
 |Millennium's End	| | ❓ |				
 |M.I.S.S.I.O.N.		| | ❓ |
 |Mistborn Adventure Game	| d6 | ✔️ |				
-|Mojo	| | |			
-|Monastyr	| | |
+|Mojo	| Polymancer | 〰️ |			
+|Monastyr	| 3d20 | |
 |Monsterhearts	| PbtA| ✔️ |
-|Monsters! Monsters!	| | |				
-|Monsters and Other Childish Things	| | |				
+|Monsters! Monsters!	| d20 | ✔️ |				
+|Monsters and Other Childish Things	| One-Roll Engine | ✔️ |
 |Mordheim		| | |
 |Morpheus			| | |		
 |The Morrow Project	| | |	
 |Morton's List	| | |				
 |Mouse Guard	| The Burning Wheel | |
 |Multiverser	| | |
-|Mummy: The Resurrection		| | |		
+|Mummy: The Resurrection		| WoD | ✔️ |		
 |Murphy's World	| | |				
 |Mutant	Target Games	| | |			
 |Mutant Chronicles	| | |				
