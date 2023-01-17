@@ -40,7 +40,7 @@ While there are several dice-rolling utilities on the market for research/commer
 
 While some solutions may offer one or two of these points, GNOLL addresses all of them.
 
-Without a more extensive project for reference/integration, many software developers have created their own dice notation parsers (for a simple subset is not too difficult to develop). These are usually sufficient for their immediate needs but often create discrepancies in notation standards and do little to change this path for future developers.
+Without a more extensive project for reference/integration, many software developers have created their own dice notation parsers (because a parser for a simple subset is not too difficult to develop). These are usually sufficient for their immediate needs but often create discrepancies in notation standards and do little to change this path for future developers.
 
 # Related Reading
 
