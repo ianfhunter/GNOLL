@@ -11,7 +11,7 @@ else
    STANDARD= -std=c99
 endif
 
-
+.DEFAULT_GOAL := all
 
 OPT=-O3 \
     $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
