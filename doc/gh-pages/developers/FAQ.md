@@ -58,5 +58,5 @@ This can be enabled via a parameter to the [main GNOLL roll function](https://ww
 > I wish to cite GNOLL. What is the most appropriate item to use?
 
 Please cite one of our publications. Feel free to [raise an issue](https://github.com/ianfhunter/GNOLL/issues) if you are not sure.
-- [GNOLL: Efficient Multi-Lingual Software for Real-World Dice Notation and Extensions (Not yet Published)](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
+- [GNOLL: Efficient Multi-Lingual Software for Real-World Dice Notation and Extensions](https://joss.theoj.org/papers/c704c5148e622d32403948320c5e96a1)
 - [Application of the Central Limit Theorem to dice notation parsing](https://beta.briefideas.org/ideas/fc25de499b44d47685188df4d09e144f)
