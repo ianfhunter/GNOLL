@@ -5,7 +5,7 @@ cff-version: 1.2.0
 title: >-
   GNOLL: Efficient Multi-Lingual Software for Real-World
   Dice Notation and Extensions
-message: 'If you use this software, please cite it as below'
+message: 'If you use this software, please cite it using the following metadata'
 type: software
 authors:
   - given-names: Ian Frederick Vigogne Goodbody
