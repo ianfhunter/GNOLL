@@ -83,6 +83,15 @@ roll("1d20")
 # (return code, final result, dice breakdown (if enabled))
 ```
 
+Or, use the command-line interface (see `--help`):
+```sh
+$ python3 -m gnoll 2d4
+6
+$ function gnoll() { python3 -m gnoll --breakdown "$@" ; }
+$ gnoll 3d6 + 10
+[5, 5, 4] --> 24
+```
+
 ### 🛠️ Installing From Source
 #### Basic Requirements
 ```bash
