@@ -18,13 +18,13 @@ def parse_cmdline_args(args):
         'EXPR',
         nargs='+',
         help='a dice expression to evaluate'
-            '(multiple arguments will be joined with spaces)'
+             '(multiple arguments will be joined with spaces)'
     )
 
     g = p.add_argument_group('main options')
     g.add_argument(
-        '-h', 
-        '--help', 
+        '-h',
+        '--help',
         action='help',
         help='show this help message and exit'
     )
@@ -42,26 +42,26 @@ def parse_cmdline_args(args):
 
     g = p.add_argument_group('debugging options')
     g.add_argument(
-        '-v', 
-        '--verbose', 
+        '-v',
+        '--verbose',
         action='store_true',
         help='enable verbosity'
     )
     g.add_argument(
-        '--keep-temp-file', 
+        '--keep-temp-file',
         action='store_true',
         help="don't delete the created temporary file"
     )
     g.add_argument(
-        '--mock', 
-        metavar='TYPE', 
+        '--mock',
+        metavar='TYPE',
         type=int,
         help='mocking type'
     )
     g.add_argument(
-        '--mock-const', 
-        metavar='N', 
-        type=int, 
+        '--mock-const',
+        metavar='N',
+        type=int,
         default=3,
         help='mocking constant'
     )
