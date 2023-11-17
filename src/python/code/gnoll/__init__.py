@@ -48,20 +48,18 @@ def roll(s,
          mock=None,
          mock_const=3,
          breakdown=False,
-         builtins=False):
+         builtins=False,
+         keep_temp_file=False):
     """Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
     @param mock override the internal random number generator (for testing).
     @param mock_const the seed value for overriding with mocks
     @param breakdown get the details of each dice rolled, not just the final result
+    @param keep_temp_file don't delete the temporary file
     @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
-    temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
-                                       suffix=".die",
-                                       delete=False)
-
     def make_native_type(v):
         """
         Change a string to a more appropriate type if possible.
@@ -87,36 +85,48 @@ def roll(s,
         v = [list(map(make_native_type, x)) for x in v]
         return v
 
-    die_file = temp.name
-    os.remove(die_file)
+    try:
+        temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
+                                           suffix=".die",
+                                           delete=False)
+        temp.close()
 
-    out_file = str(die_file).encode("ascii")
-    if verbose:
-        print("Rolling: ", s)
-        print("Output in:", out_file)
+        die_file = temp.name
 
-    s = s.encode("ascii")
+        out_file = str(die_file).encode("ascii")
+        if verbose:
+            print("Rolling: ", s)
+            print("Output in:", out_file)
 
-    return_code = libc.roll_full_options(
-        s,
-        out_file,
-        verbose,  # enable_verbose
-        breakdown,  # enable_introspect
-        mock is not None,  # enable_mock
-        builtins,  # enable_builtins
-        mock,
-        mock_const,
-    )
-    if return_code != 0:
-        raise_gnoll_error(return_code)
+        s = s.encode("ascii")
 
-    with open(out_file, encoding="utf-8") as f:
-        lines = f.readlines()
+        return_code = libc.roll_full_options(
+            s,
+            out_file,
+            verbose,  # enable_verbose
+            breakdown,  # enable_introspect
+            mock is not None,  # enable_mock
+            builtins,  # enable_builtins
+            mock,
+            mock_const,
+        )
+        if return_code != 0:
+            raise_gnoll_error(return_code)
 
-    dice_breakdown = extract_from_dice_file(lines, ",")
-    result = extract_from_dice_file(lines, ";")
+        with open(out_file, encoding="utf-8") as f:
+            lines = f.readlines()
 
-    return int(return_code), result, dice_breakdown
+        dice_breakdown = extract_from_dice_file(lines, ",")
+        result = extract_from_dice_file(lines, ";")
+
+        return int(return_code), result, dice_breakdown
+
+    finally:
+        if not keep_temp_file:
+            if verbose:
+                print("Deleting:", out_file)
+
+            os.remove(die_file)
 
 
 if __name__ == "__main__":
