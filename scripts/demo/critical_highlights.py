@@ -34,7 +34,6 @@ def main():
     """Format a Dice Roll"""
     # Roll 1.
     for _ in range(100):
-
         format_roll("d20+d20")
 
 

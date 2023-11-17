@@ -11,7 +11,8 @@ from util import Mock, roll
         ("10d10f>8", 19, Mock.RETURN_INCREMENTING, 1),  # greater than
         ("10d10f!=1", 54, Mock.RETURN_INCREMENTING, 1),  # is not
         ("10d10f==1", 1, Mock.RETURN_INCREMENTING, 1),  # is equal
-        ("10d10f>=8", 27, Mock.RETURN_INCREMENTING, 1),  # equal or greater than
+        ("10d10f>=8", 27, Mock.RETURN_INCREMENTING,
+         1),  # equal or greater than
         ("10d10f<=3", 6, Mock.RETURN_INCREMENTING, 1),  # equal or less than
         ("10d10fis_even", 30, Mock.RETURN_INCREMENTING, 1),  # even
         ("10d10fis_odd", 25, Mock.RETURN_INCREMENTING, 1),  # odd
@@ -19,7 +20,6 @@ from util import Mock, roll
     ],
 )
 def test_filter(r, out, mock, mock_const):
-
     # https://github.com/ianfhunter/GNOLL/issues/216
     result, _ = roll(r, mock_mode=mock, mock_const=mock_const, verbose=True)
     assert result == out

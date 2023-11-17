@@ -19,13 +19,15 @@ def test_macro_storage(r, out, mock):
     assert result == out
 
 
-@pytest.mark.parametrize("r,out,mock", [("#MY_DIE=d{A};@MY_DIE", "A", Mock.NO_MOCK)])
+@pytest.mark.parametrize("r,out,mock",
+                         [("#MY_DIE=d{A};@MY_DIE", "A", Mock.NO_MOCK)])
 def test_macro_usage(r, out, mock):
     result, _ = roll(r, mock_mode=mock)
     assert result == out
 
 
-@pytest.mark.skip("Currently no support for rerolling operations like Addition")
+@pytest.mark.skip(
+    "Currently no support for rerolling operations like Addition")
 def test_d66():
     r = "#DSIXTYSIX=(d6*10)+d6;@DSIXTYSIX"
     result, _ = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
