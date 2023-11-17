@@ -30,7 +30,6 @@ def error_handled_by_gnoll(e):
 
 
 def get_roll():
-
     # We are explicitly using the local module here as we modify the yacc in order to mock our tests.
     # This ugly logic is to bypass the fact that you might have the pip package installed
     # and thus a name conflict

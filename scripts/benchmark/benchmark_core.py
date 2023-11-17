@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 
 class BenchMarker:
-
     TIMEOUT_MINUTES = 1
     TIMEOUT_SECONDS = TIMEOUT_MINUTES * 60
     AVERAGING_RUNS = 50
@@ -16,9 +15,13 @@ class BenchMarker:
         self.range = range(start_range, end_range)
         self.plt = plt
 
-    def add_function(
-        self, name, f, color="r", marker="o", hard_limit=None, override=None
-    ):
+    def add_function(self,
+                     name,
+                     f,
+                     color="r",
+                     marker="o",
+                     hard_limit=None,
+                     override=None):
         """Adds a function to the list of functions to benchmark.
         @name - Human Readable name
         @f - function
@@ -27,16 +30,14 @@ class BenchMarker:
         @hard_limit - don't execute benchmarks above this tolerance
         @override - Use values from a provided array
         """
-        self.competitors.append(
-            {
-                "name": name,
-                "fn": f,
-                "color": color,
-                "marker": marker,
-                "hard_limit": hard_limit,
-                "override": override,
-            }
-        )
+        self.competitors.append({
+            "name": name,
+            "fn": f,
+            "color": color,
+            "marker": marker,
+            "hard_limit": hard_limit,
+            "override": override,
+        })
 
     def benchmark(self, title):
         self.title = title
@@ -80,9 +81,9 @@ class BenchMarker:
                     # ------ BENCHMARK ------
                     time1 = time.time()
                     try:
-                        func_timeout.func_timeout(
-                            self.TIMEOUT_SECONDS, roll_fn, args=[r]
-                        )
+                        func_timeout.func_timeout(self.TIMEOUT_SECONDS,
+                                                  roll_fn,
+                                                  args=[r])
                     except (Exception, func_timeout.FunctionTimedOut) as e:
                         print(f"Err: {c['name']}:{r}")
                         print("\t", e)
@@ -101,8 +102,10 @@ class BenchMarker:
                     y.append(tt * 1000)
 
             if y:
-                plt.plot(shared_x[0: len(y)], y,
-                         color=c["color"], marker=c["marker"])
+                plt.plot(shared_x[0:len(y)],
+                         y,
+                         color=c["color"],
+                         marker=c["marker"])
                 print("Result:", y)
 
         # Configuration and Output
@@ -114,11 +117,9 @@ class BenchMarker:
         ax = plt.gca()
 
         ax.get_yaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-        )
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
         ax.get_xaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-        )
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
 
         legend_labels = [c["name"] for c in self.competitors]
         plt.legend(legend_labels)
