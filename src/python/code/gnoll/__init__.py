@@ -124,7 +124,8 @@ def roll(s,
     finally:
         if not keep_temp_file:
             if verbose:
-                 print("Deleting:", out_file)
+                print("Deleting:", out_file)
+
             os.remove(die_file)
 
 
