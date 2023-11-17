@@ -92,11 +92,16 @@ def main(EXPR, times, no_builtins, **kwargs):
             EXPR,
             builtins=not no_builtins,
             **kwargs)
-        if breakdown:
-            print(breakdown[0], '-->', result)
-        else:
-            print(result)
+        yield (breakdown[0], '-->', result) if breakdown else (result,)
+
+
+def main_with_args(args):
+    """Parse the commandline args and then run `main`
+    @param args - the arguments from the commandline (excluding the python3 call)
+    """
+    yield from main(**vars(parse_cmdline_args(args)))
 
 
 if __name__ == '__main__':
-    main(**vars(parse_cmdline_args(sys.argv[1:])))
+    for line in main_with_args(sys.argv[1:]):
+        print(*line)
