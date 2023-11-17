@@ -43,13 +43,15 @@ def raise_gnoll_error(value):
         raise err
 
 
-def roll(s,
-         verbose=False,
-         mock=None,
-         mock_const=3,
-         breakdown=False,
-         builtins=False,
-         keep_temp_file=False):
+def roll(
+    s,
+    verbose=False,
+    mock=None,
+    mock_const=3,
+    breakdown=False,
+    builtins=False,
+    keep_temp_file=False,
+):
     """Parse some dice notation with GNOLL.
     @param s the string to parse
     @param verbose whether to enable verbosity (primarily for debug)
@@ -60,6 +62,7 @@ def roll(s,
     @param force_dll_reload destroy the dll/shared object and reload (inadvisable)
     @return  return code, final result, dice breakdown (None if disabled)
     """
+
     def make_native_type(v):
         """
         Change a string to a more appropriate type if possible.
