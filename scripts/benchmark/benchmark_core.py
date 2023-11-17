@@ -15,15 +15,13 @@ class BenchMarker:
         self.range = range(start_range, end_range)
         self.plt = plt
 
-    def add_function(
-        self,
-        name,
-        f,
-        color="r",
-        marker="o",
-        hard_limit=None,
-        override=None
-    ):
+    def add_function(self,
+                     name,
+                     f,
+                     color="r",
+                     marker="o",
+                     hard_limit=None,
+                     override=None):
         """Adds a function to the list of functions to benchmark.
         @name - Human Readable name
         @f - function
@@ -83,11 +81,9 @@ class BenchMarker:
                     # ------ BENCHMARK ------
                     time1 = time.time()
                     try:
-                        func_timeout.func_timeout(
-                            self.TIMEOUT_SECONDS,
-                            roll_fn,
-                            args=[r]
-                        )
+                        func_timeout.func_timeout(self.TIMEOUT_SECONDS,
+                                                  roll_fn,
+                                                  args=[r])
                     except (Exception, func_timeout.FunctionTimedOut) as e:
                         print(f"Err: {c['name']}:{r}")
                         print("\t", e)
@@ -106,12 +102,10 @@ class BenchMarker:
                     y.append(tt * 1000)
 
             if y:
-                plt.plot(
-                    shared_x[0:len(y)],
-                    y,
-                    color=c["color"],
-                    marker=c["marker"]
-                )
+                plt.plot(shared_x[0:len(y)],
+                         y,
+                         color=c["color"],
+                         marker=c["marker"])
                 print("Result:", y)
 
         # Configuration and Output
