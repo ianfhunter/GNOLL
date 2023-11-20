@@ -35,6 +35,14 @@ def parse_cmdline_args(args):
         help='show a breakdown into individual dice'
     )
     g.add_argument(
+        '-n',
+        '--times',
+        metavar='N',
+        type=int,
+        default=1,
+        help='execute the entire expression N times'
+    )
+    g.add_argument(
         '--no-builtins',
         action='store_true',
         help='disable built-in macros'
@@ -71,22 +79,29 @@ def parse_cmdline_args(args):
     return a
 
 
-def main(EXPR, no_builtins, **kwargs):
+def main(EXPR, times, no_builtins, **kwargs):
     """
     The entry point for gnoll when called via `python -m gnoll`
     @param EXPR - the expression
+    @param times - number of times to execute
     @param no_builtins - a flag to disable builtins
     @param **kwargs - other key word arguments to be passed to gnoll.roll
     """
-    _, [[result]], breakdown = gnoll.roll(
-        EXPR,
-        builtins=not no_builtins,
-        **kwargs)
-    if breakdown:
-        print(breakdown[0], '-->', result)
-    else:
-        print(result)
+    for _ in range(times):
+        _, [[result]], breakdown = gnoll.roll(
+            EXPR,
+            builtins=not no_builtins,
+            **kwargs)
+        yield (breakdown[0], '-->', result) if breakdown else (result,)
+
+
+def main_with_args(args):
+    """Parse the commandline args and then run `main`
+    @param args - the arguments from the commandline (excluding the python3 call)
+    """
+    yield from main(**vars(parse_cmdline_args(args)))
 
 
 if __name__ == '__main__':
-    main(**vars(parse_cmdline_args(sys.argv[1:])))
+    for line in main_with_args(sys.argv[1:]):
+        print(*line)
