@@ -131,11 +131,12 @@ jobs:
         cd acorn ; npm install ; cd -
         # Emscripten
         git clone https://github.com/emscripten-core/emsdk.git
-        cd emsdk ; ./emsdk install latest ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd - 
+        cd emsdk ; ./emsdk install latest ; cd - 
         # wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
         # sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
     - name: make js
       run: |
+        cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
         emcc -v
         make js
         node ./build/js/a.out.js 1d20
