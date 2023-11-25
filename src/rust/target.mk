@@ -1,9 +1,10 @@
 .PHONY: rust
 
 rust: all
+	echo "LDPATH"
 	echo $(LD_LIBRARY_PATH)
 	echo $(PWD)
-	ls $(PWD)/build/libdice.so
+	ls $(PWD)/build/libdice.so -las
 	ld -ldice
 	cd src/rust && ldd $(PWD)/build/libdice.so
 	cd src/rust && cargo build -v
