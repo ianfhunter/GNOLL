@@ -82,14 +82,8 @@ jobs:
       run: |
         sudo apt update
         sudo apt install cabal-install haskell-stack ghc
-        # curl -O https://downloads.haskell.org/~ghc/8.10.7/ghc-8.10.7-x86_64-deb10-linux.tar.xz
-        #  tar xvf ghc-8.10.7-x86_64-deb10-linux.tar.xz
-        #  cd ghc-8.10.7 && ./configure
-        # cd ghc-8.10.7 && make install
         ghc --version
         cabal update
-        # stack init
-        # stack --resolver lts-18 build
     - name: make haskell
       run: |
           make haskell
@@ -136,8 +130,10 @@ jobs:
         git clone https://github.com/acornjs/acorn.git
         cd acorn ; npm install ; cd -
         # Emscripten
-        wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
-        sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk ; ./emsdk install latest : ./emsdk activate latest ; source ./emsdk_env.sh ; cd - 
+        # wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
+        # sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
     - name: make js
       run: |
         emcc -v
