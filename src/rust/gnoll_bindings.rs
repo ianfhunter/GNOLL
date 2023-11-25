@@ -1,8 +1,6 @@
 use std::ffi::CStr;
 use std::process;
 
-#[repr(C)]
-
 extern "C" {
     pub fn roll_and_write(
         die: *mut cty::c_char,
