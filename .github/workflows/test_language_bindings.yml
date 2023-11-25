@@ -137,7 +137,7 @@ jobs:
         cd acorn ; npm install ; cd -
         # Emscripten
         wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
-        sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
+        sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
     - name: make js
       run: |
         emcc -v
