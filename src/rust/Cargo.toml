@@ -9,5 +9,5 @@ edition = "2021"
 
 [[bin]]
 name = "Example of GNOLL in Rust"
-path = "src/rust/gnoll_bindings.rs"
+path = "gnoll_bindings.rs"
 
