@@ -14,8 +14,8 @@ typedef enum {
 } MOCK_METHOD;
 
 // Mocking Util
-void reset_mocking();
+void reset_mocking(void);
 void init_mocking(MOCK_METHOD mock_style, int starting_value);
-void mocking_tick();
+void mocking_tick(void);
 
 #endif
