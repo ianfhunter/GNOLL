@@ -2,8 +2,8 @@
 
 extern "C" {
     pub fn roll_and_write(
-        die: *cty::c_char,
-        fp: *cty::c_char
+        die: *mut cty::c_char,
+        fp: *mut cty::c_char
     );
 }
 
