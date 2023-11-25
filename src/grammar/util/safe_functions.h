@@ -22,7 +22,7 @@ typedef enum {
   UNDEFINED_MACRO = 12
 } ERROR_CODES;
 
-void print_gnoll_errors();
+void print_gnoll_errors(void);
 void *safe_malloc(size_t size);
 void *safe_calloc(size_t nitems, size_t size);
 FILE *safe_fopen(const char *filename, const char *mode);
