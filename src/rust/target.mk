@@ -2,6 +2,8 @@
 
 rust: all
 	echo "LDPATH"
+	echo ${PWD}
+	ls ${PWD}/build/
 	export LD_LIBRARY_PATH=$(PWD)/build/:$LD_LIBRARY_PATH
 	echo ${LD_LIBRARY_PATH}
 	ls $(PWD)/build/libdice.so -las
