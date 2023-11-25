@@ -1794,8 +1794,7 @@ int main(int argc, char **str){
     free(macros);
 }
 
-int yyerror(s)
-const char *s;
+int yyerror(const char *s)
 {
     fprintf(stderr, "%s\n", s);
 
