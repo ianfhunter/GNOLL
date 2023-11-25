@@ -17,7 +17,7 @@ extern int verbose;
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
 
-void print_gnoll_errors(){
+void print_gnoll_errors(void){
   /**
    * @brief A human-readable translation of the gnoll error codes
    * 
