@@ -11,7 +11,7 @@
 
 extern pcg32_random_t rng;
 
-int get_random_uniformly(){
+int get_random_uniformly(void){
     int value;
     #if USE_SECURE_RANDOM == 1
         value = (int)arc4random_uniform(INT_MAX);

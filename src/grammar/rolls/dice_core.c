@@ -98,7 +98,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     * PRO: We do not have to calculate all the dice rolled
     * CON: We lose per-dice information
     */
-   all_dice_roll = (int*)safe_calloc(1, sizeof(int));
+    all_dice_roll = (int*)safe_calloc(1, sizeof(int));
     float midpoint = ((float)(end_value - start_value))/2 ;
     float val = get_random_normally(0, 1);
     val += 3;

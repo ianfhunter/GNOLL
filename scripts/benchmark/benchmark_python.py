@@ -9,9 +9,8 @@ from rpg_dice import roll as rpgdice_roll
 
 print("======= Roll Wrappers ==========")
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
-)
-m = os.path.join(SRC_DIR, "parser.py")
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+m = os.path.join(SRC_DIR, "__init__.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
 spec.loader.exec_module(dt)
@@ -31,9 +30,11 @@ bm = BenchMarker(end_range=8)
 bm.add_function("GNOLL", gnoll_roll, color="b", marker="o")
 bm.add_function("RPG Dice", rpgdice_roll, color="g", marker="^")
 bm.add_function("Dice", dice_roll, color="r", marker="x")
-bm.add_function(
-    "PythonDice", pythondice_roll, color="c", marker="s", hard_limit=100000000
-)
+bm.add_function("PythonDice",
+                pythondice_roll,
+                color="c",
+                marker="s",
+                hard_limit=100000000)
 bm.add_function("d20", d20_roll, color="y", marker="1")
 
 bm.benchmark("Python Library comparison")
