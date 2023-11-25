@@ -8,6 +8,6 @@ edition = "2021"
 [dependencies]
 
 [[bin]]
-name = "Example of GNOLL in Rust"
+name = "example_app"
 path = "gnoll_bindings.rs"
 
