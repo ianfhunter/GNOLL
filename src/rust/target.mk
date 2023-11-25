@@ -2,5 +2,6 @@
 
 rust: all
 	cd src/rust && cargo build
-	cd src/rust && rustc -L../build -l dice static=dice gnoll_bindings.rs
+        export LD_LIBRARY_PATH=$(PWD)/build/
+	cd src/rust && rustc -l dice static=dice gnoll_bindings.rs
 	cd src/rust && ./gnoll_bindings
