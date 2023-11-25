@@ -1,3 +1,5 @@
+#ifndef __MOCKING_H__
+#define __MOCKING_H__
 
 #include "constructs/dice_enums.h"
 #include "shared_header.h"
@@ -15,3 +17,5 @@ typedef enum {
 void reset_mocking();
 void init_mocking(MOCK_METHOD mock_style, int starting_value);
 void mocking_tick();
+
+#endif
