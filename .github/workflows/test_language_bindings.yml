@@ -220,5 +220,8 @@ jobs:
       run: |
         curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Run Rust
+      env:
+        LD_LIBRARY_PATH: ${{ github.workspace }}/build
       run: |
+        echo "Hello ${{ github.workspace }}/"
         make rust
