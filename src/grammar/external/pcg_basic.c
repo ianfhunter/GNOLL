@@ -64,7 +64,7 @@ uint32_t pcg32_random_r(pcg32_random_t* rng) {
   return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 }
 
-uint32_t pcg32_random() { return pcg32_random_r(&pcg32_global); }
+uint32_t pcg32_random(void) { return pcg32_random_r(&pcg32_global); }
 
 // pcg32_boundedrand(bound):
 // pcg32_boundedrand_r(rng, bound):

@@ -11,7 +11,7 @@ else
    STANDARD= -std=c99
 endif
 
-
+.DEFAULT_GOAL := all
 
 OPT=-O3 \
     $(STANDARD) -Wall -Wextra -Werror -pedantic -Wcast-align \
@@ -113,6 +113,10 @@ CFILE_SUBDIRS=rolls util operations external
 
 all: clean yacc lex compile shared
 	echo "== Build Complete =="
+
+install: all
+	mkdir -p /usr/local/bin/
+	cp build/dice /usr/local/bin/dice
 
 yacc:
 	mkdir -p build

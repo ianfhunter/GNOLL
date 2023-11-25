@@ -13,13 +13,6 @@ This is an analysis of all 'notable' TTRPG games on [Wikipedia](https://en.m.wik
 
 There are a lot of systems here, we cannot guarantee this list is free of error.
 
-## Status
-
-This list is currently **Under Construction**.
-
-**Letters Done:** `0ABCDEFGHIJKOQUXYZ`
-
-**Remaining Letters:** `LMNPRSTVW`
 
 ## Legend
 
@@ -300,7 +293,7 @@ This list is currently **Under Construction**.
 | Fifth Cycle	| | 🔼|			
 | Fighting Fantasy: The Introductory Role-Playing Game	| |✔️ |
 | Fireborn	| |     🔼|			
-| Firefly	| Cortex |     🔼|
+| Firefly	| Cortex | ✔️ |
 | Flash Gordon & the Warriors of Mongo	| |      🔼|				
 | Flashing Blades	| |      🔼|				
 | Forbidden Kingdoms	| d20 |✔️ |			
@@ -398,6 +391,101 @@ This list is currently **Under Construction**.
 | Kobolds Ate My Baby!	| | ✔️ |	
 | Krysztaly Czasu | d100 |✔️ |
 | Kult | PBtA | ✔️ |
+|Labyrinth Lord	| d20 | ✔️|			
+|Lace and Steel		|Cards | 〰️|	
+|Land of the Rising Sun	| Chivalry & Sorcery	|  🔼 | 
+|Lands of Adventure		| |   🔼|				
+|The Laundry				| Basic Roleplaying| ✔️|		
+|Legacy						| | ❓ |
+|Legend of the Five Rings 		| AD&D | ✔️ |
+|Legends of Anglerre			| FATE | ✔️ |			
+|Legionnaire		| |❓ |
+|Lejendary Adventure		| | 🔼 |
+|Leverage		| 	Cortex+ System			|✔️ |
+|Little Fears	| d6 |✔️ |				
+| Living Steel		| 	Phoenix Command |✔️ |
+| Lone Wolf		| d20 | 🔼 |
+| Lord of the Rings Adventure Game		| 2d6 | ✔️|	
+| The Lord of the Rings Roleplaying Game	| Coda | ✔️ |	
+| Lords of Creation	| |✔️ |
+| Mach: The First Colony	| | ❓|			
+| Macho Women with Guns	| |  🔼|	
+| Macross II	| Megaversal | ✔️ |	
+| Maelstrom	| Maelstrom  | ❓ |	
+|Mage: The Ascension | Storyteller | ✔️ |
+|Mage: The Awakening	| Storyteller | ✔️ |	
+|Mage: The Sorcerer's Crusade		| Storyteller | ✔️ |			
+|Malefices	| | 🔽 |		
+|Man, Myth & Magic	| | ❓ |			
+|Manhunter	| Megaversal | ✔️ |		
+|Marvel Heroic Roleplaying |Cortex+ | ✔️|
+|Marvel Super Heroes Adventure Game	| SAGA | 〰️ |				
+|Marvel Super Heroes 	| | ❓ |		
+|Marvel Universe Roleplaying Game	| | 🔼* |			
+|Masterbook	| | 🔼*  |
+|The Masters of the Universe 	| | ❓  |				
+|Mechamorphosis	| d20 | ✔️ |				
+|Mechanical Dream	| | ❓ |
+|The Mechanoid Invasion	| | ❓ |				
+|MechWarrior			| |❓ |		
+|MEGA Role-Playing System	| |❓ |				
+|Megaverse	| | ❓ |				
+|Mekton	| | 🔼 |	
+|MelandMystery	| | 🔼 |		
+|Mena: Land of  In Black | d6 | ✔️ |					
+|MERC	| | ❓ |
+|Merc 2000	| Twilight 2000 | ❓ |	
+|Mercenaries, Spies and Private Eyes	| Tunnels & Trolls|🔼 |				
+|The Metabarons Roleplaying Game	| d6 | ✔️ |			
+|Metamorphosis Alpha			| Amazing Engine, 3d6 | ✔️ |		
+|Michtim: Fluffy Adventures			| | ✔️|		
+|Middle Earth Role Play	| Rolemaster |✔️|
+|Midgard		|  |✔️|
+|Midnight		| D&D | ✔️|	
+|Midnight at the Well of Souls 		| | ❓|			
+|Millennium's End	| | ❓ |				
+|M.I.S.S.I.O.N.		| | ❓ |
+|Mistborn Adventure Game	| d6 | ✔️ |				
+|Mojo	| Polymancer | 〰️ |			
+|Monastyr	| 3d20 | |
+|Monsterhearts	| PbtA| ✔️ |
+|Monsters! Monsters!	| d20 | ✔️ |				
+|Monsters and Other Childish Things	| One-Roll Engine | ✔️ |
+|Mordheim		| | |
+|Morpheus			| | |		
+|The Morrow Project	| | |	
+|Morton's List	| | |				
+|Mouse Guard	| The Burning Wheel | |
+|Multiverser	| | |
+|Mummy: The Resurrection		| WoD | ✔️ |		
+|Murphy's World	| | |				
+|Mutant	Target Games	| | |			
+|Mutant Chronicles	| | |				
+|Mutant City Blues	| GUMSHOE | ✔️ |
+|Mutant Future			| | |		
+|Mutant RYMD		| | |			
+|Mutant: Undergångens Arvtagare		| | |			| | |
+| Mutants & Masterminds	| | |	
+| Mutazoids		| | |			
+|My Life with Master			| | |			
+|Myrskyn aika		| | |
+|Mythworld		| | |
+| Neighborhood	| | |	
+| Nephilim	| | |
+| Neuroshima| | |
+| Nexus: The Infinite City	| | |
+| Nicotine Girls		| | |
+| Nightbane	Palladium Books		| | |
+| Nightlife	Stellar Games	| | |
+| Night of the Ninja	| | |	
+| Night's Black Agents	| | |
+| Night Wizard!	| | |
+| Ninja Burger	| | |		
+| Ninjas and Superspies	| | |
+| Nobilis			| | |
+| Noctum				| | |	
+| Northern Crown	| d20 | ✔️ |	
+| Numenera	| Cypher | ✔️ |
 | Odysseus	| |❓ |		
 | The Official Superhero Adventure Game	| |❓ |	
 | Omnigon	| |❓ |	
@@ -410,6 +498,180 @@ This list is currently **Under Construction**.
 | Other Suns	| | ❓|	
 | Outime	| | ❓|
 | Over the Edge	| | ✔️ |
+| Palladium Fantasy Role-Playing Game		| | |	
+| Pandemonium!		| | |	
+| Pantheon		| | |	
+| Paranoia		| | |	
+| Pathfinder		| | |	
+| Pax Draconis	| | |	
+| Passion Play				| | |			
+| Fading Suns	| | |	
+| Pendragon (or King Arthur Pendragon) 	| | |	
+| A Penny for My Thoughts		| | |	
+| Phantasia			| | |	
+| Phantasy Conclave			| | |			
+| Phase VII				| | |	
+| Phoenix Command		| | ✔️ |					
+| Pirates and Plunder		| | |			
+| Polaris (1997)	| | |	
+| Polaris			| | |		
+| Powers and Perils		| | |					
+| Praedor		| | |	
+| The Price of Freedom	West 	| | |		
+| The Primal Order		| | |					
+| Prime Directive		| | |					
+| Primetime Adventures		| | |					
+| Prince Valiant: The Story-Telling Game		| | |	
+| Privateers and Gentlemen	| | |		
+| Project A-ko: The Roleplaying Game	| | |	
+| Promethean: The Created	| WoD | ✔️ |
+| Psiworld	Fantasy Games Unlimited	| | |	
+| Puppetland	| | |	
+| Rapture: The Second Coming | | |
+| The Realm of Yolmi| | |		
+| Recon| | |
+| Red Dragon	| | |
+| Reich Star	| | |
+| Rêve: the Dream Ouroboros| | |
+| The Riddle of Steel	| | |				
+| Rifts	Palladium Games		| Crosssover | |	
+| Rifts Chaos Earth	| | |		
+| Ringworld	Chaosium	| | |			
+| Risus					| | |
+| Robot Warriors			| | |		
+| Robotech	| | |	
+| Robotech: The Shadow Chronicles| | |				
+| Rogue Trader	| | |
+| RMSS | | |			
+| Rune		| | |			
+| RuneQuest| | |			
+| RuneSlayers	| | |	
+| SAGA System		| SAGA | 〰️ |			
+| Sandman: Map of Halaal| | |					
+| Savage Worlds				| | |	
+| Scion: Hero	| | |	
+| Second Dawn| | |			
+| Sengoku	| | |	
+| The Shab-al-Hiri Roach| | |					
+| Shadow Lords				| | |
+| Shadow of the Demon Lord	| | |	
+| The Shadow of Yesterday		| | |			
+| Shadowrun				| | |	
+| Shatterzone				| | |	
+| Shock: Social Science Fiction	| | |				
+| Silver Age Sentinels	| | |				
+| Simian Conquest| | |		
+| Sine Requie		| | |
+| Skulduggery		| | |			
+| Skull and Crossbones | | |
+| Skyrealms of Jorune	| | |			
+| SLA Industries	| | |
+| Sláine | | |		
+| S/lay w/Me | | |					
+| The Slayers | d20 | ✔️ |			
+| Smallville	| Cortex Classic | |	
+| A Song of Ice and Fire | | |		
+| Sorcerer	| | |		
+| Sovereign Stone | | |					
+| Space 1889	| | |	
+| Space Infantry	| | |				
+| Space Opera	| | |
+| Spacemaster	| Rolemaster | |		
+| Space Quest   | | |	
+| Spaceship Zero	| | |			
+| SpaceTime | | |	
+| The Spawn of Fashan | | |					
+| Spione: Story Now in Cold War Berlin | | |					
+| Spirit of the Century	Evil Hat Productions | FATE | ✔️ |
+| Splicers | | |
+| Splittermond	| | |
+| Spycraft	| | |	
+| Stalking the Night Fantastic | | |					
+| Standard RPG System | | |	
+| Star Ace| | |
+| Starblazer Adventures | | |					
+| StarCraft Adventures	| | |				
+| Star*Drive	| | |			
+| Starfaring	| | |				
+| Starfinder Roleplaying Game | d20 | ✔️ |
+| Starfleet Voyages| | |
+| Star Frontiers	| | |			
+| Stargate SG-1	| Spycraft/d20 | | |		
+| Star Hero	Fantasy Hero	| Hero System | |			
+| Star Patrol| | |
+| Star Riders	| | |
+| Star Rovers		| | |			
+| Starship Troopers | | |				
+| Starships & Spacemen	| | |				
+| Star Trek: Adventure Gaming in the Final Frontier	| | |	
+| Star Trek: Deep Space Nine Role Playing Game	| | |		
+| Star Trek Role Playing Game| | |	
+| Star Trek Roleplaying Game	| | |	
+| Star Trek: The Next Generation | | |	
+| Star Trek| | |		
+| Star Wars| d6 | ✔️ |
+| Star Wars (Fantasy Flight) | | |	
+| Star Wars (WoTC) | d20| ✔️ |
+| Star Wreck | | |
+| Steve Perrin's Quest Rules | | |					
+| Stormbringer	| | |
+| Storytelling System | Storyteller | ✔️ |					
+| The Strange	| Cypher | ✔️ |			
+| Street Fighter | Storyteller | ✔️ |					
+| Strontium Dog	| | |		
+| Super Squadron | | |
+| Supergame			| | |		
+| Superhero 2044		| | |			
+| Supernatural	| Cortex Classic | ✔️ |
+| Supervillains | | |
+| Superworld	| | |				
+| Swashbucklers of the 7 Skies | | |					
+| Swordbearer	| | |		
+| Swords & Wizardry	| d20 | ✔️ |
+| Sword World RPG| | |
+| Synnibarr | | |
+| Systems Failure| | |
+| Tales from the Floating Vagabond	| | |	
+| Talislanta	| Omni | |		
+| Taste My Steel!	| | |		
+| Teenage Mutant Ninja Turtles and Other Strangeness| | |
+| Teenagers from Outer Space	| | |
+| Tékumel: Empire of the Petal Throne	| | |		
+| Tenchi Muyo!	Guardians of Order | | |		
+| Tenra War	Enterbrain		| | |
+| Tephra: The Steampunk RPG	| Clockwork | |
+| Terra Incognita	| | |		
+| Terra Primate	| | |				
+| Theatrix	| | |		
+| Thieves' Guild	| | |		
+| Thieves' World	| | |		
+| Tibet: The Roleplaying Game	| | |
+| Time & Time Again	| | |		
+| Time Lord — Adventures through Time and Space	| | |
+| Timelords	Blacksburg Tactical Research Center		| | |		
+| Timemaster	| | |		
+| Timeship	| | |				
+| To Challenge | | |		
+| Tokyo NOVA	| | |
+| Toon	| | |
+| Top Secret| | |
+| TORG	| | |				
+| Total Eclipse | | |
+| Trail of Cthulhu	| | |				
+| Transhuman Space	| | |				
+| Traveller	GDW | | |
+| Traveller: 2300	| | |
+| Tri-Stat dX | TriStat|✔️ |		
+| Tribe 8	| | |				
+| Thrilling Tales | | |	
+| Trinity	| | |				
+| Trollbabe	| | |		
+| True20	| True20 | |		
+| Truth & Justice	| | |		
+| Tunnels and Trolls	| | |				
+| TWERPS	| | |		
+| Twilight 2000	GDW		| | |		
+| Twilight Imperium | | |		
 | Stormbringer		|  Basic Roleplaying  | ✔️ |
 | Unisystem                                                                                                                   | Unisystem               | ✔️                                                          |
 | Universalis                                                                                                                 |                         | ✔️                                                          |
@@ -417,9 +679,52 @@ This list is currently **Under Construction**.
 | Unknown Armies                                                                                                              |                         | ❌ [#202](https://github.com/ianfhunter/GNOLL/issues/202)   |
 | Usagi Yojimbo [[1]](https://www.rpg.net/reviews/archive/11/11664.phtml)                                                     | Modified Ironclaw       | ✔️                                                          |
 | Uuhraah!                                                                                                                    |                         | 🔼                                                          |
+|Valley of the Pharaohs	| |❓ |
+|Vampire: The Dark Ages	| StoryTeller | ✔️|	
+|Vampire: The Masquerade | WoD | ✔️ |
+|Vampire: The Requiem	| Storyteller | ✔️ |
+|Victorian Adventure	| |❓ |		
+|Victorian Age: Vampire	| Storyteller |	✔️	|
+|Victoriana | | ❓|	
+|Victorian Gothic	|	Epic Dice | 🔼 |
+|Villains and Vigilantes	| | 🔼 |	
+|Violence	| |❓ |
 | QAGS                                                                                                                        |                         | ✔️                                                          |
 | Qin                                                                                                                         |                         | ✔️                                                          |
 | Quest of the Ancients                                                                                                       |                         | 🔼                                                          |
+| Warcraft | | |
+| Warhammer 40,000 | | |			
+| Warhammer Fantasy | | |			
+| Warheads: Medieval Tales	| | |
+| WARS Roleplaying Game	| | |			
+| Wayfarers	| | |				
+| Weapons of the Gods | | |
+| Weird Wars	| d20 | ✔️ |	
+| Werewolf: The Apocalypse | | |	
+| Werewolf: The Forsaken	| StoryTeller | ✔️ |	
+| Werewolf: The Wild West	| StoryTeller | ✔️ |
+| What Price Glory?! | | |	
+| The Wheel of Time | | |
+| When Worlds Collide | | |
+| The Whispering Vault	| | |
+| Wild Talents	| | |				
+| Wild West	| | |		
+| Witchcraft	| | |				
+| Witch Hunt	| | |		
+| Witch Hunter: | | |		
+| With Great Power...	| | |				
+| Wizards' Realm			| | |		
+| Wizards' World				| | |	
+| Woof meow | | |	
+| World Action And Adventure | | |					
+| World of Darkness | WoD | ✔️ |
+| The World of Indiana Jones| | |
+| World of Synnibarr	| | |		
+| World Tree		| | |
+| Worlds Beyond			| | |		
+| Worlds of Wonder	| Basic Roleplaying | ✔️ |				
+| Wraith: The Great War | WoD | ✔️ |					
+| Wraith: The Oblivion	| WoD | ✔️ |
 | Year of the Phoenix                                                                                                         |                         | 🔼                                                          |
 | Ysgarth                                                                                                                     |                         | 🔼                                                          |
 | The Zorcerer of Zo                                                                                                          | PDQ                     | ✔️                                                          |

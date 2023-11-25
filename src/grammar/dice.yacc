@@ -31,7 +31,7 @@
 
 int yylex(void);
 int yyerror(const char* s);
-int yywrap();
+int yywrap(void);
 
 //TODO: move to external file 
 
@@ -50,10 +50,10 @@ extern struct macro_struct *macros;
 pcg32_random_t rng;
 
 // Function Signatures for this file
-int initialize();
+int initialize(void);
 
 // Functions
-int initialize(){
+int initialize(void){
     if (!seeded){
         unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
         pcg32_srandom_r(
@@ -1752,6 +1752,20 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
 }
 
 int main(int argc, char **str){
+
+    for(int a = 1; a != argc; a++){
+        if(strcmp(str[a], "--help")==0){
+            printf("GNOLL Dice Notation Parser\n");
+            printf("Usage: ./executable [dice notation]\n");
+            printf("Executable is non configurable. Use functions directly for advanced features.\n");
+            return 0;
+        }
+        if(strcmp(str[a], "--version")==0){
+            printf("GNOLL 4.3.0\n");
+            return 0;
+        }
+    }
+    
     // Join arguments if they came in as seperate strings
     char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
 
@@ -1780,8 +1794,7 @@ int main(int argc, char **str){
     free(macros);
 }
 
-int yyerror(s)
-const char *s;
+int yyerror(const char *s)
 {
     fprintf(stderr, "%s\n", s);
 
@@ -1795,7 +1808,7 @@ const char *s;
 
 }
 
-int yywrap(){
+int yywrap(void){
     return (1);
 }
 

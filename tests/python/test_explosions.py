@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
+from util import Mock, error_handled_by_gnoll, roll
 
 
 # Should roll like: {3},{3},{1}
@@ -19,9 +19,9 @@ def test_explosion(r, out):
 # Should roll like: {3,3},{1,1}  # {3,3}
 @pytest.mark.parametrize("r,out", [("2d3!", 8), ("2d5!", 6)])
 def test_multi_dice_explosion(r, out):
-    result, _ = roll(
-        r, mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE, mock_const=3
-    )
+    result, _ = roll(r,
+                     mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
+                     mock_const=3)
     assert result == out
 
 
@@ -32,9 +32,9 @@ def test_multi_dice_explosion(r, out):
     ],
 )
 def test_explosion_only_once(r, out):
-    result, _ = roll(
-        r, mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE, mock_const=3
-    )
+    result, _ = roll(r,
+                     mock_mode=Mock.RETURN_CONSTANT_TWICE_ELSE_CONSTANT_ONE,
+                     mock_const=3)
     assert result == out
 
 
@@ -49,5 +49,8 @@ def test_explosion_penetrate(r, out):
     assert result == out
 
 
-if __name__ == "__main__":
-    test_explosion("d3!", 7)
+def test_symbolic_explosions():
+    try:
+        roll("df!")
+    except Exception as e:
+        error_handled_by_gnoll(e)

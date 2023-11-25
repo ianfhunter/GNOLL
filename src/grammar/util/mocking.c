@@ -6,7 +6,7 @@ int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
 
 
-void reset_mocking() {
+void reset_mocking(void) {
   /**
    * @brief Resets various globals for test mocking
    */
@@ -26,7 +26,7 @@ void init_mocking(MOCK_METHOD mock_style, int starting_value) {
   global_mock_style = mock_style;
 }
 
-void mocking_tick() {
+void mocking_tick(void) {
   /**
    * @brief Every time a dice is rolled, this function is called so that the
    * mocking logic can update

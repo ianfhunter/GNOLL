@@ -4,9 +4,8 @@ import re
 
 # Copy-Pasted from test/util.py. Real app would just import gnoll from pypi
 SRC_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/")
-)
-m = os.path.join(SRC_DIR, "parser.py")
+    os.path.join(os.path.dirname(__file__), "../../src/python/code/gnoll/"))
+m = os.path.join(SRC_DIR, "__init__.py")
 spec = iu.spec_from_file_location("dt", m)
 dt = iu.module_from_spec(spec)
 spec.loader.exec_module(dt)
@@ -35,7 +34,6 @@ def main():
     """Format a Dice Roll"""
     # Roll 1.
     for _ in range(100):
-
         format_roll("d20+d20")
 
 
