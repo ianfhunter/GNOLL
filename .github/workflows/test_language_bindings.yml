@@ -223,5 +223,4 @@ jobs:
       env:
         LD_LIBRARY_PATH: ${{ github.workspace }}/build
       run: |
-        echo "Hello ${{ github.workspace }}/"
         make rust
