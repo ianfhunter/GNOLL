@@ -1,3 +1,6 @@
+use std::ffi::CStr;
+use std::process;
+
 #[repr(C)]
 
 extern "C" {
