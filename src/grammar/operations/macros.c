@@ -31,7 +31,7 @@ unsigned long hash_function(unsigned char *str) {
   return hash;
 }
 
-void delete_all_macros() {
+void delete_all_macros(void) {
   struct macro_struct *current_macro, *tmp;
 
   HASH_ITER(hh, macros, current_macro, tmp) {
