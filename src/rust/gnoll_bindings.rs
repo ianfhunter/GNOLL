@@ -17,20 +17,21 @@ fn main() {
     // Read the result from the memory pointed to by fp
     unsafe { 
         let result_cstr = CStr::from_ptr(fp);
-    }
-    if let Ok(result_str) = result_cstr.to_str() {
-        if let Ok(result_num) = result_str.parse::<u32>() {
-            if result_num > 1 {
-                 println!("Result is: {}", result_num);
-                 process::exit(0);
+    
+        if let Ok(result_str) = result_cstr.to_str() {
+            if let Ok(result_num) = result_str.parse::<u32>() {
+                if result_num > 1 {
+                    println!("Result is: {}", result_num);
+                    process::exit(0);
+                } else {
+                    println!("Result is not greater than 1");
+                }
             } else {
-                println!("Result is not greater than 1");
+                println!("Failed to parse the result as an integer");
             }
         } else {
-            println!("Failed to parse the result as an integer");
+            println!("Failed to convert CStr to str");
         }
-    } else {
-        println!("Failed to convert CStr to str");
     }
     process::exit(1);
 
