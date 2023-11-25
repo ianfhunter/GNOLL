@@ -127,7 +127,7 @@ jobs:
       run: |
         sudo apt install clang-14 lld-14 llvm-14 libjs-d3 python3-numpy
         sudo apt install llvm -y
-        curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
         wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
         sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb
