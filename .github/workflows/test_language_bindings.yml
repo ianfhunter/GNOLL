@@ -129,8 +129,8 @@ jobs:
         sudo apt install llvm -y
         curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
-        wget -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
-        sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb
+        wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
+        sudo apt install ./emscripten_3.1.6~dfsg-5_all.deb nodejs- # ignore nodejs acorn max version
     - name: make js
       run: |
         emcc -v
