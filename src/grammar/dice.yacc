@@ -31,7 +31,7 @@
 
 int yylex(void);
 int yyerror(const char* s);
-int yywrap();
+int yywrap(void);
 
 //TODO: move to external file 
 
@@ -50,10 +50,10 @@ extern struct macro_struct *macros;
 pcg32_random_t rng;
 
 // Function Signatures for this file
-int initialize();
+int initialize(void);
 
 // Functions
-int initialize(){
+int initialize(void){
     if (!seeded){
         unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
         pcg32_srandom_r(
@@ -1809,7 +1809,7 @@ const char *s;
 
 }
 
-int yywrap(){
+int yywrap(void){
     return (1);
 }
 
