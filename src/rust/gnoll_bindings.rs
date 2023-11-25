@@ -15,8 +15,9 @@ fn main() {
     unsafe { roll_and_write(die, fp) }
 
     // Read the result from the memory pointed to by fp
-    let result_cstr = CStr::from_ptr(fp);
-    
+    unsafe { 
+        let result_cstr = CStr::from_ptr(fp);
+    }
     if let Ok(result_str) = result_cstr.to_str() {
         if let Ok(result_num) = result_str.parse::<u32>() {
             if result_num > 1 {
