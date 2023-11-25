@@ -2,10 +2,10 @@
 
 rust: all
 	echo "LDPATH"
+	export LD_LIBRARY_PATH=$(PWD)/build/:$(LD_LIBRARY_PATH)
 	echo $(LD_LIBRARY_PATH)
-	echo $(PWD)
 	ls $(PWD)/build/libdice.so -las
 	ld -ldice
-	cd src/rust && ldd $(PWD)/build/libdice.so
+	ldd $(PWD)/build/libdice.so
 	cd src/rust && cargo build -v
 	cd src/rust && cargo run 
