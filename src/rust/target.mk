@@ -6,5 +6,6 @@ rust: all
 	echo "explicit"
 	ld -L"$(shell pwd)/build/" -ldice
 	export LD_LIBRARY_PATH=$(shell pwd)/build/
-	cd src/rust && RUSTFLAGS="-C link-arg=-L$(shell pwd)/build/" cargo build 
+	export LIBRARY_PATH=LD_LIBRARY_PATH
+	cd src/rust && cargo build 
 	cd src/rust && cargo run 
