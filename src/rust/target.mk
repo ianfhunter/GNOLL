@@ -4,7 +4,7 @@ rust: all
 	echo "LDPATH"
 	echo "pwd is $(shell pwd)"
 	ls "$(shell pwd)/build/"
-	$(eval LD_LIBRARY_PATH := "$(shell pwd)/build/:$(LD_LIBRARY_PATH)")
+	$(eval LD_LIBRARY_PATH := $(shell pwd)/build/:$(LD_LIBRARY_PATH))
 	echo "$(LD_LIBRARY_PATH)"
 	ls "$(shell pwd)/build/libdice.so" -las
 	ld -ldice
