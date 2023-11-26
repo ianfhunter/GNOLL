@@ -7,7 +7,7 @@ rust: all
 	ld -L"$(shell pwd)/build/" -ldice
 	export LD_LIBRARY_PATH=$(shell pwd)/build/
 	export LIBRARY_PATH=$LD_LIBRARY_PATH
-	cp $(shell pwd)/build/libdice.so /usr/local/lib/libdice.so
+	sudo cp $(shell pwd)/build/libdice.so /usr/local/lib/libdice.so
 	echo "BUILD"
 	cd src/rust && cargo build 
 	echo "RUN"
