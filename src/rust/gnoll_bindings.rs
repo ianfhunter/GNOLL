@@ -9,6 +9,10 @@ extern "C" {
 }
 
 fn main() {
+
+    println!("Example of GNOLL in rust...");
+
+    
     let die = "10d20\0".as_ptr() as *mut cty::c_char;
     let fp = "output.txt\0".as_ptr() as *mut cty::c_char;
     
@@ -33,6 +37,7 @@ fn main() {
             println!("Failed to convert CStr to str");
         }
     }
+    println!("Fatal.");
     process::exit(1);
 
 }
