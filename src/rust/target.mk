@@ -1,12 +1,12 @@
 .PHONY: rust
 
 rust: all
-	echo "LDPATH"
 	echo "pwd is $(shell pwd)"
 	ls "$(shell pwd)/build/"
-	$(eval LD_LIBRARY_PATH := $(shell pwd)/build/:$(LD_LIBRARY_PATH))
-	echo "$(LD_LIBRARY_PATH)"
+	$(eval LD_LIBRARY_PATH := $(shell pwd)/build/)
+	echo "ldpath is $(LD_LIBRARY_PATH)"
 	ls "$(shell pwd)/build/libdice.so" -las
+	ls "$(LD_LIBRARY_PATH)/libdice.so" -las
 	ld -ldice
 	ldd "$(shell pwd)/build/libdice.so"
 	cd src/rust && cargo build -v
