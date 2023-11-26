@@ -11,4 +11,4 @@ rust: all
 	echo "BUILD"
 	cd src/rust && cargo build 
 	echo "RUN"
-	cd src/rust && cargo run 
+	cd src/rust && export LD_LIBRARY_PATH=$(shell pwd)/build/ cargo run 
