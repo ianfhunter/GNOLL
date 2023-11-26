@@ -3,7 +3,7 @@
 rust: all
 	echo "pwd is $(shell pwd)"
 	ls "$(shell pwd)/build/"
-	LD_LIBRARY_PATH=$(shell pwd)/build/ ld -ldice
+	export LD_LIBRARY_PATH=$(shell pwd)/build/ && ld -ldice
 	echo "done"
 	$(eval LD_LIBRARY_PATH := $(shell pwd)/build/)
 	export LD_LIBRARY_PATH
