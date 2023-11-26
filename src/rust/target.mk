@@ -2,12 +2,12 @@
 
 rust: all
 	echo "LDPATH"
-	echo "pwd is $PWD"
-	ls "$PWD/build/"
-	export LD_LIBRARY_PATH="$PWD/build/":"$LD_LIBRARY_PATH*
+	echo "pwd is $(pwd)"
+	ls "$(pwd)/build/"
+	export LD_LIBRARY_PATH="$(pwd)/build/":"$LD_LIBRARY_PATH*
 	echo "$LD_LIBRARY_PATH"
-	ls "$PWD/build/libdice.so" -las
+	ls "$(pwd)/build/libdice.so" -las
 	ld -ldice
-	ldd "$PWD/build/libdice.so"
+	ldd "$(pwd)/build/libdice.so"
 	cd src/rust && cargo build -v
 	cd src/rust && cargo run 
