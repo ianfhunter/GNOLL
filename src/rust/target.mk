@@ -14,5 +14,5 @@ rust: all
 	#ls "$(LD_LIBRARY_PATH)/libdice.so" -las
 	#ld -ldice
 	#ldd "$(shell pwd)/build/libdice.so"
-	cd src/rust && cargo build -v  -L $(shell pwd)/../../build/
+	cd src/rust && cargo build -v #  -L $(shell pwd)/../../build/
 	cd src/rust && cargo run 
