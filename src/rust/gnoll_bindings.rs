@@ -33,7 +33,7 @@ fn main() {
             // Rest of your code...
         
             if let Ok(result_str) = result_cstr.to_str() {
-                let cleaned_string = original_string.replace(";", "");
+                let cleaned_string = result_string.replace(";", "");
                 if let Ok(result_num) = cleaned_string.parse::<u32>() {
                     if result_num > 1 {
                         println!("Result is: {}\n", result_num);
