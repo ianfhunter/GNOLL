@@ -2,7 +2,6 @@ use std::ffi::CStr;
 use std::process;
 use std::fs::File;
 use std::io::{self, BufRead};
-use std::path::Path;
 
 extern "C" {
     pub fn roll_and_write(
@@ -30,7 +29,7 @@ fn main() {
        // Read the first line
         if let Some(Ok(first_line)) = reader.lines().next() {
             // Use the first line as needed
-            let result_cstr = std::ffi::CString::new(first_line)?;
+            let result_cstr = std::ffi::CString::new(first_line).unwrap();
             // Rest of your code...
         
             if let Ok(result_str) = result_cstr.to_str() {
