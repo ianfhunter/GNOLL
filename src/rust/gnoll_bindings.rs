@@ -32,20 +32,21 @@ fn main() {
             // Use the first line as needed
             let result_cstr = std::ffi::CString::new(first_line)?;
             // Rest of your code...
-        }
-        if let Ok(result_str) = result_cstr.to_str() {
-            if let Ok(result_num) = result_str.parse::<u32>() {
-                if result_num > 1 {
-                    println!("Result is: {}\n", result_num);
-                    process::exit(0);
+        
+            if let Ok(result_str) = result_cstr.to_str() {
+                if let Ok(result_num) = result_str.parse::<u32>() {
+                    if result_num > 1 {
+                        println!("Result is: {}\n", result_num);
+                        process::exit(0);
+                    } else {
+                        println!("Result is not greater than 1\n");
+                    }
                 } else {
-                    println!("Result is not greater than 1\n");
+                    println!("Failed to parse the result '{}' as an integer\n", result_str);
                 }
             } else {
-                println!("Failed to parse the result '{}' as an integer\n", result_str);
+                println!("Failed to convert CStr to str\n");
             }
-        } else {
-            println!("Failed to convert CStr to str\n");
         }
     }
     println!("Fatal.\n");
