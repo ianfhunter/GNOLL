@@ -26,6 +26,7 @@ jobs:
       - test_php
       - test_R
       - test_ruby
+      - test_rust
     runs-on: ubuntu-latest
     steps:
       - name: NoOp
@@ -222,3 +223,14 @@ jobs:
         DICE_PATH: src/PHP/
     - name: make php
       run: make php
+  test_rust:
+    name: "Test: Rust"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Rust
+      run: |
+        curl https://sh.rustup.rs -sSf | sh -s -- -y
+    - name: Run Rust
+      run: |
+        make rust
