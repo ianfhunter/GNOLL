@@ -1,0 +1,2 @@
+lua:
+    luajit example.lua
