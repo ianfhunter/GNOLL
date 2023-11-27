@@ -21,6 +21,7 @@ jobs:
       - test_java
       - test_javascript
       - test_julia
+      - test_matlab
       - test_perl
       - test_php
       - test_R
@@ -159,6 +160,17 @@ jobs:
     - name: make julia
       run: |
         PATH="$PATH:$PWD/julia-1.8.2/bin" make julia
+
+  test_matlab:
+    name: "Test: Matlab/Octave"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: prereqs
+      run: sudo apt-get install octave -y
+    - name: run
+      run: make matlab
+    
 
   test_perl:
     name: "Test: Perl"
