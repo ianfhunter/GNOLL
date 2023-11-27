@@ -28,3 +28,9 @@ file:close()
 
 -- Print the result
 print("Result from roll_and_write: " .. result)
+
+if result and result > 33 then
+    os.exit(0)
+else
+    os.exit(1)
+end
