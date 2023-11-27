@@ -24,7 +24,7 @@ fn main() {
     unsafe { 
         //let result_cstr = CStr::from_ptr(fp);
         let file_path = "output.txt";
-        let file = File::open(file_path)?;
+        let file = File::open(file_path).unwrap();
         let reader = io::BufReader::new(file);
 
        // Read the first line
