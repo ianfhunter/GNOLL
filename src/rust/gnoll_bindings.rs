@@ -1,5 +1,8 @@
 use std::ffi::CStr;
 use std::process;
+use std::fs::File;
+use std::io::{self, BufRead};
+use std::path::Path;
 
 extern "C" {
     pub fn roll_and_write(
