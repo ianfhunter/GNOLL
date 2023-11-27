@@ -11,7 +11,6 @@ extern "C" {
 fn main() {
 
     println!("Example of GNOLL in rust...\n");
-
     
     let die = "10d20\0".as_ptr() as *mut cty::c_char;
     let fp = "output.txt\0".as_ptr() as *mut cty::c_char;
@@ -20,8 +19,17 @@ fn main() {
 
     // Read the result from the memory pointed to by fp
     unsafe { 
-        let result_cstr = CStr::from_ptr(fp);
-    
+        //let result_cstr = CStr::from_ptr(fp);
+        let file_path = "output.txt";
+        let file = File::open(file_path)?;
+        let reader = io::BufReader::new(file);
+
+       // Read the first line
+        if let Some(Ok(first_line)) = reader.lines().next() {
+            // Use the first line as needed
+            let result_cstr = std::ffi::CString::new(first_line)?;
+            // Rest of your code...
+        }
         if let Ok(result_str) = result_cstr.to_str() {
             if let Ok(result_num) = result_str.parse::<u32>() {
                 if result_num > 1 {
