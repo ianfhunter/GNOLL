@@ -31,7 +31,7 @@ fn main() {
                     println!("Result is not greater than 1\n");
                 }
             } else {
-                println!("Failed to parse the result as an integer\n");
+                println!("Failed to parse the result '{}' as an integer\n", result_str);
             }
         } else {
             println!("Failed to convert CStr to str\n");
