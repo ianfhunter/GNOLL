@@ -21,6 +21,7 @@ jobs:
       - test_java
       - test_javascript
       - test_julia
+      - test_lua
       - test_perl
       - test_php
       - test_R
@@ -159,7 +160,18 @@ jobs:
     - name: make julia
       run: |
         PATH="$PATH:$PWD/julia-1.8.2/bin" make julia
+  test_lua:
+    name: "Test: Lua"
+    runs-on: ubuntu-20.04
 
+    steps:
+    - uses: actions/checkout@v3
+    - name: lua install
+      run: |
+        sudo apt install luajit
+    - name: make lua
+      run: make lua
+    
   test_perl:
     name: "Test: Perl"
     runs-on: ubuntu-20.04
