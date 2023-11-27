@@ -1,2 +1,2 @@
 lua:
-    luajit example.lua
+	luajit example.lua
