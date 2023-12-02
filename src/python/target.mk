@@ -11,7 +11,7 @@ python: all
 
 pip : python
 	cd src/python/ ; python3 -m build
-	python3 -m pip install -vvv --user --find-links=src/python/dist/ --force-reinstall --ignore-installed .
+	python3 -m pip install -vvv --user --find-links=src/python/dist/ --force-reinstall --ignore-installed src/python/
 	python3 -c "from gnoll import roll; roll('2')"
 
 publish: test
