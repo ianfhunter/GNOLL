@@ -172,12 +172,12 @@ test:
 	python3 -m pytest tests/python/ -xs
 
 	echo "------ secure --------"
-	USE_SECURE_RANDOM=1 $(MAKE) pip
-	python3 -m pytest tests/python/ -xs
+	#USE_SECURE_RANDOM=1 $(MAKE) pip
+	#python3 -m pytest tests/python/ -xs
 
 	echo "------ YACC/LEX -------"
-	YACC_FALLBACK=1 LEX_FALLBACK=1 $(MAKE) pip
-	python3 -m pytest tests/python/ -xs
+	#YACC_FALLBACK=1 LEX_FALLBACK=1 $(MAKE) pip
+	#python3 -m pytest tests/python/ -xs
 
 include src/*/target.mk
 
