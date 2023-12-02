@@ -4,7 +4,7 @@ import subprocess
 from enum import Enum
 
 import numpy as np
-from gnoll import gnoll_roll
+from gnoll import roll as gnoll_roll
 
 
 class Mock(Enum):
