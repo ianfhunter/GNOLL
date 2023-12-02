@@ -19,9 +19,7 @@ OPT=-O3 \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
 	-Wundef -Wno-unused -Wformat=2 \
-        -Wconversion -Wimplicit-fallthrough \
-        -D_GLIBCXX_ASSERTIONS \
-        -fstack-clash-protection -fstack-protector-strong
+        -Wconversion -Wimplicit-fallthrough
 
 ifneq ($(shell uname -s), Darwin)
   OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
