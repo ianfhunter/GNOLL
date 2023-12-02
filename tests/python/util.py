@@ -1,8 +1,4 @@
-import importlib.util as iu
-import os
-import subprocess
 from enum import Enum
-
 import numpy as np
 from gnoll import roll as gnoll_roll
 
@@ -30,8 +26,6 @@ def roll(s,
          builtins=False):
     if mock_mode is None:
         mock_mode = Mock.NO_MOCK
-
-    first_run = False
 
     dt_return = gnoll_roll(
         s,
