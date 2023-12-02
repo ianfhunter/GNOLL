@@ -15,7 +15,7 @@ parent: Dice Notation
 >
 >**GM**: Do you remember how to do that?
 >
->**Grindon**: Yep, I just do a "1d20r#1"
+>**Grindon**: Yep, I just do a "1d20r==1"
 >
 >*GNOLL*: [9]
 >
