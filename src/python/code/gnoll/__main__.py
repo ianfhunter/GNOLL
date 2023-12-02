@@ -76,8 +76,8 @@ def main(EXPR, times, no_builtins, **kwargs):
     """
     for _ in range(times):
         _, [[result]], dice_breakdown = gnoll.roll(EXPR,
-                                              builtins=not no_builtins,
-                                              **kwargs)
+                                                   builtins=not no_builtins,
+                                                   **kwargs)
         yield (dice_breakdown[0], "-->", result) if breakdown else (result, )
 
 
