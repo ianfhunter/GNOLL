@@ -15,7 +15,7 @@ char * concat_strings(char ** s, unsigned int num_s){
     if (num_s == 1){
         return s[0];
     }
-    unsigned int size_total = 0;
+    long unsigned int size_total = 0;
     unsigned int spaces = 0;
     for(unsigned int i = 1; i != num_s + 1; i++){
         size_total += strlen(s[i]) + 1;
@@ -25,7 +25,7 @@ char * concat_strings(char ** s, unsigned int num_s){
         size_total -= 1;  // no need for trailing space
     }
     
-    printf("Size Total %u\n", size_total);
+    // printf("Size Total %lu\n", size_total);
     
     char * result = (char *)safe_calloc((size_total+1), sizeof(char));
     if(gnoll_errno){return NULL;}

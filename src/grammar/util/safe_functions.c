@@ -173,7 +173,7 @@ void * safe_calloc(size_t nitems, size_t size) {
   }
   void *calloc_result = NULL;
   calloc_result = calloc(nitems, size);
-  unsigned int total_sz = nitems * size;
+  long unsigned int total_sz = nitems * size;
   if (!calloc_result && total_sz) {
     gnoll_errno = BAD_ALLOC;
   }
