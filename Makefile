@@ -167,6 +167,13 @@ build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
 test : pip
+	$(MAKE) pip
+	python3 -m pytest tests/python/ -xs
+
+	USE_SECURE_RANDOM=1 $(MAKE) pip
+	python3 -m pytest tests/python/ -xs
+
+	YACC_FALLBACK=1 LEX_FALLBACK=1 $(MAKE) pip
 	python3 -m pytest tests/python/ -xs
 
 include src/*/target.mk
