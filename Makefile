@@ -24,10 +24,10 @@ OPT=-O3 \
         -fstack-clash-protection -fstack-protector-strong
 
 ifeq ($(shell uname -s), Darwin)
-        echo "Some incompatible compile flags disabled for macOS"
+  echo "Some incompatible compile flags disabled for macOS"
 else
-        OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
-        -Wl,-z,relro -Wl,-z,now
+  OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
+  -Wl,-z,relro -Wl,-z,now
 endif
         
 # -ffast-math # Problematic for Python 
