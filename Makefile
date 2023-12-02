@@ -23,9 +23,7 @@ OPT=-O3 \
         -D_GLIBCXX_ASSERTIONS \
         -fstack-clash-protection -fstack-protector-strong
 
-ifeq ($(shell uname -s), Darwin)
-  echo "Some incompatible compile flags disabled for macOS"
-else
+ifne ($(shell uname -s), Darwin)
   OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
   -Wl,-z,relro -Wl,-z,now
 endif
