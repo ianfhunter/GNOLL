@@ -35,7 +35,7 @@ Many of our notation design decisions are explained in the documentation and com
 ## Current Status
 ### 🧑‍💻 Language Support
 
-GNOLL was written to be the definitive solution to dice notation. The core has been written in C, but fear not! You can use GNOLL in many other programming languages too.
+GNOLL was written to be the definitive solution to dice notation. The core has been written in C, but fear not! You can use GNOLL in many other programming languages too. Here are some we have examples for:
 
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
