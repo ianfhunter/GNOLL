@@ -141,7 +141,7 @@ compile:
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
-           -Wno-implicit-conversion
+           -Wno-implicit-int-conversion
 
 
 # Shared Lib
