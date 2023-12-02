@@ -78,7 +78,7 @@ def main(EXPR, times, no_builtins, **kwargs):
         _, [[result]], breakdown = gnoll.roll(EXPR,
                                               builtins=not no_builtins,
                                               **kwargs)
-        print("hi," , breakdown, "hi", result)
+        print("hi,", breakdown, "hi", result)
         yield (breakdown[0], "-->", result) if breakdown else (result, )
 
 
