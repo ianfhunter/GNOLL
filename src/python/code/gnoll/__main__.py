@@ -75,10 +75,10 @@ def main(EXPR, times, no_builtins, **kwargs):
     @param **kwargs - other key word arguments to be passed to gnoll.roll
     """
     for _ in range(times):
-        _, [[result]], breakdown = gnoll.roll(EXPR,
+        _, [[result]], dice_breakdown = gnoll.roll(EXPR,
                                               builtins=not no_builtins,
                                               **kwargs)
-        yield (breakdown[0], "-->", result) if breakdown else (result, )
+        yield (dice_breakdown[0], "-->", result) if  else (result, )
 
 
 def main_with_args(args):
