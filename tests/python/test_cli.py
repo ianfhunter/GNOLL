@@ -4,6 +4,7 @@ m = lambda *x: list(gnoll.__main__.main_with_args(x))
 
 
 def test_cli():
+    print(m("1d4"))
     [[r]] = m("1d4")
     assert isinstance(r, int)
 
