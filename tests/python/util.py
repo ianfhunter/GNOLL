@@ -1,4 +1,5 @@
 from enum import Enum
+
 import numpy as np
 from gnoll import roll as gnoll_roll
 
