@@ -66,7 +66,7 @@ def parse_cmdline_args(args):
     return a
 
 
-def main(EXPR, times, no_builtins, **kwargs):
+def main(EXPR, times, no_builtins, breakdown, **kwargs):
     """
     The entry point for gnoll when called via `python -m gnoll`
     @param EXPR - the expression
