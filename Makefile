@@ -166,7 +166,7 @@ build/*/%.o:src/grammar/*/%.c
 build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
-test : pip
+test:
 	echo "------ default -------"
 	$(MAKE) pip
 	python3 -m pytest tests/python/ -xs
