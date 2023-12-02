@@ -2,9 +2,7 @@
 
 import pytest
 
-pytest.mark.skip(reason="Known bug #444")
-
-
+@pytest.mark.skip(reason="Known bug #444")
 def test_issue_444():
     """
     issue reported that the built-in/mock combination produces a segmentation fault
