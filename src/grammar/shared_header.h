@@ -9,6 +9,11 @@ extern "C"
 #include "rolls/dice_frontend.h"
 #include "util/vector_functions.h"
 
+#if __has_attribute(__fallthrough__)
+# define fallthrough                    __attribute__((__fallthrough__))
+#else
+# define fallthrough                    do {} while (0)  /* fallthrough */
+#endif
 
 #define MAX_SYMBOL_LENGTH 256
 #define MAX_ITERATION 20

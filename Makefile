@@ -18,8 +18,14 @@ OPT=-O3 \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2  
+	-Wundef -Wno-unused -Wformat=2 \
+        -Wconversion -Wimplicit-fallthrough
 
+ifneq ($(shell uname -s), Darwin)
+  OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
+  -Wl,-z,relro
+endif
+        
 # -ffast-math # Problematic for Python 
 
 # YACC/LEX fails for the following, so disabled:
@@ -135,7 +141,8 @@ compile:
         # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
-           -Wno-sign-conversion -Wno-sign-compare -lm
+           -Wno-sign-conversion -Wno-sign-compare -lm \
+           -Wno-implicit-int-conversion
 
 
 # Shared Lib
