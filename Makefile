@@ -23,7 +23,7 @@ OPT=-O3 \
 
 ifneq ($(shell uname -s), Darwin)
   OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
-  -Wl,-z,relro -Wl,-z,now
+  -Wl,-z,relro
 endif
         
 # -ffast-math # Problematic for Python 
