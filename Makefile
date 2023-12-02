@@ -18,7 +18,14 @@ OPT=-O3 \
 	-Wcast-qual -Wdisabled-optimization -Winit-self \
 	-Wmissing-declarations -Wmissing-include-dirs \
 	-Wredundant-decls -Wshadow -Wsign-conversion \
-	-Wundef -Wno-unused -Wformat=2  
+	-Wundef -Wno-unused -Wformat=2 \
+        -Wconversion -Wimplicit-fallthrough \
+        -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 \
+        -D_GLIBCXX_ASSERTIONS \
+        -fstrict-flex-arrays=3 \
+        -fstack-clash-protection -fstack-protector-strong \
+        -Wl,-z,nodlopen -Wl,-z,noexecstack \
+        -Wl,-z,relro -Wl,-z,now
 
 # -ffast-math # Problematic for Python 
 
