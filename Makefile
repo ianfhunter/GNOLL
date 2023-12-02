@@ -42,7 +42,7 @@ ASAN_FLAGS= -fsanitize=address \
 	-fno-omit-frame-pointer -static-libasan -g
 GDB_FLAGS= -g -gdwarf-5
 
-DEBUG=0
+DEBUG?=0
 ifeq ($(DEBUG), 1)
 # Valgrind
 OPT=-O0 $(GDB_FLAGS)
@@ -65,7 +65,7 @@ endif
 endif
 
 
-USE_SECURE_RANDOM=0
+USE_SECURE_RANDOM?=0
 ifeq ($(USE_SECURE_RANDOM), 1)
 #$(shell echo "Using Fast, but Cryptographically insecure random fn")
 ARC4RANDOM:=-lbsd `pkg-config --libs libbsd`
@@ -76,7 +76,7 @@ endif
 
 USE_CLT=0
 
-YACC_FALLBACK=0
+YACC_FALLBACK?=0
 ifeq ($(YACC_FALLBACK), 1)
 #$(shell echo USING YACC)
 PARSER:=yacc
@@ -85,7 +85,7 @@ else
 PARSER:=bison --yacc
 endif
 
-LEX_FALLBACK=0
+LEX_FALLBACK?=0
 ifeq ($(LEX_FALLBACK), 1)
 #$(shell echo USING LEX)
 LEXER:=lex
@@ -166,10 +166,7 @@ build/*/%.o:src/grammar/*/%.c
 build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
-test_no_pip : python
-	python3 -m pytest tests/python/ -xs
-
-test : pip
+test: pip
 	python3 -m pytest tests/python/ -xs
 
 include src/*/target.mk

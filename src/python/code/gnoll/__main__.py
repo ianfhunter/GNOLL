@@ -66,7 +66,7 @@ def parse_cmdline_args(args):
     return a
 
 
-def main(EXPR, times, no_builtins, **kwargs):
+def main(EXPR, times, no_builtins, breakdown, **kwargs):
     """
     The entry point for gnoll when called via `python -m gnoll`
     @param EXPR - the expression
@@ -75,10 +75,10 @@ def main(EXPR, times, no_builtins, **kwargs):
     @param **kwargs - other key word arguments to be passed to gnoll.roll
     """
     for _ in range(times):
-        _, [[result]], breakdown = gnoll.roll(EXPR,
-                                              builtins=not no_builtins,
-                                              **kwargs)
-        yield (breakdown[0], "-->", result) if breakdown else (result, )
+        _, [[result]], dice_breakdown = gnoll.roll(EXPR,
+                                                   builtins=not no_builtins,
+                                                   **kwargs)
+        yield (dice_breakdown[0], "-->", result) if breakdown else (result, )
 
 
 def main_with_args(args):
