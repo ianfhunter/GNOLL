@@ -140,7 +140,8 @@ compile:
         # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
-           -Wno-sign-conversion -Wno-sign-compare -lm
+           -Wno-sign-conversion -Wno-sign-compare -lm \
+           -Wno-implicit-conversion
 
 
 # Shared Lib
