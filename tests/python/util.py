@@ -21,16 +21,16 @@ def error_handled_by_gnoll(e):
         print(e)
         raise AssertionError
 
+
 def roll(s,
          mock_mode=Mock.NO_MOCK,
          mock_const=3,
          verbose=False,
          squeeze=True,
          builtins=False):
-    
     if mock_mode is None:
         mock_mode = Mock.NO_MOCK
-        
+
     first_run = False
 
     dt_return = gnoll_roll(
