@@ -2,11 +2,10 @@
 import os
 import sys
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))  # skipcq
+
 from util import roll
 
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-)  # NOSONAR
 
 
 def test_bw_dsix_over_four():
