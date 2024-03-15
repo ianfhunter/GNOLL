@@ -2,9 +2,11 @@
 import os
 import sys
 
+# pragma: no cover
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 from util import roll
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
 def test_bw_dsix_over_four():
