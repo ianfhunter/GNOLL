@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from util import roll
+from ....util import roll
 
 
 def test_bw_dsix_over_four():
