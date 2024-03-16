@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
+import os
+import sys
 
-from util import roll
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+# autopep8: off
+from util import roll  # fmt: skip
+
+# autopep8: on
 
 
 def test_bw_dsix_over_four():
