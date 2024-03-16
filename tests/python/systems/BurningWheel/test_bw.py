@@ -2,12 +2,13 @@
 import os
 import sys
 
-from util import roll  # skipcq
-
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-)  # skipcq
+)  
 
+# autopep8: off
+from util import roll  #fmt: skip
+# autopep8: on
 
 def test_bw_dsix_over_four():
     # TODO: x6, for all stats
