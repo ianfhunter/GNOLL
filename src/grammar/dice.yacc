@@ -193,7 +193,7 @@ dice_statement: math{
 
     // TODO: To Function
     if (verbose && !write_to_file){
-            printf("Result:");
+        printf("Result:");
     }
     for(unsigned int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
@@ -1791,6 +1791,7 @@ int main(int argc, char **str){
         0   // Mocking Seed
     );
     print_gnoll_errors();
+#ifndef __EMSCRIPTEN__
     FILE  *f = fopen("output.dice","r");
     int c;
     if (f){
@@ -1800,6 +1801,7 @@ int main(int argc, char **str){
         }
         fclose(f);
     }
+#endif
     // Final Freeing
     free(macros);
 }
