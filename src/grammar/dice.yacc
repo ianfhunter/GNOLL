@@ -39,10 +39,10 @@ int yywrap(void);
 int yydebug=1;
 #endif
 
-int verbose = 1;
+int verbose = 0;
 int dice_breakdown = 0;
 int seeded = 0;
-int write_to_file = 1;
+int write_to_file = 0;
 char * output_file;
 
 extern int gnoll_errno;
