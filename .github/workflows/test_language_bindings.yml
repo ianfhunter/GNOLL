@@ -20,7 +20,6 @@ jobs:
       - test_haskell
       - test_java
       - test_javascript
-      - test_javascript_mac
       - test_julia
       - test_lua
       - test_perl
