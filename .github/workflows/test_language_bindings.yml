@@ -172,8 +172,7 @@ jobs:
         cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
         emcc -v
         make js
-        node ./build/js/a.out.js 1d20
-        cat output.dice
+        node ./build/js/a.out.js 1d20 & cat output.dice
 
   test_julia:
     name: "Test: Julia"
