@@ -9,6 +9,8 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 DISABLE_ERRORS+= -Wno-error  #  -Wno-error=sign-conversion -Wno-error=sign-compare
 endif
+endif
+
 
 .PHONY: javascript
 javascript: clean yacc lex
