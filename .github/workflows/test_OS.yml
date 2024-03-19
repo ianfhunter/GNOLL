@@ -63,3 +63,5 @@ jobs:
         run: make all
       - name: Test
         run: ./build/dice d20
+      - name: Test for JS bug_463 
+        run: make javascript
