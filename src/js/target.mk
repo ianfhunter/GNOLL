@@ -4,7 +4,7 @@ JS_OPT=-O3 -Wall
 # YACC/LEX generates code with errors, so disabling warning-to-error escalation
 DISABLE_ERRORS= -Wno-error=implicit-function-declaration
 
-ifne ($(OS),Windows_NT)
+ifneq ($(OS),Windows_NT)
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 DISABLE_ERRORS+= -Wno-error  #  -Wno-error=sign-conversion -Wno-error=sign-compare
