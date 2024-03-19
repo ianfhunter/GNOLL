@@ -143,6 +143,35 @@ jobs:
         make js
         node ./build/js/a.out.js 1d20
 
+  test_javascript_mac:
+    name: "Test: JavaScript (Mac)"
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install LLVM and Clang
+      uses: KyleMayes/install-llvm-action@v1
+      with:
+        version: "10.0"
+    - name: python deps
+      run: python3 -m pip install -r reqs/requirements.txt
+    - name: brew prerequisites
+      run: |
+        brew install llvm@14
+        brew install d3
+        brew install node@20
+        git clone https://github.com/acornjs/acorn.git
+        cd acorn ; npm install ; cd -
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk ; ./emsdk install latest ; cd - 
+    - name: make js
+      run: |
+        cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
+        emcc -v
+        make js
+        node ./build/js/a.out.js 1d20
+
+
+
 
   test_julia:
     name: "Test: Julia"
