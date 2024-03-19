@@ -1751,6 +1751,12 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
     return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }
 
+#ifdef __EMSCRIPTEN__
+#define VERBOSITY 1
+#else
+#define VERBOSITY 0
+#endif
+
 int main(int argc, char **str){
 
     for(int a = 1; a != argc; a++){
@@ -1768,16 +1774,13 @@ int main(int argc, char **str){
     
     // Join arguments if they came in as seperate strings
 
-    printf("str[0]: %s\n", str[0]);
-    printf("str[1]: %s\n", str[1]);
     char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
-    printf("INPUT: %s\n", s);
 
     remove("output.dice");
     roll_full_options(
         s,
         "output.dice",
-        1,  // Verbose
+        VERBOSITY,  // Verbose
         0,  // Introspect
         0,  // Mocking
         1,  // Builtins
