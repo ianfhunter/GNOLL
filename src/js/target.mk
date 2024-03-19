@@ -17,7 +17,7 @@ javascript: clean yacc lex
 	mkdir -p build/js/
 	emcc $(JS_OPT) $(CFILES) \
 	$(CFLAGS) \
-	-o build/js/a.out.js $(DISABLE_ERRORS)
+	-o build/js/a.out.js $(DISABLE_ERRORS) -D__EMSCRIPTEN__
 
 js: javascript  
 # Make alias for ease of use
