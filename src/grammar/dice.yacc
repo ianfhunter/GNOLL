@@ -192,6 +192,9 @@ dice_statement: math{
     }
 
     // TODO: To Function
+    if (verbose && !write_to_file){
+            printf("Result:");
+    }
     for(unsigned int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
@@ -1790,8 +1793,8 @@ int main(int argc, char **str){
     print_gnoll_errors();
     FILE  *f = fopen("output.dice","r");
     int c;
-    printf("Result:\n");
     if (f){
+        printf("Result:\n");
         while((c = getc(f)) !=  EOF){
             putchar(c);
         }
