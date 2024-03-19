@@ -20,6 +20,7 @@ jobs:
       - test_haskell
       - test_java
       - test_javascript
+      - test_javascript_mac
       - test_julia
       - test_lua
       - test_perl
@@ -152,10 +153,10 @@ jobs:
       uses: KyleMayes/install-llvm-action@v1
       with:
         version: "10.0"
-    - name: XCode Fixes
-      run: sudo xcode-select --switch /Library/Developer/CommandLineTools
     - name: python deps
-      run: python3 -m pip install -r reqs/requirements.txt
+      run: |
+        python3 -m pip install cppyy-backend==2.4.1 
+        python3 -m pip install -r reqs/requirements.txt
     - name: brew prerequisites
       run: |
         brew install llvm@14
