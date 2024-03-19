@@ -39,7 +39,7 @@ int yywrap(void);
 int yydebug=1;
 #endif
 
-int verbose = 0;
+int verbose = 1;
 int dice_breakdown = 0;
 int seeded = 0;
 int write_to_file = 0;
@@ -1777,7 +1777,7 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        0,  // Verbose
+        1,  // Verbose
         0,  // Introspect
         0,  // Mocking
         1,  // Builtins
