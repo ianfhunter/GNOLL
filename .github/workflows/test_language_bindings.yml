@@ -173,6 +173,7 @@ jobs:
         emcc -v
         make js
         node ./build/js/a.out.js 1d20
+        cat output.dice
 
   test_julia:
     name: "Test: Julia"
