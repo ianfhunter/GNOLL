@@ -29,6 +29,12 @@
 #define MINV(x, y) (((x) < (y)) ? (x) : (y))
 #define ABSV(x) (((x) < 0) ? (-x) : (x))
 
+#ifdef __EMSCRIPTEN__
+#define VERBOSITY 1
+#else
+#define VERBOSITY 0
+#endif
+
 int yylex(void);
 int yyerror(const char* s);
 int yywrap(void);
@@ -192,20 +198,20 @@ dice_statement: math{
     }
 
     // TODO: To Function
-    if (verbose && !write_to_file){
-        printf("Result:");
-    }
+#ifdef __EMSCRIPTEN__
+    printf("Result:");
+#endif
     for(unsigned int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
-            if (verbose){
+            if (verbose || VERBOSITY ){
                 printf("%s;", new_vec.symbols[i]);
             }
             if(write_to_file){
                 fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
-            if(verbose){
+            if(verbose || VERBOSITY ){
                 printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
@@ -213,7 +219,7 @@ dice_statement: math{
             }
         }
     }
-    if(verbose){
+    if(verbose || VERBOSITY){
        printf("\n");
     }
     
@@ -1754,12 +1760,6 @@ int mock_roll(char * s, char * f, int mock_value, int mock_const){
     return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }
 
-#ifdef __EMSCRIPTEN__
-#define VERBOSITY 1
-#else
-#define VERBOSITY 0
-#endif
-
 int main(int argc, char **str){
 
     for(int a = 1; a != argc; a++){
@@ -1783,7 +1783,7 @@ int main(int argc, char **str){
     roll_full_options(
         s,
         "output.dice",
-        VERBOSITY,  // Verbose
+        0,  // Verbose
         0,  // Introspect
         0,  // Mocking
         1,  // Builtins
