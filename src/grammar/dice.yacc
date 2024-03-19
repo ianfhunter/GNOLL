@@ -1767,7 +1767,11 @@ int main(int argc, char **str){
     }
     
     // Join arguments if they came in as seperate strings
+
+    printf("str[0]: %s\n", str[0]);
+    printf("str[1]: %s\n", str[1]);
     char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
+    printf("INPUT: %s\n", s);
 
     remove("output.dice");
     roll_full_options(
