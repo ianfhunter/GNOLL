@@ -823,12 +823,12 @@ dice_operations:
         */
         vec do_vec = $<values>1;
         vec keep_vector = $<values>3;
-        vec new_vec;
+        vec* new_vec;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(do_vec);
         free_vector(keep_vector);
     }
@@ -841,12 +841,12 @@ dice_operations:
         */
         vec do_vec = $<values>1;
         vec keep_vector = $<values>3;
-        vec new_vec;
+        vec* new_vec;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
         drop_highest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(do_vec);
         free_vector(keep_vector);
 
@@ -863,10 +863,10 @@ dice_operations:
         vec keep_vector = $<values>3;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
-        vec new_vec;
+        vec* new_vec;
         keep_lowest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(do_vec);
         free_vector(keep_vector);
     }
@@ -881,10 +881,10 @@ dice_operations:
         vec keep_vector = $<values>3;
         unsigned int num_to_hold = (unsigned int)keep_vector.content[0];
 
-        vec new_vec;
+        vec* new_vec;
         drop_lowest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(do_vec);
         free_vector(keep_vector);
     }
@@ -896,10 +896,10 @@ dice_operations:
         */
         vec do_vec = $<values>1;
         unsigned int num_to_hold = 1;
-        vec new_vec;
+        vec* new_vec;
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(do_vec);
     }
     |
@@ -911,10 +911,10 @@ dice_operations:
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
 
-        vec new_vec;
+        vec* new_vec;
         drop_highest_values(&roll_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(roll_vec);
     }
     |
@@ -926,10 +926,10 @@ dice_operations:
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
 
-        vec new_vec;
+        vec* new_vec;
         keep_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(roll_vec);
     }
     |
@@ -941,10 +941,10 @@ dice_operations:
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
 
-        vec new_vec;
+        vec* new_vec;
         drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = *new_vec;
         // free_vector(roll_vec);
     }
     |
