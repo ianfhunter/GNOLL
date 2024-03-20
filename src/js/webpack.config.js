@@ -4,7 +4,7 @@ module.exports = {
   mode: 'development',
   entry: {
     wrapper: {
-      import: './src/js/wrapper.js',
+      import: './gnoll.js',
     }
   },
   node: {
@@ -22,22 +22,15 @@ module.exports = {
       vm: require.resolve("vm-browserify")
     }
   },
+  devtool: 'source-map',
   output: {
-    filename: 'gnoll.js',
-    path: path.resolve(__dirname, '../../build/jsweb/')
+    filename: 'gnoll.bundle.js',
+    path: path.resolve(__dirname, '../../build/jsweb/'),
+    library: 'gnoll'
   },
   experiments: {
     asyncWebAssembly: true,
     syncWebAssembly: true
-  },
-  module: {
-      rules: [
-          {
-              test: /\.wasm$/,
-              // Tells webpack how to interpret wasm files into JavaScript-land
-              loader: "wasm-loader"
-          }
-      ]
   },
   devServer: {
     static: {
