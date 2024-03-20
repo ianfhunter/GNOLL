@@ -1,4 +1,5 @@
 import { Module } from '../../build/jsweb/out.js'
+//import _roll_full_options from '../../build/jsweb/out.wasm'
 
 var roll_full_options = null;
 
