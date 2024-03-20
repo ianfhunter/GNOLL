@@ -29,6 +29,12 @@
 #define MINV(x, y) (((x) < (y)) ? (x) : (y))
 #define ABSV(x) (((x) < 0) ? (-x) : (x))
 
+#ifdef __EMSCRIPTEN__
+#define VERBOSITY 1
+#else
+#define VERBOSITY 0
+#endif
+
 int yylex(void);
 int yyerror(const char* s);
 int yywrap(void);
@@ -192,17 +198,20 @@ dice_statement: math{
     }
 
     // TODO: To Function
+#ifdef __EMSCRIPTEN__
+    printf("Result:");
+#endif
     for(unsigned int i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
-            if (verbose){
+            if (verbose || VERBOSITY ){
                 printf("%s;", new_vec.symbols[i]);
             }
             if(write_to_file){
                 fprintf(fp, "%s;", new_vec.symbols[i]);
             }
         }else{
-            if(verbose){
+            if(verbose || VERBOSITY ){
                 printf("%d;", new_vec.content[i]);
             }
             if(write_to_file){
@@ -210,7 +219,7 @@ dice_statement: math{
             }
         }
     }
-    if(verbose){
+    if(verbose || VERBOSITY){
        printf("\n");
     }
     
@@ -1767,6 +1776,7 @@ int main(int argc, char **str){
     }
     
     // Join arguments if they came in as seperate strings
+
     char * s = concat_strings(&str[1], (unsigned int)(argc - 1));
 
     remove("output.dice");
@@ -1781,15 +1791,17 @@ int main(int argc, char **str){
         0   // Mocking Seed
     );
     print_gnoll_errors();
+#ifndef __EMSCRIPTEN__
     FILE  *f = fopen("output.dice","r");
     int c;
-    printf("Result:\n");
     if (f){
+        printf("Result:\n");
         while((c = getc(f)) !=  EOF){
             putchar(c);
         }
         fclose(f);
     }
+#endif
     // Final Freeing
     free(macros);
 }
