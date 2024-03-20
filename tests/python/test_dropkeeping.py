@@ -55,7 +55,7 @@ def test_middle(r, out, mock, mock_const):
     assert result == out
 
 
-@pytest.mark.parameterize("r", ["1d6kh2"])
+@pytest.mark.parametrize("r", ["1d6kh2"])
 def test_dropkeepTooMuch():
     try:
         roll(r)
