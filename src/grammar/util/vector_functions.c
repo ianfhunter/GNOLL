@@ -263,7 +263,7 @@ void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
     gnoll_errno = UNDEFINED_BEHAVIOUR;
     return;
   }
-  
+  printf("available_amount  %u > number_to_keep %u ?\n", available_amount, number_to_keep);
   if (available_amount > number_to_keep) {
     initialize_vector(output_vector, vector->dtype, number_to_keep);
 
