@@ -53,3 +53,13 @@ def test_keepdrop_multiple(r, out, mock, mock_const):
 def test_middle(r, out, mock, mock_const):
     result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
+
+@pytest.mark.parameterize(
+    "r", ["1d6kh2"]
+)
+def test_dropkeepTooMuch():
+    try:
+        roll(r)
+    except Exception as e:
+        error_handled_by_gnoll(e)
+    
