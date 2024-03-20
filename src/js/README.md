@@ -6,9 +6,13 @@ nav_order: 0
 
 # Javascript
 
-GNOLL is currently supported in Node as a console level application, **not** a browser script. (Though, we would appreciate contributers that know how to make it happen).
+GNOLL is currently supported in Node as a console level application.
+It is **not** supported in the browser yet. 
+We appreciate contributions that can change this.
 
-Emscripten does not allow file writing [ref](https://stackoverflow.com/a/54384808), at least via the same mechanism as the other languages, so output is currently only via stdout. 
+Emscripten does not allow file writing [ref](https://stackoverflow.com/a/54384808), 
+at least via the same mechanism as the other languages, 
+Output is currently only via stdout.
 
 ## Setup
 
