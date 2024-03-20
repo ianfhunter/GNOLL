@@ -247,6 +247,7 @@ void keep_logic(vec *vector, vec *new_vector, unsigned int number_to_keep,
     return;
   }
   unsigned int available_amount = vector->length;
+  printf("Have %u, Keep %u\n", available_amount , number_to_keep);
   if (available_amount > number_to_keep) {
     new_vector->content = safe_calloc(sizeof(int), number_to_keep);
     if (gnoll_errno) {
