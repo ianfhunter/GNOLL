@@ -25,3 +25,14 @@ js: javascript
 
 clean_js:
 	rm -rf build/js
+
+jsweb: clean yacc lex
+	mkdir -p build/jsweb
+	emcc \
+	$(CFILES) \
+	-I ./src/grammar \
+	-o build/jsweb/gnoll.js \
+	-D__EMSCRIPTEN__ \
+	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
+	-s EXPORTED_FUNCTIONS="['_roll_full_options']"
+
