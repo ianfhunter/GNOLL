@@ -34,11 +34,15 @@ jsweb: clean yacc lex
 	-o src/js/gnollwasm.js \
 	-D__EMSCRIPTEN__ \
 	-s MODULARIZE=1 \
-	-s EXPORT_ES6=1 \
+	-sSINGLE_FILE \
+	-s EXPORT_NAME=gnollwasm \
 	--pre-js ./src/js/preface.js \
-	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap", "print"]' \
+	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap", "ccall", "print"]' \
 	-s EXPORTED_FUNCTIONS="['_roll_full_options']"
 
+#-s EXPORT_ES6=1 \
+
 jsbundle: jsweb
-	cp src/js/*.html src/js/*.wasm ./build/jsweb/
+	#cp src/js/*.html src/js/*.wasm ./build/jsweb/
+	cp src/js/*.html ./build/jsweb/
 	yarn --cwd ./src/js run webpack-cli b

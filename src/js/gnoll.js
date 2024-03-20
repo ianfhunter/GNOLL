@@ -1,17 +1,10 @@
+import gwFactory from './gnollwasm.js';
+
+//var Module = null; const modulePromise = await gwFactory().then(x => Module = x);
+
 /*
-import './gnollwasm.js'
-
-var roll_full_options = null;
-
-Module.onRuntimeInitialized = _ => {
-  roll_full_options = Module.cwrap('roll_full_options', 'number', ['string',
-    'string', 'number', 'number', 'number', 'number', 'number',
-    'number']);
-};
-
 export function roll(notation) {
   Module.resetOut();
-  //roll_full_options(notation, null, 0, 0, 0, 1, 0, 0);
 
   Module.cwrap('roll_full_options', 'number', ['string',
       'string', 'number', 'number', 'number', 'number', 'number',
@@ -22,6 +15,22 @@ export function roll(notation) {
   return Module.stdout;
 }
 */
+export async function roll(notation) {
+  return new Promise((resolve) => {
+    gwFactory().then((Module) => {
+      Module.resetOut();
+
+      Module.ccall('roll_full_options', 'number', ['string',
+          'string', 'number', 'number', 'number', 'number', 'number',
+          'number'],
+        [notation, null, 0, 0, 0, 1, 0, 0]
+      );
+
+      resolve( Module.stdout );
+  });
+
+  });
+}
 
 export function temproll(notation) {
   return "foobar";

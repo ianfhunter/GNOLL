@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     wrapper: {
       import: './gnoll.js',
-    }
+    },
   },
   node: {
     global: true,
@@ -38,5 +38,5 @@ module.exports = {
     },
     compress: true,
     port: 9000
-  }
+  },
 }
