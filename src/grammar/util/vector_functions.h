@@ -24,13 +24,13 @@ void collapse_vector(vec* vector, vec* new_vector);
 
 void keep_logic(vec* vector, vec** new_vector, unsigned int number_to_keep,
                 int keep_high);
-void keep_highest_values(vec* vector, vec* new_vector,
+void keep_highest_values(vec* vector, vec** new_vector,
                          unsigned int number_to_keep);
-void keep_lowest_values(vec* vector, vec* new_vector,
+void keep_lowest_values(vec* vector, vec** new_vector,
                         unsigned int number_to_keep);
-void drop_highest_values(vec* vector, vec* new_vector,
+void drop_highest_values(vec* vector, vec** new_vector,
                          unsigned int number_to_keep);
-void drop_lowest_values(vec* vector, vec* new_vector,
+void drop_lowest_values(vec* vector, vec** new_vector,
                         unsigned int number_to_keep);
 
 void extract_symbols(char** symbols_list, char** result_symbols, int* indexes,
