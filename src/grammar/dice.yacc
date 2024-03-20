@@ -1776,7 +1776,7 @@ int main(int argc, char **str){
         0,  // Verbose
         0,  // Introspect
         0,  // Mocking
-        1,  // Builtins
+        0,  // Builtins
         0,  // Mocking
         0   // Mocking Seed
     );
