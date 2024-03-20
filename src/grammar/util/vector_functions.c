@@ -302,21 +302,21 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
   }
 }
 
-void keep_lowest_values(vec *vector, vec *new_vector,
+void keep_lowest_values(vec *vector, vec **new_vector,
                         unsigned int number_to_keep) {
   /**
    * @brief Keep the lowest values from a set of dice
    */
   keep_logic(vector, new_vector, number_to_keep, 0);
 }
-void keep_highest_values(vec *vector, vec *new_vector,
+void keep_highest_values(vec *vector, vec **new_vector,
                          unsigned int number_to_keep) {
   /**
    * @brief Keep the Highest values from a set of dice
    */
   keep_logic(vector, new_vector, number_to_keep, 1);
 }
-void drop_lowest_values(vec *vector, vec *new_vector,
+void drop_lowest_values(vec *vector, vec **new_vector,
                         unsigned int number_to_keep) {
   /**
    * @brief Drop the lowest values from a set of dice
@@ -329,7 +329,7 @@ void drop_lowest_values(vec *vector, vec *new_vector,
   }
   keep_logic(vector, new_vector, number_to_keep, 1);
 }
-void drop_highest_values(vec *vector, vec *new_vector,
+void drop_highest_values(vec *vector, vec **new_vector,
                          unsigned int number_to_keep) {
   /**
    * @brief Drop the highest values from a set of dice
