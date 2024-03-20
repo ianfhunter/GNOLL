@@ -241,7 +241,7 @@ void collapse_vector(vec *vector, vec *new_vector) {
   return;
 }
 
-void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
+void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
                 int keep_high) {
   /**
    * @brief Collapses multiple Numeric dice to one value by summing
@@ -265,13 +265,7 @@ void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
   }
   
   if (available_amount > number_to_keep) {
-    initialize_vector(output_vector, vector->dtype, number_to_keep);
-
-    // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
-    // if (gnoll_errno) {
-    //   return;
-    // }
-    // output_vector->length = number_to_keep;
+    initialize_vector(*output_vector, vector->dtype, number_to_keep);
 
     int *arr = vector->content;
     int *new_arr;
@@ -287,7 +281,7 @@ void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
       } else {
         m = min_in_vec(arr, length);
       }
-      output_vector->content[i] = m;
+      (*output_vector)->content[i] = m;
       new_arr = (int*)safe_calloc(sizeof(int), length - 1);
       if (gnoll_errno) {
         return;
@@ -300,12 +294,11 @@ void keep_logic(vec *vector, vec *output_vector, unsigned int number_to_keep,
       length -= 1;
     }
     free(arr);
-    // output_vector->content = arr;
-    output_vector->dtype = vector->dtype;
+    (*output_vector)->dtype = vector->dtype;
   } else {
     // e.g. 2d20k4 / 2d20kh2
     printf("Warning: KeepHighest: Keeping <= produced amount");
-    output_vector = vector;
+    *output_vector = vector;
   }
 }
 
