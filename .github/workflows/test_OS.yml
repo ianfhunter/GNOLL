@@ -28,6 +28,7 @@ jobs:
         ./build/dice d20
         make install
         dice d100
+        dice 1d6kh2
 
   build_win:
 
