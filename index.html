@@ -11,12 +11,22 @@
               'string', 'number', 'number', 'number', 'number', 'number',
               'number']);
 
-            roll_full_options("1d100", null, 0, 0, 0, 1, 0, 0);
+            //roll_full_options("1d100", null, 0, 0, 0, 1, 0, 0);
           };
 
+          function roll(notation) {
+            Module.resetOut();
+            roll_full_options(notation, null, 0, 0, 0, 1, 0, 0);
+
+            return Module.stdout;
+          }
+
           function onRoll() {
-            var notation = document.getElementById("tbNotation")
-            roll_full_options(notation.value, null, 0, 0, 0, 1, 0, 0);
+            var notation = document.getElementById("tbNotation");
+            var output = document.getElementById("output");
+            var result = roll(notation.value);
+
+            output.innerHTML = result;
           }
         </script>
     </head>
@@ -25,5 +35,6 @@
         <p>Input: <input type="text" id="tbNotation" /></p>
         <p><button onclick="onRoll()">Roll</button></p>
       </div>
+      <div id="output"></div>
     </body>
 </html>

@@ -33,6 +33,7 @@ jsweb: clean yacc lex
 	-I ./src/grammar \
 	-o build/jsweb/gnoll.js \
 	-D__EMSCRIPTEN__ \
-	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
+	--pre-js ./src/js/preface.js \
+	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap", "print"]' \
 	-s EXPORTED_FUNCTIONS="['_roll_full_options']"
 
