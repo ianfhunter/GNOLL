@@ -36,7 +36,7 @@ void delete_all_macros(void) {
 
   HASH_ITER(hh, macros, current_macro, tmp) {
     HASH_DEL(macros, current_macro);  /* delete; users advances to next */
-    
+    printf("Del Macro: %u\n", current_macro->stored_dice_roll.dtype);
     if (current_macro->stored_dice_roll.dtype == SYMBOLIC){
       free_2d_array(
         &current_macro->stored_dice_roll.symbol_pool,
