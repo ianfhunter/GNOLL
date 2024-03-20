@@ -22,7 +22,7 @@ void concat_symbols(char** arr1, unsigned int len1, char** arr2,
 
 void collapse_vector(vec* vector, vec* new_vector);
 
-void keep_logic(vec* vector, vec* new_vector, unsigned int number_to_keep,
+void keep_logic(vec* vector, vec** new_vector, unsigned int number_to_keep,
                 int keep_high);
 void keep_highest_values(vec* vector, vec* new_vector,
                          unsigned int number_to_keep);
