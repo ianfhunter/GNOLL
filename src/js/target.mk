@@ -31,9 +31,11 @@ jsweb: clean yacc lex
 	emcc \
 	$(CFILES) \
 	-I ./src/grammar \
-	-o build/jsweb/gnoll.js \
+	-o build/jsweb/out.js \
 	-D__EMSCRIPTEN__ \
 	--pre-js ./src/js/preface.js \
 	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap", "print"]' \
 	-s EXPORTED_FUNCTIONS="['_roll_full_options']"
 
+jsbundle: jsweb
+	webpack
