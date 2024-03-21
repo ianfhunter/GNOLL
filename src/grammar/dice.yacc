@@ -829,7 +829,7 @@ dice_operations:
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(do_vec);
+        //free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -847,7 +847,7 @@ dice_operations:
         drop_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(do_vec);
+        //free_vector(do_vec);
         free_vector(keep_vector);
 
     }
@@ -867,7 +867,7 @@ dice_operations:
         keep_lowest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(do_vec);
+        //free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -885,7 +885,7 @@ dice_operations:
         drop_lowest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(do_vec);
+        //free_vector(do_vec);
         free_vector(keep_vector);
     }
     |
@@ -900,7 +900,7 @@ dice_operations:
         keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(do_vec);
+        //free_vector(do_vec);
     }
     |
     dice_operations DROP_HIGHEST{
@@ -915,7 +915,7 @@ dice_operations:
         drop_highest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(roll_vec);
+        //free_vector(roll_vec);
     }
     |
     dice_operations KEEP_LOWEST{
@@ -930,7 +930,7 @@ dice_operations:
         keep_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(roll_vec);
+        //free_vector(roll_vec);
     }
     |
     dice_operations DROP_LOWEST{
@@ -945,7 +945,7 @@ dice_operations:
         drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
 
         $<values>$ = *new_vec;
-        free_vector(roll_vec);
+        //free_vector(roll_vec);
     }
     |
     die_roll
