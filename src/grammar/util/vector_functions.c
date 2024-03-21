@@ -265,7 +265,7 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
   }
   
   if (available_amount > number_to_keep) {
-    initialize_vector(*output_vector, vector->dtype, number_to_keep);
+    initialize_vector(&output_vector, vector->dtype, number_to_keep);
 
     int *arr = vector->content;
     int *new_arr;
