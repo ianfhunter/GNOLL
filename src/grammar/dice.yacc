@@ -921,7 +921,7 @@ dice_operations:
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
         vec **new_vec;        
-        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec->length num_to_hold);
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec->length - num_to_hold);
         drop_highest_values(&roll_vec, new_vec, num_to_hold);
 
         $<values>$ = **new_vec;
@@ -952,7 +952,7 @@ dice_operations:
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
         vec **new_vec;        
-        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec->length num_to_hold);
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec->length - num_to_hold);
 
         drop_lowest_values(&roll_vec, new_vec, num_to_hold);
 
