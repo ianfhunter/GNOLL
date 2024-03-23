@@ -5,6 +5,7 @@
 #include "constructs/vec.h"
 #include "shared_header.h"
 
+void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned int number_of_items);
 void initialize_vector(vec* vector, DIE_TYPE dt, unsigned int number_of_items);
 void light_initialize_vector(vec* vector, DIE_TYPE dt,
                              unsigned int number_of_items);

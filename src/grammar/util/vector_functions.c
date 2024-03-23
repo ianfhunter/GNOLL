@@ -32,6 +32,18 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
     vector->symbols = (char**)safe_calloc(1, sizeof(char **));
   }
 }
+
+void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned int number_of_items) {
+  // Initialize a pointer to a vector
+  // Note: Is not a 2d vector. 
+    *vector = (vec**)safe_calloc(1, sizeof(vec*));
+    if (gnoll_errno) {
+        return;
+    }
+    (*vector)[0] = (vec*)safe_malloc(sizeof(vec));
+    initialize_vector((*vector)[0], dt, number_of_items); 
+}
+
 void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
   /**
    * @brief Initializes a vector, reserving space for 2d arrays
@@ -265,7 +277,6 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
   }
   
   if (available_amount > number_to_keep) {
-    initialize_vector(*output_vector, vector->dtype, number_to_keep);
 
     // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
     // if (gnoll_errno) {
