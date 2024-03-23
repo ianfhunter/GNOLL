@@ -223,14 +223,14 @@ char *safe_strdup(const char *str1) {
   return result;
 }
 
-int fast_atoi(const char *str) {
+long long fast_atoi(const char *str) {
   /**
    * @brief Safe version of atoi. Populates gnoll_errno on error
    * @param str
    * @return
    */
   // Ref: https://stackoverflow.com/a/16826908/1421555
-  int val = 0;
+  long long val = 0;
   while (*str) {
     val = val * 10 + (*str++ - '0');
   }
