@@ -5,7 +5,7 @@ from util import Mock, roll
 
 
 @pytest.mark.parametrize(
-    "v",
+    "r",
     [
         "1d99999999999999999999999999999999",
         "1d" + "9" * 100,
@@ -15,6 +15,6 @@ from util import Mock, roll
         # "1d" + "9" * 10000000000000, # Too large for Python :)
     ],
 )
-def test_numbers(r, out):
+def test_numbers(r):
     result, _ = roll(r)
     assert result not in ["1", 1]
