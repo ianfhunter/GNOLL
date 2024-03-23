@@ -56,7 +56,10 @@ def test_middle(r, out, mock, mock_const):
 
 
 @pytest.mark.parametrize("r", ["1d6kh2"])
-def test_dropkeepTooMuch(r):
+def test_keepdrop_redundant(r):
+    """
+    Tests the case where "kh" or similar is not needed because the dice pool is already that small.
+    """
     try:
         roll(r)
     except Exception as e:
