@@ -12,7 +12,7 @@ from util import Mock, roll
         "1d" + "9" * 1000,
         "1d" + "9" * 10000,
         "1d" + "9" * 100000,
-        "1d" + "9" * 10000000000000,
+        # "1d" + "9" * 10000000000000, # Too large for Python :) 
     ],
 )
 def test_numbers(r, out):
