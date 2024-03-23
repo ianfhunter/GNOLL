@@ -838,7 +838,7 @@ dice_operations:
     dice_operations DROP_HIGHEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_HIGHEST symbol 'dh'
         * NUMBER vector
         */
         vec roll_vec = $<values>1;
@@ -860,7 +860,7 @@ dice_operations:
     dice_operations KEEP_LOWEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * KEEP_LOWEST symbol 'kl'
         * NUMBER vector
         */
 
@@ -880,7 +880,7 @@ dice_operations:
     dice_operations DROP_LOWEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_LOWEST symbol 'dl'
         * NUMBER vector
         */
         vec roll_vec = $<values>1;
@@ -916,7 +916,7 @@ dice_operations:
     dice_operations DROP_HIGHEST{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_HIGHEST symbol 'dh'
         */
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
@@ -931,7 +931,7 @@ dice_operations:
     dice_operations KEEP_LOWEST{
         /**
         * dice_operations vector
-        * KEEP_LOWEST symbol 'kh'
+        * KEEP_LOWEST symbol 'kl'
         */
         vec roll_vec = $<values>1;
         unsigned int num_to_hold = 1;
