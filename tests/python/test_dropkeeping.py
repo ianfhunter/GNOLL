@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
-
+from util import Mock, error_handled_by_gnoll, roll
 
 @pytest.mark.parametrize(
     "r,out,mock,mock_const",
