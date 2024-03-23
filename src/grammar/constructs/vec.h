@@ -11,7 +11,7 @@ typedef struct vec {
     long long* content;
     char** symbols;
   }
-  unsigned int length;
+  unsigned long long length;
   // TODO: Split length into content_length and symbol length
   roll_params source;
   bool has_source;
