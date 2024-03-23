@@ -36,6 +36,6 @@ void free_2d_array(char ***arr, unsigned int items);
 
 void free_vector(vec v);
 
-int fast_atoi(const char *str);
+long long fast_atoi(const char *str);
 
 #endif
