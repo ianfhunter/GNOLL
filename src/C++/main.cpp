@@ -24,8 +24,8 @@ int main()
 
   std::ifstream myfile; 
   myfile.open(fn);
-  std::string mystring;
   if ( myfile.is_open() ) { 
+    std::string mystring;
     myfile >> mystring;
     std::cout << mystring; 
   }else{
