@@ -832,8 +832,7 @@ dice_operations:
 
         $<values>$ = **new_vec;
         free_vector(keep_vector);
-        free(*new_vec);
-        free(new_vec);  
+   
     }
     |
     dice_operations DROP_HIGHEST NUMBER{
