@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import pytest
-from util import Mock, roll
+from util import Mock, error_handled_by_gnoll, roll
 
 
 @pytest.mark.parametrize(
@@ -53,3 +53,14 @@ def test_keepdrop_multiple(r, out, mock, mock_const):
 def test_middle(r, out, mock, mock_const):
     result, _ = roll(r, mock_mode=mock, mock_const=mock_const)
     assert result == out
+
+
+@pytest.mark.parametrize("r", ["1d6kh2"])
+def test_keepdrop_redundant(r):
+    """
+    Tests the case where "kh" or similar is not needed because the dice pool is already that small.
+    """
+    try:
+        roll(r)
+    except Exception as e:
+        error_handled_by_gnoll(e)
