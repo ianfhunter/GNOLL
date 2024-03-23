@@ -75,14 +75,14 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     return NULL;
   }
 
-  int explosion_condition_score = 0;
-  int explosion_count = 0;
+  int explosion_condition_score;
+  int explosion_count;
 
   if (gnoll_errno) {
     return 0;
   }
   int single_die_roll;
-  int exploded_result = 0;
+  int exploded_result;
   int* all_dice_roll;
   
   int end_value = (int)start_value + (int)die_sides - 1;
