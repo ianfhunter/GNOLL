@@ -30,9 +30,9 @@ void keep_highest_values(vec* vector, vec** new_vector,
 void keep_lowest_values(vec* vector, vec** new_vector,
                         unsigned int number_to_keep);
 void drop_highest_values(vec* vector, vec** new_vector,
-                         unsigned int number_to_keep);
+                         unsigned int number_to_drop);
 void drop_lowest_values(vec* vector, vec** new_vector,
-                        unsigned int number_to_keep);
+                        unsigned int number_to_drop);
 
 void extract_symbols(char** symbols_list, char** result_symbols, int* indexes,
                      unsigned int idx_length);
