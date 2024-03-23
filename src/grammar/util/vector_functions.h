@@ -5,36 +5,36 @@
 #include "constructs/vec.h"
 #include "shared_header.h"
 
-void initialize_vector(vec* vector, DIE_TYPE dt, unsigned int number_of_items);
+void initialize_vector(vec* vector, DIE_TYPE dt, unsigned long long number_of_items);
 void light_initialize_vector(vec* vector, DIE_TYPE dt,
-                             unsigned int number_of_items);
+                             unsigned long long number_of_items);
 
-void pop(int* arr, unsigned int len, int value, int* new_arr);
+void pop(int* arr, unsigned long long len, int value, int* new_arr);
 
 void abs_vec(vec* x);
 
-int contains(int* arr, unsigned int len, int value);
-int min_in_vec(int* arr, unsigned int len);
-int max_in_vec(int* arr, unsigned int len);
+int contains(int* arr, unsigned long long len, long long value);
+int min_in_vec(int* arr, unsigned long long len);
+int max_in_vec(int* arr, unsigned long long len);
 
-void concat_symbols(char** arr1, unsigned int len1, char** arr2,
-                    unsigned int len2, char** new_arr);
+void concat_symbols(char** arr1, unsigned long long len1, char** arr2,
+                    unsigned long long len2, char** new_arr);
 
 void collapse_vector(vec* vector, vec* new_vector);
 
-void keep_logic(vec* vector, vec* new_vector, unsigned int number_to_keep,
-                int keep_high);
+void keep_logic(vec* vector, vec* new_vector, unsigned long long number_to_keep,
+                bool keep_high);
 void keep_highest_values(vec* vector, vec* new_vector,
-                         unsigned int number_to_keep);
+                         unsigned long long number_to_keep);
 void keep_lowest_values(vec* vector, vec* new_vector,
-                        unsigned int number_to_keep);
+                        unsigned long long number_to_keep);
 void drop_highest_values(vec* vector, vec* new_vector,
-                         unsigned int number_to_keep);
+                         unsigned long long number_to_keep);
 void drop_lowest_values(vec* vector, vec* new_vector,
-                        unsigned int number_to_keep);
+                        unsigned long long number_to_keep);
 
-void extract_symbols(char** symbols_list, char** result_symbols, int* indexes,
-                     unsigned int idx_length);
+void extract_symbols(char** symbols_list, char** result_symbols, long long* indexes,
+                     unsigned long long idx_length);
 
 void print_vec(vec vector);
 
