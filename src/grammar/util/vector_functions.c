@@ -335,11 +335,12 @@ void keep_highest_values(vec *vector, vec **new_vector,
   keep_logic(vector, new_vector, number_to_keep, 1);
 }
 void drop_lowest_values(vec *vector, vec **new_vector,
-                        unsigned int number_to_keep) {
+                        unsigned int number_to_drop) {
   /**
    * @brief Drop the lowest values from a set of dice
    */
-  int calc_keep = (int)vector->length - (int)number_to_keep;
+  int calc_keep = (int)vector->length - (int)number_to_drop;
+  unsigned int number_to_keep;
   if (calc_keep > 0) {
     number_to_keep = (unsigned int)calc_keep;
   } else {
@@ -348,12 +349,13 @@ void drop_lowest_values(vec *vector, vec **new_vector,
   keep_logic(vector, new_vector, number_to_keep, 1);
 }
 void drop_highest_values(vec *vector, vec **new_vector,
-                         unsigned int number_to_keep) {
+                         unsigned int number_to_drop) {
   /**
    * @brief Drop the highest values from a set of dice
    */
 
-  int calc_keep = (int)vector->length - (int)number_to_keep;
+  int calc_keep = (int)vector->length - (int)number_to_drop;
+  unsigned int number_to_keep;
   if (calc_keep > 0) {
     number_to_keep = (unsigned int)calc_keep;
   } else {
