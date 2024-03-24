@@ -8,7 +8,7 @@ typedef struct roll_params {
   unsigned long long die_sides;
   EXPLOSION_TYPE explode;
   char** symbol_pool;
-  int start_value;
+  long long start_value;
   DIE_TYPE dtype;
 } roll_params;
 
