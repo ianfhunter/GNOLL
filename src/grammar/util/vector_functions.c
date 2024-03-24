@@ -33,7 +33,21 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
     vector->symbols = (char**)safe_calloc(1, sizeof(char **));
   }
 }
+
+
+void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned long long umber_of_items) {
+  // Initialize a pointer to a vector
+  // Note: Is not a 2d vector. 
+    *vector = (vec**)safe_calloc(1, sizeof(vec*));
+    if (gnoll_errno) {
+        return;
+    }
+    (*vector)[0] = (vec*)safe_malloc(sizeof(vec));
+    initialize_vector((*vector)[0], dt, number_of_items); 
+}
+
 void initialize_vector(vec *vector, DIE_TYPE dt, unsigned long long number_of_items) {
+
   /**
    * @brief Initializes a vector, reserving space for 2d arrays
    * @param vector vector to initialize
@@ -242,8 +256,10 @@ void collapse_vector(vec *vector, vec *new_vector) {
   return;
 }
 
-void keep_logic(vec *vector, vec *output_vector, unsigned long long number_to_keep,
+
+void keep_logic(vec *vector, vec **output_vector, unsigned long long number_to_keep,
                 bool keep_high) {
+
   /**
    * @brief Collapses multiple Numeric dice to one value by summing
    * @param vector source (Freed at end)
@@ -266,7 +282,6 @@ void keep_logic(vec *vector, vec *output_vector, unsigned long long number_to_ke
   }
   
   if (available_amount > number_to_keep) {
-    initialize_vector(output_vector, vector->dtype, number_to_keep);
 
     // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
     // if (gnoll_errno) {
@@ -288,8 +303,10 @@ void keep_logic(vec *vector, vec *output_vector, unsigned long long number_to_ke
       } else {
         m = min_in_vec(arr, length);
       }
-      output_vector->content[i] = m;
+
+      (*output_vector)->content[i] = m;
       new_arr = (long long*)safe_calloc(sizeof(long long), length - 1);
+
       if (gnoll_errno) {
         return;
       }
@@ -302,34 +319,44 @@ void keep_logic(vec *vector, vec *output_vector, unsigned long long number_to_ke
     }
     free(arr);
     // output_vector->content = arr;
-    output_vector->dtype = vector->dtype;
+    (*output_vector)->dtype = vector->dtype;
   } else {
     // e.g. 2d20k4 / 2d20kh2
     printf("Warning: KeepHighest: Keeping <= produced amount");
-    output_vector = vector;
+    *output_vector = vector;
   }
 }
 
-void keep_lowest_values(vec *vector, vec *new_vector,
+
+void keep_lowest_values(vec *vector, vec **new_vector,
                         unsigned long long number_to_keep) {
   /**
    * @brief Keep the lowest values from a set of dice
    */
   keep_logic(vector, new_vector, number_to_keep, false);
 }
-void keep_highest_values(vec *vector, vec *new_vector,
+
+void keep_highest_values(vec *vector, vec **new_vector,
                          unsigned long long number_to_keep) {
+
   /**
    * @brief Keep the Highest values from a set of dice
    */
   keep_logic(vector, new_vector, number_to_keep, true);
 }
-void drop_lowest_values(vec *vector, vec *new_vector,
-                        unsigned long long number_to_keep) {
+
+void drop_lowest_values(vec *vector, vec **new_vector,
+                        unsigned long long number_to_drop) {
   /**
    * @brief Drop the lowest values from a set of dice
    */
-  long long calc_keep = (long long)vector->length - (long long)number_to_keep;
+  long long calc_keep = (long long)vector->length - (long long)number_to_drop;
+  /**
+   * @brief Drop the lowest values from a set of dice
+   */
+  int calc_keep = (int)vector->length - (int)number_to_drop;
+  unsigned int number_to_keep;
+
   if (calc_keep > 0) {
     number_to_keep = (unsigned long long)calc_keep;
   } else {
@@ -337,13 +364,21 @@ void drop_lowest_values(vec *vector, vec *new_vector,
   }
   keep_logic(vector, new_vector, number_to_keep, true);
 }
-void drop_highest_values(vec *vector, vec *new_vector,
-                         unsigned long long number_to_keep) {
+
+void drop_highest_values(vec *vector, vec **new_vector,
+                         unsigned long long number_to_drop) {
+
+
   /**
    * @brief Drop the highest values from a set of dice
    */
 
-  long long calc_keep = (long long)vector->length - (long long)number_to_keep;
+
+  long long calc_keep = (long long)vector->length - (long long)number_to_drop;
+
+
+  unsigned long long number_to_keep;
+
   if (calc_keep > 0) {
     number_to_keep = (unsigned long long)calc_keep;
   } else {

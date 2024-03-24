@@ -167,7 +167,7 @@ build/%.o:src/grammar/%.c
 	$(CC) $(SHAREDCFLAGS) -c -o $@ $^
 
 test: pip
-	python3 -m pytest tests/python/ -xs
+	python3 -m pytest tests/python/ -s
 
 include src/*/target.mk
 

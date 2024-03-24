@@ -6,7 +6,10 @@
 #include "shared_header.h"
 #include <stdbool.h>
 
+
+void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned long long number_of_items);
 void initialize_vector(vec* vector, DIE_TYPE dt, unsigned long long number_of_items);
+
 void light_initialize_vector(vec* vector, DIE_TYPE dt,
                              unsigned long long number_of_items);
 
@@ -23,16 +26,18 @@ void concat_symbols(char** arr1, unsigned long long len1, char** arr2,
 
 void collapse_vector(vec* vector, vec* new_vector);
 
-void keep_logic(vec* vector, vec* new_vector, unsigned long long number_to_keep,
+
+void keep_logic(vec* vector, vec** new_vector, unsigned long long umber_to_keep,
                 bool keep_high);
-void keep_highest_values(vec* vector, vec* new_vector,
+void keep_highest_values(vec* vector, vec** new_vector,
                          unsigned long long number_to_keep);
-void keep_lowest_values(vec* vector, vec* new_vector,
+void keep_lowest_values(vec* vector, vec** new_vector,
                         unsigned long long number_to_keep);
-void drop_highest_values(vec* vector, vec* new_vector,
-                         unsigned long long number_to_keep);
-void drop_lowest_values(vec* vector, vec* new_vector,
-                        unsigned long long number_to_keep);
+void drop_highest_values(vec* vector, vec** new_vector,
+                         unsigned long long number_to_drop);
+void drop_lowest_values(vec* vector, vec** new_vector,
+                        unsigned long long number_to_drop);
+
 
 void extract_symbols(char** symbols_list, char** result_symbols, long long* indexes,
                      unsigned long long idx_length);

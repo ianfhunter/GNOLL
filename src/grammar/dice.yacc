@@ -821,33 +821,42 @@ dice_operations:
         * KEEP_HIGHEST symbol 'kh'
         * NUMBER vector
         */
-        vec do_vec = $<values>1;
+        vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
-        vec new_vec;
-        unsigned long long num_to_hold = (unsigned int)keep_vector.content[0];
 
-        keep_highest_values(&do_vec, &new_vec, num_to_hold);
+        vec **new_vec;
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.content[0];
+        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
 
-        $<values>$ = new_vec;
-        // free_vector(do_vec);
+
+        keep_highest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
         free_vector(keep_vector);
+   
     }
     |
     dice_operations DROP_HIGHEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_HIGHEST symbol 'dh'
         * NUMBER vector
         */
-        vec do_vec = $<values>1;
+        vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
-        vec new_vec;
-        unsigned long long num_to_hold = (unsigned int)keep_vector.content[0];
 
-        drop_highest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
-        // free_vector(do_vec);
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.content[0];
+
+
+        vec **new_vec;
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
+
+        drop_highest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
+        // free_vector(roll_vec);
         free_vector(keep_vector);
 
     }
@@ -855,37 +864,45 @@ dice_operations:
     dice_operations KEEP_LOWEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * KEEP_LOWEST symbol 'kl'
         * NUMBER vector
         */
 
-        vec do_vec = $<values>1;
+        vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
-        unsigned long long num_to_hold = (unsigned long long)keep_vector.content[0];
 
-        vec new_vec;
-        keep_lowest_values(&do_vec, &new_vec, num_to_hold);
+        vec **new_vec;
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.content[0];        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
 
-        $<values>$ = new_vec;
-        // free_vector(do_vec);
+
+        keep_lowest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
+        // free_vector(roll_vec);
         free_vector(keep_vector);
     }
     |
     dice_operations DROP_LOWEST NUMBER{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_LOWEST symbol 'dl'
         * NUMBER vector
         */
-        vec do_vec = $<values>1;
+        vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
+
         unsigned long long num_to_hold = (unsigned long long)keep_vector.content[0];
 
-        vec new_vec;
-        drop_lowest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
-        // free_vector(do_vec);
+
+        vec **new_vec;
+        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
+        drop_lowest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
+        // free_vector(roll_vec);
         free_vector(keep_vector);
     }
     |
@@ -894,42 +911,53 @@ dice_operations:
         * dice_operations vector
         * KEEP_HIGHEST symbol 'kh'
         */
-        vec do_vec = $<values>1;
-        unsigned long long num_to_hold = 1;
-        vec new_vec;
-        keep_highest_values(&do_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
-        // free_vector(do_vec);
+        vec roll_vec = $<values>1;
+        unsigned long long num_to_hold = 1;
+
+
+        vec **new_vec;        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
+        keep_highest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
+        // free_vector(roll_vec);
     }
     |
     dice_operations DROP_HIGHEST{
         /**
         * dice_operations vector
-        * KEEP_HIGHEST symbol 'kh'
+        * DROP_HIGHEST symbol 'dh'
         */
         vec roll_vec = $<values>1;
+
+
         unsigned long long num_to_hold = 1;
+        vec **new_vec;        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
+        drop_highest_values(&roll_vec, new_vec, num_to_hold);
 
-        vec new_vec;
-        drop_highest_values(&roll_vec, &new_vec, num_to_hold);
 
-        $<values>$ = new_vec;
+        $<values>$ = **new_vec;
         // free_vector(roll_vec);
     }
     |
     dice_operations KEEP_LOWEST{
         /**
         * dice_operations vector
-        * KEEP_LOWEST symbol 'kh'
+        * KEEP_LOWEST symbol 'kl'
         */
         vec roll_vec = $<values>1;
+
         unsigned long long num_to_hold = 1;
 
-        vec new_vec;
-        keep_lowest_values(&roll_vec, &new_vec, num_to_hold);
+        vec **new_vec;
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
 
-        $<values>$ = new_vec;
+
+        keep_lowest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
         // free_vector(roll_vec);
     }
     |
@@ -939,12 +967,16 @@ dice_operations:
         * DROP_LOWEST symbol 'dl'
         */
         vec roll_vec = $<values>1;
+
         unsigned long long num_to_hold = 1;
 
-        vec new_vec;
-        drop_lowest_values(&roll_vec, &new_vec, num_to_hold);
+        vec **new_vec;        
+        initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
 
-        $<values>$ = new_vec;
+
+        drop_lowest_values(&roll_vec, new_vec, num_to_hold);
+
+        $<values>$ = **new_vec;
         // free_vector(roll_vec);
     }
     |
