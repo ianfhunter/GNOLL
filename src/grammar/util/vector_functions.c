@@ -27,10 +27,10 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
   vector->has_source = false;
 
   if (dt == NUMERIC) {
-    vector->content = (long long*)safe_calloc(number_of_items, sizeof(long long));
+    vector->storage.content = (long long*)safe_calloc(number_of_items, sizeof(long long));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {
-    vector->symbols = (char**)safe_calloc(1, sizeof(char **));
+    vector->storage.symbols = (char**)safe_calloc(1, sizeof(char **));
   }
 }
 
@@ -64,16 +64,16 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned long long number_of_it
   vector->has_source = false;
 
   if (dt == NUMERIC) {
-    vector->content = (long long*)safe_calloc(number_of_items, sizeof(long long));
+    vector->storage.content = (long long*)safe_calloc(number_of_items, sizeof(long long));
     if (gnoll_errno) return;
   } 
   else if (dt == SYMBOLIC) 
   {
-    vector->symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
+    vector->storage.symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
     for (unsigned long longi = 0; i < number_of_items; i++) {
-      vector->symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
+      vector->storage.symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
       if (gnoll_errno) return;
     }
   }
@@ -187,9 +187,9 @@ long long max_in_vec(long long *arr, unsigned long long len) {
 }
 void abs_vec(vec *x) {
   for (unsigned long long i = 0; i != x->length; i++) {
-    int v = x->content[i];
+    int v = x->storage.content[i];
     if (v < 0) {
-      x->content[i] *= -1;
+      x->storage.content[i] *= -1;
     }
   }
 }
@@ -207,13 +207,13 @@ void print_vec(vec vector) {
   if (vector.dtype == NUMERIC) {
     printf("Vector Type: NUMERIC\n");
     for (unsigned long long i = 0; i != vector.length; i++) {
-      printf("\t%lld\n", vector.content[i]);
+      printf("\t%lld\n", vector.storage.content[i]);
     }
   } else {
     printf("Vector Type: SYMBOLIC\n");
     printf("Symbols:\n");
     for (unsigned long long i = 0; i != vector.length; i++) {
-      printf("\t- %s\n", vector.symbols[i]);
+      printf("\t- %s\n", vector.storage.symbols[i]);
     }
   }
 }
@@ -230,8 +230,8 @@ void collapse_vector(vec *vector, vec *new_vector) {
 
   if (vector->dtype == SYMBOLIC) {
     safe_copy_2d_chararray_with_allocation(
-       &new_vector->symbols,
-       vector->symbols,
+       &new_vector->storage.symbols,
+       vector->storage.symbols,
        vector->length,
        MAX_SYMBOL_LENGTH
     );
@@ -243,12 +243,12 @@ void collapse_vector(vec *vector, vec *new_vector) {
   else {
     long long c = 0;
     for (unsigned long long i = 0; i != vector->length; i++) {
-      c += vector->content[i];
+      c += vector->storage.content[i];
     }
 
-    new_vector->content = (long long*)safe_calloc(sizeof(long long), 1);
+    new_vector->storage.content = (long long*)safe_calloc(sizeof(long long), 1);
     if (gnoll_errno) return;
-    new_vector->content[0] = c;
+    new_vector->storage.content[0] = c;
     new_vector->length = 1;
     new_vector->dtype = NUMERIC;
     new_vector->has_source = false;
@@ -289,22 +289,22 @@ void keep_logic(vec *vector, vec **output_vector, unsigned long long number_to_k
     // }
     // output_vector->length = number_to_keep;
 
-    int *arr = vector->content;
-    int *new_arr;
+    long long *arr = vector->content;
+    long long *new_arr;
     unsigned long long length = vector->length;
 
     // while (number needed)
     //     Get Max/Min from vector
     //     Store in output
     for (unsigned long long i = 0; i != number_to_keep; i++) {
-      int m;
+      long long m;
       if (keep_high) {
         m = max_in_vec(arr, length);
       } else {
         m = min_in_vec(arr, length);
       }
 
-      (*output_vector)->content[i] = m;
+      (*output_vector)->storage.content[i] = m;
       new_arr = (long long*)safe_calloc(sizeof(long long), length - 1);
 
       if (gnoll_errno) {
@@ -351,11 +351,7 @@ void drop_lowest_values(vec *vector, vec **new_vector,
    * @brief Drop the lowest values from a set of dice
    */
   long long calc_keep = (long long)vector->length - (long long)number_to_drop;
-  /**
-   * @brief Drop the lowest values from a set of dice
-   */
-  int calc_keep = (int)vector->length - (int)number_to_drop;
-  unsigned int number_to_keep;
+  unsigned long long number_to_keep;
 
   if (calc_keep > 0) {
     number_to_keep = (unsigned long long)calc_keep;
@@ -367,16 +363,11 @@ void drop_lowest_values(vec *vector, vec **new_vector,
 
 void drop_highest_values(vec *vector, vec **new_vector,
                          unsigned long long number_to_drop) {
-
-
   /**
    * @brief Drop the highest values from a set of dice
    */
 
-
   long long calc_keep = (long long)vector->length - (long long)number_to_drop;
-
-
   unsigned long long number_to_keep;
 
   if (calc_keep > 0) {
@@ -432,10 +423,10 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
 
   unsigned long long success_idx = 0;
   for (unsigned long long i = 0; i != dice->length; i++) {
-    long long v = dice->content[i];
+    long long v = dice->storage.content[i];
     if (comp_op == IF_EVEN || comp_op == IF_ODD){
       if(check_condition_scalar(v, v, (COMPARATOR)comp_op)){
-        output->content[success_idx] = v;
+        output->storage.content[success_idx] = v;
         success_idx++;
       }
     }else{
@@ -443,7 +434,7 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
       long long compare_to = cond->content[0];
 
       if (check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)) {
-        output->content[success_idx] = v;
+        output->storage.content[success_idx] = v;
         success_idx++;
       }
     }
@@ -465,8 +456,8 @@ void filter_unique(vec *dice, vec *new_vec) {
   for (unsigned long long i = 0; i != dice->length; i++) {
     long long v = dice->content[i];
 
-    if (!contains(new_vec->content, new_vec->length, v)) {
-      new_vec->content[tracker_idx] = v;
+    if (!contains(new_vec->storage.content, new_vec->length, v)) {
+      new_vec->storage.content[tracker_idx] = v;
       tracker_idx++;
     }
   }
