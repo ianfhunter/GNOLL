@@ -12,7 +12,7 @@
 extern int gnoll_errno;
 
 void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
-                           int start_offset) {
+                           long long start_offset) {
   /**
    * @brief Roll numeric dice
    * @param x - Amount of dice (xDy)
