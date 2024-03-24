@@ -4,18 +4,19 @@
 #include "constructs/dice_enums.h"
 #include "constructs/vec.h"
 #include "shared_header.h"
+#include <stdbool.h>
 
 void initialize_vector(vec* vector, DIE_TYPE dt, unsigned long long number_of_items);
 void light_initialize_vector(vec* vector, DIE_TYPE dt,
                              unsigned long long number_of_items);
 
-void pop(int* arr, unsigned long long len, int value, int* new_arr);
+void pop(long long* arr, unsigned long long len, int value, long long* new_arr);
 
 void abs_vec(vec* x);
 
-int contains(int* arr, unsigned long long len, long long value);
-int min_in_vec(int* arr, unsigned long long len);
-int max_in_vec(int* arr, unsigned long long len);
+int contains(long long* arr, unsigned long long len, long long value);
+int min_in_vec(long long* arr, unsigned long long len);
+int max_in_vec(long long* arr, unsigned long long len);
 
 void concat_symbols(char** arr1, unsigned long long len1, char** arr2,
                     unsigned long long len2, char** new_arr);
