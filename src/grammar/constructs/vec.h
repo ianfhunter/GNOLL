@@ -10,7 +10,7 @@ typedef struct vec {
   union {
     long long* content;
     char** symbols;
-  }
+  };
   unsigned long long length;
   // TODO: Split length into content_length and symbol length
   roll_params source;
