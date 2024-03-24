@@ -43,7 +43,7 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   initialize_vector(result, NUMERIC, num_dice);
 #endif
   free(result->storage.content);
-  result->content = roll_result;
+  result->storage.content = roll_result;
   result->source = rp;
   result->has_source = true;
 }
@@ -76,7 +76,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   // Copy over memory to Symbol Pool for reloading
   safe_copy_2d_chararray_with_allocation(
     &rp.symbol_pool, 
-    y->symbols, 
+    y->storage.symbols, 
     y->length,
     MAX_SYMBOL_LENGTH
   );
@@ -87,6 +87,6 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
 
   free_2d_array(&rp.symbol_pool, y->length);
 
-  extract_symbols(y->storage.symbols, result->symbols, indexes, rp.number_of_dice);
+  extract_symbols(y->storage.symbols, result->storage.symbols, indexes, rp.number_of_dice);
   free(indexes);
 }
