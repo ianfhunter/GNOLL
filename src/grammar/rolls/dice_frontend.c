@@ -24,8 +24,8 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   if (gnoll_errno) return;
 
   // XdY
-  unsigned int num_dice = (unsigned int)x->content[0];
-  unsigned int sides = (unsigned int)y->content[0];
+  unsigned long long num_dice = (unsigned long long)x->content[0];
+  unsigned long long sides = (unsigned long long)y->content[0];
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -63,7 +63,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
     return;
 #endif
 
-  unsigned int num_dice = (unsigned int)x->content[0];
+  unsigned long long num_dice = (unsigned long long)x->content[0];
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -83,7 +83,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
 
   rp.start_value = 0;  // First index of array
 
-  int* indexes = do_roll(rp);
+  long long* indexes = do_roll(rp);
 
   free_2d_array(&rp.symbol_pool, y->length);
 
