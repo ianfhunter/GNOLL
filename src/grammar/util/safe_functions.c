@@ -116,14 +116,14 @@ void free_vector(vec v){
   }
 }
 
-void free_2d_array(char ***arr, unsigned int items) {
+void free_2d_array(char ***arr, unsigned long long items) {
   /**
    * @brief Free a 2d char array in a repeatable manner.
    * @param arr
    * @param items
    */
   if (*arr) {
-    for (unsigned int i = 0; i != items; i++) {
+    for (unsigned long long i = 0; i != items; i++) {
       if ((*arr)[i]) {
         free((*arr)[i]);
       }
@@ -133,8 +133,8 @@ void free_2d_array(char ***arr, unsigned int items) {
 }
 
 void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
-                                            unsigned int items,
-                                            unsigned int max_size) {
+                                            unsigned long long items,
+                                            unsigned long long max_size) {
   /**
    * @brief Copy from one 2d char array to another in a repeatable manner.
    * @param dst
@@ -148,7 +148,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
     return;
   }
 
-  for (unsigned int i = 0; i != items; i++) {
+  for (unsigned long long i = 0; i != items; i++) {
     
     (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
@@ -173,7 +173,7 @@ void * safe_calloc(size_t nitems, size_t size) {
   }
   void *calloc_result = NULL;
   calloc_result = calloc(nitems, size);
-  long unsigned int total_sz = nitems * size;
+  unsigned long long total_sz = nitems * size;
   if (!calloc_result && total_sz) {
     gnoll_errno = BAD_ALLOC;
   }
@@ -237,7 +237,7 @@ long long fast_atoi(const char *str) {
   return val;
 }
 
-long int safe_strtol(const char *str, char **endptr, int base) {
+long long safe_strtol(const char *str, char **endptr, int base) {
   /**
    * @brief Safe version of strtol. Populates gnoll_errno on error
    * @param str
@@ -248,7 +248,7 @@ long int safe_strtol(const char *str, char **endptr, int base) {
   if (gnoll_errno) {
     return 0;
   }
-  long int result;
+  long long result;
   result = strtol(str, endptr, base);
   if (errno == ERANGE) {
     gnoll_errno = OUT_OF_RANGE;
