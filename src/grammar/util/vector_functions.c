@@ -35,7 +35,7 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
 }
 
 
-void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned long long umber_of_items) {
+void initialize_vector_pointer(vec ***vector, DIE_TYPE dt, unsigned long long number_of_items) {
   // Initialize a pointer to a vector
   // Note: Is not a 2d vector. 
     *vector = (vec**)safe_calloc(1, sizeof(vec*));
