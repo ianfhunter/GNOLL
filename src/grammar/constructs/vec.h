@@ -7,7 +7,7 @@
 
 typedef struct vec {
   DIE_TYPE dtype;
-  union {
+  union storage {
     long long* content;
     char** symbols;
   };
