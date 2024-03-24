@@ -27,12 +27,12 @@ void *safe_malloc(size_t size);
 void *safe_calloc(size_t nitems, size_t size);
 FILE *safe_fopen(const char *filename, const char *mode);
 char *safe_strdup(const char *str1);
-long int safe_strtol(const char *str, char **endptr, int base);
+long long int safe_strtol(const char *str, char **endptr, int base);
 
 void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
-                                            unsigned int items,
-                                            unsigned int max_size);
-void free_2d_array(char ***arr, unsigned int items);
+                                            unsigned long long items,
+                                            unsigned long long max_size);
+void free_2d_array(char ***arr, unsigned long long items);
 
 void free_vector(vec v);
 
