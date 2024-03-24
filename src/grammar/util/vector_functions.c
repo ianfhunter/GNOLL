@@ -132,7 +132,7 @@ void pop(long long *arr, unsigned long long len, long long value, long long *new
   }
 }
 
-bool contains(int *arr, unsigned int len, int value) {
+bool contains(long long *arr, unsigned long long len, long long value) {
   /**
    * @brief Checks if a value exists in an array
    * @param arr
