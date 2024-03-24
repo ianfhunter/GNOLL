@@ -34,7 +34,7 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   rp.die_sides = sides;
   rp.explode = explode;
   rp.start_value = start_offset;
-  int* roll_result = do_roll(rp);
+  long long* roll_result = do_roll(rp);
 
 #if USE_CLT
   // Must Accumulate. Loses details of per-item values
