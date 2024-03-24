@@ -72,7 +72,7 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned long long number_of_it
     vector->storage.symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
-    for (unsigned long longi = 0; i < number_of_items; i++) {
+    for (unsigned long long i = 0; i < number_of_items; i++) {
       vector->storage.symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
       if (gnoll_errno) return;
     }
