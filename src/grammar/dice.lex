@@ -22,10 +22,10 @@
 
 [A-Z_]+ {
     vec vector;
-    vector.symbols = (char**)safe_malloc(sizeof(char **));
+    vector.storage.symbols = (char**)safe_malloc(sizeof(char **));
     if(gnoll_errno){yyerror("Memory Err");}
 
-    vector.symbols[0] = safe_strdup(yytext);
+    vector.storage.symbols[0] = safe_strdup(yytext);
     if(gnoll_errno){yyerror("String Err");}
 
     vector.dtype = SYMBOLIC;
@@ -38,10 +38,10 @@
 
 [0-9]+ {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
 
-    vector.content[0] = fast_atoi(yytext);
+    vector.storage.content[0] = fast_atoi(yytext);
 
     vector.has_source = false;
     vector.dtype = NUMERIC;
@@ -84,14 +84,14 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = (char**)safe_malloc(sizeof(char **) * 6);
+    vector.storage.symbols = (char**)safe_malloc(sizeof(char **) * 6);
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.symbols[0] = plus;
-    vector.symbols[1] = zeroA;
-    vector.symbols[2] = zeroB;
-    vector.symbols[3] = zeroC;
-    vector.symbols[4] = zeroD;
-    vector.symbols[5] = minus;
+    vector.storage.symbols[0] = plus;
+    vector.storage.symbols[1] = zeroA;
+    vector.storage.symbols[2] = zeroB;
+    vector.storage.symbols[3] = zeroC;
+    vector.storage.symbols[4] = zeroD;
+    vector.storage.symbols[5] = minus;
     vector.length = 6;
     vector.has_source = false;
     yylval.values = vector;
@@ -109,10 +109,10 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = (char**)safe_malloc(sizeof(char **) * 2);
+    vector.storage.symbols = (char**)safe_malloc(sizeof(char **) * 2);
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.symbols[0] = plus;
-    vector.symbols[1] = minus;
+    vector.storage.symbols[0] = plus;
+    vector.storage.symbols[1] = minus;
     vector.length = 2;
     vector.has_source = false;
     yylval.values = vector;
@@ -133,11 +133,11 @@ d {
 
     vec vector;
     vector.dtype = SYMBOLIC;
-    vector.symbols = (char**)safe_malloc(sizeof(char **) * 3);
+    vector.storage.symbols = (char**)safe_malloc(sizeof(char **) * 3);
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.symbols[0] = plus;
-    vector.symbols[1] = zero;
-    vector.symbols[2] = minus;
+    vector.storage.symbols[0] = plus;
+    vector.storage.symbols[1] = zero;
+    vector.storage.symbols[2] = minus;
     vector.has_source = false;
     vector.length = 3;
     vector.has_source = false;
@@ -209,9 +209,9 @@ c {
 }
 u {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = IS_UNIQUE;
+    vector.storage.content[0] = IS_UNIQUE;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -236,9 +236,9 @@ o {
     /* Comparitors */
 \!\= {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = NOT_EQUAL;
+    vector.storage.content[0] = NOT_EQUAL;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -247,9 +247,9 @@ o {
 }
 \=\= {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = EQUALS;
+    vector.storage.content[0] = EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -258,9 +258,9 @@ o {
 }
 \< {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = LESS_THAN;
+    vector.storage.content[0] = LESS_THAN;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -269,9 +269,9 @@ o {
 }
 \> {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = GREATER_THAN;
+    vector.storage.content[0] = GREATER_THAN;
     vector.dtype = NUMERIC;
     vector.has_source = false;
     vector.length = 1;
@@ -280,9 +280,9 @@ o {
 }
 \<\= {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = LESS_OR_EQUALS;
+    vector.storage.content[0] = LESS_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -291,9 +291,9 @@ o {
 }
 \>\= {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = GREATER_OR_EQUALS;
+    vector.storage.content[0] = GREATER_OR_EQUALS;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -302,9 +302,9 @@ o {
 }
 is_even {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = IF_EVEN;
+    vector.storage.content[0] = IF_EVEN;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
@@ -313,9 +313,9 @@ is_even {
 }
 is_odd {
     vec vector;
-    vector.content = (long long*)safe_malloc(sizeof(long long));
+    vector.storage.content = (long long*)safe_malloc(sizeof(long long));
     if(gnoll_errno){yyerror("Memory Err");}
-    vector.content[0] = IF_ODD;
+    vector.storage.content[0] = IF_ODD;
     vector.dtype = NUMERIC;
     vector.length = 1;
     vector.has_source = false;
