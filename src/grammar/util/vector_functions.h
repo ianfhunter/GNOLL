@@ -13,7 +13,7 @@ void initialize_vector(vec* vector, DIE_TYPE dt, unsigned long long number_of_it
 void light_initialize_vector(vec* vector, DIE_TYPE dt,
                              unsigned long long number_of_items);
 
-void pop(long long* arr, unsigned long long len, int value, long long* new_arr);
+void pop(long long* arr, unsigned long long len, long long value, long long* new_arr);
 
 void abs_vec(vec* x);
 
