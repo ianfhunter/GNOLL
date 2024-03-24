@@ -189,11 +189,11 @@ void print_vec(vec vector) {
     return;
   }
 
-  printf("Vector Size: %ull\n", vector.length);
+  printf("Vector Size: %llu\n", vector.length);
   if (vector.dtype == NUMERIC) {
     printf("Vector Type: NUMERIC\n");
     for (unsigned long long i = 0; i != vector.length; i++) {
-      printf("\t%ll\n", vector.content[i]);
+      printf("\t%lld\n", vector.content[i]);
     }
   } else {
     printf("Vector Type: SYMBOLIC\n");
