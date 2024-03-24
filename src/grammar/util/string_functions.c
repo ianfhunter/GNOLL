@@ -5,7 +5,7 @@
 
 extern int gnoll_errno;
 
-char * concat_strings(char ** s, unsigned int num_s){
+char * concat_strings(char ** s, unsigned long long num_s){
   /**
    * @brief Given an array of strings, join them together.
    * @param s array of strings
@@ -15,9 +15,9 @@ char * concat_strings(char ** s, unsigned int num_s){
     if (num_s == 1){
         return s[0];
     }
-    long unsigned int size_total = 0;
-    unsigned int spaces = 0;
-    for(unsigned int i = 1; i != num_s + 1; i++){
+    unsigned long long size_total = 0;
+    unsigned long long spaces = 0;
+    for(unsigned long long i = 1; i != num_s + 1; i++){
         size_total += strlen(s[i]) + 1;
     }
     if (num_s > 1){
@@ -30,7 +30,7 @@ char * concat_strings(char ** s, unsigned int num_s){
     char * result = (char *)safe_calloc((size_total+1), sizeof(char));
     if(gnoll_errno){return NULL;}
 
-    for(unsigned int i = 1; i != num_s + 1; i++){
+    for(unsigned long long i = 1; i != num_s + 1; i++){
         // printf()
         strcat(result, s[i]);
         if (spaces && i < num_s){
