@@ -161,7 +161,7 @@ long long min_in_vec(long long *arr, unsigned long long len) {
     return 0;
   }
 
-  int lowest = LLONG_MAX;
+  long long lowest = LLONG_MAX;
   for (unsigned long long i = 0; i != len; i++) {
     if (arr[i] < lowest) lowest = arr[i];
   }
@@ -179,7 +179,7 @@ long long max_in_vec(long long *arr, unsigned long long len) {
     return 0;
   }
 
-  int highest = LLONG_MIN;
+  long long highest = LLONG_MIN;
   for (unsigned long long i = 0; i != len; i++) {
     if (arr[i] > highest) highest = arr[i];
   }
@@ -187,7 +187,7 @@ long long max_in_vec(long long *arr, unsigned long long len) {
 }
 void abs_vec(vec *x) {
   for (unsigned long long i = 0; i != x->length; i++) {
-    int v = x->storage.content[i];
+    long long v = x->storage.content[i];
     if (v < 0) {
       x->storage.content[i] *= -1;
     }
@@ -289,7 +289,7 @@ void keep_logic(vec *vector, vec **output_vector, unsigned long long number_to_k
     // }
     // output_vector->length = number_to_keep;
 
-    long long *arr = vector->content;
+    long long *arr = vector->storage.content;
     long long *new_arr;
     unsigned long long length = vector->length;
 
@@ -431,7 +431,7 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
       }
     }else{
 
-      long long compare_to = cond->content[0];
+      long long compare_to = cond->storage.content[0];
 
       if (check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)) {
         output->storage.content[success_idx] = v;
@@ -454,7 +454,7 @@ void filter_unique(vec *dice, vec *new_vec) {
 
   unsigned long long tracker_idx = 0;
   for (unsigned long long i = 0; i != dice->length; i++) {
-    long long v = dice->content[i];
+    long long v = dice->storage.content[i];
 
     if (!contains(new_vec->storage.content, new_vec->length, v)) {
       new_vec->storage.content[tracker_idx] = v;
