@@ -1,7 +1,7 @@
 CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  
 INCDIRS=./src/grammar ./src/grammar/external/pcg-c/include
 
-PCG_MISSING_DEFINES=
+PCG_SRC=./src/grammar/external/pcg-c/src
 
 $(info CC is $(CC))
 
@@ -9,12 +9,10 @@ ifeq ($(CC),g++)
    STANDARD= -std=c++11
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
-   # PCG_MISSING_DEFINES=-DPCG_USE_INLINE_ASM=1 -D__GNUC_GNU_INLINE__=0
 else ($(filter $(CC),gcc cc),gcc cc)
    STANDARD= -std=c99 
 else
    STANDARD= -std=c99
-   # PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 -DPCG_USE_INLINE_ASM=0
 endif
 
 .DEFAULT_GOAL := all
@@ -148,7 +146,7 @@ compile: pcg
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
-           -Wno-implicit-int-conversion 
+           -Wno-implicit-int-conversion -lpcg_random -L$(PCG_SRC)
 
 # PCG Submodule
 pcg:
