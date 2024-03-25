@@ -201,7 +201,7 @@ dice_statement: math{
 #ifdef __EMSCRIPTEN__
     printf("Result:");
 #endif
-    for(unsigned int i = 0; i!= new_vec.length;i++){
+    for(unsigned long long i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose || VERBOSITY ){
@@ -212,10 +212,10 @@ dice_statement: math{
             }
         }else{
             if(verbose || VERBOSITY ){
-                printf("%ll;", new_vec.storage.content[i]);
+                printf("%lld;", new_vec.storage.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%ll;", new_vec.storage.content[i]);
+                fprintf(fp, "%lld;", new_vec.storage.content[i]);
             }
         }
     }
@@ -272,7 +272,7 @@ math:
         */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
-        new_vec.content[0] = MINV(
+        new_vec.storage.content[0] = MINV(
             $<values>3.storage.content[0],
             $<values>5.storage.content[0]
         );
@@ -470,13 +470,13 @@ math:
             yyclearin;
         } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
-            unsigned int concat_length = vector1.length + vector2.length;
+            unsigned long long concat_length = vector1.length + vector2.length;
             new_vec.storage.symbols = safe_calloc(sizeof(char *), concat_length);
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
             }
-            for (unsigned int i = 0; i != concat_length; i++){
+            for (unsigned long long i = 0; i != concat_length; i++){
                 new_vec.storage.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_LENGTH);
                 if(gnoll_errno){
                     YYABORT;
@@ -487,9 +487,9 @@ math:
             new_vec.dtype = vector1.dtype;
 
             concat_symbols(
-                vector1.symbols, vector1.length,
-                vector2.symbols, vector2.length,
-                new_vec.symbols
+                vector1.storage.symbols, vector1.length,
+                vector2.storage.ymbols, vector2.length,
+                new_vec.storage.symbols
             );
             $<values>$ = new_vec;
         }else{
@@ -543,7 +543,7 @@ math:
                 yyclearin;
             }
             new_vec.length = 1;
-            new_vec.content[0] = v1 - v2;
+            new_vec.storage.content[0] = v1 - v2;
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
@@ -648,7 +648,7 @@ dice_operations:
         vec cv = $<values>4;
         vec cvno = $<values>5;
 
-        int check = cv.storage.content[0];
+        int check = (int)cv.storage.content[0];
 
         if(dice.dtype == NUMERIC){
             int count = 0;
@@ -662,11 +662,11 @@ dice_operations:
                 }
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.content[0] = (long long)dice.source.number_of_dice;
+                number_of_dice.storqge.content[0] = (long long)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
-                die_sides.content[0] = (long long)dice.source.die_sides;
+                die_sides.storage.content[0] = (long long)dice.source.die_sides;
 
                 roll_plain_sided_dice(
                     &number_of_dice,
@@ -701,7 +701,7 @@ dice_operations:
 
         vec dice = $<values>1;
         vec comp = $<values>3;
-        int check = comp.storage.content[0];
+        int check = (int)comp.storage.content[0];
         vec numv = $<values>4;
 
         if(dice.dtype == NUMERIC){
@@ -775,7 +775,7 @@ dice_operations:
         * singular_condition symbol
         */
         vec dice = $<values>1;
-        int check = $<values>3.storage.content[0];
+        int check = (int)$<values>3.storage.content[0];
         vec new_vec;
 
         if(dice.dtype == NUMERIC){
@@ -1171,7 +1171,7 @@ die_roll:
         vec numB = $<values>2;
         vec new_vec;
 
-        long long start_from = ds.content[0];
+        long long start_from = ds.storage.content[0];
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1396,7 +1396,7 @@ custom_symbol_dice:
 
             long long start_value = csd_vec.storage.content[0];
             long long end_value = csd_vec.storage.content[csd_vec.length-1];
-            dice_sides.content[0] = end_value - start_value + 1;
+            dice_sides.storage.content[0] = end_value - start_value + 1;
 
             // Range
             roll_plain_sided_dice(
@@ -1488,7 +1488,7 @@ custom_symbol_dice:
         }else if (new_vector.source.dtype == SYMBOLIC){
             light_initialize_vector(&die_sides, SYMBOLIC, 1);
             die_sides.length = new_vector.source.die_sides;
-            free(die_sides.symbols);  
+            free(die_sides.storage.symbols);  
             safe_copy_2d_chararray_with_allocation(
                 &die_sides.storage.symbols,
                 new_vector.source.symbol_pool,
@@ -1553,7 +1553,7 @@ csd:
         long long e = end.storage.content[0];
 
         if (s > e){
-            printf("Range: %ll -> %ll\n", s, e);
+            printf("Range: %lld -> %lld\n", s, e);
             printf("Reversed Ranged not supported yet.\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
@@ -1569,7 +1569,7 @@ csd:
         vec new_vector;
         initialize_vector(&new_vector, SYMBOLIC, spread);
         for (unsigned long long i = 0; i <= spread-1; i++){
-            sprintf(new_vector.storage.symbols[i], "%ll", s+i);
+            sprintf(new_vector.storage.symbols[i], "%lld", s+i);
         }
         $<values>$ = new_vector;
     }
@@ -1585,7 +1585,7 @@ csd:
         // INT_MAX/INT_MIN has 10 characters
         in.storage.symbols = safe_calloc(1, sizeof(char *));  
         in.storage.symbols[0] = safe_calloc(10, sizeof(char));  
-        sprintf(in.storage.symbols[0], "%d", in.content[0]);
+        sprintf(in.storage.symbols[0], "%lld", in.storahe.content[0]);
         //free(in.content);
         in.dtype = SYMBOLIC;
         $<values>$ = in;
