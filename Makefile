@@ -147,7 +147,7 @@ compile: pcg
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
            -Wno-implicit-int-conversion -lpcg_random -L$(PCG_SRC)  \
-	   -Wno-error=undef -Wno-error=conversion	# For pcg-c
+	   -Wno-undef -Wno-conversion	# For pcg-c
 
 # PCG Submodule
 pcg:
