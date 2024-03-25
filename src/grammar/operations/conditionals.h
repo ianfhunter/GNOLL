@@ -17,8 +17,8 @@ typedef enum {
   IF_ODD = 9,
 } COMPARATOR;
 
-int check_condition(vec* x, vec* y, COMPARATOR c);
+bool check_condition(vec* x, vec* y, COMPARATOR c);
 
-int check_condition_scalar(long long x, long long y, COMPARATOR c);
-int check_condition_vector(vec* v, COMPARATOR c);
+bool check_condition_scalar(long long x, long long y, COMPARATOR c);
+bool check_condition_vector(vec* v, COMPARATOR c);
 #endif
