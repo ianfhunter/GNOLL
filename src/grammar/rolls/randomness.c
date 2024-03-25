@@ -1,4 +1,4 @@
-#include "external/pcg_basic.h"
+#include "external/pcg-c/include/pcg_variants.h"
 #include "rolls/randomness.h"
 #include <limits.h>
 #include <stdint.h>
@@ -17,7 +17,7 @@ long long get_random_uniformly(void){
     #if USE_SECURE_RANDOM == 1
         value = (long long)arc4random_uniform(LLONG_MAX);
     #else
-        value = (long long)pcg32_boundedrand_r(&rng, LLONG_MAX);
+        value = (long long)pcg64_boundedrand_r(&rng, LLONG_MAX);
     #endif
     return value;
 }
@@ -31,8 +31,8 @@ double get_random_normally(double mean, double std) {
     if (cached == 0.0) {
         double x, y, r;
         do {
-            x = 2.0 * (long long)pcg32_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
-            y = 2.0 * (long long)pcg32_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
+            x = 2.0 * (long long)pcg64_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
+            y = 2.0 * (long long)pcg64_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
             r = x * x + y * y;
         } while (r == 0.0 || r > 1.0);
 
@@ -56,7 +56,7 @@ double get_random_normally(double mean, double std) {
     }
 
     // The rest of the function only calculates one half
-    bool other_side = (bool)pcg32_boundedrand_r(&rng, 2);
+    bool other_side = (bool)pcg64_boundedrand_r(&rng, 2);
     if (other_side){
         return res*-1;
     }
