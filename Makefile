@@ -146,7 +146,8 @@ compile: pcg
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
-           -Wno-implicit-int-conversion -lpcg_random -L$(PCG_SRC)
+           -Wno-implicit-int-conversion -lpcg_random -L$(PCG_SRC)  \
+	   -Wno-error=undef -Wno-error=conversion	# For pcg-c
 
 # PCG Submodule
 pcg:
