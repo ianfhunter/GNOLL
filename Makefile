@@ -3,12 +3,17 @@ INCDIRS=./src/grammar
 
 CC=cc
 
+echo "Compiler is $(CC)"
+PCG_MISSING_DEFINES=
 ifeq ($(CC),g++)
    STANDARD= -std=c++11
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
+else ifeq ($(CC),gcc)
+   STANDARD= -std=c99
 else
    STANDARD= -std=c99
+   PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 __cplusplus=0 PCG_USE_INLINE_ASM=1
 endif
 
 .DEFAULT_GOAL := all
@@ -142,7 +147,7 @@ compile: pcg
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
-           -Wno-implicit-int-conversion
+           -Wno-implicit-int-conversion $(PCG_MISSING_DEFINES)
 
 # PCG Submodule
 pcg:
