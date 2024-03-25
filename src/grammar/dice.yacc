@@ -488,7 +488,7 @@ math:
 
             concat_symbols(
                 vector1.storage.symbols, vector1.length,
-                vector2.storage.ymbols, vector2.length,
+                vector2.storage.symbols, vector2.length,
                 new_vec.storage.symbols
             );
             $<values>$ = new_vec;
@@ -662,7 +662,7 @@ dice_operations:
                 }
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.storqge.content[0] = (long long)dice.source.number_of_dice;
+                number_of_dice.storage.content[0] = (long long)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
@@ -750,7 +750,7 @@ dice_operations:
         vec condition = $<values>4;
         vec cv = $<values>3;
 
-        int check = cv.storage.content[0];
+        int check = (int)cv.storage.content[0];
 
         if(dice.dtype == NUMERIC){
             initialize_vector(&new_vec, NUMERIC, dice.length);
@@ -1450,7 +1450,7 @@ custom_symbol_dice:
         * return A vector containing rollparams for the selected  macro
         */
         vec vector = $<values>2;
-        char * name = vector.symbols[0];
+        char * name = vector.storage.symbols[0];
 
         vec new_vector;
         search_macros(name, &new_vector.source);
@@ -1585,7 +1585,7 @@ csd:
         // INT_MAX/INT_MIN has 10 characters
         in.storage.symbols = safe_calloc(1, sizeof(char *));  
         in.storage.symbols[0] = safe_calloc(10, sizeof(char));  
-        sprintf(in.storage.symbols[0], "%lld", in.storahe.content[0]);
+        sprintf(in.storage.symbols[0], "%lld", in.storage.content[0]);
         //free(in.content);
         in.dtype = SYMBOLIC;
         $<values>$ = in;
