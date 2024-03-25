@@ -19,7 +19,9 @@ typedef enum {
   MAX_LOOP_LIMIT_HIT = 9,
   SYNTAX_ERROR = 10,
   DIVIDE_BY_ZERO = 11,
-  UNDEFINED_MACRO = 12
+  UNDEFINED_MACRO = 12,
+  MATH_OVERFLOW = 13,
+  MATH_UNDERFLOW = 14
 } ERROR_CODES;
 
 void print_gnoll_errors(void);
