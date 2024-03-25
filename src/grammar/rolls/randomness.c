@@ -10,7 +10,7 @@
 #include <bsd/stdlib.h>
 #endif
 
-extern pcg32_random_t rng;
+extern pcg64_random_t rng;
 
 long long get_random_uniformly(void){
     long long value;
