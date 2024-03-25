@@ -11,7 +11,7 @@
 #include <assert.h>
 #include <errno.h>
 #include "shared_header.h"
-#include "external/pcg_basic.h"
+#include "external/pcg-c/include/pcg_variants.h"    // TODO: Move this to randomness.c
 #include "external/tinydir.h"
 #include "operations/macros.h"
 #include "operations/conditionals.h"
@@ -53,7 +53,7 @@ char * output_file;
 
 extern int gnoll_errno;
 extern struct macro_struct *macros;
-pcg32_random_t rng;
+pcg64_random_t rng;
 
 // Function Signatures for this file
 int initialize(void);
@@ -62,7 +62,7 @@ int initialize(void);
 int initialize(void){
     if (!seeded){
         unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
-        pcg32_srandom_r(
+        pcg64_srandom_r(
             &rng,
             tick ^ (unsigned long int)&printf,
             54u
