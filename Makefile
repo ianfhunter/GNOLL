@@ -1,9 +1,9 @@
 CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  ./src/grammar/external/pcg-c/include
 INCDIRS=./src/grammar
 
-CC=cc
+$(info cc is $(CC))
+$(info cc resolves to $(shell $(CC)))
 
-$(info $(CC))
 PCG_MISSING_DEFINES=
 
 ifeq ($(CC),g++)
