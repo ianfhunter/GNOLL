@@ -1,4 +1,4 @@
-CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  
+CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  ./src/grammar/external/pcg-c/include
 INCDIRS=./src/grammar
 
 CC=cc
@@ -25,8 +25,8 @@ ifneq ($(shell uname -s), Darwin)
   OPT := $(OPT) -Wl,-z,nodlopen -Wl,-z,noexecstack \
   -Wl,-z,relro
 endif
-        
-# -ffast-math # Problematic for Python 
+
+# -ffast-math # Problematic for Python
 
 # YACC/LEX fails for the following, so disabled:
 # -Wswitch-default  -Wstrict-overflow=5
@@ -91,16 +91,16 @@ ifeq ($(LEX_FALLBACK), 1)
 LEXER:=lex
 else
 #$(shell echo USING FLEX)
-LEXER:=flex -f -Ca -Ce -Cr 
+LEXER:=flex -f -Ca -Ce -Cr
 endif
 
 # add flags and the include paths
 DEFS=-DUSE_SECURE_RANDOM=${USE_SECURE_RANDOM} -DJUST_YACC=${YACC_FALLBACK} -DUSE_CLT=${USE_CLT}
 
-CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS) 
+CFLAGS=$(foreach D,$(INCDIRS),-I$(D)) $(OPT) $(DEFS)
 
 # add flags to build for shared library and add include paths
-SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS) 
+SHAREDCFLAGS=-fPIC -c $(foreach D,$(INCDIRS),-I$(D)) $(ARC4RANDOM) $(DEFS)
 
 # generate list of c files and remove y.tab.c from src/grammar directory
 CFILES=$(foreach D,$(CODEDIRS),$(wildcard $(D)/*.c)) build/lex.yy.c build/y.tab.c
@@ -127,7 +127,7 @@ install: all
 yacc:
 	mkdir -p build
 	$(foreach BD,$(CFILE_SUBDIRS),mkdir -p build/$(BD))
-	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG) 
+	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG)
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
@@ -136,7 +136,7 @@ lex:
 	mv lex.yy.c build/lex.yy.c
 
 # Executable
-compile:
+compile: pcg
 	# FLEX creates warning when run with -f
         # MacOS creates warnings for signs.
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
@@ -144,6 +144,9 @@ compile:
            -Wno-sign-conversion -Wno-sign-compare -lm \
            -Wno-implicit-int-conversion
 
+# PCG Submodule
+pcg:
+	make
 
 # Shared Lib
 shared: $(OBJECTS)
@@ -155,10 +158,10 @@ shared: $(OBJECTS)
 	mv ./a.exe build/dice | true
 
 # hardcode for lex and yacc files
-build/y.tab.o: 
+build/y.tab.o:
 	$(CC) $(SHAREDCFLAGS) -c build/y.tab.c -o $@
 build/lex.yy.o:
-	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@  
+	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@
 
 # Wildcard everything else
 build/*/%.o:src/grammar/*/%.c
