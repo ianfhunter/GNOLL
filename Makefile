@@ -146,7 +146,7 @@ compile: pcg
 
 # PCG Submodule
 pcg:
-	make
+	make -C src/grammar/external/pcg-c all
 
 # Shared Lib
 shared: $(OBJECTS)
