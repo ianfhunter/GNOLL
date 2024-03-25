@@ -2,7 +2,7 @@ CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/oper
 INCDIRS=./src/grammar
 
 $(info cc is $(CC))
-$(info cc resolves to $(shell readlink -f $(which cc)))
+$(info cc resolves to $(shell readlink -f $(command -v cc)))
 
 PCG_MISSING_DEFINES=
 
