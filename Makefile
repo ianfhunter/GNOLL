@@ -8,8 +8,10 @@ PCG_MISSING_DEFINES=
 
 ifeq ($(CC),g++)
    STANDARD= -std=c++11
+   PCG_MISSING_DEFINES=-D__cplusplus=1
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
+   PCG_MISSING_DEFINES=-D__cplusplus=1 -DPCG_USE_INLINE_ASM=1
 else ifeq ($(CC),gcc)
    STANDARD= -std=c99
 else
