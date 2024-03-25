@@ -17,9 +17,9 @@ void pop(long long* arr, unsigned long long len, long long value, long long* new
 
 void abs_vec(vec* x);
 
-int contains(long long* arr, unsigned long long len, long long value);
-int min_in_vec(long long* arr, unsigned long long len);
-int max_in_vec(long long* arr, unsigned long long len);
+bool contains(long long* arr, unsigned long long len, long long value);
+long long min_in_vec(long long* arr, unsigned long long len);
+long long max_in_vec(long long* arr, unsigned long long len);
 
 void concat_symbols(char** arr1, unsigned long long len1, char** arr2,
                     unsigned long long len2, char** new_arr);
