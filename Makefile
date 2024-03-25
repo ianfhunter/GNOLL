@@ -155,7 +155,7 @@ pcg:
 
 # Shared Lib
 shared: $(OBJECTS)
-	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM) -lm
+	$(CC) -shared -o build/dice.so $^ $(ARC4RANDOM) -lm -lpcg_random -L$(PCG_SRC) 
 	cp build/dice.so build/libdice.so
 # Linux
 	mv ./a.out build/dice | true
