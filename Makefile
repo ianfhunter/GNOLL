@@ -1,10 +1,9 @@
 CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  ./src/grammar/external/pcg-c/include
 INCDIRS=./src/grammar
 
-$(info cc is $(CC))
-$(info cc resolves to $(shell readlink -f $(command -v cc)))
-
 PCG_MISSING_DEFINES=
+
+$(info CC is $(CC))
 
 ifeq ($(CC),g++)
    STANDARD= -std=c++11
@@ -12,7 +11,7 @@ ifeq ($(CC),g++)
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
    PCG_MISSING_DEFINES=-D__cplusplus=1 -DPCG_USE_INLINE_ASM=1 -D__GNUC_GNU_INLINE__=0
-else ifeq ($(CC),gcc)
+else ($(filter $(CC),gcc cc),gcc cc)
    STANDARD= -std=c99
 else
    STANDARD= -std=c99
