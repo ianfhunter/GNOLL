@@ -1,5 +1,5 @@
-CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  ./src/grammar/external/pcg-c/include
-INCDIRS=./src/grammar
+CODEDIRS=./src/grammar ./src/grammar/rolls ./src/grammar/util ./src/grammar/operations ./src/grammar/external  
+INCDIRS=./src/grammar ./src/grammar/external/pcg-c/include
 
 PCG_MISSING_DEFINES=
 
@@ -148,7 +148,7 @@ compile: pcg
 	$(CC) $(CFLAGS) $(CFILES) $(ARC4RANDOM) \
            -Wno-error=implicit-function-declaration \
            -Wno-sign-conversion -Wno-sign-compare -lm \
-           -Wno-implicit-int-conversion $(PCG_MISSING_DEFINES)
+           -Wno-implicit-int-conversion 
 
 # PCG Submodule
 pcg:
