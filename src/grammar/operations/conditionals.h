@@ -19,6 +19,6 @@ typedef enum {
 
 int check_condition(vec* x, vec* y, COMPARATOR c);
 
-int check_condition_scalar(int x, int y, COMPARATOR c);
+int check_condition_scalar(long long x, long long y, COMPARATOR c);
 int check_condition_vector(vec* v, COMPARATOR c);
 #endif
