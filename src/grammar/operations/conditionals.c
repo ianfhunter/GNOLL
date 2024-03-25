@@ -28,8 +28,8 @@ int check_condition(vec* x, vec* y, COMPARATOR c) {
       return check_condition_vector(x, c);
   }else{
 
-      int xvalue = collapse(x->content, x->length);
-      int yvalue = y->content[0];
+      int xvalue = collapse(x->storage.content, x->length);
+      int yvalue = y->storage.content[0];
       return check_condition_scalar(xvalue, yvalue, c);
   }
 }
@@ -41,11 +41,11 @@ int check_condition_vector(vec* v, COMPARATOR c) {
        return 1;
      }
      case IF_EVEN:{
-        int x = collapse(v->content, v->length);
+        int x = collapse(v->storage.content, v->length);
         return (x+1) % 2;
      }
      case IF_ODD: {
-        int x = collapse(v->content, v->length);
+        int x = collapse(v->storage.content, v->length);
         return x % 2;
      }
      default: {
@@ -55,11 +55,11 @@ int check_condition_vector(vec* v, COMPARATOR c) {
    }
 }
 
-int check_condition_scalar(int x, int y, COMPARATOR c) {
+int check_condition_scalar(long lung x, long long y, COMPARATOR c) {
   if (gnoll_errno) return 1;
 
-  int xvalue = x;
-  int yvalue = y;
+  long long xvalue = x;
+  long long yvalue = y;
   switch (c) {
     case EQUALS: {
       return xvalue == yvalue;
