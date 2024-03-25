@@ -11,12 +11,12 @@ ifeq ($(CC),g++)
    PCG_MISSING_DEFINES=-D__cplusplus=1
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
-   PCG_MISSING_DEFINES=-D__cplusplus=1 -DPCG_USE_INLINE_ASM=1
+   PCG_MISSING_DEFINES=-D__cplusplus=1 -DPCG_USE_INLINE_ASM=1 -D__GNUC_GNU_INLINE__=0
 else ifeq ($(CC),gcc)
    STANDARD= -std=c99
 else
    STANDARD= -std=c99
-   PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 __cplusplus=0 PCG_USE_INLINE_ASM=1
+   PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 -D__cplusplus=0 -DPCG_USE_INLINE_ASM=1
 endif
 
 .DEFAULT_GOAL := all
