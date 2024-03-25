@@ -22,6 +22,9 @@
 #include "util/array_functions.h"
 #include "util/vector_functions.h"
 #include "util/string_functions.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+#endif
 
 #define UNUSED(x) (void)(x)
 // Avoid conflicts with MacOs predefined macros
@@ -1619,6 +1622,9 @@ typedef struct yy_buffer_state * YY_BUFFER_STATE;
 extern YY_BUFFER_STATE yy_scan_string(char * str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
+#ifdef __EMSCRIPTEN__
+EMSCRIPTEN_KEEPALIVE
+#endif
 int roll_full_options(
     char* roll_request, 
     char* log_file, 

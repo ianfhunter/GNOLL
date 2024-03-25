@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Sample App</title>
+
+        <script src="gnoll.bundle.js"></script>
+        <script>
+          async function onRoll() {
+            var notation = document.getElementById("tbNotation");
+            var output = document.getElementById("output");
+
+            await gnoll.roll(notation.value).then(result => output.innerHTML = result);
+          }
+        </script>
+    </head>
+    <body>
+      <div>
+        <p>Input: <input type="text" id="tbNotation" /></p>
+        <p><button onclick="onRoll()">Roll</button></p>
+      </div>
+      <div id="output"></div>
+    </body>
+</html>
