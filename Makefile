@@ -3,8 +3,9 @@ INCDIRS=./src/grammar
 
 CC=cc
 
-echo "Compiler is $(CC)"
+$(info $(CC))
 PCG_MISSING_DEFINES=
+
 ifeq ($(CC),g++)
    STANDARD= -std=c++11
 else ifeq ($(CC),clang++)
