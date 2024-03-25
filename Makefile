@@ -7,16 +7,14 @@ $(info CC is $(CC))
 
 ifeq ($(CC),g++)
    STANDARD= -std=c++11
-   PCG_MISSING_DEFINES=-D__cplusplus=1
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
-   PCG_MISSING_DEFINES=-D__cplusplus=1 -DPCG_USE_INLINE_ASM=1 -D__GNUC_GNU_INLINE__=0
+   # PCG_MISSING_DEFINES=-DPCG_USE_INLINE_ASM=1 -D__GNUC_GNU_INLINE__=0
 else ($(filter $(CC),gcc cc),gcc cc)
    STANDARD= -std=c99 
-   PCG_MISSING_DEFINES=-D__cplusplus=0
 else
    STANDARD= -std=c99
-   PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 -D__cplusplus=0 -DPCG_USE_INLINE_ASM=0
+   # PCG_MISSING_DEFINES=-D__GNUC_GNU_INLINE__=0 -DPCG_USE_INLINE_ASM=0
 endif
 
 .DEFAULT_GOAL := all
