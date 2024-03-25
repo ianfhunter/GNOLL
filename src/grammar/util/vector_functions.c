@@ -400,7 +400,7 @@ void extract_symbols(char **symbols_list, char **result_symbols, long long *inde
   }
 
   for (unsigned long long i = 0; i != idx_length; i++) {
-    int index = indexes[i];
+    long long index = indexes[i];
     result_symbols[i] = safe_strdup(symbols_list[index]);
   }
 }
