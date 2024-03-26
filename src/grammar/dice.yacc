@@ -323,10 +323,10 @@ math:
             vec new_vec;
             new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
             new_vec.length = 1;
-            if (x != 0 && a > INT_MAX / x){
+            if (v1 != 0 && v2 > INT_MAX / v1){
                gnoll_errno = MATH_OVERFLOW;
             }
-            if (x != 0 && a < INT_MIN / x){
+            if (v1 != 0 && v2 < INT_MIN / v1){
                gnoll_errno = MATH_UNDERFLOW;
             }
             new_vec.storage.content[0] = v1 * v2;
