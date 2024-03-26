@@ -25,8 +25,8 @@ typedef enum {
 } ERROR_CODES;
 
 void print_gnoll_errors(void);
-void *safe_malloc(size_t size);
-void *safe_calloc(size_t nitems, size_t size);
+void *safe_malloc(unsigned long long size);
+void *safe_calloc(unsigned long long nitems, unsigned long long size);
 FILE *safe_fopen(const char *filename, const char *mode);
 char *safe_strdup(const char *str1);
 long long int safe_strtol(const char *str, char **endptr, int base);
