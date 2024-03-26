@@ -51,6 +51,8 @@ jobs:
           python3.10-venv
 
     - uses: actions/checkout@v3
+      with:
+        submodules: true
     - name: test
       shell: wsl-bash {0}
       run: |
