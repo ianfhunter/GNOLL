@@ -2,7 +2,8 @@
 JS_OPT=-O3 -Wall
 
 # YACC/LEX generates code with errors, so disabling warning-to-error escalation
-DISABLE_ERRORS= -Wno-error=implicit-function-declaration
+# PCG also generates code with errors
+DISABLE_ERRORS= -Wno-error=implicit-function-declaration -Wno-sign-conversion -Wno-sign-compare
 
 ifneq ($(OS),Windows_NT)
 UNAME_S := $(shell uname -s)
