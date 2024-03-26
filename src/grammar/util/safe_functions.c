@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "shared_header.h"
 
@@ -15,6 +16,53 @@ extern int verbose;
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
+
+long long safe_add(long long a, long long b){
+    /* 
+    A wrapper around addition to catch and signal over/underflow 
+    Credit: https://stackoverflow.com/a/1514309/1421555
+    */
+    if (a > 0 && b > LLONG_MAX - a) {
+      gnoll_errno = MATH_OVERFLOW;
+      return LLONG_MAX;
+    } else if (a < 0 && b < LLONG_MIN - a) {
+      gnoll_errno = MATH_UNDERFLOW;
+      return LLONG_MIN;
+    }
+    return a + b;
+}
+
+
+long long safe_subtract(long long a, long long b){
+    /* 
+    A wrapper around addition to catch and signal over/underflow 
+    Credit: https://stackoverflow.com/a/1514309/1421555
+    */
+    if ((b < 0 && a > LLONG_MAX + b)) {
+      gnoll_errno = MATH_OVERFLOW;
+      return LLONG_MAX;
+    } else if (b > 0 && a < LLONG_MIN + b) {
+      gnoll_errno = MATH_UNDERFLOW;
+      return LLONG_MIN;
+    }
+    return a - b;
+}
+
+
+long long safe_mul(long long a, long long b){
+    /* 
+    A wrapper around addition to catch and signal over/underflow 
+    Credit: https://stackoverflow.com/a/1514309/1421555
+    */
+    if (b != 0 && a > LLONG_MAX / b) {
+      gnoll_errno = MATH_OVERFLOW;
+      return LLONG_MAX;
+    } else if (b != 0 && a < LLONG_MAX / b) {
+      gnoll_errno = MATH_UNDERFLOW;
+      return LLONG_MIN;
+    }
+    return a * b;
+}
 
 
 void print_gnoll_errors(void){
