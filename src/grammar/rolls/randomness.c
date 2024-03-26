@@ -31,8 +31,8 @@ double get_random_normally(double mean, double std) {
     if (cached == 0.0) {
         double x, y, r;
         do {
-            x = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
-            y = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / ULLONG_MAX - 1;
+            x = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / (double)ULLONG_MAX - 1;
+            y = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / (double)ULLONG_MAX - 1;
             r = x * x + y * y;
         } while (r == 0.0 || r > 1.0);
 
