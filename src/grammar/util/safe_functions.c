@@ -92,7 +92,7 @@ void print_gnoll_errors(void){
   }
 }
 
-void *safe_malloc(size_t size) {
+void *safe_malloc(unsigned long long size) {
   /**
    * @brief Safe version of malloc. Populates gnoll_errno on error
    * @param size
