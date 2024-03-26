@@ -24,6 +24,10 @@ typedef enum {
   MATH_UNDERFLOW = 14
 } ERROR_CODES;
 
+long long safe_subtract(long long a, long long b);
+long long safe_add(long long a, long long b);
+long long safe_mul(long long a, long long b);
+
 void print_gnoll_errors(void);
 void *safe_malloc(unsigned long long size);
 void *safe_calloc(unsigned long long nitems, unsigned long long size);
