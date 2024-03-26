@@ -77,6 +77,14 @@ void print_gnoll_errors(void){
         printf("%sErrorCheck: Undefined Macro.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
         break;
       }
+      case MATH_OVERFLOW:{
+        printf("%sErrorCheck: Math overflow/saturation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
+      case MATH_UNDERFLOW:{
+        printf("%sErrorCheck: Math underflow/desaturation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
+        break;
+      }
       default:{
         printf("%sErrorCheck: Error (Undetermined. Code %i).%s\n",ANSI_COLOR_RED, gnoll_errno, ANSI_COLOR_RESET);
         break;
@@ -160,7 +168,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
   
 }
 
-void * safe_calloc(size_t nitems, size_t size) {
+void * safe_calloc(unsigned long long nitems, unsigned long long size) {
   /**
    * @brief Safe version of calloc. Populates gnoll_errno on error
    * @param size
