@@ -9,7 +9,7 @@ ifeq ($(CC),g++)
    STANDARD= -std=c++11
 else ifeq ($(CC),clang++)
    STANDARD= -std=c++11
-else ($(filter $(CC),gcc cc),gcc cc)
+else ifeq ($(filter $(CC),gcc cc),gcc cc)
    STANDARD= -std=c99 
 else
    STANDARD= -std=c99
