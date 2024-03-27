@@ -8,10 +8,10 @@ python: all
 
 	cp -r build/  src/python/code/gnoll/c_build/
 	rsync -avR --mkpath --progress src/grammar/ src/python/code/gnoll/c_includes/ \
-               --exclude src/grammar/pcg-c/extras \
-               --exclude src/grammar/pcg-c/sample \
-               --exclude src/grammar/pcg-c/test-high \
-               --exclude src/grammar/pcg-c/test-low
+               --exclude src/grammar/external/pcg-c/extras \
+               --exclude src/grammar/external/pcg-c/sample \
+               --exclude src/grammar/external/pcg-c/test-high \
+               --exclude src/grammar/external/pcg-c/test-low
 
 pip : python
 	cd src/python/ ; python3 -m build
