@@ -7,8 +7,7 @@ python: all
 	rm -rf src/python/code/gnoll.egg-info/
 
 	cp -r build/  src/python/code/gnoll/c_build/
-	mkdir -p src/python/code/gnoll/c_includes/
-	rsync -av --progress src/grammar/ src/python/code/gnoll/c_includes/ \
+	rsync -avR --progress src/grammar/ src/python/code/gnoll/c_includes/ \
                --exclude creating gnoll-4.4.0/code/gnoll/c_includes/external/pcg-c/extras \
                --exclude creating gnoll-4.4.0/code/gnoll/c_includes/external/pcg-c/sample \
                --exclude creating gnoll-4.4.0/code/gnoll/c_includes/external/pcg-c/test-high \
