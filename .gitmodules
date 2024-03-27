@@ -1,0 +1,3 @@
+[submodule "src/grammar/external/pcg-c"]
+	path = src/grammar/external/pcg-c
+	url = https://github.com/imneme/pcg-c.git
