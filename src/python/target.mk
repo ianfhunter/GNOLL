@@ -7,7 +7,7 @@ python: all
 	rm -rf src/python/code/gnoll.egg-info/
 
 	cp -r build/  src/python/code/gnoll/c_build/
-	rsync -avhR --mkpath --progress src/grammar/ src/python/code/gnoll/c_includes/ \
+	rsync -avR --mkpath --progress src/grammar/ src/python/code/gnoll/c_includes/ \
                --exclude src/grammar/pcg-c/extras \
                --exclude src/grammar/pcg-c/sample \
                --exclude src/grammar/pcg-c/test-high \
