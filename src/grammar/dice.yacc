@@ -72,6 +72,24 @@ int initialize(void){
     return 0;
 }
 
+int countDigits(int num) {
+    // count units in a number
+    int count = 0;
+    
+    // Handle negative numbers
+    if (num < 0) {
+        num = -num;
+    }
+    
+    // Count digits
+    do {
+        count++;
+        num /= 10;
+    } while (num > 0);
+    
+    return count;
+}
+
 %}
 
 
@@ -1588,9 +1606,9 @@ csd:
         * return A vector containing the numeric values as symbols 
         */
         vec in = $<values>1;
-        // INT_MAX/INT_MIN has 10 characters
+        // TODO: ensure number inside maxmin range
         in.symbols = safe_calloc(1, sizeof(char *));  
-        in.symbols[0] = safe_calloc(10, sizeof(char));  
+        in.symbols[0] = safe_calloc(countDigits(LLONG_MAX), sizeof(char));  
         sprintf(in.symbols[0], "%lld", in.content[0]);
         //free(in.content);
         in.dtype = SYMBOLIC;
