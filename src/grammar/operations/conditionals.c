@@ -44,11 +44,11 @@ bool check_condition_vector(vec* v, COMPARATOR c) {
      }
      case IF_EVEN:{
 
-        long long x = collapse(v->storage content, v->length);
+        long long x = collapse(v->storage.content, v->length);
         return (x+1) % 2 != 0;
      }
      case IF_ODD: {
-        long long x = collapse(v->storage content, v->length);
+        long long x = collapse(v->storage.content, v->length);
         return x % 2 != 0;
 
      }
