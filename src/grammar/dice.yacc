@@ -1578,8 +1578,10 @@ csd:
         vec in = $<values>1;
         // INT_MAX/INT_MIN has 10 characters
         in.storage.symbols = safe_calloc(1, sizeof(char *));  
+        int tmp = in.storage.content[0];
+        free(in.storage.content);
         in.storage.symbols[0] = safe_calloc(10, sizeof(char));  
-        sprintf(in.storage.symbols[0], "%d", in.storage.content[0]);
+        sprintf(in.storage.symbols[0], "%d", tmp);
         in.dtype = SYMBOLIC;
         $<values>$ = in;
     }
