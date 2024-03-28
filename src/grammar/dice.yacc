@@ -1580,7 +1580,6 @@ csd:
         in.storage.symbols = safe_calloc(1, sizeof(char *));  
         in.storage.symbols[0] = safe_calloc(10, sizeof(char));  
         sprintf(in.storage.symbols[0], "%d", in.storage.content[0]);
-        free(in.storage.content);
         in.dtype = SYMBOLIC;
         $<values>$ = in;
     }
