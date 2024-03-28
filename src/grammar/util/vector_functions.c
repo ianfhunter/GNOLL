@@ -26,10 +26,10 @@ void light_initialize_vector(vec *vector, DIE_TYPE dt,
   vector->has_source = false;
 
   if (dt == NUMERIC) {
-    vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
+    vector->storage.content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } else if (dt == SYMBOLIC) {
-    vector->symbols = (char**)safe_calloc(1, sizeof(char **));
+    vector->storage.symbols = (char**)safe_calloc(1, sizeof(char **));
   }
 }
 
@@ -61,16 +61,16 @@ void initialize_vector(vec *vector, DIE_TYPE dt, unsigned int number_of_items) {
   vector->has_source = false;
 
   if (dt == NUMERIC) {
-    vector->content = (int*)safe_calloc(number_of_items, sizeof(int));
+    vector->storage.content = (int*)safe_calloc(number_of_items, sizeof(int));
     if (gnoll_errno) return;
   } 
   else if (dt == SYMBOLIC) 
   {
-    vector->symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
+    vector->storage.symbols = (char**)safe_calloc(number_of_items, sizeof(char *));
     if (gnoll_errno) return;
 
     for (unsigned int i = 0; i < number_of_items; i++) {
-      vector->symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
+      vector->storage.symbols[i] = (char*)safe_calloc(MAX_SYMBOL_LENGTH, sizeof(char));
       if (gnoll_errno) return;
     }
   }
@@ -184,9 +184,9 @@ int max_in_vec(int *arr, unsigned int len) {
 }
 void abs_vec(vec *x) {
   for (unsigned int i = 0; i != x->length; i++) {
-    int v = x->content[i];
+    int v = x->storage.content[i];
     if (v < 0) {
-      x->content[i] *= -1;
+      x->storage.content[i] *= -1;
     }
   }
 }
@@ -204,13 +204,13 @@ void print_vec(vec vector) {
   if (vector.dtype == NUMERIC) {
     printf("Vector Type: NUMERIC\n");
     for (unsigned int i = 0; i != vector.length; i++) {
-      printf("\t%d\n", vector.content[i]);
+      printf("\t%d\n", vector.storage.content[i]);
     }
   } else {
     printf("Vector Type: SYMBOLIC\n");
     printf("Symbols:\n");
     for (unsigned int i = 0; i != vector.length; i++) {
-      printf("\t- %s\n", vector.symbols[i]);
+      printf("\t- %s\n", vector.storage.symbols[i]);
     }
   }
 }
@@ -227,8 +227,8 @@ void collapse_vector(vec *vector, vec *new_vector) {
 
   if (vector->dtype == SYMBOLIC) {
     safe_copy_2d_chararray_with_allocation(
-       &new_vector->symbols,
-       vector->symbols,
+       &new_vector->storage.symbols,
+       vector->storage.symbols,
        vector->length,
        MAX_SYMBOL_LENGTH
     );
@@ -240,12 +240,12 @@ void collapse_vector(vec *vector, vec *new_vector) {
   else {
     int c = 0;
     for (unsigned int i = 0; i != vector->length; i++) {
-      c += vector->content[i];
+      c += vector->storage.content[i];
     }
 
-    new_vector->content = (int*)safe_calloc(sizeof(int), 1);
+    new_vector->storage.content = (int*)safe_calloc(sizeof(int), 1);
     if (gnoll_errno) return;
-    new_vector->content[0] = c;
+    new_vector->storage.content[0] = c;
     new_vector->length = 1;
     new_vector->dtype = NUMERIC;
     new_vector->has_source = false;
@@ -278,13 +278,13 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
   
   if (available_amount > number_to_keep) {
 
-    // output_vector->content = (int*)safe_calloc(sizeof(int), number_to_keep);
+    // output_vector->storage.content = (int*)safe_calloc(sizeof(int), number_to_keep);
     // if (gnoll_errno) {
     //   return;
     // }
     // output_vector->length = number_to_keep;
 
-    int *arr = vector->content;
+    int *arr = vector->storage.content;
     int *new_arr;
     unsigned int length = vector->length;
 
@@ -298,7 +298,7 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
       } else {
         m = min_in_vec(arr, length);
       }
-      (*output_vector)->content[i] = m;
+      (*output_vector)->storage.content[i] = m;
       new_arr = (int*)safe_calloc(sizeof(int), length - 1);
       if (gnoll_errno) {
         return;
@@ -311,7 +311,7 @@ void keep_logic(vec *vector, vec **output_vector, unsigned int number_to_keep,
       length -= 1;
     }
     free(arr);
-    // output_vector->content = arr;
+    // output_vector->storage.content = arr;
     (*output_vector)->dtype = vector->dtype;
   } else {
     // e.g. 2d20k4 / 2d20kh2
@@ -409,18 +409,18 @@ void filter(vec *dice, vec *cond, int comp_op, vec *output) {
 
   unsigned int success_idx = 0;
   for (unsigned int i = 0; i != dice->length; i++) {
-    int v = dice->content[i];
+    int v = dice->storage.content[i];
     if (comp_op == IF_EVEN || comp_op == IF_ODD){
       if(check_condition_scalar(v, v, (COMPARATOR)comp_op)){
-        output->content[success_idx] = v;
+        output->storage.content[success_idx] = v;
         success_idx++;
       }
     }else{
 
-      int compare_to = cond->content[0];
+      int compare_to = cond->storage.content[0];
 
       if (check_condition_scalar(v, compare_to, (COMPARATOR)comp_op)) {
-        output->content[success_idx] = v;
+        output->storage.content[success_idx] = v;
         success_idx++;
       }
     }
@@ -440,10 +440,10 @@ void filter_unique(vec *dice, vec *new_vec) {
 
   unsigned int tracker_idx = 0;
   for (unsigned int i = 0; i != dice->length; i++) {
-    int v = dice->content[i];
+    int v = dice->storage.content[i];
 
-    if (!contains(new_vec->content, new_vec->length, v)) {
-      new_vec->content[tracker_idx] = v;
+    if (!contains(new_vec->storage.content, new_vec->length, v)) {
+      new_vec->storage.content[tracker_idx] = v;
       tracker_idx++;
     }
   }
