@@ -349,7 +349,7 @@ math:
             long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.content = (long long*)safe_calloc(sizeof(long long), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
             new_vec.length = 1;
             if (v1 != 0 && v2 > INT_MAX / v1){
                gnoll_errno = MATH_OVERFLOW;
@@ -539,7 +539,7 @@ math:
             $<values>$ = new_vec;
         }else{
 
-            long long v1 = collapse(vector1.stoeage.content, vector1.length);
+            long long v1 = collapse(vector1.storage.content, vector1.length);
             long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
@@ -773,7 +773,7 @@ dice_operations:
 
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-<
+
                 number_of_dice.storage.content[0] = (long long)dice.source.number_of_dice;
 
                 vec die_sides;
@@ -1565,7 +1565,7 @@ custom_symbol_dice:
         // Set Num Dice
         initialize_vector(&number_of_dice, NUMERIC, 1);
 
-        number_of_dice.content[0] = (long long)new_vector.source.number_of_dice;
+        number_of_dice.storage.content[0] = (long long)new_vector.source.number_of_dice;
 
         
         // Set Die Sides
