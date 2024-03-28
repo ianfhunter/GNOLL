@@ -24,8 +24,8 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   if (gnoll_errno) return;
 
   // XdY
-  unsigned int num_dice = (unsigned int)x->content[0];
-  unsigned int sides = (unsigned int)y->content[0];
+  unsigned int num_dice = (unsigned int)x->storage.content[0];
+  unsigned int sides = (unsigned int)y->storage.content[0];
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -42,8 +42,8 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
 #else
   initialize_vector(result, NUMERIC, num_dice);
 #endif
-  free(result->content);
-  result->content = roll_result;
+  free(result->storage.content);
+  result->storage.content = roll_result;
   result->source = rp;
   result->has_source = true;
 }
@@ -63,7 +63,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
     return;
 #endif
 
-  unsigned int num_dice = (unsigned int)x->content[0];
+  unsigned int num_dice = (unsigned int)x->storage.content[0];
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -76,7 +76,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   // Copy over memory to Symbol Pool for reloading
   safe_copy_2d_chararray_with_allocation(
     &rp.symbol_pool, 
-    y->symbols, 
+    y->storage.symbols, 
     y->length,
     MAX_SYMBOL_LENGTH
   );
@@ -87,6 +87,6 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
 
   free_2d_array(&rp.symbol_pool, y->length);
 
-  extract_symbols(y->symbols, result->symbols, indexes, rp.number_of_dice);
+  extract_symbols(y->storage.symbols, result->storage.symbols, indexes, rp.number_of_dice);
   free(indexes);
 }
