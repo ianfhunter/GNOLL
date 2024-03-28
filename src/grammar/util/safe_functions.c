@@ -162,9 +162,9 @@ void *safe_malloc(unsigned long long size) {
 
 void free_vector(vec v){
   if(v.dtype == NUMERIC){
-    free(v.storage.content);
+    free(v.content);
   }else{
-    free_2d_array(&v.storage.symbols, v.length);
+    free_2d_array(&v.symbols, v.length);
     if (v.has_source){
       // Should be always the same as length (But not sure that's true!)
       free_2d_array(&v.source.symbol_pool, v.source.die_sides);

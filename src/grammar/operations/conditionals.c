@@ -28,8 +28,8 @@ bool check_condition(vec* x, vec* y, COMPARATOR c) {
       return check_condition_vector(x, c);
   }else{
 
-      long long xvalue = collapse(x->storage.content, x->length);
-      long long yvalue = y->storage.content[0];
+      long long xvalue = collapse(x->content, x->length);
+      long long yvalue = y->content[0];
       return check_condition_scalar(xvalue, yvalue, c);
   }
 }
@@ -41,11 +41,11 @@ bool check_condition_vector(vec* v, COMPARATOR c) {
        return true;
      }
      case IF_EVEN:{
-        long long x = collapse(v->storage.content, v->length);
+        long long x = collapse(v->content, v->length);
         return (x+1) % 2 != 0;
      }
      case IF_ODD: {
-        long long x = collapse(v->storage.content, v->length);
+        long long x = collapse(v->content, v->length);
         return x % 2 != 0;
      }
      default: {

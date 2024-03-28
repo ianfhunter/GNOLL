@@ -59,7 +59,7 @@ void register_macro(vec *macro_name, roll_params *to_store) {
   if (gnoll_errno) {return;}
 
   struct macro_struct *s;
-  char *skey = macro_name->storage.symbols[0];
+  char *skey = macro_name->symbols[0];
 
   if (verbose) printf("Macro:: Get ID\n");
   unsigned long key = hash_function((unsigned char *)skey);

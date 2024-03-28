@@ -7,10 +7,8 @@
 
 typedef struct vec {
   DIE_TYPE dtype;
-  union {
-    long long* content;
-    char** symbols;
-  } storage;
+  long long* content;
+  char** symbols;
   unsigned long long length;
   // TODO: Split length into content_length and symbol length
   roll_params source;
