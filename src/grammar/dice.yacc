@@ -60,6 +60,7 @@ pcg64_random_t rng;
 
 // Function Signatures for this file
 int initialize(void);
+int countDigits(long long num);
 
 // Functions
 int initialize(void){
@@ -75,7 +76,7 @@ int initialize(void){
     return 0;
 }
 
-int countDigits(int num) {
+int countDigits(long long num) {
     // count units in a number
     int count = 0;
     
