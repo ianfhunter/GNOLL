@@ -2,7 +2,7 @@
 #define __RANDOMNESS_H__
 
 #if USE_SECURE_RANDOM == 1
-long long arc4random_uniform64(long long upper_bound);
+long long arc4random_uniform64();
 #endif
 
 long long get_random_uniformly(void);
