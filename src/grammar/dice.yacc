@@ -1772,6 +1772,7 @@ int roll_full_options(
         printf("Trying to roll '%s'\n", roll_request);
     }
     if (enable_mocking){
+        printf("mocking_seed '%lld'\n", mocking_seed);
         init_mocking((MOCK_METHOD)mocking_type, mocking_seed);
     }
     if (log_file != NULL){
