@@ -36,7 +36,7 @@
 #define VERBOSITY 1
 #else
 // UNDO
-#define VERBOSITY 1 
+#define VERBOSITY 0
 #endif
 
 int yylex(void);
@@ -1772,7 +1772,7 @@ int roll_full_options(
         printf("Trying to roll '%s'\n", roll_request);
     }
     if (enable_mocking){
-        printf("mocking_seed '%lld'\n", mocking_seed);
+        if (enable_verbosity){ printf("mocking_seed '%lld'\n", mocking_seed); }
         init_mocking((MOCK_METHOD)mocking_type, mocking_seed);
     }
     if (log_file != NULL){
