@@ -100,6 +100,8 @@ def roll(s,
 
         s = s.encode("ascii")
 
+        mock_const = ctypes.c_long(mock_const)
+
         return_code = libc.roll_full_options(
             s,
             out_file,
