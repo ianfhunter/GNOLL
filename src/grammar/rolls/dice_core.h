@@ -10,16 +10,16 @@
 
 
 // Random Functions
-int random_fn(int small, int big);
+long long random_fn(long long small, long long big);
 
 // Rolling Functions
-int* perform_roll(
-    unsigned int number_of_dice, 
-    unsigned int die_sides,
+long long* perform_roll(
+    unsigned long long number_of_dice, 
+    unsigned long long die_sides,
     EXPLOSION_TYPE explode, 
-    int start_value
+    long long start_value
 );
-int* do_roll(roll_params rp);
+long long* do_roll(roll_params rp);
 
 // #ifdef __cplusplus
 // }

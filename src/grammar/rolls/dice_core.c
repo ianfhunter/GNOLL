@@ -20,12 +20,12 @@ extern char * output_file;
 
 // Mocking Externs
 extern int random_fn_run_count;
-extern int global_mock_value;
+extern long long global_mock_value;
 extern MOCK_METHOD global_mock_style;
 
 extern int gnoll_errno;
 
-int random_fn(int small, int big) {
+long long random_fn(long long small, long long big) {
   /**
    * @brief Get a random number between 'small' and 'big'
    * @param small lower value
@@ -48,7 +48,7 @@ int random_fn(int small, int big) {
     return small;
   };
 
-  int value = 0;
+  long long value = 0;
   if (global_mock_style == NO_MOCK) {
     value = get_random_uniformly();
     value = value % (big + 1 - small) + small;
@@ -56,13 +56,13 @@ int random_fn(int small, int big) {
     value = global_mock_value;
     mocking_tick();
   }
-  // printf("Dice Roll Value: %i\n", value);
+  // printf("Dice Roll Value: %lld\n", value);
   return value;
 }
 
 
-int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
-                  EXPLOSION_TYPE explode, int start_value) {
+long long* perform_roll(unsigned long long number_of_dice, unsigned long long die_sides,
+                  EXPLOSION_TYPE explode, long long start_value) {
   /**
    * @brief Controls logic of dice rolling above basic dX
    * @param number_of_dice - How many dice to roll
@@ -75,17 +75,17 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     return NULL;
   }
 
-  int explosion_condition_score = 0;
-  int explosion_count = 0;
+  long long explosion_condition_score = 0;
+  long long explosion_count = 0;
 
   if (gnoll_errno) {
     return 0;
   }
-  int single_die_roll;
-  int exploded_result = 0;
-  int* all_dice_roll;
+  long long single_die_roll;
+  long long exploded_result = 0;
+  long long* all_dice_roll;
   
-  int end_value = (int)start_value + (int)die_sides - 1;
+  long long end_value = (long long)start_value + (long long)die_sides - 1;
 
   #if USE_CLT
     /* Central Limit Theorom Optimization
@@ -98,19 +98,19 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
     * PRO: We do not have to calculate all the dice rolled
     * CON: We lose per-dice information
     */
-    all_dice_roll = (int*)safe_calloc(1, sizeof(int));
-    float midpoint = ((float)(end_value - start_value))/2 ;
-    float val = get_random_normally(0, 1);
+    all_dice_roll = (long long*)safe_calloc(1, sizeof(long long));
+    double midpoint = ((double)(end_value - start_value))/2 ;
+    double val = get_random_normally(0, 1);
     val += 3;
     val = ((val/6)*(number_of_dice*midpoint)) + start_value*number_of_dice;
-    int ival = round(val);
+    long long ival = round(val);
     all_dice_roll[0] = ival;
 
   #else
-    all_dice_roll = (int*)safe_calloc(number_of_dice, sizeof(int));
+    all_dice_roll = (long long*)safe_calloc(number_of_dice, sizeof(long long));
 
     do {
-      for (unsigned int i = 0; i < number_of_dice; i++) {
+      for (unsigned long long i = 0; i < number_of_dice; i++) {
         if (die_sides == 0) {
           break;
         }
@@ -118,14 +118,14 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
         single_die_roll = random_fn(start_value, end_value);
         if (dice_breakdown){
           FILE *fp = safe_fopen(output_file, "a+");
-          fprintf(fp, "%i,", single_die_roll);
+          fprintf(fp, "%lld,", single_die_roll);
           fclose(fp);
         }
         all_dice_roll[i] += single_die_roll;
         exploded_result += single_die_roll;
       }
 
-      explosion_condition_score += (int)number_of_dice * (int)die_sides;
+      explosion_condition_score += (long long)number_of_dice * (long long)die_sides;
       if (explode != NO_EXPLOSION) {
         if (explode == ONLY_ONCE_EXPLOSION && explosion_count > 0) {
           break;
@@ -151,7 +151,7 @@ int* perform_roll(unsigned int number_of_dice, unsigned int die_sides,
   return all_dice_roll;
 }
 
-int* do_roll(roll_params rp) {
+long long* do_roll(roll_params rp) {
   /**
    * @brief Unfurls the roll_params struct and calls dice rolling logic
    */

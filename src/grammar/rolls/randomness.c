@@ -1,22 +1,31 @@
-#include "external/pcg_basic.h"
+#include "external/pcg-c/include/pcg_variants.h"
 #include "rolls/randomness.h"
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
 
 #if USE_SECURE_RANDOM == 1
 #include <bsd/stdlib.h>
 #endif
 
-extern pcg32_random_t rng;
+extern pcg64_random_t rng;
 
-int get_random_uniformly(void){
-    int value;
+#if USE_SECURE_RANDOM == 1
+long long arc4random_uniform64() {
+    int64_t random_value;    
+    random_value = (((int64_t)arc4random_uniform(INT_MAX)) << 32) | arc4random_uniform(INT_MAX);
+    return random_value;
+}
+#endif
+
+long long get_random_uniformly(void){
+    long long value;
     #if USE_SECURE_RANDOM == 1
-        value = (int)arc4random_uniform(INT_MAX);
+        value = (long long)arc4random_uniform64();
     #else
-        value = (int)pcg32_boundedrand_r(&rng, INT_MAX);
+        value = (long long)pcg64_boundedrand_r(&rng, LLONG_MAX);
     #endif
     return value;
 }
@@ -30,8 +39,8 @@ double get_random_normally(double mean, double std) {
     if (cached == 0.0) {
         double x, y, r;
         do {
-            x = 2.0 * (int)pcg32_boundedrand_r(&rng, INT_MAX) / UINT32_MAX - 1;
-            y = 2.0 * (int)pcg32_boundedrand_r(&rng, INT_MAX) / UINT32_MAX - 1;
+            x = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / (double)ULLONG_MAX - 1;
+            y = 2.0 * (double)pcg64_boundedrand_r(&rng, LLONG_MAX) / (double)ULLONG_MAX - 1;
             r = x * x + y * y;
         } while (r == 0.0 || r > 1.0);
 
@@ -55,7 +64,7 @@ double get_random_normally(double mean, double std) {
     }
 
     // The rest of the function only calculates one half
-    int other_side = (int)pcg32_boundedrand_r(&rng, 2);
+    bool other_side = (bool)pcg64_boundedrand_r(&rng, 2);
     if (other_side){
         return res*-1;
     }

@@ -11,7 +11,7 @@
 #include <assert.h>
 #include <errno.h>
 #include "shared_header.h"
-#include "external/pcg_basic.h"
+#include "external/pcg-c/include/pcg_variants.h"    // TODO: Move this to randomness.c
 #include "external/tinydir.h"
 #include "operations/macros.h"
 #include "operations/conditionals.h"
@@ -35,6 +35,7 @@
 #ifdef __EMSCRIPTEN__
 #define VERBOSITY 1
 #else
+// UNDO
 #define VERBOSITY 0
 #endif
 
@@ -56,16 +57,17 @@ char * output_file;
 
 extern int gnoll_errno;
 extern struct macro_struct *macros;
-pcg32_random_t rng;
+pcg64_random_t rng;
 
 // Function Signatures for this file
 int initialize(void);
+int countDigits(long long num);
 
 // Functions
 int initialize(void){
     if (!seeded){
         unsigned long int tick = (unsigned long)time(0)+(unsigned long)clock();
-        pcg32_srandom_r(
+        pcg64_srandom_r(
             &rng,
             tick ^ (unsigned long int)&printf,
             54u
@@ -73,6 +75,24 @@ int initialize(void){
         seeded = 1;
     }
     return 0;
+}
+
+int countDigits(long long num) {
+    // count units in a number
+    int count = 0;
+    
+    // Handle negative numbers
+    if (num < 0) {
+        num = -num;
+    }
+    
+    // Count digits
+    do {
+        count++;
+        num /= 10;
+    } while (num > 0);
+    
+    return count;
 }
 
 %}
@@ -204,7 +224,7 @@ dice_statement: math{
 #ifdef __EMSCRIPTEN__
     printf("Result:");
 #endif
-    for(unsigned int i = 0; i!= new_vec.length;i++){
+    for(unsigned long long i = 0; i!= new_vec.length;i++){
         if (new_vec.dtype == SYMBOLIC){
             // TODO: Strings >1 character
             if (verbose || VERBOSITY ){
@@ -215,10 +235,12 @@ dice_statement: math{
             }
         }else{
             if(verbose || VERBOSITY ){
-                printf("%d;", new_vec.storage.content[i]);
+
+                printf("%lld;", new_vec.storage.content[i]);
             }
             if(write_to_file){
-                fprintf(fp, "%d;", new_vec.storage.content[i]);
+                fprintf(fp, "%lld;", new_vec.storage.content[i]);
+
             }
         }
     }
@@ -253,9 +275,12 @@ math:
         */
         vec new_vec;
         initialize_vector(&new_vec, NUMERIC, 1);
-        int vmax = MAXV(
+
+        long long vmax = MAXV(
+
             $<values>3.storage.content[0],
             $<values>5.storage.content[0]
+
         );
         new_vec.storage.content[0] = vmax;
         $<values>$ = new_vec;
@@ -320,13 +345,21 @@ math:
             YYABORT;
             yyclearin;
         }else{
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
             new_vec.length = 1;
+            if (v1 != 0 && v2 > INT_MAX / v1){
+               gnoll_errno = MATH_OVERFLOW;
+            }
+            if (v1 != 0 && v2 < INT_MIN / v1){
+               gnoll_errno = MATH_UNDERFLOW;
+            }
             new_vec.storage.content[0] = v1 * v2;
+
             new_vec.dtype = vector1.dtype;
 
             $<values>$ = new_vec;
@@ -353,11 +386,13 @@ math:
             yyclearin;
 
         }else{
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
+
             if(gnoll_errno){ YYABORT; yyclearin;}
             new_vec.length = 1;
             if(v2==0){
@@ -391,11 +426,13 @@ math:
             YYABORT;
             yyclearin;
         }else{
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
+
             if(gnoll_errno){
                YYABORT;
                yyclearin;
@@ -433,11 +470,13 @@ math:
             yyclearin;
 
         }else{
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
+
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
@@ -473,14 +512,18 @@ math:
             yyclearin;
         } else if (vector1.dtype == SYMBOLIC){
             vec new_vec;
-            unsigned int concat_length = vector1.length + vector2.length;
+
+            unsigned long long concat_length = vector1.length + vector2.length;
             new_vec.storage.symbols = safe_calloc(sizeof(char *), concat_length);
+
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
             }
-            for (unsigned int i = 0; i != concat_length; i++){
+
+            for (unsigned long long i = 0; i != concat_length; i++){
                 new_vec.storage.symbols[i] = safe_calloc(sizeof(char), MAX_SYMBOL_LENGTH);
+
                 if(gnoll_errno){
                     YYABORT;
                     yyclearin;
@@ -496,11 +539,13 @@ math:
             );
             $<values>$ = new_vec;
         }else{
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
+
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
@@ -536,11 +581,14 @@ math:
         }else{
             // Collapse both sides and subtract
 
-            int v1 = collapse(vector1.storage.content, vector1.length);
-            int v2 = collapse(vector2.storage.content, vector2.length);
+
+            long long v1 = collapse(vector1.storage.content, vector1.length);
+            long long v2 = collapse(vector2.storage.content, vector2.length);
 
             vec new_vec;
-            new_vec.storage.content = safe_calloc(sizeof(int), 1);
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), 1);
+
+
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
@@ -572,7 +620,9 @@ math:
         } else {
             vec new_vec;
 
-            new_vec.storage.content = safe_calloc(sizeof(int), vector.length);
+
+            new_vec.storage.content = (long long*)safe_calloc(sizeof(long long), vector.length);
+
             if(gnoll_errno){
                 YYABORT;
                 yyclearin;
@@ -580,8 +630,12 @@ math:
             new_vec.length = vector.length;
             new_vec.dtype = vector.dtype;
 
-            for(unsigned int i = 0; i != vector.length; i++){
+
+            for(unsigned long long i = 0; i != vector.length; i++){
                 new_vec.storage.content[i] = - vector.storage.content[i];
+
+
+          
             }
             $<values>$ = new_vec;
 
@@ -603,7 +657,9 @@ collapsing_dice_operations:
         vec dice = $<values>1;
         initialize_vector(&new_vec, NUMERIC, 1);
 
-        new_vec.storage.content[0] = (int)dice.length;
+
+        new_vec.storage.content[0] = (long long)dice.length;
+
         free_vector(dice);
         $<values>$ = new_vec;
     }
@@ -651,7 +707,9 @@ dice_operations:
         vec cv = $<values>4;
         vec cvno = $<values>5;
 
-        int check = cv.storage.content[0];
+
+        int check = (int)cv.storage.content[0];
+
 
         if(dice.dtype == NUMERIC){
             int count = 0;
@@ -665,11 +723,13 @@ dice_operations:
                 }
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.storage.content[0] = (int)dice.source.number_of_dice;
+
+                number_of_dice.storage.content[0] = (long long)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
-                die_sides.storage.content[0] = (int)dice.source.die_sides;
+                die_sides.storage.content[0] = (long long)dice.source.die_sides;
+
 
                 roll_plain_sided_dice(
                     &number_of_dice,
@@ -704,7 +764,9 @@ dice_operations:
 
         vec dice = $<values>1;
         vec comp = $<values>3;
-        int check = comp.storage.content[0];
+
+        int check = (int)comp.storage.content[0];
+
         vec numv = $<values>4;
 
         if(dice.dtype == NUMERIC){
@@ -712,11 +774,13 @@ dice_operations:
 
                 vec number_of_dice;
                 initialize_vector(&number_of_dice, NUMERIC, 1);
-                number_of_dice.storage.content[0] = (int)dice.source.number_of_dice;
+
+                number_of_dice.storage.content[0] = (long long)dice.source.number_of_dice;
 
                 vec die_sides;
                 initialize_vector(&die_sides, NUMERIC, 1);
-                die_sides.storage.content[0] = (int)dice.source.die_sides;
+                die_sides.storage.content[0] = (long long)dice.source.die_sides;
+
 
                 roll_plain_sided_dice(
                     &number_of_dice,
@@ -753,7 +817,9 @@ dice_operations:
         vec condition = $<values>4;
         vec cv = $<values>3;
 
-        int check = cv.storage.content[0];
+
+        int check = (int)cv.storage.content[0];
+
 
         if(dice.dtype == NUMERIC){
             initialize_vector(&new_vec, NUMERIC, dice.length);
@@ -778,7 +844,10 @@ dice_operations:
         * singular_condition symbol
         */
         vec dice = $<values>1;
-        int check = $<values>3.storage.content[0];
+
+        int check = (int)$<values>3.storage.content[0];
+
+
         vec new_vec;
 
         if(dice.dtype == NUMERIC){
@@ -793,7 +862,6 @@ dice_operations:
             yyclearin;;
         }
         free_vector(dice);
-
     }
     |
     dice_operations UNIQUE{
@@ -826,8 +894,11 @@ dice_operations:
         */
         vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
+
         vec **new_vec;
-        unsigned int num_to_hold = (unsigned int)keep_vector.storage.content[0];
+
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.storage.content[0];
+
         
         initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
 
@@ -847,7 +918,9 @@ dice_operations:
         vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
 
-        unsigned int num_to_hold = (unsigned int)keep_vector.storage.content[0];
+
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.storage.content[0];
+
 
         vec **new_vec;
         initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
@@ -869,8 +942,11 @@ dice_operations:
 
         vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
+
         vec **new_vec;
-        unsigned int num_to_hold = (unsigned int)keep_vector.storage.content[0];        
+
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.storage.content[0];        
+
         initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
 
         keep_lowest_values(&roll_vec, new_vec, num_to_hold);
@@ -889,8 +965,10 @@ dice_operations:
         vec roll_vec = $<values>1;
         vec keep_vector = $<values>3;
 
+        unsigned long long num_to_hold = (unsigned long long)keep_vector.storage.content[0];
+
         vec **new_vec;
-        unsigned int num_to_hold = (unsigned int)keep_vector.storage.content[0];
+
         
         initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
         drop_lowest_values(&roll_vec, new_vec, num_to_hold);
@@ -905,8 +983,9 @@ dice_operations:
         * dice_operations vector
         * KEEP_HIGHEST symbol 'kh'
         */
+
         vec roll_vec = $<values>1;
-        unsigned int num_to_hold = 1;
+        unsigned long long num_to_hold = 1;
 
         vec **new_vec;        
         initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
@@ -922,7 +1001,8 @@ dice_operations:
         * DROP_HIGHEST symbol 'dh'
         */
         vec roll_vec = $<values>1;
-        unsigned int num_to_hold = 1;
+
+        unsigned long long num_to_hold = 1;
         vec **new_vec;        
         initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
         drop_highest_values(&roll_vec, new_vec, num_to_hold);
@@ -937,9 +1017,12 @@ dice_operations:
         * KEEP_LOWEST symbol 'kl'
         */
         vec roll_vec = $<values>1;
-        unsigned int num_to_hold = 1;
+
+        unsigned long long num_to_hold = 1;
+
         vec **new_vec;
         initialize_vector_pointer(&new_vec, roll_vec.dtype, num_to_hold);
+
 
         keep_lowest_values(&roll_vec, new_vec, num_to_hold);
 
@@ -953,9 +1036,12 @@ dice_operations:
         * DROP_LOWEST symbol 'dl'
         */
         vec roll_vec = $<values>1;
-        unsigned int num_to_hold = 1;
+
+        unsigned long long num_to_hold = 1;
+
         vec **new_vec;        
         initialize_vector_pointer(&new_vec, roll_vec.dtype, roll_vec.length - num_to_hold);
+
 
         drop_lowest_values(&roll_vec, new_vec, num_to_hold);
 
@@ -979,7 +1065,9 @@ die_roll:
         vec ds = $<values>2;
         vec numB = $<values>3;
 
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1008,7 +1096,9 @@ die_roll:
         vec ds = $<values>1;
         vec numB = $<values>2;
 
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1037,7 +1127,9 @@ die_roll:
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         roll_plain_sided_dice(
             &numA,
@@ -1062,7 +1154,9 @@ die_roll:
         vec ds = $<values>1;
         vec numB = $<values>2;
         
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1091,7 +1185,9 @@ die_roll:
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         roll_plain_sided_dice(
             &numA,
@@ -1114,7 +1210,9 @@ die_roll:
 
         vec ds = $<values>1;
         vec numB = $<values>2;
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1141,7 +1239,9 @@ die_roll:
         vec numA = $<values>1;
         vec ds = $<values>2;
         vec numB = $<values>3;
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         roll_plain_sided_dice(
             &numA,
@@ -1164,7 +1264,9 @@ die_roll:
         vec numB = $<values>2;
         vec new_vec;
 
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec number_of_dice;
         initialize_vector(&number_of_dice, NUMERIC, 1);
@@ -1240,7 +1342,9 @@ die_roll:
         */
         vec num = $<values>1;
         vec die_sym = $<values>2;
-        int start_from = die_sym.storage.content[0];
+
+        long long start_from = die_sym.storage.content[0];
+
 
         vec dice_sides;
         initialize_vector(&dice_sides, NUMERIC, 1);
@@ -1263,7 +1367,9 @@ die_roll:
         * DO_COUNT symbol 'c'
         */
         vec ds= $<values>1;
-        int start_from = ds.storage.content[0];
+
+        long long start_from = ds.storage.content[0];
+
 
         vec num_dice;
         initialize_vector(&num_dice, NUMERIC, 1);
@@ -1387,9 +1493,12 @@ custom_symbol_dice:
             initialize_vector(&result_vec, NUMERIC, 1);
             num_dice.storage.content[0] = 1;
 
-            int start_value = csd_vec.storage.content[0];
-            int end_value = csd_vec.storage.content[csd_vec.length-1];
+
+            long long start_value = csd_vec.storage.content[0];
+            long long end_value = csd_vec.storage.content[csd_vec.length-1];
+            
             dice_sides.storage.content[0] = end_value - start_value + 1;
+
 
             // Range
             roll_plain_sided_dice(
@@ -1413,7 +1522,7 @@ custom_symbol_dice:
             };
             result_vec.source = rp;
             result_vec.has_source = true;
-            for(unsigned int i = 0; i != csd_vec.length; i++){
+            for(unsigned long long i = 0; i != csd_vec.length; i++){
                 result_vec.source.symbol_pool[i] = (char*)safe_calloc(sizeof(char),MAX_SYMBOL_LENGTH);
                 memcpy(
                     result_vec.source.symbol_pool[i], 
@@ -1456,7 +1565,9 @@ custom_symbol_dice:
 
         // Set Num Dice
         initialize_vector(&number_of_dice, NUMERIC, 1);
-        number_of_dice.storage.content[0] = (int)new_vector.source.number_of_dice;
+
+        number_of_dice.storage.content[0] = (long long)new_vector.source.number_of_dice;
+
         
         // Set Die Sides
         // die_sides.storage.content[0] = (int)new_vector.source.die_sides;
@@ -1542,12 +1653,14 @@ csd:
         vec start = $<values>1;
         vec end = $<values>3;
 
-        int s = start.storage.content[0];
-        int e = end.storage.content[0];
+
+        long long s = start.storage.content[0];
+        long long e = end.storage.content[0];
+
 
 
         if (s > e){
-            printf("Range: %i -> %i\n", s, e);
+            printf("Range: %lld -> %lld\n", s, e);
             printf("Reversed Ranged not supported yet.\n");
             gnoll_errno = NOT_IMPLEMENTED;
             YYABORT;
@@ -1558,12 +1671,14 @@ csd:
         // 2..2 = 1 
         // 2..3 = 2
         // etc.
-        unsigned int spread = (unsigned int)e - (unsigned int)s + 1; 
+        unsigned long long spread = (unsigned long long)e - (unsigned long long)s + 1; 
 
         vec new_vector;
         initialize_vector(&new_vector, SYMBOLIC, spread);
-        for (int i = 0; i <= (e-s); i++){
-            sprintf(new_vector.storage.symbols[i], "%d", s+i);
+
+        for (unsigned long long i = 0; i <= spread-1; i++){
+            sprintf(new_vector.storage.symbols[i], "%lld", s+i);
+
         }
         $<values>$ = new_vector;
     }
@@ -1576,12 +1691,14 @@ csd:
         * return A vector containing the numeric values as symbols 
         */
         vec in = $<values>1;
-        int tmp = in.storage.content[0];
+
+        long long tmp = in.storage.content[0];
         free(in.storage.content);
         in.storage.symbols = safe_calloc(1, sizeof(char *));
         // an int has 10 characters max
-        in.storage.symbols[0] = safe_calloc(10, sizeof(char));  
-        sprintf(in.storage.symbols[0], "%d", tmp);
+        in.storage.symbols[0] = safe_calloc(countDigits(LLONG_MAX), sizeof(char));  
+        sprintf(in.storage.symbols[0], "%lld", tmp);
+
         in.dtype = SYMBOLIC;
         $<values>$ = in;
     }
@@ -1634,7 +1751,7 @@ int roll_full_options(
     int enable_mocking,
     int enable_builtins,
     int mocking_type,
-    int mocking_seed
+    long long mocking_seed
 ){
     /**
     * @brief the main GNOLL roll function
@@ -1655,6 +1772,7 @@ int roll_full_options(
         printf("Trying to roll '%s'\n", roll_request);
     }
     if (enable_mocking){
+        if (enable_verbosity){ printf("mocking_seed '%lld'\n", mocking_seed); }
         init_mocking((MOCK_METHOD)mocking_type, mocking_seed);
     }
     if (log_file != NULL){
@@ -1775,7 +1893,7 @@ void roll_and_write_R(int* return_code, char** s, char** f){
     (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0, 0);
 }
 
-int mock_roll(char * s, char * f, int mock_value, int mock_const){
+int mock_roll(char * s, char * f, int mock_value, long long mock_const){
     return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }
 

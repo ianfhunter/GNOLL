@@ -2,7 +2,7 @@
 #ifndef ARRAY_FN_HEADER
 #define ARRAY_FN_HEADER
 
-int sum(int* arr, unsigned int len);
-int collapse(int* arr, unsigned int len);
+long long sum(long long* arr, unsigned long long len);
+long long collapse(long long* arr, unsigned long long len);
 
 #endif

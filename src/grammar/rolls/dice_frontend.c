@@ -12,7 +12,7 @@
 extern int gnoll_errno;
 
 void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
-                           int start_offset) {
+                           long long start_offset) {
   /**
    * @brief Roll numeric dice
    * @param x - Amount of dice (xDy)
@@ -24,8 +24,10 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   if (gnoll_errno) return;
 
   // XdY
-  unsigned int num_dice = (unsigned int)x->storage.content[0];
-  unsigned int sides = (unsigned int)y->storage.content[0];
+
+  unsigned long long num_dice = (unsigned long long)x->storage.content[0];
+  unsigned long long sides = (unsigned long long)y->storage.content[0];
+
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -34,7 +36,7 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   rp.die_sides = sides;
   rp.explode = explode;
   rp.start_value = start_offset;
-  int* roll_result = do_roll(rp);
+  long long* roll_result = do_roll(rp);
 
 #if USE_CLT
   // Must Accumulate. Loses details of per-item values
@@ -63,7 +65,8 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
     return;
 #endif
 
-  unsigned int num_dice = (unsigned int)x->storage.content[0];
+  unsigned long long num_dice = (unsigned long long)x->storage.content[0];
+
 
   // e.g. d4, it is implied that it is a single dice
   roll_params rp;
@@ -83,7 +86,7 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
 
   rp.start_value = 0;  // First index of array
 
-  int* indexes = do_roll(rp);
+  long long* indexes = do_roll(rp);
 
   free_2d_array(&rp.symbol_pool, y->length);
 
