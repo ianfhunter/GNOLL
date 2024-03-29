@@ -1,7 +1,7 @@
 import os
 import sys
 import tempfile
-from ctypes import cdll, c_long
+from ctypes import c_long, cdll
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
