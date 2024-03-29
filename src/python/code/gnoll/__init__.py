@@ -1,7 +1,7 @@
 import os
 import sys
 import tempfile
-from ctypes import cdll
+from ctypes import cdll, c_long
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
@@ -103,7 +103,7 @@ def roll(
 
         s = s.encode("ascii")
 
-        mock_const = ctypes.c_long(mock_const)
+        mock_const = c_long(mock_const)
 
         return_code = libc.roll_full_options(
             s,
