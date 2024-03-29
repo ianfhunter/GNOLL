@@ -12,6 +12,23 @@
 
 extern pcg64_random_t rng;
 
+long long arc4random_uniform64(long long upper_bound) {
+    int64_t random_value;
+    int64_t divisor = (LLONG_MAX - upper_bound + 1) % upper_bound;
+    int64_t range;
+
+    if (upper_bound < 2)
+        return 0;
+
+    do {
+        random_value = (((int64_t)arc4random()) << 32) | arc4random();
+        range = random_value % upper_bound;
+    } while (random_value - range + divisor < LLONG_MAX - divisor + 1);
+
+    return range;
+}
+
+
 long long get_random_uniformly(void){
     long long value;
     #if USE_SECURE_RANDOM == 1
