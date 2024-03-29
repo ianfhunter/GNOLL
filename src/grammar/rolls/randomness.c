@@ -21,7 +21,7 @@ long long arc4random_uniform64(long long upper_bound) {
         return 0;
 
     do {
-        random_value = (((int64_t)arc4random()) << 32) | arc4random();
+        random_value = (((int64_t)arc4random_uniform(INT_MAX)) << 32) | arc4random_uniform(INT_MAX);
         range = random_value % upper_bound;
     } while (random_value - range + divisor < LLONG_MAX - divisor + 1);
 
