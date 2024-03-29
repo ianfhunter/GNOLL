@@ -53,10 +53,11 @@ long long random_fn(long long small, long long big) {
     value = get_random_uniformly();
     value = value % (big + 1 - small) + small;
   } else {
+    printf("Mocked\n");
     value = global_mock_value;
     mocking_tick();
   }
-  // printf("Dice Roll Value: %i\n", value);
+  printf("Dice Roll Value: %lld\n", value);
   return value;
 }
 
