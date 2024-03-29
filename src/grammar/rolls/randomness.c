@@ -15,7 +15,7 @@ extern pcg64_random_t rng;
 long long get_random_uniformly(void){
     long long value;
     #if USE_SECURE_RANDOM == 1
-        value = (long long)arc4random_uniform(LLONG_MAX);
+        value = (long long)arc4random_uniform64(LLONG_MAX);
     #else
         value = (long long)pcg64_boundedrand_r(&rng, LLONG_MAX);
     #endif
