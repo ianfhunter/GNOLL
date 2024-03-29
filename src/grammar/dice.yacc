@@ -35,7 +35,8 @@
 #ifdef __EMSCRIPTEN__
 #define VERBOSITY 1
 #else
-#define VERBOSITY 0
+// UNDO
+#define VERBOSITY 1 
 #endif
 
 int yylex(void);
