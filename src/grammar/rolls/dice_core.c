@@ -56,7 +56,7 @@ long long random_fn(long long small, long long big) {
     value = global_mock_value;
     mocking_tick();
   }
-  printf("Dice Roll Value: %lld\n", value);
+  // printf("Dice Roll Value: %lld\n", value);
   return value;
 }
 
