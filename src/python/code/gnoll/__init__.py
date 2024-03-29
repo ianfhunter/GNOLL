@@ -37,6 +37,8 @@ def raise_gnoll_error(value):
         GNOLLException("SYNTAX_ERROR"),
         GNOLLException("DIVIDE_BY_ZERO"),
         GNOLLException("UNDEFINED_MACRO"),
+        GNOLLException("MATH_OVERFLOW"),
+        GNOLLException("MATH_UNDERFLOW")
     ]
     err = d[value]
     if err is not None:
