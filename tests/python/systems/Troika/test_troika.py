@@ -7,7 +7,6 @@ from util import Mock, roll
 def test_d6():
     r = "d6"
     result, _ = roll(r, mock_mode=Mock.RETURN_CONSTANT, mock_const=3)
-    print("TROIKA: GOT: ", result)
     assert result == 3
 
 

@@ -7,13 +7,11 @@
 
 typedef struct vec {
   DIE_TYPE dtype;
-
   union { // Vectors can only contain one dice type
-    long long* content;
+    int* content;
     char** symbols;
   } storage;
-  unsigned long long length;
-
+  unsigned int length;
   roll_params source;
   bool has_source;
 } vec;

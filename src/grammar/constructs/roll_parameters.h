@@ -4,11 +4,11 @@
 #include "constructs/dice_enums.h"
 
 typedef struct roll_params {
-  unsigned long long number_of_dice;
-  unsigned long long die_sides;
+  unsigned int number_of_dice;
+  unsigned int die_sides;
   EXPLOSION_TYPE explode;
   char** symbol_pool;
-  long long start_value;
+  int start_value;
   DIE_TYPE dtype;
 } roll_params;
 

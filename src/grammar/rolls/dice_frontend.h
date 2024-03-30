@@ -7,7 +7,7 @@
 #include "constructs/vec.h"
 
 void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
-                           long long start_offset);
+                           int start_offset);
 
 void roll_symbolic_dice(vec* x, vec* y, vec* result);
 

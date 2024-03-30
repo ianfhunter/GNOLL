@@ -1,8 +1,8 @@
 #include "util/mocking.h"
 
 int random_fn_run_count = 0;
-long long global_mock_value = 0;
-long long secondary_mock_value = 0;
+int global_mock_value = 0;
+int secondary_mock_value = 0;
 MOCK_METHOD global_mock_style = NO_MOCK;
 
 
@@ -14,7 +14,7 @@ void reset_mocking(void) {
   global_mock_value = 0;
   global_mock_style = NO_MOCK;
 }
-void init_mocking(MOCK_METHOD mock_style, long long starting_value) {
+void init_mocking(MOCK_METHOD mock_style, int starting_value) {
   /**
    * @brief Initializes test mocking with given settings
    * @param mock_style How to apply mocking

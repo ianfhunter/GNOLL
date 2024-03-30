@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 
 #include "shared_header.h"
 
@@ -16,53 +15,6 @@ extern int verbose;
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
-
-long long safe_add(long long a, long long b){
-    /* 
-    A wrapper around addition to catch and signal over/underflow 
-    Credit: https://stackoverflow.com/a/1514309/1421555
-    */
-    if (a > 0 && b > LLONG_MAX - a) {
-      gnoll_errno = MATH_OVERFLOW;
-      return LLONG_MAX;
-    } else if (a < 0 && b < LLONG_MIN - a) {
-      gnoll_errno = MATH_UNDERFLOW;
-      return LLONG_MIN;
-    }
-    return a + b;
-}
-
-
-long long safe_subtract(long long a, long long b){
-    /* 
-    A wrapper around addition to catch and signal over/underflow 
-    Credit: https://stackoverflow.com/a/1514309/1421555
-    */
-    if ((b < 0 && a > LLONG_MAX + b)) {
-      gnoll_errno = MATH_OVERFLOW;
-      return LLONG_MAX;
-    } else if (b > 0 && a < LLONG_MIN + b) {
-      gnoll_errno = MATH_UNDERFLOW;
-      return LLONG_MIN;
-    }
-    return a - b;
-}
-
-
-long long safe_mul(long long a, long long b){
-    /* 
-    A wrapper around addition to catch and signal over/underflow 
-    Credit: https://stackoverflow.com/a/1514309/1421555
-    */
-    if (b != 0 && a > LLONG_MAX / b) {
-      gnoll_errno = MATH_OVERFLOW;
-      return LLONG_MAX;
-    } else if (b != 0 && a < LLONG_MAX / b) {
-      gnoll_errno = MATH_UNDERFLOW;
-      return LLONG_MIN;
-    }
-    return a * b;
-}
 
 
 void print_gnoll_errors(void){
@@ -125,14 +77,6 @@ void print_gnoll_errors(void){
         printf("%sErrorCheck: Undefined Macro.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
         break;
       }
-      case MATH_OVERFLOW:{
-        printf("%sErrorCheck: Math overflow/saturation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
-        break;
-      }
-      case MATH_UNDERFLOW:{
-        printf("%sErrorCheck: Math underflow/desaturation.%s\n",ANSI_COLOR_RED, ANSI_COLOR_RESET);
-        break;
-      }
       default:{
         printf("%sErrorCheck: Error (Undetermined. Code %i).%s\n",ANSI_COLOR_RED, gnoll_errno, ANSI_COLOR_RESET);
         break;
@@ -140,7 +84,7 @@ void print_gnoll_errors(void){
   }
 }
 
-void *safe_malloc(unsigned long long size) {
+void *safe_malloc(size_t size) {
   /**
    * @brief Safe version of malloc. Populates gnoll_errno on error
    * @param size
@@ -172,14 +116,14 @@ void free_vector(vec v){
   }
 }
 
-void free_2d_array(char ***arr, unsigned long long items) {
+void free_2d_array(char ***arr, unsigned int items) {
   /**
    * @brief Free a 2d char array in a repeatable manner.
    * @param arr
    * @param items
    */
   if (*arr) {
-    for (unsigned long long i = 0; i != items; i++) {
+    for (unsigned int i = 0; i != items; i++) {
       if ((*arr)[i]) {
         free((*arr)[i]);
       }
@@ -189,8 +133,8 @@ void free_2d_array(char ***arr, unsigned long long items) {
 }
 
 void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
-                                            unsigned long long items,
-                                            unsigned long long max_size) {
+                                            unsigned int items,
+                                            unsigned int max_size) {
   /**
    * @brief Copy from one 2d char array to another in a repeatable manner.
    * @param dst
@@ -204,7 +148,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
     return;
   }
 
-  for (unsigned long long i = 0; i != items; i++) {
+  for (unsigned int i = 0; i != items; i++) {
     
     (*dst)[i] = (char*)safe_calloc(sizeof(char), max_size);
     if (gnoll_errno) {
@@ -216,7 +160,7 @@ void safe_copy_2d_chararray_with_allocation(char ***dst, char **src,
   
 }
 
-void * safe_calloc(unsigned long long nitems, unsigned long long size) {
+void * safe_calloc(size_t nitems, size_t size) {
   /**
    * @brief Safe version of calloc. Populates gnoll_errno on error
    * @param size
@@ -229,7 +173,7 @@ void * safe_calloc(unsigned long long nitems, unsigned long long size) {
   }
   void *calloc_result = NULL;
   calloc_result = calloc(nitems, size);
-  unsigned long long total_sz = nitems * size;
+  long unsigned int total_sz = nitems * size;
   if (!calloc_result && total_sz) {
     gnoll_errno = BAD_ALLOC;
   }
@@ -279,21 +223,21 @@ char *safe_strdup(const char *str1) {
   return result;
 }
 
-long long fast_atoi(const char *str) {
+int fast_atoi(const char *str) {
   /**
    * @brief Safe version of atoi. Populates gnoll_errno on error
    * @param str
    * @return
    */
   // Ref: https://stackoverflow.com/a/16826908/1421555
-  long long val = 0;
+  int val = 0;
   while (*str) {
     val = val * 10 + (*str++ - '0');
   }
   return val;
 }
 
-long long safe_strtol(const char *str, char **endptr, int base) {
+long int safe_strtol(const char *str, char **endptr, int base) {
   /**
    * @brief Safe version of strtol. Populates gnoll_errno on error
    * @param str
@@ -304,7 +248,7 @@ long long safe_strtol(const char *str, char **endptr, int base) {
   if (gnoll_errno) {
     return 0;
   }
-  long long result;
+  long int result;
   result = strtol(str, endptr, base);
   if (errno == ERANGE) {
     gnoll_errno = OUT_OF_RANGE;

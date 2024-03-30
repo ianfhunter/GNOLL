@@ -21,49 +21,45 @@ extern int gnoll_errno;
  * @return true - the condition is True
  * @return false - the condition is False
  */
-bool check_condition(vec* x, vec* y, COMPARATOR c) {
-  if (gnoll_errno) return true;
+int check_condition(vec* x, vec* y, COMPARATOR c) {
+  if (gnoll_errno) return 1;
 
   if(c == IS_UNIQUE || c == IF_ODD || c == IF_EVEN){
       return check_condition_vector(x, c);
   }else{
 
-
-      long long xvalue = collapse(x->storage.content, x->length);
-      long long yvalue = y->storage.content[0];
-
+      int xvalue = collapse(x->storage.content, x->length);
+      int yvalue = y->storage.content[0];
       return check_condition_scalar(xvalue, yvalue, c);
   }
 }
 
-bool check_condition_vector(vec* v, COMPARATOR c) {
+int check_condition_vector(vec* v, COMPARATOR c) {
    switch (c){
      case IS_UNIQUE: {
        gnoll_errno = NOT_IMPLEMENTED;
-       return true;
+       return 1;
      }
      case IF_EVEN:{
-
-        long long x = collapse(v->storage.content, v->length);
-        return (x+1) % 2 != 0;
+        int x = collapse(v->storage.content, v->length);
+        return (x+1) % 2;
      }
      case IF_ODD: {
-        long long x = collapse(v->storage.content, v->length);
-        return x % 2 != 0;
-
+        int x = collapse(v->storage.content, v->length);
+        return x % 2;
      }
      default: {
        gnoll_errno = NOT_IMPLEMENTED;
-       return false;
+       return 0;
      }
    }
 }
 
-bool check_condition_scalar(long long x, long long y, COMPARATOR c) {
-  if (gnoll_errno) return true;
+int check_condition_scalar(int x, int y, COMPARATOR c) {
+  if (gnoll_errno) return 1;
 
-  long long xvalue = x;
-  long long yvalue = y;
+  int xvalue = x;
+  int yvalue = y;
   switch (c) {
     case EQUALS: {
       return xvalue == yvalue;
@@ -85,26 +81,26 @@ bool check_condition_scalar(long long x, long long y, COMPARATOR c) {
     }
     case IS_UNIQUE: {
       // Unique by the fact that it is scalar
-      return true;
+      return 1;
     }
     case IF_ODD: {
-      return x % 2 != 0;
+      return x % 2;
     }
     case IF_EVEN: {
-      return (x+1) % 2 != 0;
+      return (x+1) % 2;
     }
     case INVALID: {
       printf("Invalid Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return false;
+      return 0;
     }
     default: {
       printf("Unknown Conditional\n");
       gnoll_errno = UNDEFINED_BEHAVIOUR;
-      return false;
+      return 0;
     }
   }
   printf("Unknown Conditional\n");
   gnoll_errno = UNDEFINED_BEHAVIOUR;
-  return true;
+  return 1;
 }
