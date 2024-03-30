@@ -31,6 +31,7 @@ jsweb: clean yacc lex jspcg
 	mkdir -p build/jsweb
 	emcc \
 	$(CFILES) \
+	src/grammar/external/pcg-c/src/pcg-rngs-128.c -I src/grammar/external/pcg-c/include/ \
 	-I ./src/grammar \
         -I ./src/grammar/external/pcg-c/include/ \
 	-o src/js/gnollwasm.js \
@@ -50,5 +51,5 @@ jsbundle: jsweb
 	yarn --cwd ./src/js run webpack-cli b
 
 jspcg:
-	emcc src/grammar/external/pcg-c/src/pcg-rngs-128.c -I src/grammar/external/pcg-c/include/
+	ls
 	
