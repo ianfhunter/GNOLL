@@ -50,5 +50,5 @@ jsbundle: jsweb
 	yarn --cwd ./src/js run webpack-cli b
 
 jspcg:
-	emcc src/grammar/external/pcg-c/stc/pcg-rngs-64.c ../include/pcg_variants.h 
+	emcc src/grammar/external/pcg-c/src/pcg-rngs-64.c ../include/pcg_variants.h 
 	
