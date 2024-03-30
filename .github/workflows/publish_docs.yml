@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: true
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
@@ -34,6 +36,10 @@ jobs:
         with:
           source: ./doc/gh-pages/
           destination: ./_site
+      - name: Build Demo
+        run: |
+          make all jsweb
+          mv index.html ./site/demo.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
