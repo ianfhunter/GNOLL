@@ -32,6 +32,7 @@ jsweb: clean yacc lex
 	emcc \
 	$(CFILES) \
 	-I ./src/grammar \
+        -I ./src/grammar/external/pcf-c \
 	-o src/js/gnollwasm.js \
 	-D__EMSCRIPTEN__ \
 	-s MODULARIZE=1 \
