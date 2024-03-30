@@ -1,5 +1,5 @@
 # source: https://github.com/jsoma/selenium-github-actions/blob/main/.github/workflows/scrape.yml
-name: scrape
+name: Test_Selenium
 on:
   workflow_dispatch:
 jobs:
