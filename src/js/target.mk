@@ -14,7 +14,7 @@ endif
 
 
 .PHONY: javascript
-javascript: clean yacc lex pcg
+javascript: clean yacc lex jspcg
 	mkdir -p build/js/
 	emcc $(JS_OPT) $(CFILES) \
 	$(CFLAGS) \
@@ -27,12 +27,12 @@ js: javascript
 clean_js:
 	rm -rf build/js
 
-jsweb: clean yacc lex pcg
+jsweb: clean yacc lex jspcg
 	mkdir -p build/jsweb
 	emcc \
 	$(CFILES) \
 	-I ./src/grammar \
-        -I ./src/grammar/external/pcg-c \
+        -I ./src/grammar/external/pcg-c/include/ \
 	-o src/js/gnollwasm.js \
 	-D__EMSCRIPTEN__ \
 	-s MODULARIZE=1 \
@@ -48,3 +48,7 @@ jsbundle: jsweb
 	#cp src/js/*.html src/js/*.wasm ./build/jsweb/
 	cp src/js/*.html ./build/jsweb/
 	yarn --cwd ./src/js run webpack-cli b
+
+jspcg:
+	emcc src/grammar/external/pcg-c/stc/pcg-rngs-64.c ../include/pcg_variants.h 
+	
