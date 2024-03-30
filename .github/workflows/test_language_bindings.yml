@@ -154,6 +154,9 @@ jobs:
         emcc -v
         make js
         node ./build/js/a.out.js 1d20
+    - name: make jsweb
+      run: |
+        make jsweb
 
   test_julia:
     name: "Test: Julia"
