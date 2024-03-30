@@ -16,7 +16,10 @@ endif
 .PHONY: javascript
 javascript: clean yacc lex jspcg
 	mkdir -p build/js/
-	emcc $(JS_OPT) $(CFILES) \
+	emcc $(JS_OPT) \
+        src/grammar/external/pcg-c/src/pcg-output-64.c \
+	src/grammar/external/pcg-c/src/pcg-rngs-128.c \
+	$(CFILES) \
 	$(CFLAGS) \
 	-o build/js/a.out.js $(DISABLE_ERRORS) -D__EMSCRIPTEN__
 
