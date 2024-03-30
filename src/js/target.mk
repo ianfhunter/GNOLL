@@ -14,7 +14,7 @@ endif
 
 
 .PHONY: javascript
-javascript: clean yacc lex
+javascript: clean yacc lex pcg
 	mkdir -p build/js/
 	emcc $(JS_OPT) $(CFILES) \
 	$(CFLAGS) \
@@ -27,7 +27,7 @@ js: javascript
 clean_js:
 	rm -rf build/js
 
-jsweb: clean yacc lex
+jsweb: clean yacc lex pcg
 	mkdir -p build/jsweb
 	emcc \
 	$(CFILES) \
