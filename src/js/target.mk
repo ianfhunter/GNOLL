@@ -30,8 +30,9 @@ clean_js:
 jsweb: clean yacc lex jspcg
 	mkdir -p build/jsweb
 	emcc \
+	src/grammar/external/pcg-c/src/pcg-rngs-128.c \
 	$(CFILES) \
-	src/grammar/external/pcg-c/src/pcg-rngs-128.c -I src/grammar/external/pcg-c/include/ \
+	-I src/grammar/external/pcg-c/include/ \
 	-I ./src/grammar \
         -I ./src/grammar/external/pcg-c/include/ \
 	-o src/js/gnollwasm.js \
