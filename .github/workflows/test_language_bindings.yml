@@ -156,6 +156,8 @@ jobs:
         node ./build/js/a.out.js 1d20
     - name: make jsweb
       run: |
+        cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
+        emcc -v
         make jsweb
 
   test_julia:
