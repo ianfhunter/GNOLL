@@ -143,6 +143,11 @@ jobs:
         # Acorn-Node
         git clone https://github.com/acornjs/acorn.git
         cd acorn ; npm install ; cd -
+        yarn global add webpack webpack-cli
+        npm i -g webpack-cli -D --save
+        npm install webpack-cli
+        cd src/js ;npm install webpack-cli
+        yarn add -D webpack-cli ; cd -
         # Emscripten
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk ; ./emsdk install latest ; cd - 
