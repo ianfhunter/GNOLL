@@ -48,7 +48,8 @@ jobs:
           emcc -v
           make all jsweb
           cp src/js/index.html ./doc/gh-pages/demo.html
-          cp build/jsweb/gnoll.bundle.js ./doc/gh-pages/gnoll.bundle.js
+          ls build/jsweb -las
+          cp build/jsweb/gnoll/gnoll.bundle.js ./doc/gh-pages/gnoll.bundle.js
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
