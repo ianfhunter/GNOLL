@@ -42,7 +42,7 @@ jobs:
           cd acorn ; npm install ; cd -
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk ; ./emsdk install latest ; cd - 
-          npm install -g webpack webpack-cli
+          yarn global add webpack webpack-cli
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsbundle
