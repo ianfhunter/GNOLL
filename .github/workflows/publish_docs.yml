@@ -44,6 +44,8 @@ jobs:
           cd emsdk ; ./emsdk install latest ; cd - 
           yarn global add webpack webpack-cli
           npm i -g webpack-cli -D --save
+          npm install webpack-cli
+          cd src/js ;npm install webpack-cli
           yarn add -D webpack-cli
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
