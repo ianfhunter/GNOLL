@@ -31,11 +31,7 @@ jobs:
           submodules: true
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./doc/gh-pages/
-          destination: ./_site
+      
       - name: Demo Build
         run: |
           sudo apt install clang-14 lld-14 llvm-14 libjs-d3 python3-numpy
@@ -51,8 +47,14 @@ jobs:
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsweb
-          cp src/js/index.html /github/workspace/./_site/demo.html
-          cp gnoll.bundle.js /github/workspace/./_site/gnoll.bundle.js
+          cp src/js/index.html /doc/gh-pages/demo.html
+          cp gnoll.bundle.js /doc/gh-pages/gnoll.bundle.js
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./doc/gh-pages/
+          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
