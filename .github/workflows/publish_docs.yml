@@ -50,6 +50,7 @@ jobs:
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsbundle
+          mkdir -p ./doc/gh-pages/demo/
           cp src/js/index.html ./doc/gh-pages/demo/index.html
           # yaml front matter 
           echo -e "---\ntitle: Interactive Demo\npublished: true\nparent: Demo\nnav_order: 1\n---\n$(cat ./doc/gh-pages/demo/index.html)" > ./doc/gh-pages/demo/index.html
