@@ -32,7 +32,19 @@ node build/js/a.out.js
 
 ### Run (Browser)
 
-Build with `make all jsweb`
-Start a web server (e.g. `python3 -m http.server 8003 &> /dev/null &`)
-Load index.html (http://localhost:8003/index.html in the previous example).
-Provide notation in the textbox and press the "Roll" button. Output is printed to a separate div.
+```bash
+make all jsbundle
+```
+
+Start a web server. For example:
+
+```bash
+python3 -m http.server 8003 &> /dev/null &
+```
+
+Load index.html (http://localhost:8003/index.html in the previous example) in your browser.
+
+Provide notation in the textbox and press the "Roll" button.
+The output of GNOLL is printed to a separate div.
+
+Include gnoll.bundle.js in your own webpages for your own projects
