@@ -158,7 +158,7 @@ jobs:
       run: |
         cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
         emcc -v
-        make jsweb
+        make jsbundle
 
   test_julia:
     name: "Test: Julia"
