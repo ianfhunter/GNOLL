@@ -43,6 +43,8 @@ jobs:
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk ; ./emsdk install latest ; cd - 
           yarn global add webpack webpack-cli
+          npm i -g webpack-cli -D --save
+          yarn add -D webpack-cli
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsbundle
