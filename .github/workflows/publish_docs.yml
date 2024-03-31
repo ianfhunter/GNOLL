@@ -48,15 +48,18 @@ jobs:
           emcc -v
           make all jsweb
           cp src/js/index.html ./doc/gh-pages/demo.html
-          echo "Aaaaaaaaa"
+          echo "AAAA - build/jsweb"
           ls build/jsweb -las
-          echo "Bbbbbbb"
+          echo "BBBB - ./"
           ls .
-          echo "CCcccc"
+          echo "CCCC - src/js"
           ls src/js
-          echo "Eeeeee"
-          ls src/js/dist
-          echo "Dddddd"
+          echo "DDDD - src/js/dist"
+          ls src/js/dist | true
+          echo "EEEE - built"
+          ls build
+          echo "FFFF - dist "
+          ls dist | true
           cp src/js/dist/gnoll.bundle.js ./doc/gh-pages/gnoll.bundle.js
 
       - name: Build with Jekyll
