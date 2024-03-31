@@ -60,6 +60,8 @@ jobs:
           ls build
           echo "FFFF - dist "
           ls dist | true
+          echo "find"
+          find . -name gnoll.bundle.js
           cp src/js/dist/gnoll.bundle.js ./doc/gh-pages/gnoll.bundle.js
 
       - name: Build with Jekyll
