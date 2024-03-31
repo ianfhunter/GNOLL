@@ -46,7 +46,7 @@ jobs:
           # sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
-          make all jsweb
+          make all jsbundle
           cp src/js/index.html ./doc/gh-pages/demo.html
           echo "AAAA - build/jsweb"
           ls build/jsweb -las
