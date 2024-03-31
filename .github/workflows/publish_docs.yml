@@ -42,25 +42,11 @@ jobs:
           cd acorn ; npm install ; cd -
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk ; ./emsdk install latest ; cd - 
-          # wget --no-verbose -c http://archive.ubuntu.com/ubuntu/pool/universe/e/emscripten/emscripten_3.1.6~dfsg-5_all.deb
-          # sudo apt install -f ./emscripten_3.1.6~dfsg-5_all.deb nodejs- node-acorn- # ignore nodejs acorn max version
+          npm install -g webpack webpack-cli
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsbundle
           cp src/js/index.html ./doc/gh-pages/demo.html
-          echo "AAAA - build/jsweb"
-          ls build/jsweb -las
-          echo "BBBB - ./"
-          ls .
-          echo "CCCC - src/js"
-          ls src/js
-          echo "DDDD - src/js/dist"
-          ls src/js/dist | true
-          echo "EEEE - built"
-          ls build
-          echo "FFFF - dist "
-          ls dist | true
-          echo "find"
           find . -name gnoll.bundle.js
           cp src/js/dist/gnoll.bundle.js ./doc/gh-pages/gnoll.bundle.js
 
