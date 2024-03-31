@@ -51,8 +51,8 @@ jobs:
           cd emsdk ; ./emsdk activate latest ; source ./emsdk_env.sh ; cd -
           emcc -v
           make all jsweb
-          cp src/js/index.html ./_site/demo.html
-          cp gnoll.bundle.js ./_site/gnoll.bundle.js
+          cp src/js/index.html /github/workspace/./_site/demo.html
+          cp gnoll.bundle.js /github/workspace/./_site/gnoll.bundle.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
