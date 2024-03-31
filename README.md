@@ -32,6 +32,10 @@ Here's an example of how you might use GNOLL:
 
 Many of our notation design decisions are explained in the documentation and compared to other dice notation parsers.
 
+## Play around
+
+Try out our [web demo](https://www.ianhunter.ie/GNOLL/demo/)! ✨
+
 ## Current Status
 ### 🧑‍💻 Language Support
 
@@ -52,8 +56,6 @@ GNOLL was written to be the definitive solution to dice notation. The core has b
 ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
 ![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 ![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
-
-Try out our [web demo](https://www.ianhunter.ie/GNOLL/demo/)!
 
 Primarily tested on Linux (Ubuntu), but functional in various forms on Windows (10, WSL) and Mac.
 
