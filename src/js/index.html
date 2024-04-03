@@ -10,6 +10,12 @@
 
             await gnoll.roll(notation.value).then(result => output.innerHTML = result);
           }
+            // Submit on "Enter"
+            document.getElementById("tbNotation").addEventListener("keypress", function(event) {
+              if (event.key === "Enter") {
+                onRoll();
+              }
+            });
         </script>
     </head>
     <body>
