@@ -137,6 +137,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## 🤹 Authors / Contributers / Attributions
 
   - **Ian Hunter** - *Main Developer* - [Ianfhunter](https://github.com/ianfhunter/)
+  - **Michael McDermott** - *JavaScript Browser Version* -[michaeljmcd](https://github.com/michealjmcd/)
 
 See also the list of [contributors](https://github.com/ianfhunter/gnoll/contributors) who participated in this project.
 
