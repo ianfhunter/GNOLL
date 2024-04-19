@@ -1,4 +1,5 @@
 # GNOLL
+[![Downloads](https://static.pepy.tech/badge/gnoll)](https://pepy.tech/project/gnoll)
 
 [![Test: Functionality](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_core.yml)
 [![Test: Language Bindings](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml/badge.svg)](https://github.com/ianfhunter/GNOLL/actions/workflows/test_language_bindings.yml)
