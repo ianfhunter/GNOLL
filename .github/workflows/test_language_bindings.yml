@@ -16,6 +16,7 @@ jobs:
     needs:
       - test_Cpp
       - test_csharp
+      - test_fortran
       - test_go
       - test_haskell
       - test_java
@@ -65,6 +66,18 @@ jobs:
     - name: execute
       run:  |
         make cs
+
+  test_fortran:
+    name: "Test: FORTRAN"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: fortran install
+      run: sudo apt-get install gfortran
+    - name: make go
+      run: make fortran
 
 
   test_go:
