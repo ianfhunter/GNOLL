@@ -76,7 +76,7 @@ jobs:
         submodules: true
     - name: fortran install
       run: sudo apt-get install gfortran
-    - name: make go
+    - name: make FORTRAN 
       run: make fortran
 
 
