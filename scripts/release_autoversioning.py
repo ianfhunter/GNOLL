@@ -22,7 +22,7 @@ def update_version_in_files(gnoll_ini_path, setup_cfg_path, project_toml_path):
     with open(project_toml_path, 'r') as f:
         lines = f.readlines()
 
-    with open(project_toml_path, 'w') as f:
+    with open(project_toml_path, 'w', encoding='utf_8') as f:
         for line in lines:
             if line.startswith('version ='):
                 f.write(f'version = "{version}"\n')
