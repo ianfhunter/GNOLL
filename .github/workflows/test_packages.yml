@@ -11,17 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: true
+    # - uses: actions/checkout@v3
+    #  with:
+    #    submodules: true
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
-    - uses: actions/checkout@v2
+    # - uses: actions/checkout@v2
     - name: Test PyPi
       run: |
         python3 -m pip install gnoll # --index-url https://test.pypi.org/simple/
+        python3 -c "import gnoll; print(gnoll.__file__)"
         python3 -c "from gnoll import roll; roll('d34')"
 
   pypi_windows:
