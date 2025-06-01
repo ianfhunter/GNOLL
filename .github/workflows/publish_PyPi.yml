@@ -11,8 +11,8 @@ on:
         default: 'real'
         type: choice
         options:
-          - real
           - test
+          - real
 
 permissions:
   contents: read
