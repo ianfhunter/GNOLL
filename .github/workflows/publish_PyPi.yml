@@ -52,7 +52,7 @@ jobs:
     - name: Publish package
       working-directory: ./src/python/
       run: |
-        python -m twine upload --non-interactive -u __token__ -p $PYPI_API_TOKEN --repository-url $PYPI_REPOSITORY_URL dist/*
+        python -m twine upload --non-interactive -u __token__ -p $PYPI_API_TOKEN --repository-url $PYPI_REPOSITORY_URL dist/* --verbose
 
   deploy_wsl:
     runs-on: windows-2022
