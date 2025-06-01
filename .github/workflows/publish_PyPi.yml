@@ -91,6 +91,7 @@ jobs:
       working-directory: ./src/python/
       run: |
         python3 setup.py bdist_wheel --plat-name=manylinux1_x86_64
+        PYPI_API_TOKEN="${PYPI_API_TOKEN}" PYPI_REPOSITORY_URL="${PYPI_REPOSITORY_URL}" \
         python3 -m twine upload dist/* --non-interactive -u __token__ -p $PYPI_API_TOKEN --repository-url $PYPI_REPOSITORY_URL
 
   deploy_mac:
