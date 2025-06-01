@@ -56,6 +56,9 @@ jobs:
 
   deploy_wsl:
     runs-on: windows-2022
+    env: 
+      PYPI_REPOSITORY_URL: ${{ env.PYPI_REPOSITORY_URL }}
+      PYPI_API_TOKEN: ${{ env.PYPI_API_TOKEN }}
     steps:
     - uses: Vampire/setup-wsl@v1
       with:
