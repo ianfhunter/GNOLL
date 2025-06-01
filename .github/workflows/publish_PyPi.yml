@@ -8,7 +8,7 @@ on:
       publish_target:
         description: 'Choose publish target: test or real'
         required: true
-        default: 'real'
+        default: 'test'
         type: choice
         options:
           - test
