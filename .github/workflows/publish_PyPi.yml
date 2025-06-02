@@ -88,6 +88,9 @@ jobs:
         ls src/python/code/gnoll/
     - name: Build and Publish package
       shell: wsl-bash {0}
+      env:
+        PYPI_API_TOKEN: ${{ github.event.inputs.publish_target == 'test' && secrets.TEST_PYPI_API_TOKEN || secrets.PYPI_API_TOKEN_2022 }}
+        PYPI_REPOSITORY_URL: ${{ github.event.inputs.publish_target == 'test' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
       working-directory: ./src/python/
       run: |
         python3 setup.py bdist_wheel --plat-name=manylinux1_x86_64
