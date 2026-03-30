@@ -18,6 +18,10 @@ extern "C"
 #define MAX_SYMBOL_LENGTH 256
 #define MAX_ITERATION 20
 
+/* Input / roll bounds: lexer rejects longer decimal tokens; core caps simulated dice. */
+#define GNOLL_MAX_DECIMAL_TOKEN_LEN 64
+#define GNOLL_MAX_DICE_PER_ROLL 1000000ULL
+
 int roll_full_options(
     char* roll_request, 
     char* log_file, 

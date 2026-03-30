@@ -279,20 +279,6 @@ char *safe_strdup(const char *str1) {
   return result;
 }
 
-long long fast_atoi(const char *str) {
-  /**
-   * @brief Safe version of atoi. Populates gnoll_errno on error
-   * @param str
-   * @return
-   */
-  // Ref: https://stackoverflow.com/a/16826908/1421555
-  long long val = 0;
-  while (*str) {
-    val = val * 10 + (*str++ - '0');
-  }
-  return val;
-}
-
 long long safe_strtol(const char *str, char **endptr, int base) {
   /**
    * @brief Safe version of strtol. Populates gnoll_errno on error

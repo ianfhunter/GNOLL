@@ -4,6 +4,9 @@
 
 %{
     #include <stdio.h>
+    #include <string.h>
+    #include <errno.h>
+    #include <stdlib.h>
     #include "shared_header.h"
     #include "util/safe_functions.h"
     #include "operations/conditionals.h"
@@ -41,9 +44,22 @@
 
     vector.storage.content = (long long*)safe_malloc(sizeof(long long));
 
-    if(gnoll_errno){yyerror("Memory Err");}
+    if(gnoll_errno){yyerror("Memory Err"); yyterminate();}
 
-    vector.storage.content[0] = fast_atoi(yytext);
+    if (strlen(yytext) > GNOLL_MAX_DECIMAL_TOKEN_LEN) {
+        gnoll_errno = OUT_OF_RANGE;
+        yyerror("Number out of range");
+        yyterminate();
+    }
+    errno = 0;
+    char *end = NULL;
+    long long parsed = strtol(yytext, &end, 10);
+    if (errno == ERANGE || end == yytext || *end != '\0') {
+        gnoll_errno = OUT_OF_RANGE;
+        yyerror("Number out of range");
+        yyterminate();
+    }
+    vector.storage.content[0] = parsed;
 
     vector.has_source = false;
     vector.dtype = NUMERIC;
