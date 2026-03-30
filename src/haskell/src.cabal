@@ -30,6 +30,6 @@ executable src
 
     hs-source-dirs:   app
     default-language: Haskell2010
-    -- Link against ../../build/libdice.so as -ldice (Cabal needs a name, not a .so path).
-    extra-lib-dirs:   ../../build
+    -- lib/libdice.so is copied from repo build/ by make haskell (stays inside package tree).
+    extra-lib-dirs:   lib
     extra-libraries:  dice

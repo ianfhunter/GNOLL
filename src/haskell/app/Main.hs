@@ -4,10 +4,8 @@
 module Main where
 import System.Environment (getArgs)
 import Control.Monad (when)
-import Control.Monad.IO.Class (liftIO)
 import System.IO (openTempFile, hClose, hGetLine)
 import System.Directory (removeFile)
-import Data.Either (fromLeft, fromRight)
 import Foreign.C.Types
 import Foreign.C.String
 
@@ -32,11 +30,10 @@ roll input = do
      cstr1 <- newCString input
      cstr2 <- newCString file
 
-     v <- c_gnoll_validate_roll_request cstr1
+     let v = c_gnoll_validate_roll_request cstr1
      when (v /= 0) ( error $ "GNOLL validate error: " ++ show v )
 
-     -- call roll_and_write
-     rc <- c_roll_and_write cstr1 cstr2
+     let rc = c_roll_and_write cstr1 cstr2
      when (rc /= 0) ( error $ "GNOLL roll error: " ++ show rc )
 
      -- get line from the file

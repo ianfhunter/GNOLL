@@ -1,5 +1,6 @@
 
 .PHONY: haskell
 haskell: all
-	sudo cp build/dice.so /usr/lib/dice.so 
+	mkdir -p src/haskell/lib
+	cp build/libdice.so src/haskell/lib/libdice.so
 	cd src/haskell/ && cabal build

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -13,11 +14,6 @@ module.exports = {
     __dirname: true,
   },
   resolve: {
-    // Emscripten output can import node:fs / node:crypto; map them like bare specifiers.
-    alias: {
-      'node:fs': require.resolve('browserify-fs'),
-      'node:crypto': require.resolve('crypto-browserify'),
-    },
     fallback: {
       fs: require.resolve('browserify-fs'),
       path: require.resolve('path-browserify'),
@@ -27,6 +23,17 @@ module.exports = {
       vm: require.resolve("vm-browserify")
     }
   },
+  plugins: [
+    // Emscripten emits import 'node:fs' / 'node:crypto'; webpack 5 does not resolve node: URIs.
+    new webpack.NormalModuleReplacementPlugin(
+      /^node:fs$/,
+      require.resolve('browserify-fs')
+    ),
+    new webpack.NormalModuleReplacementPlugin(
+      /^node:crypto$/,
+      require.resolve('crypto-browserify')
+    ),
+  ],
   devtool: 'source-map',
   output: {
     filename: 'gnoll.bundle.js',
