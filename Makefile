@@ -128,16 +128,22 @@ install: all
 	mkdir -p /usr/local/bin/
 	cp build/dice /usr/local/bin/dice
 
-yacc:
+# Regenerate when grammar sources change (avoids stale y.tab.o / dice.so).
+build/y.tab.c build/y.tab.h: src/grammar/dice.yacc
 	mkdir -p build
 	$(foreach BD,$(CFILE_SUBDIRS),mkdir -p build/$(BD))
 	$(PARSER) -d src/grammar/dice.yacc $(PARSER_DEBUG)
 	mv y.tab.c build/y.tab.c
 	mv y.tab.h build/y.tab.h
 	mv y.output build/y.output | true	# Only present with verbose
-lex:
+
+yacc: build/y.tab.c
+
+build/lex.yy.c: src/grammar/dice.lex
 	$(LEXER) src/grammar/dice.lex
 	mv lex.yy.c build/lex.yy.c
+
+lex: build/lex.yy.c
 
 # Executable
 compile: pcg
@@ -163,9 +169,9 @@ shared: $(OBJECTS)
 	mv ./a.exe build/dice | true
 
 # hardcode for lex and yacc files
-build/y.tab.o:
+build/y.tab.o: build/y.tab.c
 	$(CC) $(SHAREDCFLAGS) -c build/y.tab.c -o $@
-build/lex.yy.o:
+build/lex.yy.o: build/lex.yy.c
 	$(CC) $(SHAREDCFLAGS) -c build/lex.yy.c -o $@
 
 # Wildcard everything else

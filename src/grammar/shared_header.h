@@ -41,6 +41,12 @@ int mock_roll(char* s, char* f, int mock_value, long long mock_const);
 
 void load_builtins(char* root);
 
+/**
+ * Pre-parse bounds check (decimal literal length / LLONG range, XdY dice count).
+ * Sets gnoll_errno on failure; returns that code, or 0 on success.
+ */
+int gnoll_validate_roll_request(const char *roll_request);
+
 #ifdef __cplusplus
 }
 #endif

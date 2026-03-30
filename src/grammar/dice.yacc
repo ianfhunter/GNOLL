@@ -1767,6 +1767,10 @@ int roll_full_options(
     */
     gnoll_errno = 0;
 
+    if (gnoll_validate_roll_request(roll_request) != 0) {
+        return gnoll_errno;
+    }
+
     if (enable_verbosity){
         verbose = 1;
         printf("Trying to roll '%s'\n", roll_request);

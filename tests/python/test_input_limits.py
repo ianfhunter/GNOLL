@@ -3,12 +3,12 @@
 import os
 
 import pytest
-from gnoll import GNOLLException, roll
-from gnoll.validation import (
-    _MAX_DECIMAL_TOKEN_LEN,
-    _MAX_DICE_PER_ROLL,
-    validate_roll_string,
-)
+
+from gnoll import GNOLLException, roll, validate_roll_string
+
+# Must match GNOLL_MAX_* in src/grammar/shared_header.h
+_MAX_DECIMAL_TOKEN_LEN = 64
+_MAX_DICE_PER_ROLL = 1_000_000
 
 _DICE_SO = os.path.join(
     os.path.dirname(__file__),
@@ -54,7 +54,8 @@ def test_implicit_single_die_passes_validation():
     validate_roll_string("d20")
 
 
-def test_roll_applies_validation_before_native():
+def test_roll_rejects_pathological_input_via_core():
+    """roll_full_options runs gnoll_validate_roll_request before parsing."""
     with pytest.raises(GNOLLException):
         roll("9" * 100 + "d6", breakdown=False)
 
@@ -69,10 +70,7 @@ def test_normal_roll_still_works():
 
 @pytest.mark.skipif(not os.path.isfile(_DICE_SO),
                     reason="Native dice.so not built")
-def test_native_rejects_dice_count_over_cap(monkeypatch):
-    """Exercise C GNOLL_MAX_DICE_PER_ROLL when Python validation is bypassed."""
-    monkeypatch.setattr("gnoll.validation.validate_roll_string",
-                        lambda _s: None)
+def test_roll_rejects_dice_count_over_cap():
     with pytest.raises(GNOLLException) as exc:
         roll(f"{_MAX_DICE_PER_ROLL + 1}d6", breakdown=False)
     assert "MAX_LOOP_LIMIT_HIT" in str(exc.value)
@@ -80,9 +78,7 @@ def test_native_rejects_dice_count_over_cap(monkeypatch):
 
 @pytest.mark.skipif(not os.path.isfile(_DICE_SO),
                     reason="Native dice.so not built")
-def test_native_rejects_oversized_number_token(monkeypatch):
-    monkeypatch.setattr("gnoll.validation.validate_roll_string",
-                        lambda _s: None)
+def test_roll_rejects_oversized_number_token():
     with pytest.raises(GNOLLException) as exc:
         roll("1" * (_MAX_DECIMAL_TOKEN_LEN + 1) + "d6", breakdown=False)
     assert "OUT_OF_RANGE" in str(exc.value)

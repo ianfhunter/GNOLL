@@ -1,9 +1,7 @@
 import os
 import sys
 import tempfile
-from ctypes import c_long, cdll
-
-from .validation import validate_roll_string
+from ctypes import c_char_p, c_int, c_longlong, cdll
 
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
@@ -15,6 +13,19 @@ def _get_libc():
     global _libc
     if _libc is None:
         _libc = cdll.LoadLibrary(C_SHARED_LIB)
+        _libc.gnoll_validate_roll_request.argtypes = [c_char_p]
+        _libc.gnoll_validate_roll_request.restype = c_int
+        _libc.roll_full_options.argtypes = [
+            c_char_p,
+            c_char_p,
+            c_int,
+            c_int,
+            c_int,
+            c_int,
+            c_int,
+            c_longlong,
+        ]
+        _libc.roll_full_options.restype = c_int
     return _libc
 
 
@@ -52,6 +63,13 @@ def raise_gnoll_error(value):
     err = d[value]
     if err is not None:
         raise err
+
+
+def validate_roll_string(s):
+    """Run the same pre-parse checks as roll_full_options (C implementation)."""
+    rc = _get_libc().gnoll_validate_roll_request(s.encode("ascii"))
+    if rc != 0:
+        raise_gnoll_error(rc)
 
 
 def roll(
@@ -102,8 +120,6 @@ def roll(
     die_file = None
     out_file = None
     try:
-        validate_roll_string(s)
-
         temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
                                            suffix=".die",
                                            delete=False)
@@ -116,19 +132,19 @@ def roll(
             print("Rolling: ", s)
             print("Output in:", out_file)
 
-        s = s.encode("ascii")
-
-        mock_const = c_long(mock_const)
+        roll_req = s.encode("ascii")
+        enable_mock = 1 if mock is not None else 0
+        mocking_type = int(mock) if mock is not None else 0
 
         return_code = _get_libc().roll_full_options(
-            s,
+            roll_req,
             out_file,
-            verbose,  # enable_verbose
-            breakdown,  # enable_introspect
-            mock is not None,  # enable_mock
-            builtins,  # enable_builtins
-            mock,
-            mock_const,
+            int(verbose),
+            int(breakdown),
+            enable_mock,
+            int(builtins),
+            mocking_type,
+            c_longlong(mock_const),
         )
         if return_code != 0:
             raise_gnoll_error(return_code)
