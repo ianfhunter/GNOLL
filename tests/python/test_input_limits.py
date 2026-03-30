@@ -3,7 +3,6 @@
 import os
 
 import pytest
-
 from gnoll import GNOLLException
 from gnoll.validation import validate_roll_string
 
@@ -26,8 +25,7 @@ def test_extreme_dice_count_rejected():
         os.path.join(
             os.path.dirname(__file__),
             "../../src/python/code/gnoll/c_build/dice.so",
-        )
-    ),
+        )),
     reason="Native dice.so not built",
 )
 def test_normal_roll_still_works():

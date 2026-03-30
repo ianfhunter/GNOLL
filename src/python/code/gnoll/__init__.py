@@ -3,6 +3,8 @@ import sys
 import tempfile
 from ctypes import c_long, cdll
 
+from .validation import validate_roll_string
+
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
@@ -50,9 +52,6 @@ def raise_gnoll_error(value):
     err = d[value]
     if err is not None:
         raise err
-
-
-from .validation import validate_roll_string
 
 
 def roll(
@@ -105,9 +104,9 @@ def roll(
     try:
         validate_roll_string(s)
 
-        temp = tempfile.NamedTemporaryFile(
-            prefix="gnoll_roll_", suffix=".die", delete=False
-        )
+        temp = tempfile.NamedTemporaryFile(prefix="gnoll_roll_",
+                                           suffix=".die",
+                                           delete=False)
         temp.close()
 
         die_file = temp.name
@@ -154,11 +153,9 @@ if __name__ == "__main__":
     arg = "".join(sys.argv[1:])
     arg = arg if arg != "" else "1d20"
     code, r, detailed_r = roll(arg, verbose=False)
-    print(
-        f"""
+    print(f"""
 [[GNOLL Results]]
 Dice Roll:      {arg}
 Result:         {r}
 Exit Code:      {code},
-Dice Breakdown: {detailed_r}"""
-    )
+Dice Breakdown: {detailed_r}""")
