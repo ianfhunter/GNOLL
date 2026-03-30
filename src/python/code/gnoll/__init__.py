@@ -6,7 +6,14 @@ from ctypes import c_long, cdll
 BUILD_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "c_build"))
 C_SHARED_LIB = os.path.join(BUILD_DIR, "dice.so")
 
-libc = cdll.LoadLibrary(C_SHARED_LIB)
+_libc = None
+
+
+def _get_libc():
+    global _libc
+    if _libc is None:
+        _libc = cdll.LoadLibrary(C_SHARED_LIB)
+    return _libc
 
 
 class GNOLLException(Exception):
@@ -43,6 +50,9 @@ def raise_gnoll_error(value):
     err = d[value]
     if err is not None:
         raise err
+
+
+from .validation import validate_roll_string
 
 
 def roll(
@@ -90,7 +100,11 @@ def roll(
         v = [list(map(make_native_type, x)) for x in v]
         return v
 
+    die_file = None
+    out_file = None
     try:
+        validate_roll_string(s)
+
         temp = tempfile.NamedTemporaryFile(
             prefix="gnoll_roll_", suffix=".die", delete=False
         )
@@ -107,7 +121,7 @@ def roll(
 
         mock_const = c_long(mock_const)
 
-        return_code = libc.roll_full_options(
+        return_code = _get_libc().roll_full_options(
             s,
             out_file,
             verbose,  # enable_verbose
@@ -129,8 +143,8 @@ def roll(
         return int(return_code), result, dice_breakdown
 
     finally:
-        if not keep_temp_file:
-            if verbose:
+        if not keep_temp_file and die_file is not None:
+            if verbose and out_file is not None:
                 print("Deleting:", out_file)
 
             os.remove(die_file)
