@@ -6,12 +6,20 @@ local libdice = ffi.load("../../build/libdice.so")  -- Replace with the actual p
 
 -- Define the C function signature
 ffi.cdef[[
-    void roll_and_write(const char* param1, const char* param2);
+    int roll_and_write(const char* param1, const char* param2);
+    int gnoll_validate_roll_request(const char* notation);
 ]]
 
 -- Function to call roll_and_write
 local function call_roll_and_write(param1, param2)
-    libdice.roll_and_write(param1, param2)
+    local v = libdice.gnoll_validate_roll_request(param1)
+    if v ~= 0 then
+        error("GNOLL validate error: " .. tostring(v))
+    end
+    local r = libdice.roll_and_write(param1, param2)
+    if r ~= 0 then
+        error("GNOLL roll error: " .. tostring(r))
+    end
 end
 
 -- Example parameters

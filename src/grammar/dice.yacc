@@ -1897,6 +1897,10 @@ void roll_and_write_R(int* return_code, char** s, char** f){
     (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0, 0);
 }
 
+void gnoll_validate_roll_request_R(int* return_code, char** s) {
+    (*return_code) = gnoll_validate_roll_request(s[0]);
+}
+
 int mock_roll(char * s, char * f, int mock_value, long long mock_const){
     return roll_full_options(s, f, 0, 0, 1, 0, mock_value, mock_const);
 }

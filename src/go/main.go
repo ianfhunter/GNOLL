@@ -25,7 +25,12 @@ func main() {
 	toRoll := C.CString("1d20")
 	outputFile := C.CString(diceFile)
 	os.Remove(diceFile)
-	C.roll_and_write(toRoll, outputFile)
+	if v := C.gnoll_validate_roll_request(toRoll); v != 0 {
+		panic(fmt.Sprintf("GNOLL validate error: %d", v))
+	}
+	if rc := C.roll_and_write(toRoll, outputFile); rc != 0 {
+		panic(fmt.Sprintf("GNOLL roll error: %d", rc))
+	}
 	dat, err := ioutil.ReadFile(diceFile)
 	check(err)
 	fmt.Print(string(dat))

@@ -47,6 +47,9 @@ void load_builtins(char* root);
  */
 int gnoll_validate_roll_request(const char *roll_request);
 
+/* R FFI: sets *return_code from gnoll_validate_roll_request (0 = ok). */
+void gnoll_validate_roll_request_R(int* return_code, char** s);
+
 #ifdef __cplusplus
 }
 #endif
