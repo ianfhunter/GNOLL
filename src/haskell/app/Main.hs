@@ -1,5 +1,4 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
-{-# LANGUAGE BangPatterns #-}
 
 module Main where
 import System.Environment (getArgs)
@@ -18,8 +17,9 @@ foreign import ccall "shared_header.h roll_and_write"
 main :: IO ()
 main = do
   args <- getArgs
-  when (length args == 0) ( error "Needs one argument")
-  roll (head args)
+  case args of
+    [] -> error "Needs one argument"
+    (input : _) -> roll input
 
 roll :: String -> IO ()
 roll input = do
