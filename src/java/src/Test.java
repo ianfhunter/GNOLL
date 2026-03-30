@@ -17,6 +17,8 @@ public class Test {
             assert false;
         }
         
+        assert DiceNotationParser.validateRollRequest("1d200") == 0;
+
         int gnoll_return_code = DiceNotationParser.roll("1d200", fn);
         // System.out.println("GNOLL RC:"+r);
         assert gnoll_return_code == 0;

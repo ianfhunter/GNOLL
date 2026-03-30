@@ -18,6 +18,10 @@ extern "C"
 #define MAX_SYMBOL_LENGTH 256
 #define MAX_ITERATION 20
 
+/* Input / roll bounds: lexer rejects longer decimal tokens; core caps simulated dice. */
+#define GNOLL_MAX_DECIMAL_TOKEN_LEN 64
+#define GNOLL_MAX_DICE_PER_ROLL 1000000ULL
+
 int roll_full_options(
     char* roll_request, 
     char* log_file, 
@@ -36,6 +40,15 @@ void roll_and_write_R(int* return_code, char** s, char** f );
 int mock_roll(char* s, char* f, int mock_value, long long mock_const);
 
 void load_builtins(char* root);
+
+/**
+ * Pre-parse bounds check (decimal literal length / LLONG range, XdY dice count).
+ * Sets gnoll_errno on failure; returns that code, or 0 on success.
+ */
+int gnoll_validate_roll_request(const char *roll_request);
+
+/* R FFI: sets *return_code from gnoll_validate_roll_request (0 = ok). */
+void gnoll_validate_roll_request_R(int* return_code, char** s);
 
 #ifdef __cplusplus
 }

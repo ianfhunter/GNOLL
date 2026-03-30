@@ -4,10 +4,11 @@ use std::fs::File;
 use std::io::{self, BufRead};
 
 extern "C" {
+    pub fn gnoll_validate_roll_request(die: *const cty::c_char) -> cty::c_int;
     pub fn roll_and_write(
         die: *mut cty::c_char,
         fp: *mut cty::c_char
-    );
+    ) -> cty::c_int;
 }
 
 fn main() {
@@ -17,10 +18,19 @@ fn main() {
     let die = "10d20\0".as_ptr() as *mut cty::c_char;
     let fp = "output.txt\0".as_ptr() as *mut cty::c_char;
     
-    unsafe { roll_and_write(die, fp) }
+    unsafe {
+        let v = gnoll_validate_roll_request(die as *const _);
+        if v != 0 {
+            eprintln!("GNOLL validate error: {}", v);
+            process::exit(1);
+        }
+        let rc = roll_and_write(die, fp);
+        if rc != 0 {
+            eprintln!("GNOLL roll error: {}", rc);
+            process::exit(1);
+        }
 
-    // Read the result from the memory pointed to by fp
-    unsafe { 
+        // Read the result from the memory pointed to by fp
         //let result_cstr = CStr::from_ptr(fp);
         let file_path = "output.txt";
         let file = File::open(file_path).unwrap();
@@ -51,5 +61,4 @@ fn main() {
     }
     println!("Fatal.\n");
     process::exit(1);
-
 }

@@ -46,7 +46,7 @@ jsweb: clean yacc lex jspcg
 	-s EXPORT_NAME=gnollwasm \
 	--pre-js ./src/js/preface.js \
 	-s WASM=1 -s EXPORTED_RUNTIME_METHODS='["cwrap", "ccall", "print"]' \
-	-s EXPORTED_FUNCTIONS="['_roll_full_options']"
+	-s EXPORTED_FUNCTIONS="['_roll_full_options','_gnoll_validate_roll_request']"
 
 #-s EXPORT_ES6=1 \
 

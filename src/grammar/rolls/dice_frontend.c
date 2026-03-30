@@ -37,6 +37,9 @@ void roll_plain_sided_dice(vec* x, vec* y, vec* result, EXPLOSION_TYPE explode,
   rp.explode = explode;
   rp.start_value = start_offset;
   long long* roll_result = do_roll(rp);
+  if (gnoll_errno || roll_result == NULL) {
+    return;
+  }
 
 #if USE_CLT
   // Must Accumulate. Loses details of per-item values
@@ -87,6 +90,10 @@ void roll_symbolic_dice(vec* x, vec* y, vec* result) {
   rp.start_value = 0;  // First index of array
 
   long long* indexes = do_roll(rp);
+  if (gnoll_errno || indexes == NULL) {
+    free_2d_array(&rp.symbol_pool, y->length);
+    return;
+  }
 
   free_2d_array(&rp.symbol_pool, y->length);
 

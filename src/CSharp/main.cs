@@ -5,10 +5,13 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 [DllImport ("libdice.so", CharSet = CharSet.Ansi)]
+static extern int gnoll_validate_roll_request (
+    [MarshalAs(UnmanagedType.LPStr)] string notation);
+
+[DllImport ("libdice.so", CharSet = CharSet.Ansi)]
 static extern int roll_and_write (
     [MarshalAs(UnmanagedType.LPStr)] string dice_string, 
-    [MarshalAs(UnmanagedType.LPStr)] string filepath
-);
+    [MarshalAs(UnmanagedType.LPStr)] string filepath);
  
 static void RollWithGNOLL (string roll_request)
 {
@@ -19,6 +22,9 @@ static void RollWithGNOLL (string roll_request)
     if(File.Exists(fn)){
         File.Delete(fn);
     }
+
+    int v = gnoll_validate_roll_request(roll);
+    Debug.Assert(v == 0, "GNOLL validate failed");
 
     // Create
     int err_code = roll_and_write(roll, fn);

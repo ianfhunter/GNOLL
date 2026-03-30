@@ -2,6 +2,14 @@
 
 dyn.load("build/r/dice.so")
 
+notation <- "1d20"
+vres <- .C("gnoll_validate_roll_request_R",
+            return_code = as.integer(0),
+            s = notation)
+if (vres$return_code != 0L) {
+  stop(paste("GNOLL validate error:", vres$return_code))
+}
+
 fn = "output.dice"
 if(file.exists(fn)){
     file.remove(fn)
@@ -11,7 +19,7 @@ return_code = as.integer(-1)
 error_code = .C(
     "roll_and_write_R",
     value=return_code,
-    "1d20",
+    notation,
     fn
 )
 

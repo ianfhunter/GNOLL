@@ -11,6 +11,3 @@ cty = "*"
 [[bin]]
 name = "example_app"
 path = "gnoll_bindings.rs"
-
-[build]
-rustc-link-search = ["$PWD/../../build/"]

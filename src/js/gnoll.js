@@ -1,5 +1,19 @@
 import gwFactory from './gnollwasm.js';
 
+export async function validateRollRequest(notation) {
+  return new Promise((resolve) => {
+    gwFactory().then((Module) => {
+      const code = Module.ccall(
+        'gnoll_validate_roll_request',
+        'number',
+        ['string'],
+        [notation]
+      );
+      resolve(code);
+    });
+  });
+}
+
 export async function roll(notation) {
   return new Promise((resolve) => {
     gwFactory().then((Module) => {

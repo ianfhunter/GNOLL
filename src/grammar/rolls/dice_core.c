@@ -75,6 +75,13 @@ long long* perform_roll(unsigned long long number_of_dice, unsigned long long di
     return NULL;
   }
 
+#if !USE_CLT
+  if (number_of_dice > GNOLL_MAX_DICE_PER_ROLL) {
+    gnoll_errno = MAX_LOOP_LIMIT_HIT;
+    return NULL;
+  }
+#endif
+
   long long explosion_condition_score = 0;
   long long explosion_count = 0;
 

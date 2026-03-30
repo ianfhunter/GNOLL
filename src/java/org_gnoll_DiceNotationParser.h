@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jint JNICALL Java_org_gnoll_DiceNotationParser_roll
   (JNIEnv *, jclass, jstring, jstring);
 
+/*
+ * Class:     org_gnoll_DiceNotationParser
+ * Method:    validateRollRequest
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_org_gnoll_DiceNotationParser_validateRollRequest
+  (JNIEnv *, jclass, jstring);
+
 #ifdef __cplusplus
 }
 #endif

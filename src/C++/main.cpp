@@ -10,6 +10,8 @@ int main()
   
   remove(fn);
 
+  assert(gnoll_validate_roll_request("1d20") == 0);
+
   int err_code = roll_full_options(
     strdup("1d20"),
     strdup(fn),

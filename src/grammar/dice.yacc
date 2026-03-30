@@ -1767,6 +1767,10 @@ int roll_full_options(
     */
     gnoll_errno = 0;
 
+    if (gnoll_validate_roll_request(roll_request) != 0) {
+        return gnoll_errno;
+    }
+
     if (enable_verbosity){
         verbose = 1;
         printf("Trying to roll '%s'\n", roll_request);
@@ -1891,6 +1895,10 @@ int roll_and_write(char* s, char* f){
 
 void roll_and_write_R(int* return_code, char** s, char** f){    
     (*return_code) = roll_full_options(s[0], f[0], 0, 0, 0, 0, 0, 0);
+}
+
+void gnoll_validate_roll_request_R(int* return_code, char** s) {
+    (*return_code) = gnoll_validate_roll_request(s[0]);
 }
 
 int mock_roll(char * s, char * f, int mock_value, long long mock_const){

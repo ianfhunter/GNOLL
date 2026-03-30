@@ -97,6 +97,7 @@ jobs:
     - name: make haskell
       run: |
           make haskell
+          export LD_LIBRARY_PATH="${GITHUB_WORKSPACE}/src/haskell/lib:${LD_LIBRARY_PATH:-}"
           cd src/haskell/ && cabal run src d20
 
   test_java:

@@ -7,7 +7,7 @@ using GnollDiceNotation
 using Test
 
 @testset "GnollDiceNotation.jl" begin
-    # Write your tests here.
+    @test GnollDiceNotation.validate_roll_request("1d20") == 0
     rolled = GnollDiceNotation.roll("1d20")
     rolled = parse(Int64, rolled)
     @test rolled >= 1
