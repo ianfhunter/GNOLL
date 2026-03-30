@@ -29,10 +29,8 @@ fn main() {
             eprintln!("GNOLL roll error: {}", rc);
             process::exit(1);
         }
-    }
 
-    // Read the result from the memory pointed to by fp
-    unsafe { 
+        // Read the result from the memory pointed to by fp
         //let result_cstr = CStr::from_ptr(fp);
         let file_path = "output.txt";
         let file = File::open(file_path).unwrap();
@@ -63,5 +61,4 @@ fn main() {
     }
     println!("Fatal.\n");
     process::exit(1);
-
 }

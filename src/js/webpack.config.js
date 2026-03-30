@@ -13,6 +13,11 @@ module.exports = {
     __dirname: true,
   },
   resolve: {
+    // Emscripten output can import node:fs / node:crypto; map them like bare specifiers.
+    alias: {
+      'node:fs': require.resolve('browserify-fs'),
+      'node:crypto': require.resolve('crypto-browserify'),
+    },
     fallback: {
       fs: require.resolve('browserify-fs'),
       path: require.resolve('path-browserify'),
