@@ -3,7 +3,6 @@
 import os
 
 import pytest
-
 from gnoll import GNOLLException, roll, validate_roll_string
 
 # Must match GNOLL_MAX_* in src/grammar/shared_header.h
